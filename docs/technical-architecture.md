@@ -11,7 +11,7 @@
 | Framework | React.js | Responsive, modern, large ecosystem |
 | Styling | Tailwind CSS | Rapid development, customizable design system |
 | Animations | Framer Motion | Smooth water animations, gesture support |
-| State Management | Redux or Zustand | Predictable state for financial data |
+| State Management | Redux or Zustand | Predictable state for contribution and impact data |
 | Hosting | Vercel or Netlify | Fast deploys, global CDN |
 
 **Mobile Apps:**
@@ -26,8 +26,8 @@
 
 | Component | Technology | Rationale |
 |-----------|------------|-----------|
-| API Layer | Node.js + Express **or** Python + FastAPI | Well-suited for fintech, async operations |
-| Database | PostgreSQL | Relational data integrity for users, investments, projects |
+| API Layer | Node.js + Express **or** Python + FastAPI | Well-suited for async operations, real-time contribution tracking |
+| Database | PostgreSQL | Relational data integrity for users, contributions, projects |
 | Cache | Redis | Fast data access, session management |
 | Search | Elasticsearch | Project search, filtering, recommendations |
 
@@ -56,13 +56,12 @@
 
 ## Third-Party Integrations
 
-### Financial / Investment
+### Payments
 
 | Integration | Purpose | Options |
 |-------------|---------|---------|
-| Broker-Dealer | Regulated investment accounts, brokerage infrastructure, compliance | Apex Clearing, DriveWealth, Alpaca |
-| Payment Processing | Parcel purchases, PCI compliance, recurring billing | Stripe |
-| Portfolio Management | Diversified ETF/index fund allocation | Partner with robo-advisor (Betterment/Wealthfront) or build custom |
+| Payment Processing | Cash contributions, PCI compliance, recurring billing, subscription payments | Stripe |
+| Payout / Disbursement | Microloan disbursements to borrowers | Stripe Connect or PayPal Payouts |
 
 ### Impact / Project Management
 
@@ -72,6 +71,15 @@
 | Impact Measurement | IRIS+ framework integration (industry standard) |
 | Nonprofit Verification | GuideStar API for 501(c)(3) verification |
 | Reporting | Custom dashboards + PDF generation |
+
+### Credit Bureau Reporting
+
+| Integration | Purpose | Options |
+|-------------|---------|---------|
+| Credit Bureau Data Furnishing | Report microloan repayment history to build borrowers' credit scores | Experian, TransUnion, Equifax (via Metro 2 format) |
+| FCRA Compliance | Ensure reporting meets Fair Credit Reporting Act requirements | Legal counsel + compliance tooling |
+
+Planned for Phase 3-4. Requires becoming an approved data furnisher, implementing Metro 2 reporting format, and ongoing FCRA compliance. Significant differentiator: borrowers build real, reportable credit history through Deluge microloans.
 
 ### Communication
 
@@ -89,13 +97,29 @@
 | Session Recording | UX analysis, bug discovery | Hotjar or FullStory |
 | A/B Testing | Feature flags, experiment framework | Optimizely or LaunchDarkly |
 
-### Advertising / Ad-Funded Investments
+### Advertising / Ad-Funded Impact
 
 | Integration | Purpose | Options |
 |-------------|---------|---------|
 | Ad Mediation | Serve rewarded video ads, optimize eCPM across networks | Google AdMob, ironSource, AppLovin MAX |
 | Ad Fraud Prevention | Detect fake views, bot traffic, device fingerprinting | HUMAN (formerly White Ops), Adjust |
-| Revenue Tracking | Track ad impressions, eCPM, user credits in real-time | Custom + ad network dashboards |
+| Revenue Tracking | Track ad impressions, eCPM, project contributions in real-time | Custom + ad network dashboards |
+
+### Location & Mapping
+
+| Integration | Purpose | Options |
+|-------------|---------|---------|
+| Geocoding | Address verification for business listings and community grants | Google Maps Platform, Mapbox |
+| Proximity Search | "Near me" filtering for business cards and volunteer opportunities | PostGIS (PostgreSQL extension) or Elasticsearch geo queries |
+| GPS Verification | Validate GPS-tagged evidence for community grant completion | Custom validation against listing/project coordinates |
+
+### Identity & Fraud Prevention
+
+| Integration | Purpose | Options |
+|-------------|---------|---------|
+| Phone Verification | SMS verification for referral anti-fraud (unique phone per account) | Twilio Verify |
+| Device Fingerprinting | Detect multi-account fraud for referral and ad abuse | Fingerprint.js, HUMAN |
+| Bank Account Verification | Confirm referrer and referred user have separate bank accounts | Plaid |
 
 ### Customer Support
 
@@ -122,9 +146,11 @@
   preferences: {
     categories: [array]
     notifications: { email, push, sms }
-    privacy: { public_profile, show_investments }
+    privacy: { public_profile, show_impact }
   }
-  total_invested: decimal
+  subscription_tier: enum (free, basic, plus, premium, impact)
+  subscription_started_at: timestamp | null
+  total_contributed: decimal
   total_impact: decimal
   achievements: [badge_ids]
   referral_code: string
@@ -132,61 +158,19 @@
 }
 ```
 
-### Investment Account
 
-```
-{
-  id: uuid
-  user_id: uuid
-  account_number: string  // from broker-dealer
-  balance: decimal
-  total_deposits: decimal
-  total_returns: decimal
-  allocation: {
-    stocks: percentage
-    bonds: percentage
-  }
-  performance: {
-    daily: decimal
-    monthly: decimal
-    all_time: decimal
-  }
-  contribution_history: [
-    {
-      date: date
-      amount: decimal
-      source: enum (cash, ad_credit)   // distinguishes cash deposits from ad-earned credits
-    }
-  ]
-  goals: [
-    {
-      id: uuid
-      target_amount: decimal
-      target_date: date
-      created_at: timestamp
-      progress: decimal                // current portfolio value as percentage of target
-    }
-  ]
-}
-```
-
-### Parcel (Individual Investment)
+### Contribution
 
 ```
 {
   id: uuid
   user_id: uuid
   amount: decimal
+  type: enum (cash, ad_funded, business_card, volunteer_credit, referral_credit, corporate_match)
   timestamp: timestamp
-  breakdown: {
-    investment: decimal   // 85% (default, adjustable on paid tiers)
-    impact: decimal       // 15% (default)
-  }
-  impact_allocation: {
-    tags: [strings]
-    project_id: uuid
-    amount: decimal
-  }
+  project_id: uuid | null           // target project (null if watershed-only, e.g., cash contributions)
+  watershed_credit: decimal         // amount credited to user's watershed (100% for cash)
+  project_credit: decimal           // amount credited directly to project (for ad/card views)
   status: enum (pending, complete, refunded)
 }
 ```
@@ -206,7 +190,7 @@
     goal: decimal
     raised: decimal
     percentage: calculated
-    backers: integer           // number of unique investors
+    backers: integer           // number of unique contributors
   }
   momentum: {
     shares: integer
@@ -263,6 +247,14 @@
   member_count: integer
   projects: [project_ids]              // projects associated with this community
   total_raised: decimal
+  loan_activity: {
+    active_loans: integer              // loans funded by community members currently active
+    total_loans_funded: integer        // lifetime count of loans funded by community members
+    total_recycled_capital: decimal    // aggregate watershed capital recycled through loan cycles
+    repayment_rate: decimal            // percentage of completed loans repaid in full
+    total_credit_score_points: integer // aggregate self-reported credit score deltas from borrowers backed by community
+    recovery_count: integer            // number of borrowers who recovered from default
+  }
   created_at: timestamp
   visibility: enum (public, private)
 }
@@ -329,7 +321,7 @@
   icon: url
   tier: enum (bronze, silver, gold, platinum)
   criteria: {
-    type: enum (investment_amount, project_count, category_count, etc.)
+    type: enum (contribution_amount, project_count, category_count, etc.)
     threshold: value
   }
   rarity: percentage       // how many users have earned it
@@ -342,9 +334,9 @@
 {
   id: uuid
   user_id: uuid
-  type: enum (portfolio_value, consistency, returns, learning)
-  name: string                   // e.g., "First Hundred", "6-Month Streak"
-  threshold: value               // what triggered it (e.g., 100.00 for portfolio_value, 6 for consistency months)
+  type: enum (contribution_total, consistency, impact_milestones, learning)
+  name: string                   // e.g., "First Hundred Contributed", "6-Month Streak"
+  threshold: value               // what triggered it (e.g., 100.00 for contribution_total, 6 for consistency months)
   achieved_at: timestamp         // when the milestone was reached
   seen: boolean                  // whether the user has dismissed the milestone overlay
 }
@@ -367,7 +359,7 @@ Private milestones are never exposed through public API endpoints, leaderboards,
 }
 ```
 
-### Ad View (Ad-Funded Investment)
+### Ad View (Ad-Funded Impact)
 
 ```
 {
@@ -379,16 +371,483 @@ Private milestones are never exposed through public API endpoints, leaderboards,
   ecpm: decimal               // what the advertiser paid (per 1000 views)
   gross_revenue: decimal      // total ad revenue for this view
   platform_cut: decimal       // Deluge's 40%
-  user_credit: decimal        // user's 60%
-  investment_split: {
-    portfolio: decimal         // user_credit x investment ratio
-    impact: decimal            // user_credit x impact ratio
-  }
-  project_id: uuid            // which project received the impact portion
+  project_credit: decimal     // 60% -- goes directly to the user's chosen project
+  project_id: uuid            // which project received the funds
   verified: boolean           // anti-fraud verification passed
   status: enum (pending, credited, rejected)
 }
 ```
+
+Ad revenue does not enter the user's watershed. The user's 60% share is credited directly to their chosen impact project. This keeps ad-funded giving immediate and visible — users see their chosen project's funding bar move in real-time.
+
+### Business Card Listing
+
+```
+{
+  id: uuid
+  owner_id: uuid                    // business owner's user account
+  business_name: string
+  category: string                  // e.g., "Coffee Shop", "Plumber", "Bookstore"
+  description: string               // 50 words max
+  location: {
+    address: string
+    city: string
+    state: string
+    coordinates: { lat, lng }
+  }
+  photo_url: url                    // one photo (storefront, product, team)
+  sponsored_project_id: uuid | null // optional: "Views fund [Project Name]"
+  verification: {
+    status: enum (pending, verified, rejected)
+    verified_at: timestamp
+    address_confirmed: boolean
+    owner_identity_confirmed: boolean
+  }
+  metrics: {
+    total_views: integer
+    views_this_week: integer
+    views_this_month: integer
+    saves: integer
+    recommendations: integer
+    total_project_funding: decimal   // cumulative project funding generated by views
+  }
+  premium: boolean                  // future: premium listing with enhanced visibility
+  created_at: timestamp
+  status: enum (draft, pending_review, active, suspended)
+}
+```
+
+### Business Card View
+
+```
+{
+  id: uuid
+  user_id: uuid
+  listing_id: uuid
+  timestamp: timestamp
+  revenue_per_view: decimal         // e.g., $0.002
+  platform_cut: decimal             // 40% ($0.0008)
+  project_credit: decimal           // 60% ($0.0012)
+  project_id: uuid                  // user's chosen project at time of view
+  corporate_match_applied: decimal  // additional from active matching campaign (0 if none)
+  match_campaign_id: uuid | null
+}
+```
+
+Business card views are lower value per-view ($0.001-0.003) than video ads ($0.008-0.025) but generate higher volume per session. A user can browse 50 cards in a minute versus watching one 30-second video ad. Views are batched for processing efficiency -- individual view records are written to a buffer and flushed to the database in batches of 50-100.
+
+### Community Grant
+
+```
+{
+  id: uuid
+  project_id: uuid                  // community grants use the standard project infrastructure
+  proposer_id: uuid                 // who proposed the work (not necessarily the volunteer or beneficiary)
+  description: text                 // what work needs to be done
+  requirements: text                // specific, concrete requirements for completion
+  before_evidence: [
+    {
+      url: url
+      type: enum (photo, video)
+      gps: { lat, lng }
+      timestamp: timestamp
+    }
+  ]
+  budget: {
+    materials: decimal              // cost of materials (if any)
+    volunteer_credit_total: decimal  // total watershed credit for all volunteers
+    volunteer_credit_per_slot: decimal  // credit_total / num_slots
+    funding_goal: decimal           // materials + volunteer_credit_total
+  }
+  volunteer_slots: [
+    {
+      slot_number: integer
+      task_description: string      // discrete task for this slot (e.g., "Clear north side")
+      volunteer_id: uuid | null     // null until claimed
+      claimed_at: timestamp | null
+      status: enum (open, claimed, submitted, approved, rejected, abandoned)
+      completion_evidence: [
+        {
+          url: url
+          type: enum (photo, video)
+          gps: { lat, lng }
+          timestamp: timestamp
+          description: string
+        }
+      ]
+    }
+  ]
+  num_slots: integer                // total volunteer slots
+  beneficiary: {
+    type: enum (individual, community)
+    name: string | null             // for individual: beneficiary name (may be privacy-masked)
+    consent: {
+      method: enum (video, signed_note, in_app) | null
+      verified: boolean
+    }
+    privacy_masked: boolean         // "A neighbor in Denver" instead of real name
+  }
+  timeline: {
+    default_days: 60
+    custom_days: integer | null     // poster-set override
+    deadline: timestamp             // calculated: funded_at + volunteer_claimed_at + timeline_days
+    funded_at: timestamp | null
+    expired: boolean
+  }
+  approval: {
+    approvers: [
+      {
+        user_id: uuid               // randomly selected from contributor pool
+        vote: enum (approved, rejected, undetermined) | null
+        voted_at: timestamp | null
+      }
+    ]
+    min_approvers: 3
+    max_approvers: 7
+    result: enum (pending, approved, rejected, manual_review)
+  }
+  min_contributors: 3               // minimum to proceed (seeds approver pool)
+  proposer_is_volunteer: boolean    // anti-collusion flag
+  status: enum (pending_review, active, funding, funded, in_progress,
+                submitted, approved, rejected, expired, cancelled)
+}
+```
+
+### Referral
+
+```
+{
+  id: uuid
+  referrer_id: uuid                 // user who shared the link
+  referred_id: uuid                 // user who signed up
+  referral_code: string
+  milestones: {
+    signup: {
+      completed: boolean
+      completed_at: timestamp | null
+      credit: decimal               // $0.50
+      credited: boolean
+    }
+    first_action: {
+      completed: boolean
+      completed_at: timestamp | null
+      action_type: enum (first_contribution, first_5_ads) | null
+      credit: decimal               // $1.00 (ads) or $1.50 (cash contribution)
+      credited: boolean
+    }
+    day_30_active: {
+      completed: boolean
+      completed_at: timestamp | null
+      login_count: integer          // must be 5+ logins
+      credit: decimal               // $1.00
+      credited: boolean
+    }
+  }
+  total_credited: decimal           // sum of all vested milestone credits
+  fraud_checks: {
+    unique_phone: boolean
+    unique_device: boolean
+    separate_bank_account: boolean
+    organic_activity: boolean       // no automated patterns detected
+  }
+  link_created_at: timestamp
+  link_expires_at: timestamp        // 7 days of inactivity from referred user
+  status: enum (pending, active, completed, expired, fraudulent)
+}
+```
+
+### Corporate Match Campaign
+
+```
+{
+  id: uuid
+  partner_name: string              // corporate partner (e.g., "Acme Corp")
+  partner_logo: url
+  fund_total: decimal               // total committed (e.g., $25,000)
+  fund_remaining: decimal           // remaining balance
+  match_level: integer              // multiplier (2x, 3x, 5x, 10x)
+  match_criteria: {
+    type: enum (all, category, region, project)
+    categories: [strings] | null    // e.g., ["education", "environment"]
+    regions: [strings] | null       // e.g., ["Denver, CO"]
+    project_ids: [uuid] | null      // specific projects
+  }
+  applies_to: enum (video_ads, business_cards, both)
+  start_date: timestamp
+  end_date: timestamp | null        // null = runs until fund exhausted
+  status: enum (active, paused, exhausted, expired)
+  metrics: {
+    total_matched: decimal          // total corporate dollars matched
+    ad_views_matched: integer       // number of ad views that received matching
+    card_views_matched: integer
+    users_benefited: integer        // unique users whose contributions were matched
+    projects_funded: integer        // unique projects that received matched funds
+  }
+}
+```
+
+### Watershed (User Impact Fund)
+
+```
+{
+  id: uuid
+  user_id: uuid
+  balance: decimal                // available funds to deploy to grants or loans
+  total_inflow: decimal           // lifetime total: cash contributions + referral credits + volunteer credits + corporate match + loan repayments
+  total_outflow: decimal          // lifetime total: grants funded + loans funded
+  total_returned: decimal         // lifetime total: loan repayments received
+  total_lost: decimal             // lifetime total: defaulted loan contributions
+  history: [
+    {
+      date: timestamp
+      type: enum (cash_contribution, ad_contribution, business_card_contribution,
+                  referral_credit, volunteer_credit, corporate_match,
+                  loan_repayment, grant_funded, loan_funded, loan_default)
+      amount: decimal
+      reference_id: uuid          // contribution_id, ad_view_id, card_view_id, referral_id, grant_id, match_campaign_id, loan_id, or project_id
+      description: string         // e.g., "Referral credit: Marcus signed up"
+    }
+  ]
+}
+```
+
+The watershed is the user's personal impact fund. All giving capital flows through the watershed: 100% of cash contributions, referral credits, community grant volunteer credits, corporate ad matching, Impact tier Deluge credits, and loan repayments all flow in. Grants and loan funding flow out. Ad revenue and business card browsing revenue flow directly to projects, not through the watershed. The balance represents deployable impact capital at any given time.
+
+### Microloan
+
+```
+{
+  id: uuid
+  borrower_id: uuid
+  title: string                       // e.g., "Bakery Equipment"
+  purpose: text                       // detailed description of what the loan funds
+  story: text                         // optional personal narrative
+  amount: decimal                     // total loan amount ($100 Tier 1 to $5,000 Tier 5)
+  primary_amount: decimal             // minimum funding target (loan proceeds if this is met)
+  stretch_goals: [
+    {
+      priority: integer               // 1, 2, or 3 (funding fills in order)
+      amount: decimal                 // additional amount for this stretch goal
+      purpose: string                 // what this stretch goal funds
+      status: enum (unfunded, funded, returned)  // resolved at deadline
+    }
+  ]
+  funded: decimal                     // amount funded so far
+  purpose_category: string            // "car_repair", "education", "business", "trade_tools", etc.
+  purpose_statement: string           // borrower's description of intended use
+  category_type: enum (general, niche)           // general = surfaces in all feeds; niche = surfaces via community group opt-in
+  niche_group_ids: [uuid]             // community groups this niche loan is associated with (empty for general)
+  location: { city, state, country }  // borrower's location, used for regional discovery
+  funding_deadline: datetime          // calculated from tier: T1=7d, T2=14d, T3=21d, T4=30d, T5=45d
+  funding_extensions: [
+    {
+      sponsor_id: uuid               // sponsor who extended the deadline
+      extension_days: integer         // days added (1st = 1x base, 2nd = 0.5x base)
+      extended_at: datetime
+      new_deadline: datetime
+    }
+  ]
+  goal_verification_status: enum      // pending, submitted, verified, flagged, waived
+  goal_verification_evidence: [
+    {
+      type: enum (photo, receipt, text_update, milestone)
+      url: string
+      submitted_at: datetime
+      description: string
+    }
+  ]
+  is_concurrent: boolean              // true if this is a sponsored concurrent loan
+  primary_loan_id: uuid | null        // if concurrent, reference to the first loan
+  refinanced: boolean                 // has this loan been refinanced
+  refinance_history: [
+    {
+      previous_payment: decimal
+      new_payment: decimal
+      refinance_fee: decimal
+      refinanced_at: datetime
+    }
+  ]
+  acceptance_status: enum             // pending, accepted, declined, expired (72h auto-cancel)
+  acceptance_deadline: datetime       // 72 hours after funding resolves
+  accepted_at: datetime | null        // when borrower accepted (null if not yet)
+  default_recovered: boolean          // did this loan exit default status
+  recovery_payments: integer          // count of consecutive payments toward recovery (0-3)
+  max_term_months: integer            // tier-based cap: T1=6, T2=12, T3=18, T4=24, T5=24
+  term_months: integer                // borrower's chosen term (within max_term_months)
+  scheduled_payment: decimal          // fixed monthly payment amount (principal only)
+  servicing_fee_rate: decimal         // percentage (e.g., 0.02 for 2%), locked at origination
+  servicing_fee_per_payment: decimal  // scheduled_payment x fee_rate, fixed for life of loan
+  total_payments: integer             // number of scheduled payments
+  payments_made: integer
+  share_price: decimal                // $0.25 (fixed, universal)
+  total_shares: integer               // loan amount / share_price (e.g., $500 = 2,000 shares)
+  funders: [
+    {
+      user_id: uuid
+      shares: integer                 // number of shares owned (contribution / $0.25)
+      contribution: decimal           // total dollar amount funded
+      funded_at: timestamp            // determines position within each interleave round
+      shares_repaid: integer          // how many shares have been repaid so far
+      status: enum (active, fully_repaid, defaulted)
+      last_repayment_at: timestamp
+    }
+  ]
+  credit_forward: decimal             // sub-$0.25 remainder from payments that don't divide evenly into shares
+  borrower_tier: integer              // borrower's credit tier at time of loan
+  timeline: {
+    applied: timestamp
+    verified: timestamp
+    live: timestamp                   // opened for funding
+    funded: timestamp                 // fully funded (cascade)
+    disbursed: timestamp              // funds sent to borrower
+    first_payment_due: timestamp      // 30 days after disbursement
+    completed: timestamp              // all payments made (null until complete)
+    defaulted: timestamp              // null unless defaulted (90+ days overdue)
+  }
+  status: enum (pending_review, seeking_sponsors, active, funded,
+                awaiting_acceptance, disbursed, repaying, late, at_risk,
+                completed, defaulted, recovering, rejected, expired,
+                declined)
+                // seeking_sponsors = loan needs sponsorship before it can proceed to funding
+                // funded = primary goal met, resolving stretch goals
+                // awaiting_acceptance = funding resolved, borrower has 48-72h to accept
+                // late = 1-30 days overdue on payment
+                // at_risk = 31-90 days overdue on payment
+                // declined = borrower declined the loan after funding
+                // expired = deadline passed without meeting primary goal
+}
+```
+
+### Loan Question
+
+```
+{
+  id: uuid
+  loan_id: uuid
+  asker_id: uuid                      // funder or potential funder who asked
+  question: string                    // max 280 characters
+  answer: string | null               // borrower's optional response
+  asked_at: datetime
+  answered_at: datetime | null
+  flagged: boolean                    // community-flagged as inappropriate
+  flag_count: integer                 // number of unique flags
+  hidden: boolean                     // hidden pending review (auto-hidden at 3+ flags)
+  status: enum (open, answered, flagged, hidden)
+}
+```
+
+Each funder can submit a maximum of 2 questions per loan. Questions are short-form (280 character limit). Borrower responses are optional. Community members can flag inappropriate questions.
+
+### Loan Payment
+
+```
+{
+  id: uuid
+  loan_id: uuid
+  borrower_id: uuid
+  timestamp: timestamp
+  amount_received: decimal            // total amount received from borrower
+  principal_portion: decimal          // amount applied to principal (scheduled amount)
+  fee_portion: decimal                // servicing fee (fee_rate x scheduled_payment, fixed)
+  overpayment_portion: decimal        // amount above scheduled, fee-free
+  payment_type: enum (scheduled, advance_next, pay_down_principal)
+  disbursements: [
+    {
+      funder_id: uuid
+      shares_repaid: integer          // number of shares repaid to this funder in this payment
+      amount: decimal                 // shares_repaid x $0.25
+    }
+  ]
+  credit_forward_added: decimal       // sub-$0.25 remainder that didn't fill a complete share
+  credit_forward_applied: decimal     // credit from previous remainders applied to this payment
+  remaining_balance: decimal          // loan balance after this payment
+  status: enum (processed, failed, reversed)
+}
+```
+
+### Borrower Profile
+
+```
+{
+  user_id: uuid
+  credit_tier: integer                // 1-5
+  loans_completed: integer
+  loans_active: integer
+  loans_defaulted: integer
+  total_borrowed: decimal
+  total_repaid: decimal
+  on_time_payments: integer
+  late_payments: integer
+  eligible_amount: decimal            // max loan amount based on current tier, reflects halving with $25 floor, rounded down to nearest $5
+  sponsored_amount: decimal           // additional credit extended by sponsors
+  active_loan_id: uuid | null         // current active loan (one at a time rule)
+  concurrent_loan_id: uuid | null     // sponsored concurrent loan if any
+  max_concurrent_loans: 2             // hard cap
+  current_credit_limit: decimal       // actual available credit after any halving
+  credit_reductions: [
+    {
+      from_amount: decimal
+      to_amount: decimal
+      reason: enum (default_recovery)
+      loan_id: uuid
+      reduced_at: datetime
+    }
+  ]
+  default_recovery_history: [
+    {
+      loan_id: uuid
+      recovery_method: enum (three_payments, full_payoff)
+      recovered_at: datetime
+      credit_before: decimal
+      credit_after: decimal
+    }
+  ]
+  credit_score_deltas: [
+    {
+      loan_id: uuid
+      delta_points: integer             // self-reported credit score change (e.g., +22)
+      reported_at: datetime
+    }
+  ]
+  pending_goal_verification_loan_ids: [uuid]  // loans that must have goal verification submitted before new loan application (supports concurrent loans)
+  loan_blocked: boolean              // true if account is blocked from new loans (failed verification, support escalation)
+  verified: boolean
+  credit_bureau_reporting: boolean    // whether repayment is being reported to bureaus
+}
+```
+
+### Sponsor Profile
+
+```
+{
+  user_id: uuid
+  base_contributions: decimal             // total platform contributions (cash contributed + ad-funded + volunteer credits)
+  total_sponsored_value: decimal          // sum of all loans sponsored
+  total_repaid_value: decimal             // sum of sponsored loans that repaid in full
+  total_defaulted_value: decimal          // sum of sponsored loans that defaulted
+  total_completed_value: decimal          // repaid + defaulted
+  counteraction_remaining: decimal        // outstanding 2x recovery target from defaults
+  track_record_ratio: decimal             // repaid_value / completed_value (0.0 to 1.0)
+  volume_bonus: decimal                   // grows with repaid_value, up to 1.0 (+100%)
+  multiplier: decimal                     // track_record_ratio x (1.0 + volume_bonus), capped at 2.0
+  sponsorship_power: decimal              // base_contributions x multiplier
+  sponsorships: [
+    {
+      loan_id: uuid
+      borrower_id: uuid
+      amount_extended: decimal            // credit extended for this loan
+      sponsorship_type: enum (standard, upward, concurrent)  // what kind of sponsorship
+      power_applied: decimal              // actual power used (halved for concurrent)
+      sponsored_at: timestamp
+      outcome: enum (active, repaid, defaulted)
+      recovered: boolean                  // did the default get recovered later (restores track record)
+      counteracted: boolean               // if defaulted, whether recovery is complete
+    }
+  ]
+}
+```
+
+The sponsor profile is public (visible to funders evaluating sponsored loans). Track record ratio and sponsorship power are displayed alongside the sponsor's name on loan detail pages.
 
 ---
 
@@ -404,36 +863,162 @@ PUT    /api/user/profile
 GET    /api/user/:id/achievements
 ```
 
-### Investing
+### Personal Dashboard
 
 ```
-POST   /api/parcel/purchase
-GET    /api/account/balance
-GET    /api/account/performance
-GET    /api/account/history
-PUT    /api/account/split             // update investment/impact ratio (paid tiers only)
-```
-
-### Personal Dashboard & Portfolio
-
-```
-GET    /api/account/performance/history   // time-series portfolio data for charts (supports 1W, 1M, 3M, 1Y, ALL ranges)
-GET    /api/account/projections           // future value estimates based on current pace + adjustable inputs
-POST   /api/account/goals                // create or update a private financial goal
-GET    /api/account/goals                // retrieve user's private financial goals
-GET    /api/account/milestones           // retrieve user's private milestones (achieved + unseen)
+GET    /api/contributions/history         // user's contribution history (cash, ad, card, volunteer, referral)
+GET    /api/contributions/summary         // aggregate totals by type, time period
 GET    /api/impact/personal              // user's aggregate impact across all backed projects
+GET    /api/account/milestones           // retrieve user's private milestones (achieved + unseen)
 ```
 
-### Ad-Funded Investments
+### Ad-Funded Impact
 
 ```
 POST   /api/ads/request               // request an ad to watch
-POST   /api/ads/complete              // report ad view completed, trigger credit
+POST   /api/ads/complete              // report ad view completed, trigger project credit
 GET    /api/ads/today                 // user's ad views today (toward daily cap)
-GET    /api/ads/history               // ad credit history
-GET    /api/ads/earnings              // total earned from ads (with transparency breakdown)
+GET    /api/ads/history               // ad-funded contribution history
+GET    /api/ads/contributions         // total funded to projects from ads (with transparency breakdown)
 POST   /api/ads/report                // report inappropriate ad (content, misleading, offensive)
+```
+
+### Business Card Directory
+
+```
+POST   /api/listings                   // create a business card listing (business owner)
+GET    /api/listings                   // browse listings -- filters: category, proximity, new_this_week
+GET    /api/listings/:id               // listing detail
+PUT    /api/listings/:id               // update listing (owner only)
+POST   /api/listings/:id/view          // register a card view (triggers project credit)
+POST   /api/listings/:id/save          // save listing to user's list
+POST   /api/listings/:id/recommend     // leave a recommendation note
+GET    /api/listings/saved             // user's saved businesses
+GET    /api/listings/mine              // business owner's own listing(s)
+GET    /api/listings/mine/dashboard    // owner dashboard: views, saves, recommendations, impact generated
+```
+
+### Community Grants
+
+```
+POST   /api/grants                     // propose a community grant project
+GET    /api/grants                     // browse funded grants with open volunteer slots -- filters: location, category, credit_amount, timeline
+GET    /api/grants/:id                 // grant detail: requirements, slots, budget breakdown, beneficiary
+POST   /api/grants/:id/volunteer       // claim a volunteer slot
+POST   /api/grants/:id/submit          // submit completion evidence for a slot (volunteer)
+GET    /api/grants/:id/evidence        // view submitted evidence (approvers, contributors)
+POST   /api/grants/:id/vote            // approver votes on completion (approved, rejected, undetermined)
+GET    /api/grants/:id/approval-status // current approval state
+GET    /api/grants/mine/volunteering   // user's active volunteer commitments
+GET    /api/grants/mine/proposed       // user's proposed grants
+```
+
+### Referral Program
+
+```
+POST   /api/referrals/generate         // generate a referral link
+GET    /api/referrals/mine             // user's referral dashboard: friends referred, active, earned, remaining slots
+GET    /api/referrals/:id/milestones   // milestone tracker for a specific referral
+GET    /api/referrals/stats            // aggregate: total earned, monthly remaining, lifetime remaining
+```
+
+### Corporate Matching (Admin)
+
+```
+POST   /api/admin/match-campaigns       // create a matching campaign
+GET    /api/admin/match-campaigns       // list campaigns
+PUT    /api/admin/match-campaigns/:id   // update campaign (pause, adjust)
+GET    /api/admin/match-campaigns/:id/metrics  // campaign performance
+```
+
+### Corporate Matching (User-Facing)
+
+```
+GET    /api/match/active                // active match campaigns for user's selected project
+GET    /api/match/impact                // user's total matched contributions
+```
+
+### Give Tab Summary
+
+```
+GET    /api/give/today                  // combined daily summary: ads watched, cards browsed, total funded, active match, streak
+```
+
+### Watershed
+
+```
+GET    /api/watershed                  // user's watershed balance, inflow/outflow totals
+GET    /api/watershed/history          // watershed transaction history (deposits, deployments, repayments)
+POST   /api/watershed/deploy           // deploy funds from watershed to a grant project or loan
+```
+
+### Microloans
+
+```
+POST   /api/loans                      // apply for a microloan (borrower)
+GET    /api/loans                      // browse available loans (funder) -- filters: status, tier, location, category_type, niche_group, region
+GET    /api/loans/:id                  // loan detail: borrower info, progress, share repayment status
+POST   /api/loans/:id/fund             // fund a loan from watershed (funder)
+POST   /api/loans/:id/accept           // borrower accepts funded loan (triggers disbursement)
+POST   /api/loans/:id/decline          // borrower declines funded loan (returns funds to watersheds)
+POST   /api/loans/:id/pay              // make a loan payment (borrower)
+GET    /api/loans/:id/payments         // payment history for a loan
+GET    /api/loans/mine/borrowing       // user's loans as borrower
+GET    /api/loans/mine/funding         // user's loans as funder (with share counts and repayment progress)
+GET    /api/borrower/profile           // borrower credit tier, history, eligible amount
+POST   /api/borrower/credit-delta      // borrower voluntarily reports credit score change (e.g., +22 points)
+GET    /api/loans/:id/credit-delta     // get borrower's self-reported credit score delta for a loan
+```
+
+### Loan Q&A
+
+```
+POST   /api/loans/:id/questions         // submit a question (funder, max 2 per loan)
+GET    /api/loans/:id/questions         // list questions and answers for a loan
+POST   /api/loans/:id/questions/:qid/answer  // borrower answers a question
+POST   /api/loans/:id/questions/:qid/flag    // flag a question as inappropriate
+```
+
+### Sponsorship
+
+```
+POST   /api/loans/:id/sponsor          // sponsor a borrower's loan (extends credit)
+POST   /api/loans/:id/sponsor-upward   // sponsor to increase an active loan amount
+GET    /api/loans/:id/sponsors         // list sponsors for a loan with track records
+GET    /api/sponsor/profile            // user's own sponsor profile (power, track record, history)
+GET    /api/sponsor/:id/public         // public sponsor profile (visible on loan pages)
+```
+
+### Refinancing & Recovery
+
+```
+POST   /api/loans/:id/refinance        // request refinance -- change payment amount or extend term (borrower)
+POST   /api/loans/:id/recover          // process default recovery -- system/admin triggers after 3 payments or payoff
+```
+
+### Goal Verification
+
+```
+POST   /api/loans/:id/verify-goal      // submit single goal verification update at fulfillment (borrower)
+GET    /api/loans/:id/goal-evidence    // view submitted evidence (funder/admin)
+POST   /api/loans/:id/flag-goal        // flag goal concern (community member)
+```
+
+### Funding Deadlines & Discovery
+
+```
+POST   /api/loans/:id/extend-deadline  // sponsor extends funding deadline (requires established sponsor history)
+POST   /api/loans/:id/flag-category    // funder flags loan as miscategorized
+GET    /api/loans/feed                 // personalized loan feed: location-first, general + opted-in niches
+```
+
+### Admin -- Loans
+
+```
+GET    /api/admin/loans/queue          // loan applications awaiting review
+PUT    /api/admin/loans/:id/verify     // approve or reject loan application
+GET    /api/admin/loans/at-risk        // loans with late or missed payments
+GET    /api/admin/loans/defaults       // defaulted loans
 ```
 
 ### Projects
@@ -443,7 +1028,7 @@ GET    /api/projects                  // with filters: tags, location, status, t
 GET    /api/projects/:id
 GET    /api/projects/:id/updates
 GET    /api/projects/:id/discussion
-POST   /api/projects/:id/invest
+POST   /api/projects/:id/contribute
 POST   /api/projects/:id/follow
 POST   /api/projects/:id/share
 ```
@@ -475,6 +1060,7 @@ GET    /api/communities/:id
 POST   /api/communities/:id/join
 GET    /api/communities/:id/projects
 GET    /api/communities/:id/members
+GET    /api/communities/:id/loan-activity  // community-level loan metrics (active loans, recycled capital, repayment rate, credit score impact)
 POST   /api/communities/:id/discuss    // post in community discussion
 ```
 
@@ -505,21 +1091,99 @@ GET    /api/challenges/active
 
 | Measure | Detail |
 |---------|--------|
-| Encryption in transit | SSL/TLS for all data |
-| Encryption at rest | AES-256 |
+| Encryption in transit | TLS 1.3 for all data in transit. No fallback to TLS 1.2 for payment endpoints. |
+| Encryption at rest | AES-256 for all stored data. Sensitive data (watershed balances, transaction history) uses application-level encryption in addition to disk-level. |
 | Security audits | Regular third-party audits |
-| Penetration testing | Annual minimum |
+| Penetration testing | Annual minimum; quarterly for payment and contribution endpoints |
 | SOC 2 compliance | Target for Year 2+ |
+| Secrets management | HashiCorp Vault or AWS Secrets Manager. No secrets in code, environment variables, or config files. |
+| Dependency scanning | Automated vulnerability scanning on all dependencies (Snyk, Dependabot). Critical CVEs block deployment. |
+
+### Data Classification
+
+All data is classified into tiers that determine encryption, access controls, retention, and audit requirements.
+
+| Tier | Data Types | Encryption | Access | Retention | Audit |
+|------|-----------|-----------|--------|-----------|-------|
+| **Critical** | Bank account numbers (for payouts), payment processor API keys, microloan disbursement credentials | AES-256 + application-level encryption. Never logged. Never cached. | Service-to-service only. No human access without dual-approval. | As required by law (typically 7 years for financial records). | Every access logged with requester identity, timestamp, and purpose. |
+| **Sensitive** | Contribution history, microloan payment records, watershed balances, referral chains, subscription billing | AES-256 at rest. Encrypted in application logs. | Authenticated users (own data only). Support staff with audit trail. | Account lifetime + 3 years post-deletion. | Access logged. Quarterly review of access patterns. |
+| **Personal** | Name, email, phone, physical address, GPS coordinates (community grants), device fingerprints | AES-256 at rest. | Authenticated users (own data only). Support + moderation staff. | Account lifetime + 1 year post-deletion. GPS data: 90 days after grant approval. | Standard logging. |
+| **Public** | Project descriptions, community names, business card listings, achievement badges, leaderboard positions | Standard database encryption. | Anyone (read). Authenticated users (write, own content). | Indefinite. User-deleted content removed within 30 days. | Standard logging. |
+
+### KYC/AML Integration Flow
+
+KYC (Know Your Customer) checks are required before a user can make cash contributions above $250/month or apply for microloans. Deluge uses a third-party identity verification provider for compliance.
+
+**Identity verification flow:**
+
+```
+User signs up (email + password)
+    │
+    ├── Basic account created (can browse, watch ads, join communities, contribute up to $250/month)
+    │
+    ├── User exceeds $250/month cash contribution threshold OR submits microloan application
+    │       │
+    │       ├── KYC form: full legal name, date of birth, address, ID document upload
+    │       │
+    │       ├── Submitted to identity verification provider (Stripe Identity or Persona)
+    │       │       │
+    │       │       ├── Approved → Full contribution access. Microloan eligibility unlocked.
+    │       │       │
+    │       │       ├── Manual review → Pending (24-72 hours). User notified.
+    │       │       │       │
+    │       │       │       ├── Approved → Full access.
+    │       │       │       └── Denied → User notified with reason (if permissible). Can resubmit.
+    │       │       │
+    │       │       └── Denied (identity mismatch) → User notified. Limited to $250/month.
+    │       │
+    │       └── ID documents transmitted directly to verification provider.
+    │           Deluge stores ONLY: verification status, verification date.
+    │           Deluge does NOT store government ID documents or SSN.
+    │
+    └── Non-cash pathways (ads, volunteering, referrals, browsing) → NO KYC required.
+        Users can participate fully in the free tier without identity verification.
+```
+
+**Key architectural decisions:**
+- ID documents and sensitive PII are transmitted to the verification provider but never stored by Deluge.
+- KYC status is stored as an enum: `not_started`, `pending`, `approved`, `denied`, `expired`.
+- Verification expiry: provider may require re-verification after 2-3 years or upon suspicious activity.
+- No SSN collection required (no securities/brokerage accounts).
+
+### AML Transaction Monitoring
+
+| Rule | Trigger | Action |
+|------|---------|--------|
+| Rapid successive contributions | 5+ contributions in 24 hours totaling > $2,000 | Flag for review. May indicate structuring. |
+| Unusual watershed activity | Watershed credits earned > $500/month from referrals | Flag for fraud review. May indicate referral abuse. |
+| Microloan pattern | Multiple small loans requested and defaulted | Flag for review. May indicate loan cycling fraud. |
+| SAR filing | Any flagged activity that meets FinCEN Suspicious Activity Report criteria | Filed through compliance team (Phase 3+). May require Money Services Business registration depending on legal classification. |
+
+AML monitoring runs as a background job (daily batch). Flagged transactions are reviewed by the operations team (Phase 3-4) or the compliance lead (Phase 5).
+
+### GPS Verification Architecture (Community Grants)
+
+Community grants require GPS-tagged, timestamped photos as evidence. This creates a technical verification challenge.
+
+| Component | Implementation |
+|-----------|---------------|
+| GPS capture | Device GPS at time of photo capture. Embedded in EXIF metadata. |
+| Timestamp verification | Server-side timestamp comparison. Photo EXIF timestamp must be within 1 hour of upload time. |
+| Location matching | Before-photo GPS and after-photo GPS must be within 100 meters of each other. |
+| Photo integrity | Hash computed at upload. Any modification after upload invalidates the evidence. |
+| Storage | Evidence photos stored in encrypted blob storage (S3 or equivalent). Access restricted to: the volunteer, the approvers, and platform moderators. |
+| Retention | Evidence retained for 90 days after grant approval. After 90 days, photos are deleted; only the verification result (approved/denied) and GPS summary (neighborhood-level, not exact coordinates) are retained. |
+| Spoofing mitigation | Device GPS is the primary source. Known GPS spoofing apps are detected via device fingerprinting. If spoofing is suspected, the grant is flagged for manual review. |
 
 ### Financial Compliance
 
 | Requirement | Approach |
 |-------------|----------|
-| KYC/AML checks | Via broker-dealer partner |
-| SEC registration or exemption | Legal counsel to determine structure |
-| State securities compliance | State-by-state rollout via broker partner |
+| KYC checks | Via identity verification provider (Stripe Identity or Persona). Deluge does not store PII beyond verification status. See KYC flow above. |
+| Money transmission | Legal classification of cash contributions and watershed credits determines whether MTL (Money Transmitter License) is required. Architecture supports both outcomes. Legal counsel required. |
+| State compliance | If MTL required, state-by-state rollout. Initial launch in states with favorable thresholds. |
 | Regular audits | Annual financial and operational |
-| FINRA oversight | Through broker-dealer partner |
+| Credit bureau reporting (Year 3+) | Metro 2 format data pipeline. FCRA compliance: 30-day dispute resolution, accuracy requirements. See business model for full roadmap. |
 
 ### Ad Content Standards
 
@@ -535,10 +1199,13 @@ GET    /api/challenges/active
 
 | Requirement | Approach |
 |-------------|----------|
-| GDPR compliance | For any EU users |
-| CCPA compliance | For California users |
-| Privacy policy / ToS | Drafted by securities lawyer |
-| User data tools | Export and deletion capabilities |
+| GDPR compliance | For any EU users (unlikely at launch, but architecture supports it) |
+| CCPA compliance | For California users. Required from Day 1. |
+| Privacy policy / ToS | Drafted by fintech/compliance lawyer. Covers: contribution data, GPS data (community grants), device fingerprinting (fraud detection), ad tracking. |
+| User data export | GDPR/CCPA-compliant export: all personal data, contribution history, impact history, community membership. JSON format. Available within 30 days of request. |
+| User data deletion | Right to delete: personal data removed within 30 days. Financial records retained as required by law (7 years). Anonymized data (aggregated impact stats) retained indefinitely. |
+| GPS data | Collected only during community grant evidence submission. Retained 90 days post-approval. Not sold or shared. Not used for advertising. |
+| Device fingerprinting | Used solely for fraud detection (referral abuse, ad fraud, account duplication). Not used for advertising. Disclosed in privacy policy. |
 
 ---
 
@@ -561,34 +1228,38 @@ GET    /api/challenges/active
 ### Background Jobs
 
 - Queue system (Bull or RabbitMQ)
-- Asynchronous investment processing
+- Asynchronous contribution processing
 - Background report generation
 - Batched email/notification delivery
+- Business card view aggregation (batch processing of view records, flush every 60 seconds)
+- Referral milestone checking (periodic scan for milestone completions, triggers credit vesting)
+- Referral fraud detection (pattern analysis for self-referral, account farming, collusion rings)
+- Community grant timeline enforcement (daily check for expired grants, trigger fund returns)
+- Community grant approver selection (random selection from contributor pool when evidence submitted)
+- Corporate match fund tracking (decrement fund balance per matched view, trigger exhaustion notifications)
+- Ad streak calculation (daily streak evaluation, badge triggers at 7-day and 30-day milestones)
 
 ---
 
 ## FAQ (Technical)
 
 **Q: Is my money safe?**
-Your investment portion (85% by default) is held by the broker-dealer partner, a licensed and regulated financial institution. Your account is SIPC insured up to $500,000. The impact portion (15% by default) goes directly to verified nonprofit partners. Paid subscribers can adjust their split ratio.
+Cash contributions go directly to your personal watershed or to verified projects. Watershed funds are held in Deluge's platform accounts (Stripe) and are available for deployment to grants and microloans. Once deployed to a project, funds are disbursed to the verified nonprofit or borrower. All transactions are encrypted and auditable.
 
-**Q: Can I withdraw my money?**
-Yes. Your investment account can be liquidated and withdrawn at any time (subject to standard market settlement, typically 2-3 days). The impact portion is a contribution and cannot be withdrawn, but you receive tax documentation.
+**Q: Can I get my money back?**
+Watershed funds that have not yet been deployed can be withdrawn. Once you deploy funds to a grant project or fund a microloan, those funds are committed. Microloan funds are returned to your watershed as the borrower repays ($0.25 per share). Ad-funded and volunteer-credit contributions are non-reversible.
 
 **Q: How do you choose projects?**
-We partner with verified 501(c)(3) nonprofits. Each project goes through vetting: financial review, impact measurement plan, and ongoing reporting requirements. Full details are visible before investing.
+We partner with verified 501(c)(3) nonprofits. Each project goes through vetting: financial review, impact measurement plan, and ongoing reporting requirements. Full details are visible before contributing.
 
 **Q: What if a project doesn't get fully funded?**
-Projects have funding deadlines. If a project doesn't reach its goal, your impact allocation is redirected to the next most-popular project in that category, or you can manually choose a different project.
+Projects have funding deadlines. If a project doesn't reach its goal, your contribution is redirected to the next most-popular project in that category, or you can manually choose a different project.
 
 **Q: How do you make money?**
-A flat monthly subscription ($0-12/month depending on tier, similar to Acorns), ad revenue (platform keeps 40% of ad revenue from users watching ads to earn investment credit), plus a small annual management fee (0.25-0.5%) on invested assets. No per-transaction fees -- every dollar you invest goes to your portfolio and impact projects. All fees are transparent, including exactly how much of each ad view reaches the user.
+A flat monthly subscription ($0-25/month depending on tier), ad revenue (platform keeps 40% of ad revenue from users watching ads to fund community projects), business card listing fees, and corporate ESG partnerships. No per-transaction fees on contributions. All fees are transparent, including exactly how much of each ad view goes to projects.
 
-**Q: Is this a charity or an investment?**
-Both. 85% of your money is invested in a diversified portfolio by default (you own this, it grows with the market). 15% funds impact projects (this is a contribution). Paid subscribers can adjust this ratio. You can also watch ads to earn investment credit with $0 cash. Platform costs are covered by a flat monthly subscription, not taken from your investment. You get financial returns AND create real-world impact.
-
-**Q: What returns can I expect?**
-The investment portion is subject to market performance. Historically, diversified portfolios return 7-10% annually, but past performance doesn't guarantee future results. The impact portion creates measurable social/environmental outcomes rather than financial returns.
+**Q: Is this a charity?**
+Deluge is a platform that facilitates community giving and impact lending. Cash contributions fund verified nonprofit projects through your watershed. You can also watch ads, browse local business cards, or volunteer to generate project funding without spending money. Microloans are repaid to your watershed, creating a cycle of redeployable impact capital.
 
 **Q: What happens if Deluge shuts down?**
-Your investment account is held separately by the broker-dealer partner and remains accessible. Impact contributions already disbursed to nonprofits continue funding those projects. Undisbursed funds would be returned per the terms of service.
+Watershed funds not yet deployed would be returned per the terms of service. Contributions already disbursed to nonprofits continue funding those projects. Active microloans would be serviced through wind-down procedures with borrowers.

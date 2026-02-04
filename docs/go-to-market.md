@@ -4,14 +4,14 @@
 
 | Phase | Timeline | Focus | Cost (Realistic) |
 |-------|----------|-------|------------------|
-| Phase 0 | Months 1-3 | Validation | $2,000-5,000 |
-| Phase 1 | Months 4-12 | Legal & Partnerships | $100,000-250,000 |
-| Phase 2 | Months 12-18 | MVP Build & Beta | $150,000-350,000 |
-| Phase 3 | Months 18-24 | Public Launch | $200,000-500,000 |
+| Phase 0 | Months 1-3 | Validation | $900-2,000 |
+| Phase 1 | Months 4-8 | Legal & Partnerships | $30-70,000 |
+| Phase 2 | Months 8-14 | MVP Build & Beta | $100-250,000 |
+| Phase 3 | Months 14-20 | Public Launch | $150-350,000 |
 | Phase 4 | Years 3-5 | Growth & Scale | Variable |
 
-**Total to first paying user (realistic): $450K-1M.**
-Most fintech startups touching regulated investments spend $500K-2M before launch. The previous estimate of $100-200K was not realistic for a product that involves SEC compliance, broker-dealer integration, and nonprofit partnership management.
+**Total to first paying user (realistic): $280K-675K.**
+Without investment/brokerage infrastructure, Deluge avoids the regulatory complexity and cost of securities compliance. Legal setup is limited to entity formation, money transmission classification, and charitable solicitation review -- dramatically cheaper and faster than the fintech path.
 
 ---
 
@@ -32,21 +32,21 @@ Most fintech startups touching regulated investments spend $500K-2M before launc
 
 | Section | Content |
 |---------|---------|
-| Above the fold | "Deluge: One by One, All at Once" + "Invest $5. Grow Wealth. Change the World." + CTA: "Join the Waitlist" |
-| How It Works | 3-step visual: Invest $5 / Choose your causes / Track everything |
+| Above the fold | "Deluge: One by One, All at Once" + "Fund your community. No money required." + CTA: "Join the Waitlist" |
+| How It Works | 3-step visual: Contribute (cash, ads, or time) / Choose your projects / Track real impact |
 | Impact Categories | Visual cards for Education, Environment, Innovation |
-| Real Returns | "Your investment grows with the market + your impact dollars fund verified projects" |
+| Real Impact | "100% of your cash contribution goes to your watershed. Watch ads or browse local businesses to fund projects directly." |
 | Social Proof | Waitlist count, persona-style quotes |
 | Final CTA | Email signup + optional survey |
 
 ### 2. Validation Survey (5-7 questions)
 
-1. How much would you invest to start? ($5 / $10 / $25 / $50 / $100+)
+1. How much would you contribute per month? ($0 / $1-5 / $5-10 / $10-25 / $25+)
 2. Which impact categories matter most? (rank: Education, Environment, Innovation, Health, Housing, Arts, Workforce)
 3. What would make you trust this platform? (transparency / third-party audits / known partners / user reviews)
 4. How often would you check your impact? (daily / weekly / monthly / rarely)
-5. Would you pay $5-10/month for premium features? (yes / no / maybe)
-6. What's your biggest concern about impact investing? (open text)
+5. Would you pay $3-5/month for premium features? (yes / no / maybe)
+6. Would you watch ads to fund projects if it cost you nothing? (yes / no / maybe)
 7. Email address (for waitlist)
 
 Tools: Typeform or Google Forms. Budget: $0-25.
@@ -57,26 +57,26 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 
 **Target audience:**
 - Age: 25-45
-- Interests: ESG investing, impact investing, sustainability, social entrepreneurship, DonorsChoose, Kiva
+- Interests: community giving, sustainability, social entrepreneurship, DonorsChoose, Kiva, GoFundMe, volunteering
 - Locations: US (urban/suburban focus)
 
 **Ad creative (A/B test):**
 
 | Variant | Copy |
 |---------|------|
-| A | "What if every dollar you invested helped build schools AND grew your wealth?" |
-| B | "Invest $5. Track real returns + real impact. One app." |
-| C | Visual showing 85% portfolio / 15% impact split |
+| A | "What if watching an ad could fund a community garden?" |
+| B | "Fund real community projects -- with cash, ads, or your time. One app." |
+| C | "Your neighbors are funding local projects. Join them." |
 | D | "Deluge: One by One, All at Once" with cascade imagery |
 
-**Goal:** 300-500 email signups. Expect $3-8 per signup (not $1-2 -- fintech audiences are expensive to reach). The point of Phase 0 is learning, not scale. Even 200 quality signups with survey data is valuable.
+**Goal:** 300-500 email signups. Expect $3-8 per signup (not $1-2 -- social impact audiences are expensive to reach). The point of Phase 0 is learning, not scale. Even 200 quality signups with survey data is valuable.
 
 ### 4. Organic Outreach
 
-- Post in Reddit: r/investing, r/personalfinance, r/SocialEntrepreneurship
+- Post in Reddit: r/personalfinance, r/SocialEntrepreneurship, r/nonprofit
 - LinkedIn posts (personal + professional network)
 - Twitter thread explaining concept
-- Medium article: "Why Impact Investing Needs Gamification"
+- Medium article: "Why Community Giving Needs Gamification"
 
 ### 5. Identify Nonprofit Partners
 
@@ -88,7 +88,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 ### 6. Expert Interviews
 
 - Talk to fintech founders
-- Talk to impact investing professionals
+- Talk to community giving and nonprofit professionals
 - Talk to nonprofit leaders
 - Validate assumptions, refine the model
 
@@ -98,7 +98,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 |----------|--------|----------------|
 | Email signups | 500+ | 200 |
 | Cost per signup (paid) | <$5 | <$10 |
-| Survey: would invest $10+ | 60%+ | 40%+ |
+| Survey: would contribute $5+ | 60%+ | 40%+ |
 | Survey: would pay $3-6/month | 40%+ | 25%+ |
 | Survey completion rate | 50%+ | 30%+ |
 | Organic interest (shares, comments, DMs) | Qualitative | Any signal |
@@ -109,51 +109,29 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 
 ---
 
-## Phase 1: Legal & Partnerships (Months 4-12)
+## Phase 1: Legal & Partnerships (Months 4-8)
 
-**Objective:** Establish the legal entity, partner with a broker-dealer, and finalize nonprofit partnerships. This phase takes longer than most founders expect -- 6-9 months is realistic for legal setup and broker-dealer integration alone.
+**Objective:** Establish the legal entity, secure payment processing, and finalize nonprofit partnerships. Without securities regulation, this phase is significantly shorter and cheaper.
 
-### 1. Legal Structure ($50-150K)
+### 1. Legal Structure ($30-70K)
 
-This is the most critical and most expensive piece. Do not underbudget here -- regulatory missteps can kill the company.
-
-- Hire securities lawyer specializing in fintech/investment platforms
+- Hire fintech/compliance lawyer (not securities lawyer -- no brokerage)
 - Form Deluge Fund PBC
-- Determine SEC requirements (registration vs exemption)
-- State-by-state compliance roadmap
+- Determine money transmission classification (state-by-state analysis)
+- Charitable solicitation registration (varies by state)
 - Draft Terms of Service and Privacy Policy
-- Structure the investment/impact split to be legally defensible
-- Address gamification-of-investing concerns proactively
+- Address gamification-of-giving concerns proactively
 
 **Key questions for lawyer:**
-- Can we legally combine investment accounts with charitable impact allocation in a single product?
-- Do we need SEC registration or can we partner with an existing broker-dealer?
-- How do gamification features (badges, leaderboards) affect our regulatory exposure post-Robinhood scrutiny?
+- Does the watershed model constitute money transmission? Which states require MTL?
+- What charitable solicitation registrations are needed?
+- How do gamification features (badges, leaderboards) affect our regulatory exposure?
 - What is the simplest compliant structure?
-- What are ongoing annual compliance costs? (Budget $50-100K/year ongoing)
-- What state-by-state requirements apply?
+- What are ongoing annual compliance costs? (Budget $15-30K/year ongoing)
 
-**Reality check:** Initial legal consultation is $5-10K. Full legal setup (entity formation, SEC compliance, broker-dealer partnership agreement, ToS, privacy policy) is $50-150K. Ongoing compliance is $50-100K/year. These are standard costs for regulated fintech -- not optional and not negotiable.
+**Reality check:** Initial legal consultation is $3-5K. Full legal setup (entity formation, MTL analysis, charitable solicitation, ToS, privacy policy) is $30-70K. Ongoing compliance is $15-30K/year. Dramatically cheaper than the securities-regulated path.
 
-### 2. Broker-Dealer Partnership
-
-**Platforms to contact:**
-
-| Platform | Strength |
-|----------|----------|
-| Apex Clearing | Powers Webull, Public, many others |
-| DriveWealth | Fractional investing infrastructure |
-| Alpaca | API-first brokerage |
-| Betterment for Advisors | White-label robo-advisor |
-
-**Questions to ask:**
-- Integration requirements?
-- Revenue share model?
-- Compliance support included?
-- Minimum scale needed?
-- Timeline to launch?
-
-### 3. Nonprofit Partnerships (3-5 organizations)
+### 2. Nonprofit Partnerships (3-5 organizations)
 
 - Formal partnership agreements
 - Establish project vetting process
@@ -166,16 +144,17 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 - Environment: 2-3 (local land trusts, Nature Conservancy chapter, conservation orgs)
 - Innovation: 1-2 (makerspaces, STEM nonprofits)
 
-### 4. Begin MVP Scoping
+### 3. Begin MVP Scoping
 
-- Identify technical co-founder or development agency
+- Identify lead engineer or development agency
 - Define absolute minimum feature set:
   - Sign up, profile
   - Browse projects (**1 category** to start -- prove the core loop)
-  - Invest (broker-dealer integration, not just Stripe)
-  - Dashboard (portfolio + impact)
+  - Contribute cash (Stripe integration)
+  - Watch ads to fund projects (ad mediation integration)
+  - Dashboard (watershed balance + impact metrics)
   - No gamification in V1 -- badges and leaderboards come after core is proven
-- Get quotes and timeline estimates ($150-300K range expected)
+- Get quotes and timeline estimates ($100-250K range expected)
 
 **Note:** Full MVP development belongs in Phase 2. Phase 1 is about legal and partnership readiness. Do not start building until the regulatory path is clear.
 
@@ -184,29 +163,30 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 | Criteria | Target |
 |----------|--------|
 | Legal entity established | PBC formed, compliant |
-| SEC pathway clear | Lawyer confirms viability |
-| Broker-dealer partnership | LOI or signed agreement |
+| Money transmission pathway clear | Lawyer confirms approach |
+| Payment processing | Stripe integration confirmed |
 | Nonprofit partners | 3-5 with 5-10 projects ready |
 | Development plan | Scoped, quoted, team identified |
-| Funding secured | $300K+ available for Phase 2 |
+| Funding secured | $200K+ available for Phase 2 |
 
 **GO:** Begin MVP build (Phase 2).
 **NO-GO:** Legal or partnership blockers exist. Reassess structure or pivot.
 
 ---
 
-## Phase 2: MVP Build & Beta (Months 12-18)
+## Phase 2: MVP Build & Beta (Months 8-14)
 
-**Objective:** Build the minimum viable product, integrate with broker-dealer, beta test with 100 users.
+**Objective:** Build the minimum viable product, integrate payment processing and ad network, beta test with 100 users.
 
-### 1. MVP Development ($150-300K)
+### 1. MVP Development ($100-250K)
 
 - Web app (React) -- mobile comes later
 - True minimum features:
-  - Sign up, profile, KYC flow
+  - Sign up, profile
   - Browse and fund projects (1-2 categories)
-  - Invest via broker-dealer integration
-  - Dashboard showing portfolio value + impact metrics
+  - Cash contributions via Stripe
+  - Watch ads to fund projects (AdMob integration)
+  - Dashboard showing watershed balance + impact metrics
   - Subscription billing (Stripe)
 - No gamification, no social features, no leaderboards in V1
 
@@ -214,8 +194,8 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 
 - Recruit 50-100 users from email waitlist
 - Closed beta (invite-only)
-- Focus on: Does the core investment + impact loop work? Do people come back?
-- Key metric: Do beta users make a second investment within 30 days?
+- Focus on: Does the core contribution + impact loop work? Do people come back?
+- Key metric: Do beta users make a second contribution within 30 days?
 - Iterate based on feedback
 
 ### Decision Gate 2.5
@@ -223,7 +203,7 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 | Criteria | Target | Minimum Viable |
 |----------|--------|----------------|
 | Beta users active after 30 days | 50%+ | 30%+ |
-| Second investment made | 40%+ of users | 20%+ |
+| Second contribution made | 40%+ of users | 20%+ |
 | NPS score | >40 | >20 |
 | Core loop functional | No critical bugs | Stable |
 | Subscription willingness | 30%+ would pay $3/mo | 15%+ |
@@ -234,9 +214,9 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 
 ---
 
-## Phase 3: Public Launch (Months 18-24)
+## Phase 3: Public Launch (Months 14-20)
 
-**Objective:** Launch publicly, acquire first 1,000-5,000 users, fund first 3-5 projects. Note: 10,000 users in the first months is aggressive -- 1,000-5,000 is more realistic for a new regulated fintech product.
+**Objective:** Launch publicly, acquire first 1,000-5,000 users, fund first 3-5 projects. Note: 10,000 users in the first months is aggressive -- 1,000-5,000 is more realistic for a new community giving platform.
 
 ### 1. Launch Event
 
@@ -250,7 +230,7 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 
 - Press release distribution
 - Pitch tech media (TechCrunch, VentureBeat)
-- Pitch impact investing media
+- Pitch social impact media
 - Local news (hometown angle)
 - Founder interviews (podcasts, blogs)
 
@@ -279,7 +259,7 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 | Criteria | Target | Minimum Viable |
 |----------|--------|----------------|
 | Users (6 months) | 5,000 | 1,000 |
-| Total invested | $250K+ | $50K+ |
+| Total contributed | $250K+ | $50K+ |
 | Paid subscribers | 5-10% of users | 3%+ |
 | Projects fully funded | 2-3 | 1 |
 | Press coverage | 2+ articles | 1 |
@@ -306,8 +286,8 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 ### 3. Advanced Features
 - Enhanced gamification (collections, seasonal events)
 - Social features (teams, friend challenges)
-- Portfolio customization options
-- Premium subscription tier
+- Watershed deployment options
+- Premium and Impact subscription tiers
 
 ### 4. Performance Marketing
 - Scale paid ads ($50K/month budget)
@@ -326,10 +306,10 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 | Metric | Target |
 |--------|--------|
 | Users | 30,000-75,000 |
-| AUM | $10-26M |
+| Total deployed to projects | $500K-2M |
 | Corporate clients | 2-5 |
 | Fully funded projects | 15-30 |
-| Profitability | Approaching profitability by Year 4 (with ad revenue) |
+| Profitability | Near break-even by Year 3 |
 
 ---
 
@@ -354,16 +334,16 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 
 ### 4. Platform Evolution
 - API for third-party integrations
-- Institutional investor access
-- Impact bonds
-- Secondary market (sell/trade parcels)
+- Corporate white-label impact dashboards
+- International expansion (community grants, microloans)
+- Advanced impact measurement and reporting
 
 ### 5. Exit Strategy Options
 
 | Path | Description |
 |------|-------------|
 | Continue as independent PBC | Stay bootstrapped, mission-focused |
-| Acquisition | Larger fintech acquires (Robinhood, Fidelity) |
+| Acquisition | Larger platform acquires (GoFundMe, PayPal, Block) |
 | Strategic partnership | Deep integration with major platform |
 | IPO | Long-term, if scale justifies |
 
@@ -372,7 +352,7 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 | Metric | Target |
 |--------|--------|
 | Users | 500,000+ |
-| AUM | $500M+ |
+| Total deployed to projects | $10M+ |
 | Revenue | Profitable |
 | Brand | Nationally recognized |
 | Impact | Measurable societal change |
@@ -399,8 +379,8 @@ This is the most critical and most expensive piece. Do not underbudget here -- r
 ### Months 2-3 (If Validation Succeeds)
 
 - [ ] **Commission concept art** -- 5-panel cascade illustration, logo concepts, brand guidelines ($1,000-2,000)
-- [ ] **Legal consultation** -- find and hire securities lawyer, initial consultation ($5-10K)
-- [ ] **Broker-dealer outreach** -- contact Apex, DriveWealth, Alpaca, Betterment
+- [ ] **Legal consultation** -- find and hire fintech/compliance lawyer, initial consultation ($3-5K)
+- [ ] **Payment processing** -- set up Stripe account, explore ad mediation options (AdMob, ironSource)
 - [ ] **Refine value proposition** based on survey results
 
 ### Months 4+ (If Validation Strong)
@@ -439,7 +419,7 @@ If validation is **weak** at any gate:
 |-----|--------|----------------|
 | Email signups | 500+ | 200 |
 | Cost per signup (paid) | <$5 | <$10 |
-| Survey: would invest $10+ | 60%+ | 40%+ |
+| Survey: would contribute $5+ | 60%+ | 40%+ |
 | Survey: would pay $3-6/mo | 40%+ | 25%+ |
 
 ### MVP/Beta Phase
@@ -447,7 +427,7 @@ If validation is **weak** at any gate:
 | KPI | Target | Minimum Viable |
 |-----|--------|----------------|
 | Beta users active (30 day) | 50%+ | 30%+ |
-| Made second investment | 40%+ | 20%+ |
+| Made second contribution | 40%+ | 20%+ |
 | NPS score | >40 | >20 |
 | Would subscribe at $3/mo | 30%+ | 15%+ |
 
@@ -456,7 +436,7 @@ If validation is **weak** at any gate:
 | KPI | Target | Minimum Viable |
 |-----|--------|----------------|
 | Users | 5,000 | 1,000 |
-| Total invested | $250K+ | $50K+ |
+| Total contributed | $250K+ | $50K+ |
 | Paid subscribers | 5-10% | 3%+ |
 | Projects fully funded | 2-3 | 1 |
 | 30-day retention | 30%+ | 20%+ |
@@ -466,7 +446,7 @@ If validation is **weak** at any gate:
 | KPI | Target |
 |-----|--------|
 | Users | 8,000-30,000 |
-| AUM | $2-10M |
+| Total deployed to projects | $200K-1M |
 | MAU | 30%+ |
 | Paid subscriber rate | 8-12% |
 | Annual revenue | $50-200K |
@@ -491,7 +471,7 @@ If validation is **weak** at any gate:
 | Phase | Team Size |
 |-------|-----------|
 | Phase 0 | Solo |
-| Phase 1 | Solo + lawyer + broker-dealer contacts |
+| Phase 1 | Solo + lawyer + nonprofit contacts |
 | Phase 2 | +1-2 developers (contract or co-founder) |
 | Phase 3 | +1-2 more (marketing, operations) |
 | Phase 4 | 5-10 FTE |
@@ -501,7 +481,7 @@ If validation is **weak** at any gate:
 | Already Have | Need to Add |
 |--------------|-------------|
 | Technical infrastructure | Legal/regulatory expertise |
-| Security and systems thinking | Finance/investing domain knowledge |
+| Security and systems thinking | Nonprofit/impact sector knowledge |
 | Product vision | Nonprofit relationships |
 | Project management | Marketing/growth leadership |
 
@@ -513,22 +493,22 @@ If validation is **weak** at any gate:
 
 | Risk | Mitigation |
 |------|------------|
-| SEC determines unregistered securities | Partner with licensed broker-dealer; legal review before launch; compliance-first approach; no guaranteed return promises |
-| State-by-state compliance burden | Start in friendly states; use broker-dealer infrastructure; budget for compliance costs |
+| Money transmission classification | Legal analysis before launch; architecture supports MTL or exemption path; start in favorable states |
+| Charitable solicitation compliance | State-by-state registration plan; budget for compliance across initial launch states |
 
 ### Market Risks
 
 | Risk | Mitigation |
 |------|------------|
 | Major competitor launches similar feature | First-mover advantage; community loyalty; focus on transparency; PBC mission lock |
-| Market downturn reduces investment appetite | Impact allocation maintains value; diversified categories; position as long-term; community keeps users engaged |
+| Economic downturn reduces giving appetite | Free-tier pathways (ads, volunteering) unaffected; community engagement maintains participation; subscription tiers provide value at low price points |
 
 ### Operational Risks
 
 | Risk | Mitigation |
 |------|------------|
 | Nonprofit partner fails or has scandal | Rigorous vetting; third-party verification; regular audits; insurance/reserves |
-| Platform fraud or hacking | SOC 2 compliance; broker-dealer partnership; insurance; regular penetration testing |
+| Platform fraud or hacking | SOC 2 compliance; insurance; regular penetration testing; encrypted payment processing |
 
 ### Financial Risks
 
@@ -545,27 +525,29 @@ If validation is **weak** at any gate:
 
 | Platform | Model | Weakness vs Deluge |
 |----------|-------|-------------------|
-| Acorns | Micro-investing with ESG option (10M+ users) | Not transparent on specific impact; limited to investing |
-| Betterment | Robo-advisor with ESG options | Higher minimums; no specific projects; boring |
-| Public | Social investing with ESG themes | Stock-picking focus; no real impact transparency |
-| Swell | Impact investing platform ($50 min) | Higher barrier; limited engagement |
+| GoFundMe | Individual crowdfunding campaigns (150M+ donors) | No community aggregation; one-time donations; no recurring engagement |
+| DonorsChoose | Fund specific classroom projects (5M donors) | Education only; no free-tier pathway; no microloans; no gamification |
+| Kiva | Microloan platform ($25 min) | No grant funding; no ad-funded pathway; limited engagement; no watershed model |
+| Charity Navigator | Charity vetting and discovery | Directory only; no funding mechanism; no community features |
 
 ### Adjacent Competitors
 
 | Platform | Model | Weakness vs Deluge |
 |----------|-------|-------------------|
-| DonorsChoose | Fund specific classroom projects (5M donors) | Pure charity -- no financial returns; education only |
-| Kiva | Microloan platform ($25 min) | No financial returns for lender; slow repayment |
-| GoFundMe | Crowdfunding for causes | One-time donations; no investment component |
+| Patreon | Creator-focused recurring giving | Individual creators, not community projects; no impact measurement |
+| GiveDirectly | Direct cash transfers to extreme poverty | Narrow focus; no community choice; no project variety |
+| Change.org | Petition-based activism | No funding mechanism; awareness only |
+| VolunteerMatch | Volunteer opportunity matching | No funding integration; no watershed; no impact tracking |
 
 ### Why Deluge Wins
 
 Deluge uniquely combines:
-1. **Accessible investing** (like Acorns) -- $5 minimum
+1. **Zero-barrier entry** (like GoFundMe) -- fund projects with $0 through ads and volunteering
 2. **Transparent impact** (like DonorsChoose) -- specific projects, real updates
 3. **Gamified engagement** (like Strava) -- achievements, leaderboards, social features
+4. **Recycled capital** (like Kiva) -- microloans that come back and get redeployed
 
-No existing platform combines all three.
+No existing platform combines all four.
 
 ---
 
@@ -573,13 +555,11 @@ No existing platform combines all three.
 
 | Term | Definition |
 |------|-----------|
-| AUM | Assets Under Management -- total value of investments on the platform |
 | Cascade | When a project reaches 100% funding; symbolized by waterfall animation |
-| ESG | Environmental, Social, Governance -- investment screening criteria |
-| Impact Allocation | The 15% of each parcel (default) that funds specific projects; adjustable on paid tiers |
+| Contribution | A cash gift to the user's watershed ($1 minimum) |
+| ESG | Environmental, Social, Governance -- corporate impact criteria used for partnership sales |
 | MAU | Monthly Active Users -- users who engage in a given month |
-| Parcel | A single investment unit (minimum $5) |
+| MTL | Money Transmitter License -- state-level regulatory requirement for platforms that move money |
 | PBC | Public Benefit Corporation -- for-profit with legally protected mission |
-| Raindrop | Symbol for an individual user/investment in the cascade metaphor |
-| SIPC | Securities Investor Protection Corporation -- insurance for brokerage accounts |
-| Watershed | A user's complete profile showing all contributions across all categories |
+| Raindrop | Symbol for an individual user/contribution in the cascade metaphor |
+| Watershed | A user's personal impact fund that receives contributions and deploys to projects and loans |

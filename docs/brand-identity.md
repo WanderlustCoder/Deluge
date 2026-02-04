@@ -10,7 +10,7 @@
 - The accumulation of many small drops becoming an unstoppable force
 
 **Why it works:**
-- Captures the core metaphor -- individual investments becoming collective impact
+- Captures the core metaphor -- individual contributions becoming collective impact
 - Unique, ownable, and memorable in the fintech space
 - Biblical/historical resonance (renewal, transformation, new beginning)
 - Natural force imagery (inevitable, powerful, beautiful)
@@ -20,10 +20,10 @@
 
 | Name | Tagline | Notes |
 |------|---------|-------|
-| Humanity | "Invest in What Matters" | Emotionally resonant, broad scope |
-| Together | "Invest in Each Other" | Warm, collaborative, accessible |
-| Rally | "Together We Invest, Together We Rise" | Energetic, movement-oriented |
-| Adam | "Your First Investment in Humanity" | Strong symbolism, origin story |
+| Humanity | "Give to What Matters" | Emotionally resonant, broad scope |
+| Together | "Give to Each Other" | Warm, collaborative, accessible |
+| Rally | "Together We Give, Together We Rise" | Energetic, movement-oriented |
+| Adam | "Your First Gift to Humanity" | Strong symbolism, origin story |
 | Commonwealth | "Wealth for the Common Good" | Brilliant double meaning |
 
 ---
@@ -50,7 +50,7 @@
 
 **Deluge Fund PBC** (Public Benefit Corporation)
 
-- For-profit PBC for the investment platform
+- For-profit PBC for the giving platform
 - Partnership with 501(c)(3) nonprofits for impact projects
 - Hybrid structure ensures mission protection while enabling sustainable profit
 
@@ -82,17 +82,17 @@
 ### Deluge IS:
 
 - **Community-driven** -- the people decide what gets funded, not the platform
-- **Accessible** -- start with $5
+- **Accessible** -- start with $1, or $0 through ads
 - **Transparent** -- see everything
-- **Engaging** -- game mechanics make investing fun
+- **Engaging** -- game mechanics make giving fun
 - **Bottom-up** -- anyone can propose, everyone can rally
 - **Collective** -- together we are powerful
 
 ### Deluge is NOT:
 
 - A curator (we don't pick winners -- the community does)
-- Charity (you build wealth too)
-- Just investing (you create impact too)
+- Charity (it's a platform, not a foundation)
+- Just donating (you see real outcomes, track impact, fund microloans)
 - Complicated (simple, beautiful, intuitive)
 - Exclusive (everyone can participate)
 - Preachy (invitation, not lecture)
@@ -118,16 +118,16 @@ Invitation to join something bigger. Not guilt-tripping or lecturing.
 
 ## The Cascade Metaphor
 
-The central visual and conceptual metaphor that runs through every aspect of the brand. Individual investments are raindrops that accumulate into streams, creeks, rivers, and ultimately cascades.
+The central visual and conceptual metaphor that runs through every aspect of the brand. Individual contributions are raindrops that accumulate into streams, creeks, rivers, and ultimately cascades.
 
 ### Stage 1: RAINDROP
 
 | Aspect | Detail |
 |--------|--------|
-| **Represents** | Individual user, single $5 investment |
+| **Represents** | Individual user, single contribution |
 | **Visual** | Single drop falling, hitting mountain peak |
 | **Emotion** | Personal, intimate, "you are here" |
-| **User experience** | Sign-up, first investment, choosing a cause |
+| **User experience** | Sign-up, first contribution, choosing a project |
 | **Messaging** | "Every deluge starts with a single drop" |
 
 ### Stage 2: STREAM
@@ -196,7 +196,7 @@ The central visual and conceptual metaphor that runs through every aspect of the
 
 | Color | Hex | Usage |
 |-------|-----|-------|
-| Rain Gold | `#FFA000` | Portfolio growth, financial/investment UI. Value, wealth, achievement. |
+| Rain Gold | `#FFA000` | Milestones, achievements, impact highlights. Value, progress, celebration. |
 | Sky Blue | `#42A5F5` | Project cards, impact metrics. Hope, possibility, clarity. |
 
 ### Gradients
@@ -299,7 +299,7 @@ The central visual and conceptual metaphor that runs through every aspect of the
 | Creek | Moderate flow (building energy) |
 | River | Strong rush (powerful presence) |
 | Cascade | Roar with music swell (triumphant) |
-| Investment made | Drop sound |
+| Contribution made | Drop sound |
 | Achievement unlocked | Cascade rush |
 | Milestone hit | Bell + water splash |
 | Navigation | Gentle ripple |
