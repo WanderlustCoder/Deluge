@@ -45,7 +45,7 @@ Without investment/brokerage infrastructure, Deluge avoids the regulatory comple
 2. Which impact categories matter most? (rank: Education, Environment, Innovation, Health, Housing, Arts, Workforce)
 3. What would make you trust this platform? (transparency / third-party audits / known partners / user reviews)
 4. How often would you check your impact? (daily / weekly / monthly / rarely)
-5. Would you pay $3-5/month for premium features? (yes / no / maybe)
+5. Would you watch 3-5 ads/day to fund community projects at no cost to you? (yes / no / maybe)
 6. Would you watch ads to fund projects if it cost you nothing? (yes / no / maybe)
 7. Email address (for waitlist)
 
@@ -99,7 +99,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 | Email signups | 500+ | 200 |
 | Cost per signup (paid) | <$5 | <$10 |
 | Survey: would contribute $5+ | 60%+ | 40%+ |
-| Survey: would pay $3-6/month | 40%+ | 25%+ |
+| Survey: would watch ads to fund projects | 70%+ | 50%+ |
 | Survey completion rate | 50%+ | 30%+ |
 | Organic interest (shares, comments, DMs) | Qualitative | Any signal |
 
@@ -187,7 +187,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
   - Cash contributions via Stripe
   - Watch ads to fund projects (AdMob integration)
   - Dashboard showing watershed balance + impact metrics
-  - Subscription billing (Stripe)
+  - Business listing billing (Stripe)
 - No gamification, no social features, no leaderboards in V1
 
 ### 2. Beta Testing
@@ -206,7 +206,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 | Second contribution made | 40%+ of users | 20%+ |
 | NPS score | >40 | >20 |
 | Core loop functional | No critical bugs | Stable |
-| Subscription willingness | 30%+ would pay $3/mo | 15%+ |
+| Ad-watching willingness | 70%+ would watch ads to fund projects | 50%+ |
 
 **GO:** Public launch (Phase 3).
 **ITERATE:** Core works but needs refinement. Extend beta.
@@ -260,7 +260,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 |----------|--------|----------------|
 | Users (6 months) | 5,000 | 1,000 |
 | Total contributed | $250K+ | $50K+ |
-| Paid subscribers | 5-10% of users | 3%+ |
+| Business listings (enhanced) | 20-30% of listed businesses | 10%+ |
 | Projects fully funded | 2-3 | 1 |
 | Press coverage | 2+ articles | 1 |
 | Monthly Active Users | 35%+ | 25%+ |
@@ -287,7 +287,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 - Enhanced gamification (collections, seasonal events)
 - Social features (teams, friend challenges)
 - Watershed deployment options
-- Premium and Impact subscription tiers
+- Enhanced business directory features and corporate partnership tools
 
 ### 4. Performance Marketing
 - Scale paid ads ($50K/month budget)
@@ -420,7 +420,7 @@ If validation is **weak** at any gate:
 | Email signups | 500+ | 200 |
 | Cost per signup (paid) | <$5 | <$10 |
 | Survey: would contribute $5+ | 60%+ | 40%+ |
-| Survey: would pay $3-6/mo | 40%+ | 25%+ |
+| Survey: would watch ads to fund projects | 70%+ | 50%+ |
 
 ### MVP/Beta Phase
 
@@ -429,7 +429,7 @@ If validation is **weak** at any gate:
 | Beta users active (30 day) | 50%+ | 30%+ |
 | Made second contribution | 40%+ | 20%+ |
 | NPS score | >40 | >20 |
-| Would subscribe at $3/mo | 30%+ | 15%+ |
+| Would watch ads daily to fund projects | 70%+ | 50%+ |
 
 ### Launch Phase (First 6 Months)
 
@@ -437,7 +437,7 @@ If validation is **weak** at any gate:
 |-----|--------|----------------|
 | Users | 5,000 | 1,000 |
 | Total contributed | $250K+ | $50K+ |
-| Paid subscribers | 5-10% | 3%+ |
+| Enhanced business listings | 20-30% of listed businesses | 10%+ |
 | Projects fully funded | 2-3 | 1 |
 | 30-day retention | 30%+ | 20%+ |
 
@@ -448,7 +448,7 @@ If validation is **weak** at any gate:
 | Users | 8,000-30,000 |
 | Total deployed to projects | $200K-1M |
 | MAU | 30%+ |
-| Paid subscriber rate | 8-12% |
+| Business directory conversion | 20-30% of businesses to enhanced |
 | Annual revenue | $50-200K |
 
 ---
@@ -501,7 +501,7 @@ If validation is **weak** at any gate:
 | Risk | Mitigation |
 |------|------------|
 | Major competitor launches similar feature | First-mover advantage; community loyalty; focus on transparency; PBC mission lock |
-| Economic downturn reduces giving appetite | Free-tier pathways (ads, volunteering) unaffected; community engagement maintains participation; subscription tiers provide value at low price points |
+| Economic downturn reduces giving appetite | Free-tier pathways (ads, volunteering) unaffected; community engagement maintains participation; free-tier model means zero barrier to continued participation |
 
 ### Operational Risks
 
@@ -556,7 +556,7 @@ No existing platform combines all four.
 | Term | Definition |
 |------|-----------|
 | Cascade | When a project reaches 100% funding; symbolized by waterfall animation |
-| Contribution | A cash gift to the user's watershed ($1 minimum) |
+| Contribution | A cash gift to the user's watershed ($0.25 minimum) |
 | ESG | Environmental, Social, Governance -- corporate impact criteria used for partnership sales |
 | MAU | Monthly Active Users -- users who engage in a given month |
 | MTL | Money Transmitter License -- state-level regulatory requirement for platforms that move money |

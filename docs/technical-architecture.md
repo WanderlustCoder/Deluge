@@ -60,8 +60,9 @@
 
 | Integration | Purpose | Options |
 |-------------|---------|---------|
-| Payment Processing | Cash contributions, PCI compliance, recurring billing, subscription payments | Stripe |
+| Payment Processing | Cash contributions, PCI compliance, business directory billing, corporate campaign payments | Stripe |
 | Payout / Disbursement | Microloan disbursements to borrowers | Stripe Connect or PayPal Payouts |
+| Custodial Fund Management | Aggregate watershed balances held in FDIC-insured sweep accounts, money market funds, or short-term Treasuries. Interest earned on custodial pool funds platform operations. User principal always available for deployment or withdrawal. | Bank sweep accounts (IntraFi/CDARS for multi-bank FDIC coverage) |
 
 ### Impact / Project Management
 
@@ -148,8 +149,6 @@ Planned for Phase 3-4. Requires becoming an approved data furnisher, implementin
     notifications: { email, push, sms }
     privacy: { public_profile, show_impact }
   }
-  subscription_tier: enum (free, basic, plus, premium, impact)
-  subscription_started_at: timestamp | null
   total_contributed: decimal
   total_impact: decimal
   achievements: [badge_ids]
@@ -168,9 +167,7 @@ Planned for Phase 3-4. Requires becoming an approved data furnisher, implementin
   amount: decimal
   type: enum (cash, ad_funded, business_card, volunteer_credit, referral_credit, corporate_match)
   timestamp: timestamp
-  project_id: uuid | null           // target project (null if watershed-only, e.g., cash contributions)
-  watershed_credit: decimal         // amount credited to user's watershed (100% for cash)
-  project_credit: decimal           // amount credited directly to project (for ad/card views)
+  watershed_credit: decimal         // amount credited to user's watershed (100% for cash, 60% for ads/cards)
   status: enum (pending, complete, refunded)
 }
 ```
@@ -371,14 +368,13 @@ Private milestones are never exposed through public API endpoints, leaderboards,
   ecpm: decimal               // what the advertiser paid (per 1000 views)
   gross_revenue: decimal      // total ad revenue for this view
   platform_cut: decimal       // Deluge's 40%
-  project_credit: decimal     // 60% -- goes directly to the user's chosen project
-  project_id: uuid            // which project received the funds
+  watershed_credit: decimal   // 60% -- credited to the user's watershed
   verified: boolean           // anti-fraud verification passed
   status: enum (pending, credited, rejected)
 }
 ```
 
-Ad revenue does not enter the user's watershed. The user's 60% share is credited directly to their chosen impact project. This keeps ad-funded giving immediate and visible — users see their chosen project's funding bar move in real-time.
+Ad revenue enters the user's watershed. The user's 60% share is credited to their watershed balance, where they can deploy it to grants or microloans like any other contribution.
 
 ### Business Card Listing
 
@@ -611,7 +607,7 @@ Business card views are lower value per-view ($0.001-0.003) than video ads ($0.0
 }
 ```
 
-The watershed is the user's personal impact fund. All giving capital flows through the watershed: 100% of cash contributions, referral credits, community grant volunteer credits, corporate ad matching, Impact tier Deluge credits, and loan repayments all flow in. Grants and loan funding flow out. Ad revenue and business card browsing revenue flow directly to projects, not through the watershed. The balance represents deployable impact capital at any given time.
+The watershed is the user's personal impact fund. All giving capital flows through the watershed: cash contributions (100%), ad revenue (60% of each view), business card browsing revenue, referral credits, community grant volunteer credits, corporate ad matching, and loan repayments all flow in. Grants and loan funding flow out. Every contribution pathway feeds the same watershed. The balance represents deployable impact capital at any given time.
 
 ### Microloan
 
@@ -1106,7 +1102,7 @@ All data is classified into tiers that determine encryption, access controls, re
 | Tier | Data Types | Encryption | Access | Retention | Audit |
 |------|-----------|-----------|--------|-----------|-------|
 | **Critical** | Bank account numbers (for payouts), payment processor API keys, microloan disbursement credentials | AES-256 + application-level encryption. Never logged. Never cached. | Service-to-service only. No human access without dual-approval. | As required by law (typically 7 years for financial records). | Every access logged with requester identity, timestamp, and purpose. |
-| **Sensitive** | Contribution history, microloan payment records, watershed balances, referral chains, subscription billing | AES-256 at rest. Encrypted in application logs. | Authenticated users (own data only). Support staff with audit trail. | Account lifetime + 3 years post-deletion. | Access logged. Quarterly review of access patterns. |
+| **Sensitive** | Contribution history, microloan payment records, watershed balances, referral chains, business directory billing | AES-256 at rest. Encrypted in application logs. | Authenticated users (own data only). Support staff with audit trail. | Account lifetime + 3 years post-deletion. | Access logged. Quarterly review of access patterns. |
 | **Personal** | Name, email, phone, physical address, GPS coordinates (community grants), device fingerprints | AES-256 at rest. | Authenticated users (own data only). Support + moderation staff. | Account lifetime + 1 year post-deletion. GPS data: 90 days after grant approval. | Standard logging. |
 | **Public** | Project descriptions, community names, business card listings, achievement badges, leaderboard positions | Standard database encryption. | Anyone (read). Authenticated users (write, own content). | Indefinite. User-deleted content removed within 30 days. | Standard logging. |
 
@@ -1244,10 +1240,10 @@ Community grants require GPS-tagged, timestamped photos as evidence. This create
 ## FAQ (Technical)
 
 **Q: Is my money safe?**
-Cash contributions go directly to your personal watershed or to verified projects. Watershed funds are held in Deluge's platform accounts (Stripe) and are available for deployment to grants and microloans. Once deployed to a project, funds are disbursed to the verified nonprofit or borrower. All transactions are encrypted and auditable.
+All contributions -- cash, ad revenue, referral credits, volunteer credits -- flow into your personal watershed. Watershed funds are held in Deluge's platform accounts (Stripe) and are available for deployment to grants and microloans. Once deployed to a project, funds are disbursed to the verified nonprofit or borrower. All transactions are encrypted and auditable.
 
 **Q: Can I get my money back?**
-Watershed funds that have not yet been deployed can be withdrawn. Once you deploy funds to a grant project or fund a microloan, those funds are committed. Microloan funds are returned to your watershed as the borrower repays ($0.25 per share). Ad-funded and volunteer-credit contributions are non-reversible.
+Watershed funds that have not yet been deployed can be withdrawn (cash contributions only -- ad-earned and credit-based watershed funds are non-withdrawable). Once you deploy funds to a grant project or fund a microloan, those funds are committed. Microloan funds are returned to your watershed as the borrower repays ($0.25 per share).
 
 **Q: How do you choose projects?**
 We partner with verified 501(c)(3) nonprofits. Each project goes through vetting: financial review, impact measurement plan, and ongoing reporting requirements. Full details are visible before contributing.
@@ -1256,7 +1252,7 @@ We partner with verified 501(c)(3) nonprofits. Each project goes through vetting
 Projects have funding deadlines. If a project doesn't reach its goal, your contribution is redirected to the next most-popular project in that category, or you can manually choose a different project.
 
 **Q: How do you make money?**
-A flat monthly subscription ($0-25/month depending on tier), ad revenue (platform keeps 40% of ad revenue from users watching ads to fund community projects), business card listing fees, and corporate ESG partnerships. No per-transaction fees on contributions. All fees are transparent, including exactly how much of each ad view goes to projects.
+Ad revenue (platform keeps 40% of ad revenue from users watching ads to fund community projects), business directory fees (enhanced listings for local businesses), custodial float income (interest earned on aggregate watershed balances held in FDIC-insured accounts -- user principal is always protected and available), corporate ESG partnership fees, microloan servicing fees, and cascade sponsorship. No subscription fees and no per-transaction fees on contributions. All economics are transparent, including exactly how much of each ad view goes to projects and how much custodial interest is earned.
 
 **Q: Is this a charity?**
 Deluge is a platform that facilitates community giving and impact lending. Cash contributions fund verified nonprofit projects through your watershed. You can also watch ads, browse local business cards, or volunteer to generate project funding without spending money. Microloans are repaid to your watershed, creating a cycle of redeployable impact capital.

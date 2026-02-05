@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand Colors */
+  --color-ocean: #0D47A1;
+  --color-ocean-light: #1565C0;
+  --color-ocean-dark: #0A3680;
+  --color-teal: #00897B;
+  --color-teal-light: #00A693;
+  --color-teal-dark: #006D63;
+  --color-foam: #FAFAFA;
+  --color-storm: #455A64;
+  --color-storm-light: #607D8B;
+  --color-gold: #FFA000;
+  --color-gold-light: #FFB300;
+  --color-sky: #42A5F5;
+  --color-sky-light: #64B5F6;
+  --color-water-start: #E3F2FD;
+  --color-water-end: #0D47A1;
+
+  /* Typography */
+  --font-heading: "Montserrat", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* Base styles */
+body {
+  font-family: var(--font-body);
+  color: var(--color-storm);
+  background-color: var(--color-foam);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Water gradient background utility */
+.bg-water-gradient {
+  background: linear-gradient(180deg, var(--color-water-start) 0%, var(--color-ocean) 100%);
+}
+
+.bg-cascade-gradient {
+  background: linear-gradient(135deg, var(--color-sky) 0%, var(--color-teal) 100%);
+}
+
+/* Text gradient utility */
+.text-gradient-ocean {
+  background: linear-gradient(135deg, var(--color-ocean) 0%, var(--color-teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

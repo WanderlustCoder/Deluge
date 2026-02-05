@@ -30,13 +30,13 @@ People naturally want to collaborate and contribute, but they face connected pro
 2. **Anyone can propose a project** -- community members, nonprofits, local organizations, and individuals submit projects they want funded. Volunteers can pick up community grant projects for watershed credit.
 3. **Communities rally behind what they believe in** -- members promote projects, share them, and build momentum. When enough people care, the funding follows.
 4. **Contribute in the way that works for you:**
-   - **Give cash** ($1 minimum) -- fund the projects you believe in directly
+   - **Give cash** ($0.25 minimum) -- fund the projects you believe in directly
    - **Watch ads** -- donate your attention to fund projects with $0 out of pocket
    - **Browse local businesses** -- every view of a community business card funds projects in your area
    - **Volunteer** -- complete community grant projects and earn watershed credit for your effort
    - **Refer friends** -- earn watershed credit for every friend who joins and stays active
 5. **Track everything** -- see exactly where every dollar and every ad view goes, with real-world outcome reporting from funded projects
-6. Platform costs covered by **flat monthly subscription** ($0-12/month, tiered) and ad revenue
+6. Platform costs covered by **ad revenue, business directory fees, custodial float income, corporate partnerships, and microloan servicing** — individuals never pay
 
 ### The Role of Deluge
 
@@ -203,18 +203,19 @@ Microloans add regulatory complexity. By deferring to Year 2, Deluge can launch 
 
 | Stream | Description | When |
 |--------|-------------|------|
-| Tiered subscriptions | $0/3/7/12 per month | Day 1 |
+| Business directory (enhanced listings) | $15-25/month per business | Market launch |
 | Ad revenue | Platform keeps 40% of ad revenue; 60% goes directly to community projects | Day 1 |
 | Corporate ESG programs | Impact matching funds, white-label solutions ($10-50K/year) | Year 2+ |
 | Microloan servicing fees | 2% of scheduled payments | Year 2+ (when microloans launch) |
+| Custodial float income | Interest earned on aggregate watershed balances held in FDIC-insured accounts. User principal always protected. | Day 1 |
 
 **Ad-funded impact:** Users can watch video ads or browse local business cards to fund community projects directly. "Can't give cash? Donate your attention instead." Video ads: $0.008-0.025/view. Business card views: $0.001-0.003/view (higher volume). Deluge keeps 40%, remaining 60% goes directly to the user's chosen impact project. Corporate matching funds can amplify ad contributions up to 10x during campaigns.
 
 **Free-tier pathways:** Referral credits, community grant volunteering, and corporate ad matching give free-tier users realistic earning potential of $13-31/month in watershed capital -- enough to fund a microloan contribution within the first month.
 
-**Path to profitability (base scenario):** With dramatically lower legal and engineering costs, profitability is achievable around Year 3-4 with ~100-150K users. Total capital needed drops to approximately $400-700K.
+**Path to profitability (base scenario):** Year 1 is founder-built with AI tools (~$14K total cost, break-even). After validating the core loop with ~3K users, a seed round ($150-300K) funds Year 2 growth. Year 4 is solidly profitable at ~75K users. Total external capital needed: approximately $150-300K.
 
-**Key economic risk:** Subscription conversion. If users won't pay $3-12/month for a giving platform, the model needs to lean harder on ad revenue and corporate partnerships. Subscription value must be clearly differentiated from the free tier.
+**Key economic risk:** Ad engagement. If users don't form a daily ad-watching habit (3-5 ads/day target), the largest revenue stream underperforms. Business directory and corporate partnerships provide diversification but take longer to scale.
 
 See [Business Model](business-model.md) for full details, projections, and unit economics.
 
@@ -276,7 +277,7 @@ The founder handles moderation, project verification, and community management a
 |------|------|-------|---------|
 | 1-2 additional engineers | Full-time | Business card directory, community grants, mobile performance, microloan system | > 10K users |
 | Dedicated moderator | Full-time | Project verification, content moderation, community grant oversight | > 10K users |
-| Operations | Full-time | Subscription billing, ad revenue reconciliation, reporting | > 20K users or first B2B client |
+| Operations | Full-time | Ad revenue reconciliation, business directory management, reporting | > 20K users or first B2B client |
 | Nonprofit / impact partnerships | Full-time | Project sourcing, nonprofit relationships, impact verification, corporate ESG sales | > 30K users |
 
 #### Phase 4 -- Scale (75K-250K users, 12-16 FTE)
@@ -304,10 +305,10 @@ At 12-16 FTE (Year 4-5 target):
 
 | Factor | Investment-Platform Model | Giving-Only Model |
 |--------|--------------------------|-------------------|
-| Technical co-founder | Required (fintech experience) | Not required (strong full-stack engineer sufficient) |
-| Legal costs (Year 1) | $107-230K | $32-93K |
-| Total capital to profitability | $0.9-1.2M | $400-700K |
-| Team size at scale | 15-20 FTE | 12-16 FTE |
-| Time to MVP | 6-9 months | 3-5 months |
+| Technical co-founder | Required (fintech experience) | Not required (founder builds MVP with AI tools) |
+| Legal costs (Year 1) | $107-230K | $3-8K (essentials only, founder-built path) |
+| Total capital to profitability | $0.9-1.2M | $150-300K (seed round after Year 1 validation) |
+| Team size at scale | 15-20 FTE | 8-12 FTE |
+| Time to MVP | 6-9 months | 2-4 months (AI-assisted development) |
 | Regulatory complexity | High (SEC, FINRA, state securities, money transmission) | Moderate (money transmission, charitable solicitation) |
 | Hiring difficulty | High (fintech talent is expensive and scarce) | Moderate (community platform talent is more available) |

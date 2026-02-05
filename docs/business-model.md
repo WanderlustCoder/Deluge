@@ -10,7 +10,7 @@ The target user is the person who donates to every GoFundMe in their feed, volun
 
 ### How It Works
 
-1. **Users contribute** -- cash ($1 minimum), or attention (ads, business cards, volunteering, referrals)
+1. **Users contribute** -- cash ($0.25 minimum), or attention (ads, business cards, volunteering, referrals)
 2. **Contributions flow to the watershed** -- each user's personal impact fund
 3. **Users deploy from their watershed** -- to community projects (one-way grants) or microloans (recycling capital)
 4. **Projects cascade** -- when fully funded, the project is executed, verified, and reported
@@ -18,7 +18,7 @@ The target user is the person who donates to every GoFundMe in their feed, volun
 
 ### Why This Model Works
 
-Individual giving is diffuse and invisible. $10 to a GoFundMe disappears into a total and the giver never knows what happened. Deluge concentrates small contributions from many people into visible, verifiable outcomes. One person watching 3 ads a day contributes $0.027 to a project. 10,000 people doing the same thing contribute $97,200/year -- from attention alone.
+Individual giving is diffuse and invisible. $10 to a GoFundMe disappears into a total and the giver never knows what happened. Deluge concentrates small contributions from many people into visible, verifiable outcomes. One person watching all 30 daily ads earns roughly $0.27 for their watershed -- enough to fund a project on day one. 10,000 people doing the same thing contribute $985,500/year -- from attention alone.
 
 This is the raindrop-to-river thesis: individual contributions are small, but collective and persistent giving creates measurable community impact. The platform's job is to make the collective visible and to make giving easy enough that people do it daily, not just when a GoFundMe shows up in their feed.
 
@@ -33,37 +33,61 @@ This simplification is deliberate. The giving side -- communities, projects, cas
 
 ---
 
-## Fee Structure: Tiered Subscriptions + Ad Revenue
+## Fee Structure: Free for Individuals, Revenue from B2B
 
-No per-transaction fees. Revenue comes from subscriptions, ad revenue, and corporate partnerships.
+No subscription fees. No per-transaction fees. Every dollar a user contributes goes to their watershed or directly to projects. Deluge is free for all individual users — always.
 
-### Subscription Tiers
+Revenue comes from the entities that benefit from Deluge's engaged community: businesses that want local visibility, corporations that want ESG impact, and the platform's own ad and lending operations.
 
-| Tier | Price | Features |
-|------|-------|----------|
-| **Free** | $0/month | Watch ads to fund projects, browse business cards, basic community features, $1 minimum cash contribution |
-| **Deluge Basic** | $3/month | 1.5x ad impact multiplier, basic impact analytics, project following, notification preferences, ad-free browsing option |
-| **Deluge Plus** | $5/month | 2x ad impact multiplier, advanced impact analytics, priority project access, community creation tools, enhanced project discovery |
-| **Deluge Premium** | $12/month | Everything in Plus, 3x ad impact multiplier, family accounts (up to 4), tax documentation tools, white-glove support, early access to features |
-| **Deluge Impact** | $25/month | Everything in Premium, $10/month Deluge-funded watershed credit, enhanced impact reporting and certification, named recognition on funded projects |
+### Revenue Sources
 
-**Ad impact multiplier explained:** Paid subscribers' ad views generate more impact for projects. When a Basic subscriber watches an ad, their chosen project receives 1.5x the base contribution instead of 1x. The extra comes from a portion of the subscription revenue -- your subscription directly amplifies your attention-funded giving.
+| Source | Description | Pricing |
+|--------|-------------|---------|
+| **Video ad revenue** | Platform keeps 40% of ad revenue; 60% goes to user's watershed. Ad values vary by advertiser, market, and format. Users can watch up to 30 ads/day, enough to reach the $0.25 minimum funding threshold on day one. | ~$0.008-0.025 per view (eCPM-dependent); 30/day cap |
+| **Business directory (enhanced listings)** | Free basic listing for all businesses. Paid tier adds featured placement, analytics dashboard, photo gallery, project sponsorship badge | Free basic / $15-25/month enhanced |
+| **Corporate campaign management** | Management fee for running matching fund campaigns (setup, branding, impact reporting, distribution) | 10-15% of matching fund commitment |
+| **Microloan servicing fees** | 2% of each scheduled loan repayment, locked at origination | 2% per payment |
+| **Cascade sponsorship** | Businesses or corporations co-brand the cascade celebration when a project hits 100% funding | $100-500 per cascade |
+| **Notification sponsorship** | Hyperlocal business placement in high-engagement push notifications (e.g., "90% funded — 3 blocks from Joe's Coffee") | Priced per-market, per-notification tier |
+| **Institutional partnerships** | White-label platform for cities/universities, aggregate impact data for foundations, financial institution partnerships for microloan borrowers | $10-50K/year per partnership |
+| **Custodial float income** | Interest earned on aggregate watershed balances held in FDIC-insured accounts, money market funds, or short-term Treasuries. User principal is always protected and available. | Market rate (~4-5% at current rates) |
 
-**Multiplier economics (per ad view, base eCPM):**
+### Custodial Float Income
 
-| Tier | Per-Ad to Project | Extra Funded by Subscription | Monthly Cost at 5 ads/day |
-|------|-------------------|------------------------------|---------------------------|
-| Free | $0.009 | -- | -- |
-| Basic (1.5x) | $0.0135 | $0.0045 | $0.68 of $3.00 subscription |
-| Plus (2x) | $0.018 | $0.009 | $1.35 of $5.00 subscription |
-| Premium (3x) | $0.027 | $0.018 | $2.70 of $12.00 subscription |
-| Impact (3x) | $0.027 | $0.018 | $2.70 of $25.00 subscription |
+Every dollar in a user's watershed sits in Deluge's custody until the user deploys it to a project or loan. While those funds are idle, Deluge holds the aggregate balance in safe, liquid instruments (FDIC-insured bank sweep accounts, money market funds, or short-term U.S. Treasuries) and earns interest on the pool.
 
-Multiplier costs are easily covered by subscription revenue, even at maximum daily ad consumption (10 ads/day: Basic costs $1.35 of $3.00; Premium costs $5.40 of $12.00).
+**How it works:**
+- User deposits $25 into their watershed. The $25 is always theirs -- available to deploy or withdraw at any time.
+- Deluge pools all watershed balances into custodial accounts that earn interest.
+- Interest belongs to Deluge (the custodian), not the user. This is standard practice -- PayPal, Venmo, Cash App, and Stripe all earn float on customer funds the same way.
+- User principal is never at risk. Funds are held in FDIC-insured instruments with sweep arrangements across multiple banks to stay within coverage limits.
+
+**Revenue scales automatically with user growth:**
+
+| Aggregate Pool | Annual Interest (4.5%) | Annual Interest (2%) | Annual Interest (0.5%) |
+|---------------|----------------------|---------------------|----------------------|
+| $160K (Year 1) | $7K | $3.2K | $800 |
+| $2.6M (Year 3) | $118K | $52K | $13K |
+| $11.25M (Year 5) | $506K | $225K | $56K |
+
+**The transparency commitment:** Unlike PayPal and Venmo (who bury this in fine print), Deluge discloses custodial float income prominently -- on the platform dashboard, in the annual transparency report, and in plain language: *"Your watershed balance funds projects when you deploy it, and keeps the platform free while it sits. Every dollar works twice."*
+
+**Interest rate risk:** At current rates (~4.5%), this is a meaningful stream. In a low-rate environment (0.1-0.5%), it's nearly zero. Model conservatively and treat high-rate periods as upside.
+
+### Business Directory Economics
+
+The business directory is designed to be a significant revenue engine, not a minor feature:
+
+| Listing Tier | Monthly Fee | Features |
+|-------------|------------|----------|
+| **Basic** | Free | Name, category, description (50 words), one photo, location pin, standard browse placement |
+| **Enhanced** | $15-25/month | Everything in Basic + featured placement in browse feeds, analytics dashboard (views, saves, recommendations), photo gallery, ability to publicly sponsor a project ("Views of our card fund the Elm Street playground"), "Deluge Community Partner" badge for storefront/website |
+
+At 200 businesses across initial markets paying $20/month average: $48K/year. At 2,000 businesses: $480K/year. Business directory revenue scales with geographic expansion and is stickier than ad revenue.
 
 ### Ad-Funded Impact
 
-Users can watch video ads to fund community projects directly. Ad revenue goes straight to the projects they choose. This gives every user a way to contribute to their community, even with $0 in cash.
+Users can watch video ads to grow their watershed balance. Ad revenue enters the watershed like any other contribution -- the user decides how to deploy it (grants, loans, or hold). This gives every user a way to build impact capital, even with $0 in cash.
 
 **"Can't give money? Donate your attention instead."**
 
@@ -71,7 +95,7 @@ Users can watch video ads to fund community projects directly. Ad revenue goes s
 1. User watches a 30-second video ad
 2. Advertiser pays Deluge (platform earns ad revenue)
 3. Deluge keeps 40% for platform operations
-4. Remaining 60% goes directly to the user's chosen impact project
+4. Remaining 60% is credited to the user's watershed
 
 **Economics per ad view (conservative):**
 
@@ -79,23 +103,22 @@ Users can watch video ads to fund community projects directly. Ad revenue goes s
 |--------|-------------|------|-----------|
 | Advertiser pays Deluge (eCPM) | $8 CPM ($0.008/view) | $15 CPM ($0.015/view) | $25 CPM ($0.025/view) |
 | Deluge keeps (platform margin) | 40% ($0.0032) | 40% ($0.006) | 40% ($0.01) |
-| Credited to project | 60% ($0.0048) | 60% ($0.009) | 60% ($0.015) |
+| Credited to watershed | 60% ($0.0048) | 60% ($0.009) | 60% ($0.015) |
 
-**Transparency note:** Deluge must clearly disclose how the ad revenue is split. "$0.009 from this ad went to [Project Name]. Deluge kept $0.006 to run the platform." This is the opposite of exploitative models that obscure their economics.
+**Transparency note:** Deluge must clearly disclose how the ad revenue is split. "$0.009 from this ad was added to your watershed. Deluge kept $0.006 to run the platform." This is the opposite of exploitative models that obscure their economics.
 
 **Caps and controls:**
 
 | Control | Detail |
 |---------|--------|
 | Daily cap | 10 ads per user per day |
-| Monthly max to projects (base) | ~$2.70/month (10 ads/day x 30 days x $0.009) |
+| Monthly max to watershed (base) | ~$2.70/month (10 ads/day x 30 days x $0.009) |
 | Streak bonuses (future) | 7-day streak = 1.25x, 30-day = 1.5x |
-| Paid tier multiplier | Basic subscribers get 1.5x ad impact ($0.0135/view to projects) |
 | Anti-fraud | CAPTCHA, pattern detection, device fingerprinting, account verification |
 
-**What this means for projects (per user):**
+**What this means per user (watershed growth from ads):**
 
-| Usage Pattern | Monthly to Projects | Annual to Projects |
+| Usage Pattern | Monthly to Watershed | Annual to Watershed |
 |--------------|--------------------|--------------------|
 | Casual (2 ads/day) | $0.54 | $6.48 |
 | Regular (5 ads/day) | $1.35 | $16.20 |
@@ -103,13 +126,15 @@ Users can watch video ads to fund community projects directly. Ad revenue goes s
 
 **What this means collectively (the real story):**
 
-| Users Watching Ads | Avg Views/Day | Monthly to Projects | Annual to Projects |
+| Users Watching Ads | Avg Views/Day | Monthly to Watersheds | Annual to Watersheds |
 |-------------------|--------------|--------------------|--------------------|
 | 1,000 | 3 | $810 | $9,720 |
 | 10,000 | 3 | $8,100 | $97,200 |
 | 50,000 | 3 | $40,500 | $486,000 |
 
-These are small numbers per person. The value is in the collective: 10,000 users watching 3 ads a day funds nearly $100K in projects annually -- from attention alone, no cash required. This is the raindrop-to-river effect applied to advertising revenue.
+These are small numbers per person. The value is in the collective: 10,000 users watching 3 ads a day adds nearly $100K to watersheds annually -- deployable to grants or loans, from attention alone, no cash required. This is the raindrop-to-river effect applied to advertising revenue.
+
+**The $0.25 connection:** The platform's universal unit of participation is $0.25 -- one microloan share, one meaningful grant or loan contribution. At base ad rates ($0.009/view to watershed), a user watching 5 ads per day reaches $0.25 in about 6 days. Under 5 minutes a day of attention, and you can fund a loan share or contribute to a project in under a week. No money required. Combined with business card browsing (~$0.0012/view to watershed), that timeline shrinks further: 3 video ads + 30 business card views daily (~3 minutes) reaches $0.25 in about 4 days. This means the person working two jobs with nothing left over can still participate in the same projects and loans as cash contributors. The contribution source differs, but the participation is equal -- the school being built doesn't distinguish, and neither does the bakery loan.
 
 **What this means for Deluge (platform revenue from ads):**
 
@@ -119,9 +144,9 @@ These are small numbers per person. The value is in the collective: 10,000 users
 | 10,000 | 3 | $180 | $65,700 |
 | 50,000 | 3 | $900 | $328,500 |
 
-Ad revenue is a meaningful supplement, not a primary revenue driver. Don't build the business model around it.
+Ad revenue is the largest single platform revenue stream. It scales linearly with active users and daily ad engagement.
 
-**Why ad revenue goes directly to projects:** The per-ad amount ($0.009 at base) is too small to be meaningful in isolation. But pooled across thousands of users and concentrated into specific projects, ad revenue becomes a real funding source. This aligns with the platform's core thesis: individual drops become collective force. Ad revenue flows directly to user-chosen projects rather than through the watershed, keeping the attention-to-impact pathway simple and immediate.
+**Why ad revenue flows through the watershed:** Ad revenue enters the user's watershed like any other contribution. The user decides where to deploy it -- a grant project, a microloan, or hold it for later. This makes ad-watching a true pathway to full platform participation: a user with no cash can build watershed capital through attention and fund a microloan share just like a cash contributor. The watershed is the universal funnel. Money is money once it's there, regardless of whether it came from cash, ads, volunteering, or referrals.
 
 ### Local Business Directory (Community Business Cards)
 
@@ -174,7 +199,7 @@ Combined with video ads (5/day = $1.35/month), an active browser generates $3.15
 | Model | Detail |
 |-------|--------|
 | Free listings | Basic listing is free -- removes all barriers for small businesses |
-| Premium listings (future) | Enhanced visibility, featured placement, analytics -- small monthly fee ($5-15/month) |
+| Enhanced listings | Featured placement, analytics dashboard, photo gallery, project sponsorship badge ($15-25/month) |
 | Sponsored projects | Businesses can link their listing to a specific project: "Views of our listing fund Lincoln Elementary's garden" |
 
 **Value to the business:**
@@ -203,9 +228,9 @@ Local business cards require enough users and businesses in a geography to be us
 
 ## Free-Tier Participation Pathways
 
-Ad-funded impact gives every user a way to contribute, but at $2.70/month (10 ads/day, base scenario), it takes over 7 months for a free-tier user to accumulate enough watershed capital to fund a single microloan contribution. That's too slow. A user who can't contribute cash needs a realistic on-ramp to meaningful participation within their first month or two.
+Ad-funded impact gives every user a way to contribute, but at $2.70/month (10 ads/day, base scenario), it takes over 7 months for a user to accumulate enough watershed capital to fund a single microloan contribution. That's too slow. A user who can't contribute cash needs a realistic on-ramp to meaningful participation within their first month or two.
 
-Three additional mechanisms address this: referral credits, community grants (sweat equity), and corporate ad matching. Each uses a different funding source and serves a different role in the free-tier experience.
+Three additional mechanisms address this: referral credits, community grants (sweat equity), and corporate ad matching. Each uses a different funding source and serves a different role in the user experience.
 
 ### Referral Credits
 
@@ -451,24 +476,45 @@ Even after referral credits dry up, the combination of community grants and corp
 
 ## All Revenue Streams
 
-### Primary: Subscriptions
+### Primary: Ad Revenue
 
-| Scenario | Free Users | Paid Conversion | Avg. Monthly Fee |
-|----------|-----------|-----------------|-----------------|
-| Conservative | 85% | 5% | $4.50 (weighted avg) |
-| Base | 75% | 10% | $5.00 (weighted avg) |
-| Optimistic | 65% | 15% | $5.50 (weighted avg) |
+Video ads are the largest single revenue stream. Users watch 15-30 second ads to fund their chosen project. Deluge keeps 40% ($0.003-0.010 per view); 60% goes directly to the project ($0.005-0.015 per view).
 
-Comparable subscription apps convert 8-12% of signups to paid. Plan around 5-10%.
+Ad revenue scales linearly with active users and daily ad engagement. At 5 ads/day average among active ad-watchers (50% of MAU):
 
-### Secondary: Attention-Funded Revenue (Video Ads + Business Cards)
+| Users | Active Ad-Watchers (50%) | Weekly to Deluge (40%) | Annual to Deluge |
+|-------|--------------------------|----------------------|-----------------|
+| 10,000 | 5,000 | ~$830 | ~$43K |
+| 50,000 | 25,000 | ~$4,150 | ~$216K |
+| 100,000 | 50,000 | ~$8,300 | ~$432K |
+| 500,000 | 250,000 | ~$41,500 | ~$2.16M |
 
-Platform keeps ~40% of all attention-funded revenue. The remaining 60% goes directly to community impact projects chosen by users. This includes both video ad views ($0.006/view to Deluge at base) and business card browsing ($0.0008/view to Deluge at base). Video ads generate more per-view; business cards generate more volume per session. Combined, attention-funded revenue reaches $1.7M by Year 5 at base estimates -- 40% of total revenue and the largest revenue category as a group, just behind subscriptions individually.
+**Key risks:** eCPM fluctuation (ad rates vary by season, market conditions, and advertiser demand), user engagement drop-off (if daily ad-watching habit doesn't form), and ad network policy changes.
+
+### Primary: Business Directory
+
+Enhanced business listings provide predictable, recurring monthly revenue tied to geographic expansion rather than individual user behavior.
+
+Revenue scales with number of markets and business density per market. Target: 50+ businesses per active market, 20-30% conversion to enhanced listings.
+
+| Markets | Businesses | Enhanced (25%) | Monthly Revenue | Annual Revenue |
+|---------|-----------|---------------|-----------------|----------------|
+| 3 | 150 | 38 | $760 | ~$9K |
+| 10 | 500 | 125 | $2,500 | ~$30K |
+| 25 | 1,250 | 313 | $6,250 | ~$75K |
+| 50 | 2,500 | 625 | $12,500 | ~$150K |
+| 100 | 5,000 | 1,250 | $25,000 | ~$300K |
+
+### Secondary: Attention-Funded Revenue (Business Card Browsing)
+
+In addition to video ads, business card browsing generates project funding at ~$0.0008/view to Deluge (base). Lower per-view than video ads but higher volume per session. Business card browsing revenue is supplementary and grows as the directory expands to more markets.
 
 ### Year 2+: B2B Revenue
 
-- Corporate ESG programs: white-label solutions ($10K-50K/year per client)
-- Corporate Impact Matching Funds: corporate partners commit matching funds ($10K-50K per campaign) that amplify ad-funded contributions for matched projects. See "Corporate Ad Matching" under Free-Tier Participation Pathways for full economics.
+- Corporate campaign management: management fees (10-15%) for running matching fund campaigns ($10K-50K per campaign)
+- Corporate Impact Matching Funds: corporate partners commit matching funds that amplify ad-funded contributions for matched projects. See "Corporate Ad Matching" under Free-Tier Participation Pathways for full economics.
+- Cascade/notification sponsorship: businesses co-brand cascade celebrations and hyperlocal push notifications
+- Institutional partnerships: white-label platform for cities/universities, aggregate impact data for foundations ($10-50K/year per partnership)
 - Realistic Year 2 target: 2-3 clients, not 5-10
 - Institutional partnerships take time to develop -- don't count on them early
 
@@ -508,24 +554,18 @@ There are two types of contributions on Deluge: cash contributions and attention
 |-------------|--------|-------------|
 | User's Watershed | $10.00 (100%) | Enters the user's personal impact fund. User deploys to projects or microloans. |
 
-No fees deducted from cash contributions. Minimum contribution: $1. Subscription covers platform costs separately.
+No fees deducted from cash contributions. Minimum contribution: $0.25. Platform costs are covered by B2B revenue streams (business directory, corporate partnerships) and ad revenue — never by individual user fees.
 
 ### Attention-Funded Contribution (1 ad view, base scenario)
 
 | Allocation | Amount | What Happens |
 |------------|--------|-------------|
 | Deluge (platform) | $0.006 (40%) | Covers ad infrastructure, fraud prevention, platform costs |
-| Impact Project | $0.009 (60%) | Goes directly to the user's chosen community project |
+| User's Watershed | $0.009 (60%) | Enters the user's personal impact fund. User deploys to projects or microloans. |
 
-*Advertiser paid $0.015. Deluge kept $0.006. The remaining $0.009 went to the project.*
+*Advertiser paid $0.015. Deluge kept $0.006. The remaining $0.009 entered the user's watershed.*
 
-Attention-funded contributions (video ads and business card browsing) flow directly to projects, not through the user's watershed. This keeps the attention-to-impact pathway simple and immediate: watch an ad, fund a project.
-
-**Impact Projects (attention-funded):**
-- User chooses which project receives their ad/browsing revenue
-- 100% of the project credit goes to the project (no additional fee)
-- Verified impact reporting back to user
-- Collective attention-funded contributions shown on project pages alongside cash-funded impact
+Attention-funded contributions (video ads and business card browsing) flow into the user's watershed, just like cash. The user decides how to deploy: fund a grant project, back a microloan, or hold. This makes ad-watching a full pathway to platform participation -- including loan funding.
 
 ---
 
@@ -539,13 +579,14 @@ Every user has a personal watershed -- a fund balance representing their deploya
 
 | Source | How |
 |--------|-----|
-| Cash contributions | 100% of every cash contribution enters the watershed ($1 minimum) |
+| Cash contributions | 100% of every cash contribution enters the watershed ($0.25 minimum) |
+| Ad revenue | 60% of each ad view credited to the user's watershed ($0.009 at base) |
+| Business card browsing | Revenue from card views credited to the user's watershed |
 | Referral credits | Vesting watershed credits earned by referring new active users (funded from marketing budget) |
 | Community grant volunteer credit | Watershed credits earned by completing verified community grant work (funded by project contributors) |
-| Impact tier Deluge credit | $10/month added to Impact tier subscribers' watersheds (funded from subscription revenue) |
 | Loan repayments | When a microloan borrower makes a payment, principal returns to funders' watersheds via share-based repayment |
 
-*Note: Ad-funded contributions and corporate ad matching flow directly to projects, not through the watershed. The watershed holds cash and earned credits that users actively deploy.*
+*Every contribution pathway feeds the same watershed. The user decides how to deploy: grants, loans, or hold.*
 
 **Money flows out:**
 
@@ -555,6 +596,8 @@ Every user has a personal watershed -- a fund balance representing their deploya
 | Microloans | Circular deployment. Funds a borrower. If repaid, principal returns to the watershed. If not, the money is lost (disclosed risk). |
 
 The watershed enables capital recycling. A single dollar of impact capital can fund multiple loans over time if borrowers repay. This is the key economic advantage of microloans over grants: one dollar of impact does work, returns, and does work again.
+
+**$0.25 as the universal unit of participation:** Whether someone contributes cash, watches ads, earns referral credits, or volunteers -- every pathway feeds the same watershed, and $0.25 is the minimum meaningful unit. An ad-watcher builds $0.25 in watershed capital within a week of casual attention. That $0.25 can fund a grant project or a microloan share -- the user decides. The entry ticket to full platform participation is the same regardless of pathway. At scale, 2,000 ad-watchers each building $0.25/week in their watersheds generate $500/week in deployable impact capital -- $26,000/year from people who gave zero dollars, flowing into both projects and loans.
 
 ### Microloan Economics
 
@@ -1049,15 +1092,19 @@ If GoFundMe, a major tech platform, or a well-funded startup launches a competin
 
 | Source | Conservative | Base | Optimistic |
 |--------|-------------|------|-----------|
-| Subscription revenue (blended) | $2.70/yr | $6.00/yr | $9.90/yr |
 | Video ad revenue -- platform's 40% cut (avg 2 ads/day across all users) | $1.75/yr | $3.50/yr | $5.84/yr |
 | Business card revenue -- platform's 40% cut (blended ~1.5 views/day in Year 1) | $0.22/yr | $0.44/yr | $0.88/yr |
-| **Total Year 1 per user** | **$4.67** | **$9.94** | **$16.62** |
+| Business directory enhanced listings (blended across all users) | $0.50/yr | $1.50/yr | $3.00/yr |
+| Corporate/institutional revenue (blended, Year 1 is minimal) | $0.05/yr | $0.20/yr | $0.50/yr |
+| Microloan servicing + sponsorship (blended, Year 1 is minimal) | $0.05/yr | $0.15/yr | $0.40/yr |
+| Custodial float income (interest on watershed balances, allocated per user) | $0.44/yr | $0.88/yr | $1.50/yr |
+| **Total Year 1 per user** | **$3.01** | **$6.67** | **$12.12** |
 
-*Blended subscription = (% paid users) x (avg monthly fee) x 12.*
 *Video ad revenue = avg views/day x 365 x eCPM rate x 40% platform cut. Most users watch 0-3 ads/day; blended average ~2/day.*
 *Business card revenue = blended browsing activity x 365 x per-view rate x 40% platform cut. Year 1 is low -- the business card directory launches market-by-market with limited listings. Per-user revenue grows as more markets and businesses join (estimated $0.80/yr in Year 2, $1.20/yr in Year 3, $1.50/yr in Year 4, $1.80/yr in Year 5).*
-*Note: Cash contributions feed the watershed and fund projects/microloans but do not generate platform revenue. Platform revenue comes from subscriptions, ads, business cards, and corporate partnerships.*
+*Business directory listing revenue = total enhanced listing fees / total users. Grows as Deluge expands to more markets.*
+*Custodial float income = aggregate watershed balances x interest rate / total users. Conservative assumes 2% rate and lower balances; base assumes 4.5%; optimistic assumes 5% and higher balances. Float income grows as user count and average balances increase, but is interest-rate dependent.*
+*Note: Cash contributions feed the watershed and fund projects/microloans but do not generate platform revenue directly. Platform revenue comes from ads, business directory listings, corporate partnerships, microloan servicing, sponsorship, and custodial float income.*
 
 **Customer Acquisition Cost (CAC):**
 
@@ -1075,21 +1122,21 @@ Referral credits are the cheapest acquisition channel by a wide margin. At $2.75
 
 | Scenario | Year 1 | Year 2 | Year 3 | 3-Year LTV |
 |----------|--------|--------|--------|-----------|
-| Conservative | $2.92 | $5.71 | $8.41 | $17.04 |
-| Base | $6.44 | $12.61 | $18.82 | $37.87 |
-| Optimistic | $10.78 | $21.41 | $32.02 | $64.21 |
+| Conservative | $3.01 | $5.75 | $8.50 | $17.26 |
+| Base | $6.67 | $12.30 | $18.50 | $37.47 |
+| Optimistic | $12.12 | $22.80 | $34.00 | $68.92 |
 
-*Includes business card revenue growing from Year 1 through Year 3 as the directory expands to more markets.*
+*Includes business card and directory revenue growing from Year 1 through Year 3 as the directory expands to more markets. Corporate/institutional revenue grows significantly in Years 2-3. Custodial float income grows with aggregate watershed balances.*
 
 **LTV:CAC Ratio:**
 
 | Scenario | LTV | CAC | Ratio | Viable? |
 |----------|-----|-----|-------|---------|
-| Conservative | $17 | $22 | 0.8:1 | No -- still needs organic growth to work |
-| Base | $38 | $17 | 2.2:1 | Viable -- referral program makes the math work |
-| Optimistic | $64 | $12 | 5.3:1 | Healthy |
+| Conservative | $17 | $22 | 0.8:1 | No -- still needs organic growth and directory scale |
+| Base | $37 | $17 | 2.2:1 | Viable -- referral program, B2B revenue, and custodial float close the gap |
+| Optimistic | $69 | $12 | 5.8:1 | Healthy |
 
-**Key insight:** The referral program and business card revenue meaningfully improve unit economics. At conservative estimates, paid-only acquisition still doesn't work -- but the gap is smaller. At base estimates, the referral program's impact on blended CAC (pulling it from $20 down to $17) is what pushes the LTV:CAC ratio past the 2:1 viability threshold. This underscores why the referral program isn't optional -- it's the mechanism that makes the unit economics close.
+**Key insight:** Custodial float income pushes the base LTV:CAC ratio past the 2:1 viability threshold (2.2:1) without charging users a cent. Every dollar sitting in a watershed earns interest for the platform while remaining fully available to the user. Combined with B2B revenue and the referral program's impact on CAC, the unit economics work -- but they depend on multiple streams reinforcing each other. No single stream carries the model. Every individual feature is free, so user acquisition is frictionless -- and the business works because diversified revenue (attention-funded + B2B + float) scales alongside the user base.
 
 ---
 
@@ -1099,123 +1146,159 @@ Referral credits are the cheapest acquisition channel by a wide margin. At $2.75
 
 | Year | Conservative | Base | Optimistic |
 |------|-------------|------|-----------|
-| 1 | 3,000 | 8,000 | 15,000 |
-| 2 | 10,000 | 30,000 | 60,000 |
-| 3 | 25,000 | 75,000 | 150,000 |
-| 4 | 50,000 | 150,000 | 300,000 |
-| 5 | 80,000 | 250,000 | 500,000 |
+| 1 (validation) | 1,000 | 3,000 | 5,000 |
+| 2 (seed-funded) | 5,000 | 12,000 | 25,000 |
+| 3 | 15,000 | 35,000 | 75,000 |
+| 4 | 30,000 | 75,000 | 150,000 |
+| 5 | 60,000 | 150,000 | 300,000 |
 
-### Year 1 -- BASE Scenario
+Year 1 user growth is lower because the platform is founder-built with AI tools and marketing is primarily organic. Once the core loop is validated, seed funding in Year 2 accelerates growth through paid acquisition and the referral program. Years 3-5 follow a standard scaling trajectory.
+
+### Year 1 -- Founder-Built Validation (BASE Scenario)
+
+Year 1 is not a funded startup year. It's a validation year. The founder builds the MVP using AI development tools, launches in one community, and proves whether the core loop works: communities → contributions → projects → cascades → retention. Total cash outlay is under $15K.
 
 | Revenue | Amount |
 |---------|--------|
-| Subscriptions (800 paid x $5/mo x 12) | $48K |
-| Video ad revenue -- platform's 40% (8K users x $3.50/yr blended) | $28K |
-| Business card revenue -- platform's 40% (8K users x $0.44/yr blended) | $3.5K |
-| **Total Revenue** | **$80K** |
+| Video ad revenue -- platform's 40% (3K users x $3.50/yr blended) | $10.5K |
+| Business card revenue -- platform's 40% (3K users x $0.44/yr blended) | $1.3K |
+| Business directory enhanced listings (~20 businesses x $15/mo x 6 months) | $1.8K |
+| Custodial float income (avg $45K aggregate watershed x 4.5%) | $2K |
+| **Total Revenue** | **$16K** |
 
 | Costs | Amount |
 |-------|--------|
-| Legal/compliance (entity formation, money transmission, charitable solicitation) | $45K |
-| Technology (MVP build + ad platform integration) | $130K |
-| Marketing (includes ~$4K referral credits) | $35K |
-| Operations | $25K |
-| **Total Costs** | **$235K** |
+| Legal (entity formation, terms/privacy, money transmission analysis) | $5K |
+| AI development tools (Claude, Cursor, hosting, database) | $3K |
+| Marketing (organic + small paid tests to validate CAC) | $5K |
+| Domain + email + misc infrastructure | $500 |
+| **Total Costs** | **$14K** |
 
-| **Net** | **-$155K** |
+| **Net** | **+$2K** (break-even) |
 |---------|------------|
 
-Year 1 is a build year in every scenario. There is no path to Year 1 profitability -- the user base is too small. Legal costs are significantly lower than a fintech model: no securities regulation, no broker-dealer partnership, no state investment registrations. The remaining legal burden is entity formation, money transmission analysis (mitigated by using Stripe/PayPal), and charitable solicitation review. Business card revenue is negligible in Year 1 because the directory launches market-by-market with limited listings.
+**Why this works:** The founder builds the MVP with AI tools instead of hiring a $115K engineering team. Legal costs drop to essentials only ($5K vs. $40K) because the platform is small enough to defer non-critical compliance work. Marketing is primarily organic -- posting in community groups, content marketing, word-of-mouth in one neighborhood. The goal is not 8,000 users; it's 3,000 users who prove the model works. Business directory launches in one market mid-year with ~20 local businesses. Microloans and corporate partnerships are not built yet -- they're Year 2+ features.
 
-### Year 2 -- BASE Scenario
+**What Year 1 must prove:**
+1. Users join and stay (30%+ 90-day retention)
+2. Users watch ads to fund projects (3+ ads/day average among active users)
+3. The cascade moment drives sharing and retention
+4. Local businesses will list (and some will pay for enhanced)
+5. The core loop generates enough engagement to sustain a community
+
+### Year 2 -- Seed-Funded Growth (BASE Scenario)
+
+Year 1 validated the core loop. Year 2 is the first funded year: raise a seed round ($150-300K), hire 1-2 people, scale marketing, and build the features that were deferred (microloans, referral program, business directory expansion).
 
 | Revenue | Amount |
 |---------|--------|
-| Subscriptions (3,000 paid x $5/mo x 12) | $180K |
-| Video ad revenue -- platform's 40% (30K users x $3.75/yr blended) | $113K |
-| Business card revenue -- platform's 40% (30K users x $0.80/yr blended) | $24K |
-| Corporate ESG + Impact Matching Funds (2 clients x $15K) | $30K |
-| **Total Revenue** | **$347K** |
+| Video ad revenue -- platform's 40% (12K users x $3.75/yr blended) | $45K |
+| Business card revenue -- platform's 40% (12K users x $0.80/yr blended) | $9.6K |
+| Business directory enhanced listings (~80 businesses x $18/mo avg) | $17K |
+| Corporate ESG + Impact Matching Funds (1 early client x $15K) | $15K |
+| Microloan servicing fees (launches mid-year) | $2K |
+| Cascade/notification sponsorship | $5K |
+| Custodial float income (avg $240K aggregate watershed x 4.5%) | $11K |
+| **Total Revenue** | **$105K** |
 
 | Costs | Amount |
 |-------|--------|
-| Legal/compliance (ongoing) | $35K |
-| Technology (maintenance + features + ad ops) | $130K |
-| Marketing (includes ~$8K referral credits) | $90K |
-| Operations | $50K |
-| Team (3 FTE) | $240K |
-| **Total Costs** | **$545K** |
+| Legal/compliance (ongoing + microloan setup) | $15K |
+| Technology (infrastructure scaling, contractor for microloans) | $40K |
+| Marketing (includes ~$4K referral credits) | $35K |
+| Operations | $15K |
+| Team (1-2 FTE, first hires) | $100K |
+| **Total Costs** | **$205K** |
 
-| **Net** | **-$198K** |
+| **Net** | **-$100K** |
 |---------|------------|
 
 ### Year 3 -- BASE Scenario
 
 | Revenue | Amount |
 |---------|--------|
-| Subscriptions (7,500 paid x $5.50/mo x 12) | $495K |
-| Video ad revenue -- platform's 40% (75K users x $4.00/yr blended) | $300K |
-| Business card revenue -- platform's 40% (75K users x $1.20/yr blended) | $90K |
-| Corporate ESG + Impact Matching Funds (5 clients x $25K) | $125K |
-| **Total Revenue** | **$1.01M** |
+| Video ad revenue -- platform's 40% (35K users x $4.00/yr blended) | $140K |
+| Business card revenue -- platform's 40% (35K users x $1.20/yr blended) | $42K |
+| Business directory enhanced listings (~200 businesses x $20/mo avg) | $48K |
+| Corporate ESG + Impact Matching Funds (3 clients x $20K) | $60K |
+| Microloan servicing fees | $8K |
+| Cascade/notification sponsorship | $20K |
+| Institutional partnerships (early) | $10K |
+| Custodial float income (avg $875K aggregate watershed x 4.5%) | $39K |
+| **Total Revenue** | **$367K** |
 
 | Costs | Amount |
 |-------|--------|
-| Legal/compliance | $50K |
-| Technology (includes ad platform + business directory scaling) | $180K |
-| Marketing (includes ~$19K referral credits) | $180K |
-| Operations | $80K |
-| Team (6 FTE) | $480K |
-| **Total Costs** | **$970K** |
+| Legal/compliance | $30K |
+| Technology (includes ad platform + business directory scaling) | $100K |
+| Marketing (includes ~$10K referral credits) | $80K |
+| Operations | $40K |
+| Team (3 FTE) | $250K |
+| **Total Costs** | **$500K** |
 
-| **Net** | **+$40K** (approaching break-even) |
+| **Net** | **-$133K** (gap closing) |
 |---------|------------|
 
 ### Year 4 -- BASE Scenario
 
 | Revenue | Amount |
 |---------|--------|
-| Subscriptions (15,000 paid x $6/mo x 12) | $1.08M |
-| Video ad revenue -- platform's 40% (150K users x $4.50/yr blended) | $675K |
-| Business card revenue -- platform's 40% (150K users x $1.50/yr blended) | $225K |
-| Corporate ESG + Impact Matching Funds (10 clients x $35K) | $350K |
-| **Total Revenue** | **$2.33M** |
+| Video ad revenue -- platform's 40% (75K users x $4.50/yr blended) | $338K |
+| Business card revenue -- platform's 40% (75K users x $1.50/yr blended) | $113K |
+| Business directory enhanced listings (~400 businesses x $22/mo avg) | $106K |
+| Corporate ESG + Impact Matching Funds (5 clients x $25K) | $125K |
+| Microloan servicing fees | $20K |
+| Cascade/notification sponsorship | $50K |
+| Institutional partnerships | $40K |
+| Custodial float income (avg $2.25M aggregate watershed x 4.5%) | $101K |
+| **Total Revenue** | **$893K** |
 
 | Costs | Amount |
 |-------|--------|
-| **Total Costs** | **$1.55M** |
+| **Total Costs** | **$750K** |
 
-| **Net** | **+$780K** (solidly profitable) |
+| **Net** | **+$143K** (break-even achieved) |
 |---------|------------|
 
 ### Year 5 -- BASE Scenario
 
 | Revenue | Amount |
 |---------|--------|
-| Subscriptions (25,000 paid x $6.50/mo x 12) | $1.95M |
-| Video ad revenue -- platform's 40% (250K users x $5.00/yr blended) | $1.25M |
-| Business card revenue -- platform's 40% (250K users x $1.80/yr blended) | $450K |
-| Corporate ESG + Impact Matching Funds (15 clients x $40K) | $600K |
-| **Total Revenue** | **$4.25M** |
+| Video ad revenue -- platform's 40% (150K users x $5.00/yr blended) | $750K |
+| Business card revenue -- platform's 40% (150K users x $1.80/yr blended) | $270K |
+| Business directory enhanced listings (~800 businesses x $25/mo avg) | $240K |
+| Corporate ESG + Impact Matching Funds (8 clients x $35K) | $280K |
+| Microloan servicing fees | $50K |
+| Cascade/notification sponsorship | $85K |
+| Institutional partnerships | $80K |
+| Aggregate impact data + reporting | $25K |
+| Custodial float income (avg $5.25M aggregate watershed x 4.5%) | $236K |
+| **Total Revenue** | **$2.016M** |
 
 | Costs | Amount |
 |-------|--------|
-| **Total Costs** | **$2.1M** |
+| **Total Costs** | **$1.2M** |
 
-| **Net** | **+$2.15M** |
+| **Net** | **+$816K** |
 |---------|------------|
 
 ### Cumulative Funding Needed (Base Scenario)
 
-| Through Year | Cumulative Loss | Total Capital Needed |
-|-------------|----------------|---------------------|
-| Year 1 | -$155K | $250K (includes buffer) |
-| Year 2 | -$353K | $450K |
-| Year 3 | -$313K | $450K (Year 3 approaches break-even) |
-| Year 4 | +$467K | Funded from operations |
-| Year 5 | +$2.62M | Profitable |
+| Through Year | Cumulative Net | External Capital Needed |
+|-------------|---------------|------------------------|
+| Year 1 (founder-built) | +$2K | $0 (self-funded, break-even) |
+| Year 2 (seed-funded) | -$98K | $150-300K seed round |
+| Year 3 | -$231K | Covered by seed round |
+| Year 4 | -$88K | Recovering from operations |
+| Year 5 | +$728K | Profitable |
 
-**Reality check:** Without investment infrastructure, Deluge's cost structure is dramatically simpler. No securities lawyers, no broker-dealer partnerships, no fintech co-founder, no investment compliance. The base scenario requires approximately **$500-700K in total capital** to reach break-even in Year 3, with solid profitability from Year 4. Combined attention-funded revenue (video ads + business cards) reaches $1.7M in Year 5, representing 40% of total revenue and the largest revenue category as a group. Business card revenue grows from negligible in Year 1 to $450K by Year 5 as the directory expands across markets. Referral credits reduce marketing spend per acquisition but are funded from the existing marketing budget, not a separate line item.
+**Reality check:** The founder-built validation path fundamentally changes the capital story. Year 1 costs $14K instead of $225K because the founder builds the MVP with AI tools. This means:
+
+- **No external funding needed until the core loop is proven.** Year 1 is self-funded and break-even. If the model doesn't work, you've lost $14K, not $225K.
+- **The seed round is smaller.** Total external capital needed: **$150-300K** (one seed round after validation), versus $500-650K in a funded-from-Day-1 model.
+- **Break-even is still Year 4** but with dramatically less capital at risk. The cumulative loss never exceeds ~$231K.
+- **Revenue diversifies across 9 streams** by Year 5. Combined attention-funded revenue (video ads + business cards) reaches $1.02M, representing 51% of total revenue. Business directory enhanced listings grow from $1.8K in Year 1 to $240K by Year 5 as the directory expands across markets. Custodial float income grows from $2K in Year 1 to $236K in Year 5 -- interest-rate dependent but meaningful at current rates.
+- **The tradeoff is speed.** The founder-built path reaches 150K users in Year 5 versus 250K in the funded-from-Day-1 model. Growth starts slower (3K vs. 8K in Year 1) but the total capital risked is 60-70% less.
 
 ---
 
@@ -1223,58 +1306,67 @@ Year 1 is a build year in every scenario. There is no path to Year 1 profitabili
 
 | Metric (Year 5) | Conservative | Base | Optimistic |
 |-----------------|-------------|------|-----------|
-| Users | 80,000 | 250,000 | 500,000 |
-| Annual Revenue (subs + ads + biz cards + B2B) | $500K | $4.25M | $10.3M |
-| Attention-funded revenue (video ads + business cards) | $200K | $1.7M | $3.8M |
-| Profitable? | No (marginal) | Yes (Year 3-4) | Yes (Year 2-3) |
-| Total capital needed | $1.0M+ (marginal viability) | $500-700K | $350K |
+| Users | 60,000 | 150,000 | 300,000 |
+| Annual Revenue (ads + directory + B2B + float) | $350K | $2.016M | $5.0M |
+| Attention-funded revenue (video ads + business cards) | $150K | $1.02M | $2.3M |
+| B2B revenue (directory + corporate + institutional) | $120K | $685K | $1.8M |
+| Custodial float income | $20K | $236K | $600K |
+| Year 1 self-funded? | Yes | Yes | Yes |
+| Profitable? | No (marginal) | Yes (Year 4) | Yes (Year 3) |
+| External capital needed | $400K+ (marginal viability) | $150-300K (seed round) | $150K |
 
 ---
 
 ## Revenue Model Stress Test
 
-The base scenario projects $4.25M in Year 5 revenue across four streams. But several of those streams are speculative -- particularly business card revenue, corporate matching, and the referral program's impact on CAC. This section tests what happens when individual streams underperform, and identifies which ones are load-bearing vs. supplementary.
+The base scenario projects $2.016M in Year 5 revenue across 9 streams. The model depends on a diversified mix of attention-funded monetization, B2B revenue, and custodial float income. This section tests what happens when individual streams underperform, and identifies which ones are load-bearing vs. supplementary.
 
 ### Year 5 Base Revenue Breakdown (Reference)
 
 | Stream | Amount | % of Total | Category |
 |--------|--------|-----------|----------|
-| Subscriptions | $1.95M | 45.9% | Proven subscription model |
-| Video ad revenue | $1.25M | 29.4% | Moderate confidence (depends on eCPM) |
-| Business card revenue | $450K | 10.6% | Speculative (new, unproven format) |
-| Corporate ESG + matching | $600K | 14.1% | Speculative (B2B sales required) |
-| **Total** | **$4.25M** | **100%** | |
+| Video ad revenue | $750K | 37.2% | Moderate confidence (depends on eCPM) |
+| Business card revenue | $270K | 13.4% | Moderate confidence (grows with directory) |
+| Business directory enhanced listings | $240K | 11.9% | Moderate confidence (B2B sales required) |
+| Corporate ESG + matching | $280K | 13.9% | Speculative (B2B sales required) |
+| Custodial float income | $236K | 11.7% | High confidence at current rates, interest-rate dependent |
+| Cascade/notification sponsorship | $85K | 4.2% | Speculative (new format) |
+| Institutional partnerships | $80K | 4.0% | Speculative (enterprise sales) |
+| Microloan servicing fees | $50K | 2.5% | Low confidence (depends on loan volume) |
+| Aggregate data + reporting | $25K | 1.2% | Speculative (Year 5+) |
+| **Total** | **$2.016M** | **100%** | |
 
-Year 5 costs: $2.1M. Base net: +$2.15M.
+Year 5 costs: $1.2M. Base net: +$816K.
 
 ### Individual Stream Stress Tests
 
 Each scenario cuts one revenue stream by 50% while holding everything else constant.
 
-| Scenario | What Underperforms | Year 4 Net | Year 5 Net | Still Profitable Year 4? | Impact |
-|----------|-------------------|-----------|-----------|------------------------|--------|
-| **Base (reference)** | Nothing | +$780K | +$2.15M | Yes | -- |
-| **A: Business cards at 50%** | Directory grows slower, fewer markets, lower browse rates | +$667K | +$1.93M | Yes | Low -- supplementary stream |
-| **B: Corporate matching at 50%** | Fewer corporate partners, smaller fund commitments | +$605K | +$1.85M | Yes | Low -- Year 2+ revenue, not launch-critical |
-| **C: Video ad eCPM at 50%** | Ad rates come in at $7-8 CPM instead of $15 | +$442K | +$1.53M | Yes | Moderate -- second-largest stream |
-| **D: Subscriptions at 50%** | Paid conversion 5% instead of 10% | +$240K | +$1.18M | Yes (thin) | High -- largest stream, core model risk |
+| Scenario | What Underperforms | Year 5 Net | Still Profitable? | Impact |
+|----------|-------------------|-----------|-------------------|--------|
+| **Base (reference)** | Nothing | +$816K | Yes | -- |
+| **A: Video ads at 50%** | Ad rates come in at $7-8 CPM instead of $15 | +$441K | Yes (thinner) | High -- largest single stream |
+| **B: Custodial float at near-zero** | Interest rates drop to 0.5% (low-rate environment) | +$606K | Yes | Moderate -- $210K reduction |
+| **C: Business cards at 50%** | Directory grows slower, fewer markets, lower browse rates | +$681K | Yes | Low -- supplementary stream |
+| **D: Business directory at 50%** | Fewer businesses pay for enhanced listings | +$696K | Yes | Low -- still building |
+| **E: Corporate matching at 50%** | Fewer corporate partners, smaller fund commitments | +$676K | Yes | Low -- Year 2+ revenue, not launch-critical |
 
-**Conclusion from individual tests:** No single stream at 50% kills the business. Subscriptions at 50% is the most dangerous -- it pushes Year 4 to thin profitability and signals a fundamental pricing problem. Everything else has manageable impact.
+**Conclusion from individual tests:** No single stream at 50% kills the business. Video ads at 50% is the most impactful single-stream failure, cutting net profit nearly in half -- but the business remains profitable. The 9-stream diversification means no single point of failure exists.
 
 ### Combined Stress Tests
 
 Real-world underperformance rarely hits one stream in isolation. These scenarios combine multiple headwinds.
 
-**Scenario F: All speculative streams at 50%**
+**Scenario F: All speculative B2B streams at 50%**
 
-Business cards and corporate matching both underperform by 50%. Subscriptions and video ads hold at base.
+Corporate matching, sponsorship, institutional partnerships, and data reporting all underperform by 50%. Attention-funded revenue, directory, and float hold at base.
 
 | Year | Base Revenue | Adjusted Revenue | Base Costs | Net |
 |------|-------------|-----------------|-----------|-----|
-| Year 4 | $2.33M | $2.04M | $1.55M | +$490K |
-| Year 5 | $4.25M | $3.73M | $2.1M | +$1.63M |
+| Year 4 | $893K | $800K | $750K | +$50K |
+| Year 5 | $2.016M | $1.781M | $1.2M | +$581K |
 
-Still profitable in Year 4, with a thinner margin. The business survives because subscriptions and video ads -- the two largest streams -- are intact.
+Still profitable. The speculative B2B streams are gravy -- the core business runs on attention-funded revenue, business directory listings, and custodial float.
 
 **Scenario G: Ad ecosystem underperforms (eCPM at 50% across video AND business cards)**
 
@@ -1282,105 +1374,113 @@ Lower-than-expected ad rates affect both video ads and business card revenue sim
 
 | Year | Base Revenue | Adjusted Revenue | Base Costs | Net |
 |------|-------------|-----------------|-----------|-----|
-| Year 4 | $2.33M | $1.88M | $1.55M | +$330K |
-| Year 5 | $4.25M | $3.4M | $2.1M | +$1.3M |
+| Year 4 | $893K | $668K | $750K | -$82K |
+| Year 5 | $2.016M | $1.506M | $1.2M | +$306K |
 
-Still profitable in Year 4 with a thinner margin. The business survives but is more dependent on subscription growth and B2B revenue to carry it.
+**Year 4 is not profitable if the entire ad ecosystem underperforms.** Profitability delays to Year 5 with a thinner margin. Attention-funded revenue (video ads + business cards) represents 50.6% of Year 5 revenue -- halving it is the most dangerous single-category failure.
 
-**Scenario H: Referral program fails + higher CAC**
+**Scenario G: Referral program fails + higher CAC**
 
 Referrals don't materialize. Blended CAC reverts from $12-22 to $15-25 (pre-referral estimates). This is a cost increase, not a revenue decrease -- roughly $3-5 per user acquired.
 
 | Year | Additional Marketing Cost | Base Net | Adjusted Net |
 |------|--------------------------|---------|-------------|
-| Year 3 (+45K new users) | +$135K-225K | +$40K | -$95K to -$185K |
-| Year 4 (+75K new users) | +$225K-375K | +$780K | +$405K to +$555K |
-| Year 5 (+100K new users) | +$300K-500K | +$2.15M | +$1.65M to +$1.85M |
+| Year 3 (+20K new users) | +$60K-100K | -$133K | -$193K to -$233K |
+| Year 4 (+40K new users) | +$120K-200K | +$143K | -$57K to +$23K |
+| Year 5 (+75K new users) | +$225K-375K | +$816K | +$441K to +$591K |
 
-Still profitable in Year 4, but Year 3 reverts to a loss. Total capital needed increases from $500-700K to $700K-1.0M. The referral program isn't revenue -- it's cost efficiency. Losing it doesn't kill the business, but it extends the runway needed to profitability.
+Year 4 break-even is at risk. Total capital needed increases from $150-300K to $300-500K. The referral program's cost efficiency remains critical for unit economics.
 
-**Scenario I: Worst case -- ad eCPM at 50% + no corporate matching + referral program fails**
+**Scenario I: Worst case -- ad eCPM at 50% + no corporate matching + referral program fails + low interest rates**
 
-Three headwinds simultaneously: attention-funded revenue halved, corporate matching revenue zeroed, and user acquisition costs revert to pre-referral levels.
+Four headwinds simultaneously: attention-funded revenue halved, corporate matching revenue zeroed, user acquisition costs revert to pre-referral levels, and interest rates drop to 0.5%.
 
 | Year | Base Revenue | Adjusted Revenue | Base Costs | Adjusted Costs | Net |
 |------|-------------|-----------------|-----------|---------------|-----|
-| Year 4 | $2.33M | $1.53M | $1.55M | $1.75M | -$220K |
-| Year 5 | $4.25M | $2.8M | $2.1M | $2.4M | +$400K |
+| Year 4 | $893K | $428K | $750K | $870K | -$442K |
+| Year 5 | $2.016M | $976K | $1.2M | $1.43M | -$454K |
 
-**Year 4 is not profitable under worst case.** Profitability delays to Year 5 (thin margin). Total capital needed increases to ~$1.0-1.3M. This is survivable with additional funding but no longer a base-case business.
+**Not profitable through Year 5 under worst case.** The business does not work if attention-funded revenue is halved, corporate partnerships fail, user acquisition costs are high, and interest rates collapse simultaneously. However: (1) this requires four independent headwinds to hit simultaneously -- a low-probability combination, and (2) the total capital at risk is much smaller in the founder-built path. Year 1 is self-funded. The seed round is $150-300K. Even in the worst case, you've risked $150-300K in external capital, not $500K+.
 
 ### Load-Bearing vs. Supplementary Streams
 
 | Stream | Classification | Rationale |
 |--------|---------------|-----------|
-| **Subscriptions** | **Load-bearing** | Largest stream (46%). At 50%, Year 4 becomes thin. If subscription conversion fails, the core business model is wrong. |
-| **Video ad revenue** | **Load-bearing** | Second-largest stream (29%). Halving it compresses margins significantly. Combined with other headwinds, it pushes profitability out further. |
-| **Business card revenue** | **Supplementary** | Only 11% of Year 5 revenue. At 50% or even 0%, the business still works. Nice upside, not a dependency. |
-| **Corporate ESG + matching** | **Supplementary** | 14% of revenue, and it's Year 2+ anyway. Delayed or halved, the impact is manageable. Don't build financial plans around it. |
-| **Referral program (cost efficiency)** | **Important but not fatal** | Failing referrals don't reduce revenue but increase costs by $300-500K over Years 3-5. Extends runway needed by ~$300K. Worth investing in but not a single point of failure. |
+| **Video ad revenue** | **Load-bearing** | Largest stream (37.2%). Combined with business cards, attention-funded revenue is 50.6% of Year 5. Halving it pushes Year 4 to a loss. |
+| **Custodial float income** | **Load-bearing (rate-dependent)** | 11.7% of Year 5 revenue. High confidence at current rates, but collapses in a low-rate environment. Treat as reliable in medium-rate scenarios, supplementary in low-rate planning. |
+| **Business card revenue** | **Moderate** | 13.4% alone is manageable. Combined with video ads it's part of the core attention-funded engine. |
+| **Business directory listings** | **Load-bearing** | 11.9% of Year 5 revenue and the primary B2B stream. At 50%, manageable. At 0%, the model is strained. |
+| **Corporate ESG + matching** | **Supplementary** | 13.9% of revenue, and it's Year 2+ anyway. Delayed or halved, the impact is manageable. Don't build financial plans around it. |
+| **Other B2B (microloan, sponsorship, institutional, data)** | **Supplementary** | Combined 11.9%. Diversification value. At 0%, the core business still works. |
+| **Referral program (cost efficiency)** | **Critical** | Failing referrals don't reduce revenue but increase costs. The referral program's CAC reduction is what makes unit economics viable. |
 
 ### What This Means for Prioritization
 
-1. **Subscription conversion is the #1 business risk.** If users won't pay $3-12/month, nothing else matters. Phase 0 validation of willingness to pay is the most important test.
-2. **Video ad eCPM is the #2 risk.** The platform works at half the projected eCPM, but margins get thin. Validate eCPM assumptions early (Phase 0, Test 7) and have a fallback plan (direct-sold sponsorship ads from mission-aligned brands).
-3. **Business card revenue and corporate matching are gravy.** Model them conservatively. Don't hire against them. If they outperform, reinvest. If they underperform, the core business still works.
-4. **The referral program is a cost lever, not a revenue lever.** Invest in it because it dramatically improves unit economics, but don't assume it works when projecting capital needs. Budget for the higher CAC and treat referral savings as upside.
+1. **Ad engagement is the #1 business risk.** Attention-funded revenue (video ads + business card browsing) is the largest revenue category at 50.6%. If eCPM comes in at half projections, Year 4 is not profitable. Validate eCPM assumptions in Year 1 with real users and have a fallback plan (direct-sold sponsorship ads from mission-aligned brands).
+2. **Business directory adoption is the #2 risk.** Enhanced listings are a new B2B product that needs local sales execution market by market. If businesses don't see value in paying $15-25/month for enhanced features, this stream underperforms. Validate in Year 1 in one market.
+3. **User retention is the #3 risk.** Without subscription lock-in, retention depends entirely on engagement. The cascade experience is the key retention lever -- users who see a cascade retain at 2-3x the rate of those who don't. Getting users to their first cascade fast is existential. Retention also directly affects custodial float income -- more retained users = larger aggregate balances = more interest.
+4. **Interest rate environment is a background risk.** Custodial float income is 11.7% of Year 5 revenue at current rates but near-zero in a low-rate environment. Don't budget against high-rate assumptions. Treat current rates as upside and plan for the business to work at 2% rates.
+5. **Corporate matching and other B2B are gravy.** Model them conservatively. Don't hire against them. If they outperform, reinvest. If they underperform, the core business still works.
+6. **The referral program is critical infrastructure.** It's the mechanism that makes unit economics viable. Without it, blended CAC rises and the LTV:CAC ratio drops. Invest in Year 2 when the seed round funds marketing.
 
 ---
 
 ## Funding Requirements (Revised)
 
-### Bootstrap Path
+### Founder-Built Path (Recommended)
 
-| Phase | Funding Source | Amount |
-|-------|---------------|--------|
-| Phase 0 | Self-funded | $2,000-5,000 |
-| Phase 1 | Self-funded or friends/family | $50-100K |
-| Phase 2 | Angel round (15-25% equity) | $250-500K |
-| Phase 3 | Series A or revenue-funded | $1-3M |
+| Phase | Funding Source | Cost | What It Proves |
+|-------|---------------|------|---------------|
+| Phase 0 (Concept validation) | Self-funded | $2-5K | Landing page tests, surveys, community interest |
+| Year 1 (AI-built MVP + launch) | Self-funded | $10-15K | Core loop works: communities, contributions, ads, cascades, retention |
+| Year 2 (Seed round + first hires) | Angel/seed investors | $150-300K | Product scales with marketing spend and paid acquisition |
+| Years 3-5 (Growth) | Revenue-funded or Series A | Revenue + $0-500K | Business reaches profitability at 75K+ users |
 
-### Venture Path
+**Total external capital needed: $150-300K** (one seed round after Year 1 validation). The founder builds Year 1 with AI tools, proving the model before risking investor money.
+
+### Traditional Venture Path (If Applicable)
 
 | Round | Amount | Timing | What It Proves |
 |-------|--------|--------|---------------|
-| Pre-seed | $150-300K | After validation (Phase 0) | People want this |
-| Seed | $500K-1M | After MVP + 1,000 users | Product works |
-| Series A | $3-7M | After 30K+ users, clear retention | Business works |
+| Pre-seed | $150-300K | After Year 1 validation + 3K users | Core loop works, people use it |
+| Seed | $500K-1M | After 12K+ users, clear retention | Product scales |
+| Series A | $3-7M | After 50K+ users, Year 4 profitability | Business works |
 
-### Total to Launch (Revised, Honest)
+### Total to Launch + Year 1 (Founder-Built)
 
-| Phase | Cost | Notes |
-|-------|------|-------|
-| Phase 0 (Validation) | $2,000-5,000 | Landing page, ads, survey |
-| Phase 1 (Legal + Setup) | $30,000-70,000 | Entity formation, money transmission analysis, charitable solicitation review, privacy/terms |
-| Phase 2 (MVP Build) | $100,000-200,000 | Engineering, design, QA, payment integration (Stripe/PayPal) |
-| Phase 3 (Launch + Runway) | $150,000-400,000 | Marketing, team, 6-12 month runway |
-| **Total to Launch + Survive Year 1** | **$280K-675K** |
+| Item | Cost | Notes |
+|------|------|-------|
+| Legal (entity formation, terms, privacy, money transmission analysis) | $3-8K | Essentials only. Defer non-critical compliance until Year 2. |
+| AI development tools (Claude, Cursor, etc.) | $1-2K | Annual subscriptions for AI-assisted development |
+| Hosting + infrastructure (database, Vercel/Railway) | $1-2K | Scales with usage. Minimal at 3K users. |
+| Marketing (organic + small paid tests) | $3-8K | Content marketing, community outreach, $500-1K in paid ads to validate CAC |
+| Domain + email + misc | $500 | |
+| **Total Year 1** | **$10-20K** | |
 
-Without investment infrastructure, Deluge avoids the regulatory complexity of a fintech product. No securities lawyers, no broker-dealer integration, no state investment registrations. The remaining legal requirements (entity formation, money transmission via payment processors, charitable solicitation review) are significantly cheaper and faster. The giving-only model can reach MVP in 3-5 months versus 6-9 months for an investment platform.
+The founder-built approach eliminates the $115K engineering cost, the $40K legal cost, and the $25K operations cost from the funded-startup model. What remains is the irreducible minimum: legal entity, tools, hosting, and enough marketing to get 3,000 users into the door. Custodial float income begins generating revenue from Day 1 of watershed deposits. Total capital to reach profitability: **$150-300K in external funding** (seed round in Year 2), with break-even in Year 4.
 
 ---
 
-## Key Assumptions to Validate in Phase 0
+## Key Assumptions to Validate in Year 1
 
-These are the make-or-break questions. If any answer is "no," the model needs to change.
+These are the make-or-break questions. Year 1's purpose is to answer them with real users for under $15K. If any answer is "no," the model needs to change before raising seed funding.
 
 1. **Does "community-driven giving" resonate as a concept?** (Will people sign up for a platform focused on transparent, collective community giving?)
-2. **Will users watch ads to fund community projects?** (Is "donate your attention" compelling enough to drive daily engagement?)
-3. **Will people pay $3-12/month for a giving platform?** (Or do they expect community giving tools to be free?)
-4. **Is the CAC achievable below $20?** (If not, unit economics don't work)
-5. **Can we retain 30%+ MAU after Month 3?** (Most apps lose 70-80% of users in 90 days)
-6. **Can we achieve $8-15 eCPM consistently?** (Ad rates fluctuate seasonally and by market conditions)
-7. **Will users refer friends for watershed credits?** (Referral programs only work if the product is worth recommending -- credits alone don't drive sharing)
+2. **Will users watch ads to fund community projects?** (Is "donate your attention" compelling enough to drive daily engagement? This is the #1 revenue risk -- attention-funded revenue is 50.6% of Year 5 projections.)
+3. **Can we achieve $8-15 eCPM consistently?** (Ad rates fluctuate seasonally and by market conditions. Year 1 provides real eCPM data from actual users.)
+4. **Will local businesses pay $15-25/month for enhanced directory listings?** (Business directory is the primary B2B revenue stream and the anchor that replaces subscription revenue.)
+5. **Is the CAC achievable below $20?** (If not, unit economics don't work -- especially without subscription revenue boosting LTV)
+6. **Can we retain 30%+ MAU after Month 3?** (Without subscription lock-in, retention depends entirely on engagement. The cascade experience is the key retention lever.)
+7. **Will users refer friends for watershed credits?** (Referral programs only work if the product is worth recommending -- and without subscriptions, the referral program's CAC reduction is what makes unit economics viable)
 8. **Will communities propose and fund sweat equity projects?** (Requires both people willing to post needs AND people willing to volunteer -- two-sided marketplace dynamics)
 9. **Can we sign corporate partners for ad matching funds?** (ESG budgets exist, but is "match ad-funded community impact" a compelling enough product to sell?)
+10. **Will interest rates remain above 2%?** (Custodial float income is 14.4% of Year 5 revenue at current rates. In a low-rate environment it drops to near-zero. Not a make-or-break assumption, but it affects the margin of safety.)
 
 ---
 
 ## Phase 0 Validation Plan
 
-Phase 0 costs $900-2,000 and happens before any code is written. The goal is to kill bad assumptions cheaply. Each test below is ordered by priority: the first failures should stop the project or force a fundamental pivot before money is spent on later tests.
+Phase 0 costs $900-2,000 and happens before the MVP is built. In the founder-built path, Phase 0 runs during the first 2-3 months of Year 1, overlapping with early AI-assisted development. The goal is to kill bad assumptions cheaply. Each test below is ordered by priority: the first failures should stop the project or force a fundamental pivot before committing to the full MVP build.
 
 ### Test Sequence
 
@@ -1401,18 +1501,7 @@ These test whether the fundamental value proposition resonates. If these fail, n
 | Fail | All variants below 3%. People don't understand the concept or don't find it compelling. |
 | If it fails | The community giving framing needs work. Consider: emphasizing specific project types (education, environment), leading with the zero-dollar pathway, or targeting a more specific community (neighborhood-level rather than broad). |
 
-**Test 2: Willingness to Pay**
-
-| Element | Detail |
-|---------|--------|
-| What to test | Will the target audience pay $3-12/month for a giving platform? |
-| Method | Add a pricing page to the landing page. Show the tier structure (Free/$3/$5/$12). Measure how many email signups click through to a pricing page and which tier they select (no actual payment -- just intent). Follow up with a 5-question survey: "Would you pay $X/month for this?" with price sensitivity options. |
-| Measure | % of signups who view pricing. Distribution of tier interest. Survey responses on price sensitivity. |
-| Pass | 30%+ of signups view pricing. 10%+ indicate willingness to pay at $3+/month. |
-| Fail | Fewer than 15% view pricing. Survey shows strong expectation of free (like other community platforms). |
-| If it fails | Subscription model may not work at $3. Consider: lower entry tier ($1/month), freemium with more aggressive ad monetization, or transaction-based pricing instead of subscriptions. |
-
-**Test 3: Ad-Funded Giving Concept**
+**Test 2: Ad-Funded Giving Concept**
 
 | Element | Detail |
 |---------|--------|
@@ -1421,13 +1510,13 @@ These test whether the fundamental value proposition resonates. If these fail, n
 | Measure | Signup conversion rate. Survey distribution of intended frequency. |
 | Pass | Conversion rate comparable to concept-focused variants. 40%+ say "daily" or "a few times a week." |
 | Fail | Conversion rate significantly lower than concept-focused variants. Majority say "rarely" or "never." |
-| If it fails | Ad-funded giving is a supplementary feature, not a primary draw. Reduce emphasis on the zero-dollar pathway in marketing. The platform still works without it -- ad revenue is secondary. |
+| If it fails | Ad-funded giving doesn't drive engagement. **This is the most dangerous failure** -- attention-funded revenue is 56.6% of Year 5 projections. If users won't watch ads, the revenue model needs fundamental rethinking. Consider: direct-sold sponsorship ads from mission-aligned brands, or explore whether the platform can sustain itself on B2B revenue alone (business directory + corporate partnerships). |
 
 #### Wave 2: Engagement Mechanics (Weeks 3-6, ~$500-1,000)
 
 These test whether the specific participation mechanisms will sustain engagement beyond initial signup.
 
-**Test 4: Community Grant Interest (Two-Sided)**
+**Test 3: Community Grant Interest (Two-Sided)**
 
 | Element | Detail |
 |---------|--------|
@@ -1438,18 +1527,18 @@ These test whether the specific participation mechanisms will sustain engagement
 | Fail | Strong interest on one side but not the other (lots of proposers, no volunteers -- or vice versa). Projects suggested are too large/complex for the community grant model. |
 | If it fails | If volunteer interest is low: consider paid gig-style compensation instead of watershed credits. If proposer interest is low: seed projects through nonprofit partnerships instead of relying on community proposals. If project scope is wrong: tighten the grant format to micro-projects only (2-4 hours, 1-2 people). |
 
-**Test 5: Local Business Card Concept**
+**Test 4: Local Business Directory + Enhanced Listings**
 
 | Element | Detail |
 |---------|--------|
-| What to test | Will local businesses list themselves? Will users browse a community business directory? |
-| Method | Approach 10-15 local businesses in one neighborhood. Pitch: "Free listing in a community app. Your neighbors see your card, and every view funds a local project. You get exposure and community impact credit." Track sign-up rate. Separately, show the browsing concept to 20-30 potential users: "Browse local businesses in your neighborhood. Every card you view funds a community project." Track stated interest in browsing. |
-| Measure | Business listing conversion rate (% who agree to list). User interest in browsing (stated frequency). |
-| Pass | 50%+ of approached businesses agree to a free listing. 30%+ of potential users say they'd browse at least weekly. |
-| Fail | Businesses aren't interested or don't understand the value. Users don't see a reason to browse (already use Google/Yelp). |
-| If it fails | If businesses won't list: consider seeding the directory from public data (Google Places) with an opt-in upgrade to claimed listings. If users won't browse: make business cards a passive background element in other flows rather than a standalone browsing experience. |
+| What to test | Will local businesses list themselves? Will users browse a community business directory? Will businesses pay $15-25/month for enhanced listings? |
+| Method | Approach 10-15 local businesses in one neighborhood. Pitch: "Free listing in a community app. Your neighbors see your card, and every view funds a local project. You get exposure and community impact credit." Track sign-up rate. Then pitch the enhanced listing: "For $15-25/month, get featured placement, analytics dashboard, project sponsorship badge, and priority visibility." Track upgrade interest. Separately, show the browsing concept to 20-30 potential users: "Browse local businesses in your neighborhood. Every card you view funds a community project." Track stated interest in browsing. |
+| Measure | Business listing conversion rate (% who agree to free listing). Enhanced listing interest (% who express willingness to pay). User interest in browsing (stated frequency). |
+| Pass | 50%+ of approached businesses agree to a free listing. 20%+ express interest in enhanced features at $15-25/month. 30%+ of potential users say they'd browse at least weekly. |
+| Fail | Businesses aren't interested or don't understand the value. No interest in paid enhanced listings. Users don't see a reason to browse (already use Google/Yelp). |
+| If it fails | If businesses won't list: consider seeding the directory from public data (Google Places) with an opt-in upgrade to claimed listings. If businesses won't pay for enhanced: reduce pricing or explore alternative B2B monetization (per-lead fees, sponsored community projects). If users won't browse: make business cards a passive background element in other flows rather than a standalone browsing experience. **This is a critical test** -- business directory enhanced listings are the primary B2B revenue stream replacing subscriptions. |
 
-**Test 6: Referral Willingness**
+**Test 5: Referral Willingness**
 
 | Element | Detail |
 |---------|--------|
@@ -1464,7 +1553,7 @@ These test whether the specific participation mechanisms will sustain engagement
 
 These test whether the business can actually operate.
 
-**Test 7: Ad Network Viability**
+**Test 6: Ad Network Viability**
 
 | Element | Detail |
 |---------|--------|
@@ -1473,9 +1562,9 @@ These test whether the business can actually operate.
 | Measure | Estimated eCPM range from network conversations. Comparison with the $8-15 range assumed in projections. |
 | Pass | At least one network confirms $8+ eCPM is realistic for rewarded video in a social impact app. |
 | Fail | All networks estimate below $8 eCPM. Impact/social good inventory is undervalued by advertisers. |
-| If it fails | Reduce ad revenue projections by 30-50%. The platform still works -- ad revenue is secondary to subscriptions -- but the free-tier value proposition weakens. Consider supplementing with direct-sold sponsorship ads from mission-aligned brands (higher eCPM but requires sales effort). |
+| If it fails | Reduce ad revenue projections by 30-50%. **This is a serious problem** -- attention-funded revenue is the largest revenue category (56.6% of Year 5). At half projections, Year 4 break-even is at risk. Consider supplementing with direct-sold sponsorship ads from mission-aligned brands (higher eCPM but requires sales effort) or explore alternative attention-funded formats. |
 
-**Test 8: Corporate Matching Interest**
+**Test 7: Corporate Matching Interest**
 
 | Element | Detail |
 |---------|--------|
@@ -1492,15 +1581,15 @@ After all tests are complete, score the results:
 
 | Result | Action |
 |--------|--------|
-| Tests 1-3 all pass | Core concept validated. Proceed to Phase 1 (legal + partnerships). |
+| Tests 1-2 both pass | Core concept and ad-funded pathway validated. Proceed to Phase 1 (legal + partnerships). |
 | Test 1 fails | Fundamental concept question. Pivot the giving model framing or reconsider the approach. |
-| Test 2 fails | Subscription model needs rethinking. May still proceed with adjusted revenue model. |
-| Test 3 fails | Ad-funded pathway is supplementary, not primary. Proceed but reduce ad revenue projections. |
-| Tests 4-6 mixed results | Engagement mechanics need adjustment but aren't fatal. Proceed with modifications. |
-| Tests 7-8 fail | Operational feasibility problem. eCPM too low or corporate matching not viable. Adjust revenue projections and consider direct-sold sponsorship ads. |
-| Test 8 fails | Defer corporate matching to Year 2+. Not a launch dependency. |
+| Test 2 fails | Ad-funded pathway doesn't drive engagement. **This is serious** -- attention-funded revenue is 56.6% of projections. Reduce ad revenue projections significantly and explore alternative monetization. May still proceed if Test 4 (business directory) is strong. |
+| Tests 3-5 mixed results | Engagement mechanics need adjustment but aren't fatal. Proceed with modifications. |
+| Test 4 fails (business directory) | **Critical** -- business directory is the primary B2B revenue stream. If businesses won't list or won't pay for enhanced features, the revenue model needs rethinking. Explore alternative B2B products. |
+| Test 6 fails (ad eCPM) | Reduce ad revenue projections by 30-50%. Consider direct-sold sponsorship ads from mission-aligned brands. Year 4 break-even at risk -- may need more capital. |
+| Test 7 fails | Defer corporate matching to Year 2+. Not a launch dependency. |
 
-**The kill criteria:** If Test 1 (concept resonance) and Test 2 (willingness to pay) both fail, the core product concept does not have market demand as designed. Stop and rethink before spending $100K+ on engineering.
+**The kill criteria:** If Test 1 (concept resonance) and Test 2 (ad-funded engagement) both fail, the core product concept does not have market demand as designed. Stop and rethink before spending $100K+ on engineering. If Tests 2, 4, and 6 all fail (ad engagement low, businesses won't pay, eCPM below projections), the revenue model has no viable path -- the platform may need to reconsider optional premium features or find alternative monetization.
 
 ### Phase 0 Budget
 

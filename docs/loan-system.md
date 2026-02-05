@@ -2,7 +2,7 @@
 
 Grants fund projects. Loans fund people. Microloans let the community directly back individuals -- a person starting a bakery, buying tools for a trade, covering training costs -- with the understanding that if the borrower is responsible, the money comes back to be deployed again. If it doesn't come back, that's the risk the funder accepted.
 
-Funders deploy capital from their watershed balance. Watersheds grow from cash contributions (100% enters the watershed), referral credits, community grant volunteer credits, Impact tier Deluge credits ($10/month), and loan repayments. Ad revenue and business card browsing revenue flow directly to projects, not through the watershed. Impact tier subscribers ($25/month) receive a monthly Deluge-funded watershed credit, allowing them to channel additional capital into the loan ecosystem.
+Funders deploy capital from their watershed balance. Watersheds grow from all contribution pathways: cash contributions (100%), ad revenue (60% of each view), business card browsing revenue, referral credits, community grant volunteer credits, and loan repayments. Every pathway feeds the same watershed.
 
 ---
 
@@ -196,7 +196,7 @@ Community groups are the opt-in mechanism. Joining a group subscribes you to tha
 1. Funder taps a loan card, views borrower profile and purpose
 2. Loan detail page shows: borrower info, verified identity status, purpose and category, location, total amount with stretch goals, funding deadline, payment schedule, share price ($0.25), total shares in loan, shares remaining, your share count
 3. Funder taps "Fund this loan"
-4. $0.25 minimum (one share). Fund any amount in $0.25 increments.
+4. $0.25 minimum (one share). Fund any amount in $0.25 increments. Watershed funds can come from cash contributions, ad revenue, business card browsing revenue, referral credits, volunteer credits, or recycled loan repayments -- multiple pathways to build a watershed balance without cash on hand.
 5. Funds come from watershed balance
 6. **Risk disclosure (mandatory, not skippable):** "This is a loan, not a grant. If the borrower repays, your contribution will return to your watershed a little at a time. If the borrower does not repay, some or all of your contribution may be lost. Deluge does not guarantee repayment."
 7. Confirmation shows share count and estimated repayment timeline: "You funded 80 shares ($20.00). Estimated full repayment by month 8."

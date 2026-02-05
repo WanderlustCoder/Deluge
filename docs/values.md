@@ -6,7 +6,7 @@ Generous people give until it hurts. Deluge makes giving sustainable -- multiple
 
 **Who it's for:** The person who donates to every GoFundMe and never knows where the money went. The person who volunteers 20 hours a week and wishes they could do more. Deluge competes with the fragmented, opaque world of informal community giving, not with GoFundMe or DonorsChoose.
 
-**The on-ramp:** Not everyone has cash to give. The Deluge Impact tier ($25/month) includes a $10/month Deluge-funded watershed credit for users who want maximum impact. But the free tier is equally valid -- watching ads, browsing businesses, and volunteering all generate real project funding. Deluge works for people with money and people without it.
+**The on-ramp:** Not everyone has cash to give. That's why Deluge has zero-dollar pathways: watching ads, browsing local businesses, volunteering for community grants, and referring friends all generate real project funding. Every pathway is equally valid. Deluge works for people with money and people without it.
 
 **The metaphor:** Individual drops become collective force. One by one, all at once. No single raindrop takes credit for the river.
 
@@ -55,12 +55,14 @@ Deluge is infrastructure, not editorial. The platform verifies identity, legitim
 
 **Revenue priorities (in order):**
 
-1. Subscriptions (primary)
-2. Ad revenue and business card directory (secondary)
-3. Corporate ESG partnerships (Year 2+)
-4. B2B and corporate ESG programs (Year 2+)
+1. Ad revenue (primary — 40% platform cut from video ads)
+2. Business directory (primary — enhanced listings for local businesses)
+3. Custodial float income (interest on aggregate watershed balances — scales automatically, costs users nothing, fully transparent)
+4. Corporate ESG partnerships and campaign management fees (Year 2+)
 5. Microloan servicing fees (Year 2+, modest)
-6. Credit bureau reporting (Year 3+, cost center not revenue)
+6. Cascade and notification sponsorship (Year 2+)
+7. Institutional partnerships — white-label, data, financial institution (Year 2+)
+8. Credit bureau reporting (Year 3+, cost center not revenue)
 
 Microloans are not a revenue driver. The value is mission alignment, user engagement, and recycled impact capital.
 
@@ -86,7 +88,7 @@ Every gamification mechanic must pass one test: does this reward behavior that's
 - Individual hero moments that create FOMO or racing behavior
 - Breadth of spending for completionism's sake
 
-The deluge is made of drops, not whales. A user who contributes $5/month and watches ads to fund projects in their community is as valuable as someone contributing $500/month.
+The deluge is made of drops, not whales. A user who contributes $5/month and watches ads to fund projects in their community is as valuable as someone contributing $500/month. The platform's universal unit of participation -- $0.25 -- is achievable through under a week of casual ad-watching. No cash required to be part of a cascade.
 
 ### No Individual Heroes
 

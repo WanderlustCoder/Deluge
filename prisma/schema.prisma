@@ -1,0 +1,250 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("user")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  watershed     Watershed?
+  allocations   Allocation[]
+  adViews       AdView[]
+  contributions Contribution[]
+  borrowerLoans Loan[]      @relation("BorrowerLoans")
+  fundedShares  LoanShare[] @relation("FunderShares")
+  referrals     Referral[]  @relation("Referrals")
+  referredBy    Referral?   @relation("ReferredBy")
+  badges        UserBadge[]
+  streaks       Streak[]
+  communities        CommunityMember[]
+  createdCommunities Community[] @relation("CreatedCommunities")
+}
+
+model Watershed {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  balance      Float    @default(0)
+  totalInflow  Float    @default(0)
+  totalOutflow Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user         User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions WatershedTransaction[]
+}
+
+model WatershedTransaction {
+  id           String   @id @default(cuid())
+  watershedId  String
+  type         String // ad_credit, cash_contribution, project_allocation
+  amount       Float
+  description  String?
+  balanceAfter Float
+  createdAt    DateTime @default(now())
+
+  watershed Watershed @relation(fields: [watershedId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id            String   @id @default(cuid())
+  title         String
+  description   String
+  category      String
+  fundingGoal   Float
+  fundingRaised Float    @default(0)
+  backerCount   Int      @default(0)
+  status        String   @default("active") // active, funded, completed
+  location      String
+  imageUrl      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  allocations  Allocation[]
+  communities  CommunityProject[]
+}
+
+model Allocation {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String
+  amount    Float
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model AdView {
+  id              String   @id @default(cuid())
+  userId          String
+  grossRevenue    Float
+  platformCut     Float
+  watershedCredit Float
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Contribution {
+  id              String   @id @default(cuid())
+  userId          String
+  amount          Float
+  type            String // cash, simulated
+  watershedCredit Float
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Loan {
+  id              String   @id @default(cuid())
+  borrowerId      String
+  amount          Float
+  totalShares     Int
+  sharesRemaining Int
+  purpose         String
+  purposeCategory String
+  story           String?
+  location        String
+  status          String   @default("funding") // funding, active, repaying, completed, defaulted
+  fundingDeadline DateTime
+  repaymentMonths Int
+  monthlyPayment  Float
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  borrower   User            @relation("BorrowerLoans", fields: [borrowerId], references: [id])
+  shares     LoanShare[]
+  repayments LoanRepayment[]
+}
+
+model LoanShare {
+  id        String   @id @default(cuid())
+  loanId    String
+  funderId  String
+  count     Int
+  amount    Float
+  repaid    Float    @default(0)
+  createdAt DateTime @default(now())
+
+  loan   Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  funder User @relation("FunderShares", fields: [funderId], references: [id])
+}
+
+model LoanRepayment {
+  id            String   @id @default(cuid())
+  loanId        String
+  amount        Float
+  principalPaid Float
+  servicingFee  Float
+  createdAt     DateTime @default(now())
+
+  loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+}
+
+model Referral {
+  id           String    @id @default(cuid())
+  referrerId   String
+  referredId   String?   @unique
+  code         String    @unique
+  status       String    @default("pending") // pending, signed_up, activated, expired
+  signupCredit Float     @default(0)
+  actionCredit Float     @default(0)
+  createdAt    DateTime  @default(now())
+  activatedAt  DateTime?
+
+  referrer User  @relation("Referrals", fields: [referrerId], references: [id])
+  referred User? @relation("ReferredBy", fields: [referredId], references: [id])
+}
+
+model Badge {
+  id          String @id @default(cuid())
+  key         String @unique
+  name        String
+  description String
+  tier        String
+  icon        String
+  createdAt   DateTime @default(now())
+
+  userBadges UserBadge[]
+}
+
+model UserBadge {
+  id       String   @id @default(cuid())
+  userId   String
+  badgeId  String
+  earnedAt DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
+
+model Streak {
+  id             String    @id @default(cuid())
+  userId         String
+  type           String
+  currentDays    Int       @default(0)
+  longestDays    Int       @default(0)
+  lastActiveDate DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type])
+}
+
+model Community {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  location    String?
+  category    String?
+  imageUrl    String?
+  createdBy   String
+  memberCount Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creator  User              @relation("CreatedCommunities", fields: [createdBy], references: [id])
+  members  CommunityMember[]
+  projects CommunityProject[]
+}
+
+model CommunityMember {
+  id          String   @id @default(cuid())
+  communityId String
+  userId      String
+  role        String   @default("member") // member, admin
+  joinedAt    DateTime @default(now())
+
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([communityId, userId])
+}
+
+model CommunityProject {
+  id          String   @id @default(cuid())
+  communityId String
+  projectId   String
+  addedBy     String
+  createdAt   DateTime @default(now())
+
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([communityId, projectId])
+}

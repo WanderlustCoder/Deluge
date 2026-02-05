@@ -1,0 +1,162 @@
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { redirect } from "next/navigation";
+import { BalanceDisplay } from "@/components/watershed/balance-display";
+import { SourceBreakdown } from "@/components/watershed/source-breakdown";
+import { TransactionHistory } from "@/components/watershed/transaction-history";
+import { Card, CardContent } from "@/components/ui/card";
+import { DAILY_AD_CAP } from "@/lib/constants";
+import { Tv, Heart, FolderOpen } from "lucide-react";
+import Link from "next/link";
+
+export default async function DashboardPage() {
+  const session = await auth();
+  if (!session?.user) redirect("/login");
+
+  const userId = session.user.id;
+
+  const [watershed, adViewCount, allocationCount, todayAdCount] =
+    await Promise.all([
+      prisma.watershed.findUnique({
+        where: { userId },
+        include: {
+          transactions: {
+            orderBy: { createdAt: "desc" },
+            take: 10,
+          },
+        },
+      }),
+      prisma.adView.count({ where: { userId } }),
+      prisma.allocation.count({ where: { userId } }),
+      prisma.adView.count({
+        where: {
+          userId,
+          createdAt: {
+            gte: new Date(new Date().setHours(0, 0, 0, 0)),
+          },
+        },
+      }),
+    ]);
+
+  // Calculate source breakdown
+  const [adCreditsAgg, cashContribAgg] = await Promise.all([
+    prisma.adView.aggregate({
+      where: { userId },
+      _sum: { watershedCredit: true },
+    }),
+    prisma.contribution.aggregate({
+      where: { userId },
+      _sum: { watershedCredit: true },
+    }),
+  ]);
+
+  const adCredits = adCreditsAgg._sum.watershedCredit ?? 0;
+  const cashContributions = cashContribAgg._sum.watershedCredit ?? 0;
+
+  return (
+    <div>
+      <div className="mb-8">
+        <h1 className="font-heading font-bold text-3xl text-storm">
+          Welcome back, {session.user.name}
+        </h1>
+        <p className="text-storm-light mt-1">Your watershed is waiting.</p>
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Main content */}
+        <div className="lg:col-span-2 space-y-6">
+          <BalanceDisplay
+            balance={watershed?.balance ?? 0}
+            totalInflow={watershed?.totalInflow ?? 0}
+            totalOutflow={watershed?.totalOutflow ?? 0}
+          />
+
+          <TransactionHistory
+            transactions={watershed?.transactions ?? []}
+          />
+        </div>
+
+        {/* Sidebar */}
+        <div className="space-y-4">
+          {/* Quick stats */}
+          <Card>
+            <CardContent className="pt-5">
+              <div className="flex items-center gap-2 mb-1">
+                <Tv className="h-4 w-4 text-teal" />
+                <span className="text-sm text-storm-light">
+                  Ads Watched Today
+                </span>
+              </div>
+              <p className="text-2xl font-heading font-bold text-storm">
+                {todayAdCount} / {DAILY_AD_CAP}
+              </p>
+              <Link
+                href="/watch"
+                className="text-sm text-ocean hover:underline mt-1 inline-block"
+              >
+                Watch more ads &rarr;
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-5">
+              <div className="flex items-center gap-2 mb-1">
+                <Tv className="h-4 w-4 text-storm-light" />
+                <span className="text-sm text-storm-light">
+                  Total Ads Watched
+                </span>
+              </div>
+              <p className="text-2xl font-heading font-bold text-storm">
+                {adViewCount}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-5">
+              <div className="flex items-center gap-2 mb-1">
+                <Heart className="h-4 w-4 text-storm-light" />
+                <span className="text-sm text-storm-light">
+                  Projects Funded
+                </span>
+              </div>
+              <p className="text-2xl font-heading font-bold text-storm">
+                {allocationCount}
+              </p>
+              <Link
+                href="/projects"
+                className="text-sm text-ocean hover:underline mt-1 inline-block"
+              >
+                Browse projects &rarr;
+              </Link>
+            </CardContent>
+          </Card>
+
+          <SourceBreakdown
+            adCredits={adCredits}
+            cashContributions={cashContributions}
+          />
+
+          {/* Quick actions */}
+          <div className="grid grid-cols-2 gap-3">
+            <Link
+              href="/watch"
+              className="flex items-center gap-2 p-3 bg-teal/10 text-teal rounded-lg text-sm font-medium hover:bg-teal/20 transition-colors"
+            >
+              <Tv className="h-4 w-4" />
+              Watch Ads
+            </Link>
+            <Link
+              href="/projects"
+              className="flex items-center gap-2 p-3 bg-ocean/10 text-ocean rounded-lg text-sm font-medium hover:bg-ocean/20 transition-colors"
+            >
+              <FolderOpen className="h-4 w-4" />
+              Projects
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

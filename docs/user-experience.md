@@ -135,7 +135,7 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 ---
 
-### Persona 8: The Philanthropist (Impact Tier)
+### Persona 8: The Philanthropist
 
 | Attribute | Detail |
 |-----------|--------|
@@ -150,9 +150,9 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Pain points:** Traditional philanthropy is opaque -- she writes checks and gets annual reports full of overhead ratios. Donor-advised funds feel like parking money in a tax shelter. She wants more connection and transparency than traditional giving provides.
 
-**How Deluge helps:** Catherine subscribes to the Impact tier ($25/month) for enhanced reporting and Deluge-funded watershed credit. She deploys capital into projects and microloans with full transparency. She backs 15 projects in her first month, sponsors 3 borrowers, and watches real-time impact reports flow back. Her watershed regenerates as microloans get repaid, and she redeploys into new projects. She sees exactly where every dollar goes. The community mechanics (cascading, collective funding, impact reports) give her something donor-advised funds never could: connection to the people her money helps.
+**How Deluge helps:** Catherine deploys capital into projects and microloans with full transparency -- all features are free. She backs 15 projects in her first month, sponsors 3 borrowers, and watches real-time impact reports flow back. Her watershed regenerates as microloans get repaid, and she redeploys into new projects. She sees exactly where every dollar goes. The community mechanics (cascading, collective funding, impact reports) give her something donor-advised funds never could: connection to the people her money helps.
 
-**Key insight:** Catherine represents experienced philanthropists who want more connection and transparency than traditional giving provides. The Impact tier's enhanced reporting and Deluge-funded credits serve this audience.
+**Key insight:** Catherine represents experienced philanthropists who want more connection and transparency than traditional giving provides. Full-featured free access and detailed impact reporting serve this audience.
 
 ---
 
@@ -206,7 +206,7 @@ The onboarding leads with what the user cares about, not how they pay. The contr
    | **Volunteer** | "Community grants near you need hands. Earn watershed credit for your effort." | "See volunteer opportunities" |
 
    If the user selects cash contribution:
-   - Enter amount ($1 minimum; suggest $5, $10, $25)
+   - Enter amount ($0.25 minimum; suggest $1, $5, $10, $25)
    - Payment method (Stripe)
    - Review breakdown: "100% goes to your watershed. From there, you fund the projects and people you care about."
    - The framing: every dollar is yours to deploy into your community.
@@ -969,7 +969,7 @@ A compact row of action buttons at the bottom of the dashboard:
 
 ### Empty State (New Users)
 
-New users see the watershed at $0.00 with a welcoming message, raindrop illustration, and two quick-action buttons ("Contribute now" and "Watch ads to fund projects"). No blank screen, no pressure. See "Personal Dashboard Design" for full detail.
+New users see the watershed at $0.00 with a welcoming message, raindrop illustration, and two quick-action buttons ("Contribute now" and "Watch ads to grow your watershed"). No blank screen, no pressure. See "Personal Dashboard Design" for full detail.
 
 ---
 
@@ -1050,7 +1050,6 @@ The Profile tab is the user's personal settings, achievements, and history. It's
 | Public profile preview | Ad watching (that's Give) |
 | Referral stats dashboard (full history, milestones, earnings) | Daily impact tracking |
 | Sponsor profile (if user has sponsored loans) | |
-| Subscription tier and management | |
 | Privacy settings | |
 | Help and support | |
 
@@ -1067,7 +1066,6 @@ User photo, name, location, member since date. Quick stats: projects backed, com
 | **Achievements** | Badge grid organized by tier. Tap any badge for detail. Progress indicators on badges close to unlocking. Link to Collections. |
 | **Referral Dashboard** | Friends referred (total and active), total watershed credits earned, monthly and lifetime slots remaining, per-referral milestone tracker. This is the full referral history view; the Give tab's Invite Friends card is just the action entry point. |
 | **Sponsor Profile** | Sponsorship power, track record ratio, multiplier, sponsorship history with outcomes. Only visible if the user has sponsored at least one loan. |
-| **Subscription** | Current tier, upgrade/downgrade options, billing history. Impact tier highlights enhanced reporting and Deluge-funded credits as key differentiators. |
 | **Settings** | Notification preferences, privacy (public profile, contribution visibility), linked accounts. |
 | **Help** | FAQ, contact support, report a problem. |
 
@@ -1085,7 +1083,7 @@ The Give tab drives action. The Profile tab provides the record.
 
 Watching ads to fund community projects is a core engagement feature. Users who can't contribute cash can still contribute to the projects they care about by donating their attention. Individually, each ad generates a tiny amount -- but pooled across thousands of users, ad revenue becomes a meaningful funding stream for real projects. This is the raindrop-to-river metaphor applied to advertising revenue.
 
-Ad earnings go entirely to impact projects and the user's watershed. Every contribution -- whether cash or attention -- flows toward community impact.
+Ad earnings flow into the user's watershed. Every contribution -- whether cash or attention -- builds deployable impact capital that the user directs to grants or loans.
 
 ### First-Time Ad Watcher Onboarding
 
@@ -1789,7 +1787,7 @@ Loans appear alongside grant projects in the discovery feeds, clearly labeled. A
 1. User taps a loan card, views the borrower's profile and loan purpose
 2. Loan detail page shows: borrower name, verified identity status, loan purpose and category (general or niche), borrower location, total amount with stretch goals (stacked progress bar), funding deadline and time remaining, payment schedule, share price ($0.25), total shares in loan, shares remaining
 3. User taps "Fund this loan"
-4. Amount screen: "$0.25 minimum (one share). Fund any amount in $0.25 increments."
+4. Amount screen: "$0.25 minimum (one share). Fund any amount in $0.25 increments." Watershed funds come from cash contributions, referral credits, volunteer credits, or recycled loan repayments -- users don't need cash on hand to build a watershed balance.
 5. Funds come from the user's watershed balance
 6. **Risk disclosure (mandatory, not skippable):**
 

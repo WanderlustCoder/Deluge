@@ -36,7 +36,7 @@
 
 | Key Message | Supporting Point |
 |-------------|-----------------|
-| Give what you can, when you can | $1 minimum cash contributions. No pressure to give more than you're comfortable with |
+| Give what you can, when you can | $0.25 minimum cash contributions. No pressure to give more than you're comfortable with |
 | Multiple free pathways | Can't give cash? Watch ads, browse businesses, volunteer. Zero-dollar impact is real impact |
 | Watershed builds over time | Loan repayments recycle back -- your giving grows even when you stop adding |
 | Proof, not promises | Stories and data from real outcomes |
@@ -57,7 +57,7 @@
 |-------------|-----------------|
 | Watch ads to fund real community projects | No cash needed to make an impact |
 | Browse local businesses to fund your community | Discover what's in your neighborhood while funding projects with every view |
-| Full transparency on ad economics | "$0.009 went to your project. Deluge kept $0.006." -- the opposite of exploitative |
+| Full transparency on ad economics | "60% went to your watershed. Deluge kept 40%." -- the opposite of exploitative |
 | Volunteer for community grants | Complete real-world projects, earn watershed credit for your effort |
 | Multiple pathways, one mission | Ads, business browsing, volunteering, referrals -- participate however works for you |
 
@@ -76,8 +76,8 @@
 |-------------|-----------------|
 | Every cent accounted for | Full breakdown of where money goes, always visible |
 | Verified nonprofits, vetted projects | Not a free-for-all. Every project is reviewed before funding begins |
-| No hidden fees, no surprises | Flat subscription model. No per-transaction fees. No fine print. |
-| We show you our economics | "Deluge kept $0.006. Your project got $0.009." -- we tell you what we make |
+| No hidden fees, no surprises | Free for all users. No subscription fees. No per-transaction fees. No fine print. |
+| We show you our economics | "Deluge kept 40%. Your watershed got 60%." -- we tell you what we make |
 
 ---
 
@@ -527,7 +527,7 @@ Monthly focus on one impact category:
 - Monthly category spotlight
 - Seasonal giving (year-end push)
 - Re-engagement (inactive users, "We miss your drops")
-- Premium and Impact subscription offers (Impact tier targets established philanthropists who want uncapped giving)
+- Corporate matching events and business directory launch campaigns
 - Community grant recruitment ("Your neighborhood has a grant open -- will you show up?")
 - Local business launch ("Deluge just launched in [City]. Browse local businesses, fund local projects.")
 - Corporate match events ("Double your impact this week -- [Company] is matching all ad views")
@@ -728,7 +728,7 @@ Phase 0 validation requires landing page traffic, survey responses, and communit
 |--------|-----------------|---------------|
 | MAU / DAU ratio | > 30% | Measures daily engagement, not just monthly logins |
 | 90-day retention | > 25% | Most apps lose 80% in 90 days. 25% is fintech-competitive. |
-| Paid conversion rate | 8-12% | Revenue depends on this. Below 5% is a pricing problem. |
+| Ad views per active user per day | 3-5 | Revenue depends on this. Below 2/day means the ad pathway isn't compelling. |
 | Average contribution frequency | 2x/month | Measures habit formation. Below 1x/month signals disengagement. |
 | Ad views per active user per day | 2-3 | Measures free-tier engagement. Below 1/day means the ad pathway isn't compelling. |
 | Business card views per active user per day | 5-10 | Measures directory engagement. Low numbers mean insufficient local listings. |
@@ -743,7 +743,7 @@ Phase 0 validation requires landing page traffic, survey responses, and communit
 |--------|--------|----------|
 | Blended CAC | < $20 | > $25 means paid acquisition is unsustainable |
 | LTV:CAC ratio | > 2:1 | < 1.5:1 means the unit economics don't close |
-| Monthly churn (paid subscribers) | < 5% | > 8% means paid features aren't valued |
+| Business directory retention | > 85% monthly | < 75% means enhanced listing value isn't clear |
 | Revenue per user (blended) | > $8/yr by Year 2 | < $5/yr means monetization is failing |
 | Burn rate vs. projection | Within 20% | > 30% over projection means cost discipline has failed |
 
