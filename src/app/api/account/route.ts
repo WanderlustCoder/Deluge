@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
-
-const updateSchema = z.object({
-  name: z.string().min(1, "Name is required").max(50, "Name too long"),
-});
+import { logError } from "@/lib/logger";
+import { updateNameSchema } from "@/lib/validation";
 
 export async function PATCH(request: Request) {
   const session = await auth();
@@ -15,7 +12,7 @@ export async function PATCH(request: Request) {
 
   try {
     const body = await request.json();
-    const parsed = updateSchema.safeParse(body);
+    const parsed = updateNameSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -33,7 +30,8 @@ export async function PATCH(request: Request) {
       success: true,
       data: { name: user.name },
     });
-  } catch {
+  } catch (error) {
+    logError("api/account", error, { userId: session.user.id, route: "PATCH /api/account" });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

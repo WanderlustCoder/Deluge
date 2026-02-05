@@ -14,11 +14,13 @@ export function calculateAdSplit(grossRevenue: number) {
 }
 
 // Generate a simulated ad revenue (random within realistic range)
-export function simulateAdRevenue() {
+// completionRate: 0-1 (1 = full view, 0.33 = skipped at 5s of 15s)
+export function simulateAdRevenue(completionRate: number = 1) {
   const gross =
     AD_REVENUE_RANGE.min +
     Math.random() * (AD_REVENUE_RANGE.max - AD_REVENUE_RANGE.min);
-  return calculateAdSplit(parseFloat(gross.toFixed(4)));
+  const adjusted = gross * completionRate;
+  return calculateAdSplit(parseFloat(adjusted.toFixed(4)));
 }
 
 // Limits
@@ -81,9 +83,39 @@ export const LOAN_CATEGORIES = [
 
 export type LoanCategory = (typeof LOAN_CATEGORIES)[number];
 
+// --- Credit Tier System ---
+export const CREDIT_TIERS = [
+  { tier: 1, maxAmount: 100,  maxMonths: 6,  deadlineDays: 7 },
+  { tier: 2, maxAmount: 500,  maxMonths: 12, deadlineDays: 14 },
+  { tier: 3, maxAmount: 1000, maxMonths: 18, deadlineDays: 21 },
+  { tier: 4, maxAmount: 2000, maxMonths: 24, deadlineDays: 30 },
+  { tier: 5, maxAmount: 5000, maxMonths: 24, deadlineDays: 45 },
+] as const;
+
 // --- Referral Constants ---
 export const REFERRAL_SIGNUP_CREDIT = 0.50;
 export const REFERRAL_ACTION_CREDIT = 1.00;
 export const MONTHLY_REFERRAL_CAP = 10;
 export const REFERRAL_ACTION_AD_THRESHOLD = 5;
 export const REFERRAL_ACTION_CONTRIBUTION_THRESHOLD = 5;
+
+// --- Referral Retention Constants ---
+export const REFERRAL_RETENTION_CREDIT = 1.00;
+export const REFERRAL_RETENTION_DAYS = 30;
+export const REFERRAL_RETENTION_MIN_LOGINS = 5;
+
+// --- Ad Category Preferences ---
+export const AD_CATEGORIES = [
+  "General",
+  "Alcohol & Spirits",
+  "Tobacco & Vaping",
+  "Gambling & Betting",
+  "Political & Advocacy",
+  "Pharmaceutical",
+  "Weight Loss & Body Image",
+  "Firearms & Weapons",
+  "Dating & Adult",
+  "Cryptocurrency & Finance",
+] as const;
+
+export type AdCategory = (typeof AD_CATEGORIES)[number];

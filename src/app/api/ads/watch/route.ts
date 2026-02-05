@@ -5,13 +5,24 @@ import { simulateAdRevenue, DAILY_AD_CAP } from "@/lib/constants";
 import { checkFirstActionReferral } from "@/lib/referrals";
 import { checkAndAwardBadges, updateAdStreak } from "@/lib/badges";
 
-export async function POST() {
+export async function POST(request: Request) {
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const userId = session.user.id;
+
+  // Parse completion rate from body (0-1, default 1)
+  let completionRate = 1;
+  try {
+    const body = await request.json();
+    if (typeof body.completionRate === "number") {
+      completionRate = Math.max(0, Math.min(1, body.completionRate));
+    }
+  } catch {
+    // No body or invalid JSON — default to full completion
+  }
 
   // Check daily cap
   const startOfDay = new Date();
@@ -42,8 +53,8 @@ export async function POST() {
     });
   }
 
-  // Simulate variable ad revenue (in production, this comes from the ad network)
-  const adRevenue = simulateAdRevenue();
+  // Simulate variable ad revenue scaled by completion rate
+  const adRevenue = simulateAdRevenue(completionRate);
 
   // Record ad view and credit watershed in a transaction
   const newBalance = watershed.balance + adRevenue.watershedCredit;
@@ -56,6 +67,7 @@ export async function POST() {
         grossRevenue: adRevenue.grossRevenue,
         platformCut: adRevenue.platformCut,
         watershedCredit: adRevenue.watershedCredit,
+        completionRate,
       },
     }),
     prisma.watershed.update({
@@ -88,6 +100,7 @@ export async function POST() {
       newBalance,
       adsToday: todayCount + 1,
       remaining: DAILY_AD_CAP - (todayCount + 1),
+      completionRate,
       newBadges,
     },
   });
@@ -114,9 +127,14 @@ export async function GET() {
     where: { userId: session.user.id },
   });
 
-  return NextResponse.json({
-    adsToday: todayCount,
-    remaining: DAILY_AD_CAP - todayCount,
-    balance: watershed?.balance ?? 0,
-  });
+  return NextResponse.json(
+    {
+      adsToday: todayCount,
+      remaining: DAILY_AD_CAP - todayCount,
+      balance: watershed?.balance ?? 0,
+    },
+    {
+      headers: { "Cache-Control": "no-store, max-age=0" },
+    }
+  );
 }

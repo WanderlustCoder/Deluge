@@ -4,26 +4,18 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import {
   SHARE_PRICE,
-  T1_MAX_AMOUNT,
-  T1_MAX_MONTHS,
-  T1_FUNDING_DEADLINE_DAYS,
   LOAN_CATEGORIES,
 } from "@/lib/constants";
+import { getTierConfig } from "@/lib/loans";
+import { logError } from "@/lib/logger";
 
 const applySchema = z.object({
-  amount: z
-    .number()
-    .positive()
-    .max(T1_MAX_AMOUNT, `Maximum loan amount is $${T1_MAX_AMOUNT}`),
+  amount: z.number().positive(),
   purpose: z.string().min(1, "Purpose is required"),
   purposeCategory: z.enum(LOAN_CATEGORIES as unknown as [string, ...string[]]),
   story: z.string().optional(),
   location: z.string().min(1, "Location is required"),
-  repaymentMonths: z
-    .number()
-    .int()
-    .min(1)
-    .max(T1_MAX_MONTHS, `Maximum repayment term is ${T1_MAX_MONTHS} months`),
+  repaymentMonths: z.number().int().min(1),
 });
 
 // GET: list loans in funding status
@@ -63,6 +55,33 @@ export async function POST(request: Request) {
       );
     }
 
+    // Get user's credit tier for dynamic limits
+    const user = await prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { creditTier: true },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found." }, { status: 404 });
+    }
+
+    const tierConfig = getTierConfig(user.creditTier);
+
+    // Validate against tier-specific limits
+    if (parsed.data.amount > tierConfig.maxAmount) {
+      return NextResponse.json(
+        { error: `Maximum loan amount for Tier ${user.creditTier} is $${tierConfig.maxAmount}.` },
+        { status: 400 }
+      );
+    }
+
+    if (parsed.data.repaymentMonths > tierConfig.maxMonths) {
+      return NextResponse.json(
+        { error: `Maximum repayment term for Tier ${user.creditTier} is ${tierConfig.maxMonths} months.` },
+        { status: 400 }
+      );
+    }
+
     // Check if user already has an active loan
     const existingLoan = await prisma.loan.findFirst({
       where: {
@@ -86,7 +105,7 @@ export async function POST(request: Request) {
     const monthlyPayment = actualAmount / repaymentMonths;
 
     const deadline = new Date();
-    deadline.setDate(deadline.getDate() + T1_FUNDING_DEADLINE_DAYS);
+    deadline.setDate(deadline.getDate() + tierConfig.deadlineDays);
 
     const loan = await prisma.loan.create({
       data: {
@@ -99,6 +118,7 @@ export async function POST(request: Request) {
         story: story || null,
         location,
         status: "funding",
+        tier: user.creditTier,
         fundingDeadline: deadline,
         repaymentMonths,
         monthlyPayment,
@@ -106,7 +126,8 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, data: loan });
-  } catch {
+  } catch (error) {
+    logError("api/loans", error, { userId: session.user.id, route: "POST /api/loans" });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

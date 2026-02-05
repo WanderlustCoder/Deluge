@@ -1,11 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
-
-const addProjectSchema = z.object({
-  projectId: z.string().min(1),
-});
+import { logError } from "@/lib/logger";
+import { addCommunityProjectSchema } from "@/lib/validation";
 
 // GET: community projects
 export async function GET(
@@ -56,7 +53,7 @@ export async function POST(
 
   try {
     const body = await request.json();
-    const parsed = addProjectSchema.safeParse(body);
+    const parsed = addCommunityProjectSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -91,7 +88,8 @@ export async function POST(
     });
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    logError("api/communities/projects", error, { userId: session.user.id, route: `/api/communities/${id}/projects` });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

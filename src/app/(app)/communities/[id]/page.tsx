@@ -8,10 +8,14 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProjectGrid } from "@/components/projects/project-grid";
 import { MemberList } from "@/components/communities/member-list";
+import { VoteButtons } from "@/components/communities/vote-buttons";
 import { useToast } from "@/components/ui/toast";
-import { Users, MapPin } from "lucide-react";
+import { Users, MapPin, MessageSquare, FolderOpen } from "lucide-react";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 import type { Project } from "@prisma/client";
+
+type TabType = "projects" | "discussions";
 
 export default function CommunityDetailPage() {
   const params = useParams();
@@ -19,6 +23,7 @@ export default function CommunityDetailPage() {
   const { toast } = useToast();
   const [community, setCommunity] = useState<any>(null);
   const [joinLoading, setJoinLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabType>("projects");
 
   // For adding projects
   const [allProjects, setAllProjects] = useState<Project[]>([]);
@@ -175,45 +180,143 @@ export default function CommunityDetailPage() {
         </CardContent>
       </Card>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Projects */}
-        <div className="lg:col-span-2">
-          <h2 className="font-heading font-semibold text-lg text-storm mb-4">
-            Community Projects
-          </h2>
+      {/* Tabs */}
+      <div className="flex gap-1 mb-6 border-b border-gray-200">
+        <button
+          onClick={() => setActiveTab("projects")}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
+            activeTab === "projects"
+              ? "border-ocean text-ocean"
+              : "border-transparent text-storm-light hover:text-storm"
+          )}
+        >
+          <FolderOpen className="h-4 w-4" />
+          Projects
+        </button>
+        <button
+          onClick={() => setActiveTab("discussions")}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
+            activeTab === "discussions"
+              ? "border-ocean text-ocean"
+              : "border-transparent text-storm-light hover:text-storm"
+          )}
+        >
+          <MessageSquare className="h-4 w-4" />
+          Discussions
+        </button>
+      </div>
 
-          {isAdmin && availableProjects.length > 0 && (
-            <div className="flex gap-2 mb-4">
-              <select
-                value={selectedProjectId}
-                onChange={(e) => setSelectedProjectId(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-lg border border-gray-300 bg-white text-sm text-storm focus:outline-none focus:ring-2 focus:ring-ocean/50"
-              >
-                <option value="">Add a project...</option>
-                {availableProjects.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.title}
-                  </option>
-                ))}
-              </select>
-              <Button
-                size="sm"
-                onClick={handleAddProject}
-                loading={addingProject}
-                disabled={!selectedProjectId}
-              >
-                Add
-              </Button>
-            </div>
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Main content */}
+        <div className="lg:col-span-2">
+          {activeTab === "projects" && (
+            <>
+              {isAdmin && availableProjects.length > 0 && (
+                <div className="flex gap-2 mb-4">
+                  <select
+                    value={selectedProjectId}
+                    onChange={(e) => setSelectedProjectId(e.target.value)}
+                    className="flex-1 px-3 py-2 rounded-lg border border-gray-300 bg-white text-sm text-storm focus:outline-none focus:ring-2 focus:ring-ocean/50"
+                  >
+                    <option value="">Add a project...</option>
+                    {availableProjects.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.title}
+                      </option>
+                    ))}
+                  </select>
+                  <Button
+                    size="sm"
+                    onClick={handleAddProject}
+                    loading={addingProject}
+                    disabled={!selectedProjectId}
+                  >
+                    Add
+                  </Button>
+                </div>
+              )}
+
+              {communityProjects.length > 0 ? (
+                <div className="space-y-4">
+                  {communityProjects.map((project: Project) => {
+                    const voteTally = community.voteTallies?.[project.id] || {
+                      upvotes: 0,
+                      downvotes: 0,
+                      userVote: 0,
+                    };
+                    const percent = Math.round(
+                      (project.fundingRaised / project.fundingGoal) * 100
+                    );
+                    return (
+                      <Card key={project.id}>
+                        <CardContent className="pt-5">
+                          <div className="flex items-start justify-between mb-2">
+                            <Link
+                              href={`/projects/${project.id}`}
+                              className="flex-1"
+                            >
+                              <div className="flex items-start gap-2 mb-1">
+                                <Badge variant="ocean">{project.category}</Badge>
+                                <Badge
+                                  variant={
+                                    project.status === "funded"
+                                      ? "success"
+                                      : "default"
+                                  }
+                                >
+                                  {project.status}
+                                </Badge>
+                              </div>
+                              <h3 className="font-heading font-semibold text-storm hover:text-ocean transition-colors">
+                                {project.title}
+                              </h3>
+                            </Link>
+                            {isMember && (
+                              <VoteButtons
+                                communityId={params.id as string}
+                                projectId={project.id}
+                                initialUpvotes={voteTally.upvotes}
+                                initialDownvotes={voteTally.downvotes}
+                                initialUserVote={voteTally.userVote}
+                              />
+                            )}
+                          </div>
+                          <p className="text-sm text-storm-light mb-2 line-clamp-2">
+                            {project.description}
+                          </p>
+                          <div className="text-xs text-storm-light">
+                            {percent}% funded &middot;{" "}
+                            {project.backerCount} backers
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <p className="text-storm-light">
+                    No projects linked to this community yet.
+                  </p>
+                </div>
+              )}
+            </>
           )}
 
-          {communityProjects.length > 0 ? (
-            <ProjectGrid projects={communityProjects} />
-          ) : (
+          {activeTab === "discussions" && (
             <div className="text-center py-8">
-              <p className="text-storm-light">
-                No projects linked to this community yet.
+              <MessageSquare className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+              <p className="text-storm-light mb-4">
+                View and participate in community discussions.
               </p>
+              <Link href={`/communities/${params.id}/discussions`}>
+                <Button size="sm">
+                  <MessageSquare className="h-4 w-4 mr-1" />
+                  Go to Discussions
+                </Button>
+              </Link>
             </div>
           )}
         </div>

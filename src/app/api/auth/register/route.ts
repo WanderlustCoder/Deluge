@@ -1,15 +1,9 @@
 import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
-import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { REFERRAL_SIGNUP_CREDIT } from "@/lib/constants";
-
-const registerSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  referralCode: z.string().optional(),
-});
+import { logError } from "@/lib/logger";
+import { registerSchema } from "@/lib/validation";
 
 export async function POST(request: Request) {
   try {
@@ -98,7 +92,8 @@ export async function POST(request: Request) {
       success: true,
       data: { id: user.id, email: user.email, name: user.name },
     });
-  } catch {
+  } catch (error) {
+    logError("api/auth/register", error, { route: "POST /api/auth/register" });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

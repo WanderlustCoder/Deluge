@@ -1,18 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
-import { PROJECT_CATEGORIES } from "@/lib/constants";
-
-const updateSchema = z.object({
-  title: z.string().min(1).optional(),
-  description: z.string().min(1).optional(),
-  category: z.enum(PROJECT_CATEGORIES as unknown as [string, ...string[]]).optional(),
-  fundingGoal: z.number().positive().optional(),
-  location: z.string().min(1).optional(),
-  status: z.enum(["active", "funded", "completed"]).optional(),
-  imageUrl: z.string().nullable().optional(),
-});
+import { logError } from "@/lib/logger";
+import { updateProjectSchema } from "@/lib/validation";
 
 export async function PATCH(
   request: Request,
@@ -27,7 +17,7 @@ export async function PATCH(
 
   try {
     const body = await request.json();
-    const parsed = updateSchema.safeParse(body);
+    const parsed = updateProjectSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -42,7 +32,8 @@ export async function PATCH(
     });
 
     return NextResponse.json({ success: true, data: project });
-  } catch {
+  } catch (error) {
+    logError("api/admin/projects/[id]", error, { route: `ADMIN /api/admin/projects/${id}` });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }
@@ -64,7 +55,8 @@ export async function DELETE(
   try {
     await prisma.project.delete({ where: { id } });
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    logError("api/admin/projects/[id]", error, { route: `ADMIN /api/admin/projects/${id}` });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

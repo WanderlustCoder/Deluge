@@ -1,66 +1,155 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, SkipForward, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { AdCategory } from "@/lib/constants";
 
 interface AdPlayerProps {
-  onComplete: () => void;
+  onComplete: (completionRate: number) => void;
   disabled?: boolean;
+  blockedCategories?: string[];
 }
 
 const AD_DURATION = 15; // seconds
 const SKIP_AFTER = 5; // seconds
 
-const adContent = [
+interface AdContent {
+  brand: string;
+  tagline: string;
+  category: AdCategory;
+  bg: string;
+  accent: string;
+}
+
+const adContent: AdContent[] = [
   {
     brand: "EcoFlow Solar",
     tagline: "Power Your Home, Power the Planet",
+    category: "General",
     bg: "from-emerald-500 to-teal-600",
     accent: "text-emerald-100",
   },
   {
     brand: "Greenfield Grocers",
     tagline: "Fresh. Local. Always.",
+    category: "General",
     bg: "from-amber-500 to-orange-600",
     accent: "text-amber-100",
   },
   {
     brand: "Horizon Learning",
     tagline: "Education Without Boundaries",
+    category: "General",
     bg: "from-blue-500 to-indigo-600",
     accent: "text-blue-100",
   },
   {
     brand: "Atlas Fitness",
     tagline: "Your Journey. Your Strength.",
+    category: "General",
     bg: "from-rose-500 to-pink-600",
     accent: "text-rose-100",
   },
   {
     brand: "ClearWater Tech",
     tagline: "Clean Water for Everyone",
+    category: "General",
     bg: "from-cyan-500 to-blue-600",
     accent: "text-cyan-100",
   },
+  {
+    brand: "Valley Vineyards",
+    tagline: "Taste the Tradition",
+    category: "Alcohol & Spirits",
+    bg: "from-purple-500 to-violet-600",
+    accent: "text-purple-100",
+  },
+  {
+    brand: "LuckyStar Casino",
+    tagline: "Play Your Way",
+    category: "Gambling & Betting",
+    bg: "from-yellow-500 to-amber-600",
+    accent: "text-yellow-100",
+  },
+  {
+    brand: "CoinRise Exchange",
+    tagline: "Your Crypto Journey Starts Here",
+    category: "Cryptocurrency & Finance",
+    bg: "from-orange-500 to-red-600",
+    accent: "text-orange-100",
+  },
+  {
+    brand: "FitBody Pro",
+    tagline: "Transform Today",
+    category: "Weight Loss & Body Image",
+    bg: "from-lime-500 to-green-600",
+    accent: "text-lime-100",
+  },
+  {
+    brand: "VoteForward PAC",
+    tagline: "Your Voice Matters",
+    category: "Political & Advocacy",
+    bg: "from-slate-500 to-gray-600",
+    accent: "text-slate-100",
+  },
+  {
+    brand: "CloudVape Co",
+    tagline: "Smooth. Simple. Satisfying.",
+    category: "Tobacco & Vaping",
+    bg: "from-gray-500 to-zinc-600",
+    accent: "text-gray-100",
+  },
+  {
+    brand: "MediCure Rx",
+    tagline: "Ask Your Doctor Today",
+    category: "Pharmaceutical",
+    bg: "from-teal-500 to-cyan-600",
+    accent: "text-teal-100",
+  },
+  {
+    brand: "IronSight Armory",
+    tagline: "Built for Precision",
+    category: "Firearms & Weapons",
+    bg: "from-stone-500 to-neutral-600",
+    accent: "text-stone-100",
+  },
+  {
+    brand: "Spark Connection",
+    tagline: "Find Your Match",
+    category: "Dating & Adult",
+    bg: "from-pink-500 to-fuchsia-600",
+    accent: "text-pink-100",
+  },
 ];
 
-export function AdPlayer({ onComplete, disabled }: AdPlayerProps) {
+export function AdPlayer({ onComplete, disabled, blockedCategories = [] }: AdPlayerProps) {
   const [state, setState] = useState<"idle" | "playing" | "done">("idle");
   const [elapsed, setElapsed] = useState(0);
   const [muted, setMuted] = useState(true);
+  const [wasSkipped, setWasSkipped] = useState(false);
+
+  const availableAds = useMemo(
+    () => adContent.filter((a) => !blockedCategories.includes(a.category)),
+    [blockedCategories]
+  );
+
   const [ad, setAd] = useState(
-    () => adContent[Math.floor(Math.random() * adContent.length)]
+    () => availableAds[Math.floor(Math.random() * availableAds.length)]
   );
 
   const canSkip = elapsed >= SKIP_AFTER;
   const progress = Math.min(elapsed / AD_DURATION, 1);
 
-  const handleComplete = useCallback(() => {
-    setState("done");
-    onComplete();
-  }, [onComplete]);
+  const handleComplete = useCallback(
+    (completionRate: number) => {
+      setState("done");
+      setWasSkipped(completionRate < 1);
+      onComplete(completionRate);
+    },
+    [onComplete]
+  );
 
   useEffect(() => {
     if (state !== "playing") return;
@@ -70,7 +159,7 @@ export function AdPlayer({ onComplete, disabled }: AdPlayerProps) {
         const next = prev + 0.1;
         if (next >= AD_DURATION) {
           clearInterval(interval);
-          handleComplete();
+          handleComplete(1.0);
           return AD_DURATION;
         }
         return next;
@@ -81,14 +170,17 @@ export function AdPlayer({ onComplete, disabled }: AdPlayerProps) {
   }, [state, handleComplete]);
 
   function handleStart() {
-    setAd(adContent[Math.floor(Math.random() * adContent.length)]);
+    const ads = availableAds.length > 0 ? availableAds : adContent.filter((a) => a.category === "General");
+    setAd(ads[Math.floor(Math.random() * ads.length)]);
     setState("playing");
     setElapsed(0);
+    setWasSkipped(false);
   }
 
   function handleSkip() {
     if (canSkip) {
-      handleComplete();
+      const completionRate = elapsed / AD_DURATION;
+      handleComplete(completionRate);
     }
   }
 
@@ -201,8 +293,15 @@ export function AdPlayer({ onComplete, disabled }: AdPlayerProps) {
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ type: "spring", duration: 0.5 }}
               >
-                <div className="text-4xl mb-3">💧</div>
-                <p className="text-white text-lg font-medium mb-4">Ad Complete</p>
+                <div className="text-4xl mb-3">{wasSkipped ? "💨" : "💧"}</div>
+                <p className="text-white text-lg font-medium mb-1">
+                  {wasSkipped ? "Ad Skipped" : "Ad Complete"}
+                </p>
+                <p className={`text-sm mb-4 ${wasSkipped ? "text-amber-400" : "text-emerald-400"}`}>
+                  {wasSkipped
+                    ? "Partial view — reduced credit"
+                    : "Full view — maximum credit"}
+                </p>
                 <Button
                   onClick={handleStart}
                   disabled={disabled}

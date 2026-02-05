@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { notifyBadgeEarned } from "@/lib/notifications";
 
 interface BadgeDef {
   key: string;
@@ -75,6 +76,7 @@ export async function checkAndAwardBadges(userId: string): Promise<string[]> {
     });
 
     newBadges.push(badge.name);
+    notifyBadgeEarned(userId, badge.name).catch(() => {});
   }
 
   return newBadges;

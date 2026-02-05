@@ -1,17 +1,11 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
-import { MIN_FUNDING_AMOUNT, getCascadeStage } from "@/lib/constants";
+import { getCascadeStage } from "@/lib/constants";
 import { checkAndAwardBadges } from "@/lib/badges";
-
-const fundSchema = z.object({
-  projectId: z.string().min(1),
-  amount: z
-    .number()
-    .positive("Amount must be positive")
-    .min(MIN_FUNDING_AMOUNT, `Minimum funding amount is $${MIN_FUNDING_AMOUNT.toFixed(2)}`),
-});
+import { logError } from "@/lib/logger";
+import { notifyProjectMilestone } from "@/lib/notifications";
+import { fundProjectSchema } from "@/lib/validation";
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -23,7 +17,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const parsed = fundSchema.safeParse(body);
+    const parsed = fundProjectSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -133,7 +127,8 @@ export async function POST(request: Request) {
         newBadges,
       },
     });
-  } catch {
+  } catch (error) {
+    logError("api/fund", error, { userId, route: "POST /api/fund" });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

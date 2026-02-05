@@ -39,7 +39,7 @@ export default function FundPage() {
   const fetchData = useCallback(async () => {
     const [projRes, balRes] = await Promise.all([
       fetch("/api/projects"),
-      fetch("/api/ads/watch"),
+      fetch(`/api/ads/watch?t=${Date.now()}`),
     ]);
     if (projRes.ok) {
       const data = await projRes.json();

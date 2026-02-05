@@ -28,12 +28,14 @@ export function BalanceTicker({ balance, credit, creditKey }: BalanceTickerProps
   const [recentCredits, setRecentCredits] = useState<RecentCredit[]>([]);
   const prevBalanceRef = useRef(balance);
   const rafRef = useRef<number>(0);
+  const animatingRef = useRef(false);
 
   // When a new credit arrives (creditKey changes), kick off the animation
   useEffect(() => {
     if (creditKey === 0 || credit <= 0) return;
 
     const oldBalance = prevBalanceRef.current;
+    animatingRef.current = true;
 
     // Add to recent list
     setRecentCredits((prev) => [
@@ -67,6 +69,7 @@ export function BalanceTicker({ balance, credit, creditKey }: BalanceTickerProps
           setDisplayBalance(balance);
           setDisplayCredit(0);
           prevBalanceRef.current = balance;
+          animatingRef.current = false;
           setPhase("done");
 
           // Fade arrow after a beat
@@ -79,20 +82,17 @@ export function BalanceTicker({ balance, credit, creditKey }: BalanceTickerProps
     return () => {
       clearTimeout(showTimer);
       cancelAnimationFrame(rafRef.current);
+      animatingRef.current = false;
     };
   }, [creditKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Sync balance when no animation is running (e.g., initial load)
-  const syncBalance = useCallback(() => {
-    if (phase === "idle") {
+  // Sync balance when no animation is running (e.g., initial load, page navigation)
+  useEffect(() => {
+    if (!animatingRef.current && phase === "idle") {
       setDisplayBalance(balance);
       prevBalanceRef.current = balance;
     }
   }, [balance, phase]);
-
-  useEffect(() => {
-    syncBalance();
-  }, [syncBalance]);
 
   const showArrow = phase === "counting" || phase === "done";
 

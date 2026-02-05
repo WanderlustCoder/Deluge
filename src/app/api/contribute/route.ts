@@ -1,14 +1,10 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
 import { checkFirstActionReferral } from "@/lib/referrals";
 import { checkAndAwardBadges } from "@/lib/badges";
-
-const contributeSchema = z.object({
-  amount: z.number().positive("Amount must be positive"),
-  type: z.enum(["cash", "simulated"]).default("simulated"),
-});
+import { logError } from "@/lib/logger";
+import { contributeSchema } from "@/lib/validation";
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -88,7 +84,8 @@ export async function POST(request: Request) {
         newBadges,
       },
     });
-  } catch {
+  } catch (error) {
+    logError("api/contribute", error, { userId, route: "POST /api/contribute" });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

@@ -1,14 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
-
-const createSchema = z.object({
-  name: z.string().min(1, "Name is required").max(100),
-  description: z.string().min(1, "Description is required"),
-  location: z.string().optional(),
-  category: z.string().optional(),
-});
+import { logError } from "@/lib/logger";
+import { createCommunitySchema } from "@/lib/validation";
 
 // GET: list communities
 export async function GET() {
@@ -37,7 +31,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const parsed = createSchema.safeParse(body);
+    const parsed = createCommunitySchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -60,7 +54,8 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, data: community });
-  } catch {
+  } catch (error) {
+    logError("api/communities", error, { userId: session.user.id, route: "POST /api/communities" });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

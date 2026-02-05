@@ -8,26 +8,37 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  name         String
-  passwordHash String
-  role         String   @default("user")
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  email              String   @unique
+  name               String
+  passwordHash       String
+  role               String   @default("user")
+  creditTier         Int      @default(1)
+  creditLimit        Float    @default(100)
+  lastTierUpdate     DateTime?
+  onboardingComplete Boolean  @default(false)
+  lastLoginAt        DateTime?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
-  watershed     Watershed?
-  allocations   Allocation[]
-  adViews       AdView[]
-  contributions Contribution[]
-  borrowerLoans Loan[]      @relation("BorrowerLoans")
-  fundedShares  LoanShare[] @relation("FunderShares")
-  referrals     Referral[]  @relation("Referrals")
-  referredBy    Referral?   @relation("ReferredBy")
-  badges        UserBadge[]
-  streaks       Streak[]
+  watershed          Watershed?
+  allocations        Allocation[]
+  adViews            AdView[]
+  contributions      Contribution[]
+  borrowerLoans      Loan[]      @relation("BorrowerLoans")
+  fundedShares       LoanShare[] @relation("FunderShares")
+  referrals          Referral[]  @relation("Referrals")
+  referredBy         Referral?   @relation("ReferredBy")
+  badges             UserBadge[]
+  streaks            Streak[]
   communities        CommunityMember[]
   createdCommunities Community[] @relation("CreatedCommunities")
+  adPreference       AdPreference?
+  notifications      Notification[]
+  discussions        Discussion[]
+  comments           Comment[]
+  projectVotes       ProjectVote[]
+  tierHistory        LoanTierHistory[]
 }
 
 model Watershed {
@@ -71,6 +82,7 @@ model Project {
 
   allocations  Allocation[]
   communities  CommunityProject[]
+  votes        ProjectVote[]
 }
 
 model Allocation {
@@ -90,6 +102,12 @@ model AdView {
   grossRevenue    Float
   platformCut     Float
   watershedCredit Float
+  completionRate  Float    @default(1.0)
+  provider        String   @default("demo")
+  format          String   @default("video")
+  adUnitId        String?
+  eCPM            Float?
+  impressionId    String?
   createdAt       DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -116,7 +134,9 @@ model Loan {
   purposeCategory String
   story           String?
   location        String
-  status          String   @default("funding") // funding, active, repaying, completed, defaulted
+  status          String   @default("funding") // funding, active, repaying, completed, defaulted, expired
+  tier            Int      @default(1)
+  latePayments    Int      @default(0)
   fundingDeadline DateTime
   repaymentMonths Int
   monthlyPayment  Float
@@ -152,16 +172,29 @@ model LoanRepayment {
   loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
 }
 
+model LoanTierHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  fromTier  Int
+  toTier    Int
+  reason    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model Referral {
-  id           String    @id @default(cuid())
-  referrerId   String
-  referredId   String?   @unique
-  code         String    @unique
-  status       String    @default("pending") // pending, signed_up, activated, expired
-  signupCredit Float     @default(0)
-  actionCredit Float     @default(0)
-  createdAt    DateTime  @default(now())
-  activatedAt  DateTime?
+  id                  String    @id @default(cuid())
+  referrerId          String
+  referredId          String?   @unique
+  code                String    @unique
+  status              String    @default("pending") // pending, signed_up, activated, expired
+  signupCredit        Float     @default(0)
+  actionCredit        Float     @default(0)
+  retentionCredit     Float     @default(0)
+  retentionCheckedAt  DateTime?
+  createdAt           DateTime  @default(now())
+  activatedAt         DateTime?
 
   referrer User  @relation("Referrals", fields: [referrerId], references: [id])
   referred User? @relation("ReferredBy", fields: [referredId], references: [id])
@@ -218,9 +251,11 @@ model Community {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  creator  User              @relation("CreatedCommunities", fields: [createdBy], references: [id])
-  members  CommunityMember[]
-  projects CommunityProject[]
+  creator     User              @relation("CreatedCommunities", fields: [createdBy], references: [id])
+  members     CommunityMember[]
+  projects    CommunityProject[]
+  discussions Discussion[]
+  votes       ProjectVote[]    @relation("CommunityVotes")
 }
 
 model CommunityMember {
@@ -247,4 +282,70 @@ model CommunityProject {
   project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@unique([communityId, projectId])
+}
+
+// --- Notifications System (Plan 22) ---
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // loan_funded, loan_payment_received, badge_earned, project_milestone, referral_signup, referral_activated
+  title     String
+  message   String
+  data      String?  // JSON string for navigation/context data
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, read])
+}
+
+// --- Voting & Discussions (Plan 21) ---
+model Discussion {
+  id          String   @id @default(cuid())
+  communityId String
+  userId      String
+  title       String
+  body        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  comments  Comment[]
+}
+
+model Comment {
+  id           String   @id @default(cuid())
+  discussionId String
+  userId       String
+  body         String
+  createdAt    DateTime @default(now())
+
+  discussion Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ProjectVote {
+  id          String @id @default(cuid())
+  communityId String
+  projectId   String
+  userId      String
+  vote        Int    // 1 = up, -1 = down
+
+  community Community @relation("CommunityVotes", fields: [communityId], references: [id], onDelete: Cascade)
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([communityId, projectId, userId])
+}
+
+model AdPreference {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  blockedCategories String   @default("") // comma-separated category keys
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

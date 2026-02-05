@@ -1,0 +1,10 @@
+{
+  "buildCommand": "npx prisma generate && npm run build",
+  "framework": "nextjs",
+  "crons": [
+    { "path": "/api/cron/expire-loans", "schedule": "0 0 * * *" },
+    { "path": "/api/cron/reset-streaks", "schedule": "0 1 * * *" },
+    { "path": "/api/cron/expire-referrals", "schedule": "0 2 * * *" },
+    { "path": "/api/cron/referral-retention", "schedule": "0 3 * * *" }
+  ]
+}

@@ -40,17 +40,22 @@ export function ProgressBar({
     <div className={cn("space-y-1", className)}>
       {showLabel && (
         <div className="flex justify-between text-sm">
-          <span className="font-medium text-storm">
+          <span className="font-medium text-storm dark:text-dark-text">
             {stage.name}
           </span>
-          <span className="text-storm-light">{percent}%</span>
+          <span className="text-storm-light dark:text-dark-text-secondary">{percent}%</span>
         </div>
       )}
       <div
         className={cn(
-          "w-full bg-gray-200 rounded-full overflow-hidden",
+          "w-full bg-gray-200 rounded-full overflow-hidden dark:bg-dark-border",
           sizeStyles[size]
         )}
+        role="progressbar"
+        aria-valuenow={percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`${stage.name} stage: ${percent}% funded`}
       >
         <motion.div
           className={cn(

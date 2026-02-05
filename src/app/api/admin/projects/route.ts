@@ -1,17 +1,8 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
-import { PROJECT_CATEGORIES } from "@/lib/constants";
-
-const createSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  description: z.string().min(1, "Description is required"),
-  category: z.enum(PROJECT_CATEGORIES as unknown as [string, ...string[]]),
-  fundingGoal: z.number().positive("Funding goal must be positive"),
-  location: z.string().min(1, "Location is required"),
-  imageUrl: z.string().nullable().optional(),
-});
+import { logError } from "@/lib/logger";
+import { createProjectSchema } from "@/lib/validation";
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -21,7 +12,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const parsed = createSchema.safeParse(body);
+    const parsed = createProjectSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -42,7 +33,8 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, data: project });
-  } catch {
+  } catch (error) {
+    logError("api/admin/projects", error, { route: "POST /api/admin/projects" });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

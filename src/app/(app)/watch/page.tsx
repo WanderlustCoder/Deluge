@@ -18,37 +18,75 @@ export default function WatchPage() {
   const [lastCredit, setLastCredit] = useState(0);
   const [creditKey, setCreditKey] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [blockedCategories, setBlockedCategories] = useState<string[]>([]);
 
   const fetchStatus = useCallback(async () => {
-    const res = await fetch("/api/ads/watch");
-    if (res.ok) {
-      const data = await res.json();
-      setAdsToday(data.adsToday);
-      setBalance(data.balance);
+    try {
+      const res = await fetch(`/api/ads/watch?t=${Date.now()}`);
+      if (res.ok) {
+        const data = await res.json();
+        setAdsToday(data.adsToday);
+        setBalance(data.balance);
+      }
+    } catch {
+      // Network error — leave defaults
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
+  }, []);
+
+  const fetchPreferences = useCallback(async () => {
+    try {
+      const res = await fetch("/api/ads/preferences");
+      if (res.ok) {
+        const data = await res.json();
+        setBlockedCategories(data.blockedCategories ?? []);
+      }
+    } catch {
+      // Ignore — will show all ads
+    }
   }, []);
 
   useEffect(() => {
-    if (status === "authenticated") fetchStatus();
-  }, [status, fetchStatus]);
+    if (status === "authenticated") {
+      fetchStatus();
+      fetchPreferences();
+    }
+  }, [status, fetchStatus, fetchPreferences]);
 
   if (status === "unauthenticated") redirect("/login");
 
-  async function handleAdComplete() {
-    const res = await fetch("/api/ads/watch", { method: "POST" });
-    if (res.ok) {
-      const data = await res.json();
-      setAdsToday(data.data.adsToday);
-      setBalance(data.data.newBalance);
-      setLastCredit(data.data.credit);
-      setCreditKey((k) => k + 1);
-      // Show badge toasts
-      if (data.data.newBadges?.length) {
-        for (const badge of data.data.newBadges) {
-          toast(`Badge earned: ${badge}!`, "success");
+  async function handleAdComplete(completionRate: number) {
+    try {
+      const res = await fetch("/api/ads/watch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ completionRate }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setAdsToday(data.data.adsToday);
+        setBalance(data.data.newBalance);
+        setLastCredit(data.data.credit);
+        setCreditKey((k) => k + 1);
+
+        if (data.data.completionRate < 1) {
+          toast("Partial view — reduced credit earned", "info");
         }
+
+        // Show badge toasts
+        if (data.data.newBadges?.length) {
+          for (const badge of data.data.newBadges) {
+            toast(`Badge earned: ${badge}!`, "success");
+          }
+        }
+      } else {
+        toast("Failed to record ad view. Please try again.", "error");
+        await fetchStatus();
       }
+    } catch {
+      toast("Network error. Please try again.", "error");
+      await fetchStatus();
     }
   }
 
@@ -76,7 +114,11 @@ export default function WatchPage() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Ad Player */}
         <div className="lg:col-span-2">
-          <AdPlayer onComplete={handleAdComplete} disabled={atCap} />
+          <AdPlayer
+            onComplete={handleAdComplete}
+            disabled={atCap}
+            blockedCategories={blockedCategories}
+          />
 
           {atCap && (
             <div className="mt-4 p-4 bg-gold/10 rounded-lg text-center">
@@ -111,6 +153,7 @@ export default function WatchPage() {
                 <li>60% of ad revenue goes to your watershed</li>
                 <li>40% sustains the platform</li>
                 <li>Watch up to {DAILY_AD_CAP} ads per day</li>
+                <li>Full views earn maximum credit; skipping reduces credit</li>
               </ul>
             </CardContent>
           </Card>

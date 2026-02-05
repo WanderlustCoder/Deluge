@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
 import { SHARE_PRICE } from "@/lib/constants";
-
-const fundSchema = z.object({
-  shares: z.number().int().positive("Must buy at least 1 share"),
-});
+import { logError } from "@/lib/logger";
+import { notifyLoanFunded } from "@/lib/notifications";
+import { loanFundSchema } from "@/lib/validation";
 
 export async function POST(
   request: Request,
@@ -21,7 +19,7 @@ export async function POST(
 
   try {
     const body = await request.json();
-    const parsed = fundSchema.safeParse(body);
+    const parsed = loanFundSchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -126,6 +124,8 @@ export async function POST(
           }),
         ]);
       }
+
+      notifyLoanFunded(loan.borrowerId, loan.purpose).catch(() => {});
     }
 
     return NextResponse.json({
@@ -137,7 +137,8 @@ export async function POST(
         isFullyFunded,
       },
     });
-  } catch {
+  } catch (error) {
+    logError("api/loans/fund", error, { userId: session.user.id, route: `POST /api/loans/${id}/fund` });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

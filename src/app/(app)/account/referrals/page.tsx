@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ReferralCard } from "@/components/account/referral-card";
+import { ReferralMilestoneTracker } from "@/components/account/referral-milestone-tracker";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 
@@ -19,7 +20,7 @@ export default function ReferralsPage() {
   }, []);
 
   const totalEarned = referrals.reduce(
-    (sum, r) => sum + r.signupCredit + r.actionCredit,
+    (sum, r) => sum + r.signupCredit + r.actionCredit + (r.retentionCredit || 0),
     0
   );
   const activatedCount = referrals.filter((r) => r.status === "activated").length;
@@ -84,31 +85,47 @@ export default function ReferralsPage() {
               {referrals.map((r) => (
                 <div
                   key={r.id}
-                  className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0"
+                  className="py-3 border-b border-gray-50 last:border-0"
                 >
-                  <div>
-                    <p className="text-sm text-storm">
-                      {r.referred ? r.referred.name : `Code: ${r.code}`}
-                    </p>
-                    <div className="flex gap-2 mt-1">
-                      <Badge variant={statusVariant[r.status] || "default"}>
-                        {r.status}
-                      </Badge>
-                      {r.signupCredit > 0 && (
-                        <span className="text-xs text-teal">
-                          +{formatCurrency(r.signupCredit)} signup
-                        </span>
-                      )}
-                      {r.actionCredit > 0 && (
-                        <span className="text-xs text-teal">
-                          +{formatCurrency(r.actionCredit)} action
-                        </span>
-                      )}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-storm">
+                        {r.referred ? r.referred.name : `Code: ${r.code}`}
+                      </p>
+                      <div className="flex gap-2 mt-1">
+                        <Badge variant={statusVariant[r.status] || "default"}>
+                          {r.status}
+                        </Badge>
+                        {r.signupCredit > 0 && (
+                          <span className="text-xs text-teal">
+                            +{formatCurrency(r.signupCredit)} signup
+                          </span>
+                        )}
+                        {r.actionCredit > 0 && (
+                          <span className="text-xs text-teal">
+                            +{formatCurrency(r.actionCredit)} action
+                          </span>
+                        )}
+                        {r.retentionCredit > 0 && (
+                          <span className="text-xs text-teal">
+                            +{formatCurrency(r.retentionCredit)} retention
+                          </span>
+                        )}
+                      </div>
                     </div>
+                    <span className="text-xs text-storm-light">
+                      {new Date(r.createdAt).toLocaleDateString()}
+                    </span>
                   </div>
-                  <span className="text-xs text-storm-light">
-                    {new Date(r.createdAt).toLocaleDateString()}
-                  </span>
+                  {/* Milestone tracker for referrals with a referred user */}
+                  {r.referredId && (
+                    <ReferralMilestoneTracker
+                      status={r.status}
+                      signupCredit={r.signupCredit}
+                      actionCredit={r.actionCredit}
+                      retentionCredit={r.retentionCredit || 0}
+                    />
+                  )}
                 </div>
               ))}
             </div>

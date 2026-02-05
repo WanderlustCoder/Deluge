@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { logError } from "@/lib/logger";
 
 // POST: join community
 export async function POST(
@@ -43,7 +44,8 @@ export async function POST(
     ]);
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    logError("api/communities/join", error, { userId: session.user.id, route: `/api/communities/${id}/join` });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }
@@ -103,7 +105,8 @@ export async function DELETE(
     ]);
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (error) {
+    logError("api/communities/join", error, { userId: session.user.id, route: `/api/communities/${id}/join` });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }

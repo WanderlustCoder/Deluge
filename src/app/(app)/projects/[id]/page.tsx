@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,9 +7,33 @@ import { ProgressBar } from "@/components/ui/progress-bar";
 import { CascadeProgress } from "@/components/projects/cascade-progress";
 import { formatCurrency } from "@/lib/utils";
 import { getCascadeStage, CASCADE_STAGES } from "@/lib/constants";
+import { generateSEO } from "@/lib/metadata";
+import { generateProjectJsonLd } from "@/lib/structured-data";
 import { MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const project = await prisma.project.findUnique({
+    where: { id },
+    select: { title: true, description: true, id: true },
+  });
+
+  if (!project) {
+    return { title: "Project Not Found" };
+  }
+
+  return generateSEO({
+    title: project.title,
+    description: project.description,
+    url: `/projects/${project.id}`,
+  });
+}
 
 export default async function ProjectDetailPage({
   params,
@@ -23,9 +48,14 @@ export default async function ProjectDetailPage({
   if (!project) notFound();
 
   const stage = getCascadeStage(project.fundingRaised, project.fundingGoal);
+  const jsonLd = generateProjectJsonLd(project);
 
   return (
     <div className="max-w-3xl mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="mb-6">
         <Link
           href="/projects"

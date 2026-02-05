@@ -1,13 +1,21 @@
+import type { Metadata } from "next";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { BalanceDisplay } from "@/components/watershed/balance-display";
 import { SourceBreakdown } from "@/components/watershed/source-breakdown";
 import { TransactionHistory } from "@/components/watershed/transaction-history";
+import { OnboardingLoader } from "@/components/onboarding/onboarding-loader";
+import { QuickStartCard } from "@/components/onboarding/quick-start-card";
 import { Card, CardContent } from "@/components/ui/card";
 import { DAILY_AD_CAP } from "@/lib/constants";
 import { Tv, Heart, FolderOpen } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: { index: false },
+};
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -15,7 +23,7 @@ export default async function DashboardPage() {
 
   const userId = session.user.id;
 
-  const [watershed, adViewCount, allocationCount, todayAdCount] =
+  const [watershed, adViewCount, allocationCount, todayAdCount, user] =
     await Promise.all([
       prisma.watershed.findUnique({
         where: { userId },
@@ -36,6 +44,10 @@ export default async function DashboardPage() {
           },
         },
       }),
+      prisma.user.findUnique({
+        where: { id: userId },
+        select: { onboardingComplete: true },
+      }),
     ]);
 
   // Calculate source breakdown
@@ -53,8 +65,12 @@ export default async function DashboardPage() {
   const adCredits = adCreditsAgg._sum.watershedCredit ?? 0;
   const cashContributions = cashContribAgg._sum.watershedCredit ?? 0;
 
+  const onboardingComplete = user?.onboardingComplete ?? true;
+
   return (
     <div>
+      <OnboardingLoader isComplete={onboardingComplete} />
+
       <div className="mb-8">
         <h1 className="font-heading font-bold text-3xl text-storm">
           Welcome back, {session.user.name}
@@ -78,6 +94,16 @@ export default async function DashboardPage() {
 
         {/* Sidebar */}
         <div className="space-y-4">
+          {/* Onboarding quick start card */}
+          {!onboardingComplete && (
+            <QuickStartCard
+              onboardingComplete={onboardingComplete}
+              hasWatchedAd={adViewCount > 0}
+              hasBrowsedProjects={false}
+              hasFundedProject={allocationCount > 0}
+            />
+          )}
+
           {/* Quick stats */}
           <Card>
             <CardContent className="pt-5">

@@ -18,10 +18,20 @@
   --color-water-start: #E3F2FD;
   --color-water-end: #0D47A1;
 
+  /* Dark Mode Colors */
+  --color-dark-bg: #0f172a;
+  --color-dark-elevated: #1e293b;
+  --color-dark-card: #1e293b;
+  --color-dark-border: #334155;
+  --color-dark-text: #f1f5f9;
+  --color-dark-text-secondary: #e2e8f0;
+
   /* Typography */
   --font-heading: "Montserrat", sans-serif;
   --font-body: "Inter", sans-serif;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* Base styles */
 body {
@@ -30,6 +40,28 @@ body {
   background-color: var(--color-foam);
 }
 
+.dark body {
+  color: var(--color-dark-text);
+  background-color: var(--color-dark-bg);
+}
+
+/* Override brand colors in dark mode so all text-storm/bg-white usage adapts automatically */
+.dark {
+  --color-storm: #f1f5f9;
+  --color-storm-light: #e2e8f0;
+  --color-foam: #0f172a;
+}
+
+/* Flip common light backgrounds to dark surfaces globally */
+.dark .bg-white { background-color: var(--color-dark-card) !important; }
+.dark .bg-gray-50 { background-color: var(--color-dark-bg) !important; }
+.dark .bg-gray-100 { background-color: var(--color-dark-border) !important; }
+.dark .bg-gray-200 { background-color: var(--color-dark-border) !important; }
+.dark .border-gray-100 { border-color: var(--color-dark-border) !important; }
+.dark .border-gray-200 { border-color: var(--color-dark-border) !important; }
+.dark .divide-gray-100 > * + * { border-color: var(--color-dark-border) !important; }
+.dark .divide-gray-200 > * + * { border-color: var(--color-dark-border) !important; }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
@@ -37,6 +69,10 @@ h1, h2, h3, h4, h5, h6 {
 /* Water gradient background utility */
 .bg-water-gradient {
   background: linear-gradient(180deg, var(--color-water-start) 0%, var(--color-ocean) 100%);
+}
+
+.dark .bg-water-gradient {
+  background: linear-gradient(180deg, #1e293b 0%, var(--color-ocean-dark) 100%);
 }
 
 .bg-cascade-gradient {
@@ -49,4 +85,20 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Focus visible styles */
+:focus-visible {
+  outline: 2px solid var(--color-ocean);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

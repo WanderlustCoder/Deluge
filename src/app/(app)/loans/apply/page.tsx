@@ -1,18 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
-import { LOAN_CATEGORIES, T1_MAX_AMOUNT, T1_MAX_MONTHS, SHARE_PRICE } from "@/lib/constants";
+import { LOAN_CATEGORIES, SHARE_PRICE } from "@/lib/constants";
+
+interface TierInfo {
+  tier: number;
+  tierName: string;
+  maxAmount: number;
+  maxMonths: number;
+  deadlineDays: number;
+  completedLoans: number;
+  latePayments: number;
+}
 
 export default function LoanApplyPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [tierInfo, setTierInfo] = useState<TierInfo | null>(null);
+  const [tierLoading, setTierLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/loans/tier")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.tier) setTierInfo(data);
+      })
+      .finally(() => setTierLoading(false));
+  }, []);
+
+  const maxAmount = tierInfo?.maxAmount ?? 100;
+  const maxMonths = tierInfo?.maxMonths ?? 6;
 
   const [amount, setAmount] = useState("");
   const [purpose, setPurpose] = useState("");
@@ -57,6 +81,14 @@ export default function LoanApplyPage() {
     router.push("/loans");
   }
 
+  if (tierLoading) {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <p className="text-storm-light">Loading tier information...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-8">
@@ -64,20 +96,50 @@ export default function LoanApplyPage() {
           Apply for a Microloan
         </h1>
         <p className="text-storm-light mt-1">
-          Tier 1: Up to ${T1_MAX_AMOUNT}, {T1_MAX_MONTHS}-month max term.
+          Tier {tierInfo?.tier ?? 1} ({tierInfo?.tierName ?? "Starter"}): Up to ${maxAmount}, {maxMonths}-month max term.
         </p>
       </div>
+
+      {/* Tier Info Card */}
+      {tierInfo && (
+        <Card className="mb-6">
+          <CardContent className="pt-5">
+            <h3 className="font-heading font-semibold text-storm mb-2">
+              Your Credit Tier
+            </h3>
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <div>
+                <p className="text-lg font-bold text-ocean">Tier {tierInfo.tier}</p>
+                <p className="text-xs text-storm-light">{tierInfo.tierName}</p>
+              </div>
+              <div>
+                <p className="text-lg font-bold text-teal">${tierInfo.maxAmount}</p>
+                <p className="text-xs text-storm-light">Max Amount</p>
+              </div>
+              <div>
+                <p className="text-lg font-bold text-storm">{tierInfo.maxMonths}mo</p>
+                <p className="text-xs text-storm-light">Max Term</p>
+              </div>
+            </div>
+            {tierInfo.tier < 5 && (
+              <p className="text-xs text-storm-light mt-3 text-center">
+                Repay loans on time to unlock higher tiers with larger limits.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       <Card>
         <CardContent className="pt-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               id="amount"
-              label={`Amount (max $${T1_MAX_AMOUNT})`}
+              label={`Amount (max $${maxAmount})`}
               type="number"
               step="0.25"
               min="0.25"
-              max={T1_MAX_AMOUNT}
+              max={maxAmount}
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               required
@@ -138,7 +200,7 @@ export default function LoanApplyPage() {
 
             <div className="space-y-1">
               <label htmlFor="months" className="block text-sm font-medium text-storm">
-                Repayment Term (months, max {T1_MAX_MONTHS})
+                Repayment Term (months, max {maxMonths})
               </label>
               <select
                 id="months"
@@ -146,7 +208,7 @@ export default function LoanApplyPage() {
                 onChange={(e) => setRepaymentMonths(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-storm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean"
               >
-                {Array.from({ length: T1_MAX_MONTHS }, (_, i) => i + 1).map((m) => (
+                {Array.from({ length: maxMonths }, (_, i) => i + 1).map((m) => (
                   <option key={m} value={m}>{m} month{m > 1 ? "s" : ""}</option>
                 ))}
               </select>

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { SERVICING_FEE_RATE } from "@/lib/constants";
+import { updateUserCreditTier } from "@/lib/loans";
+import { logError } from "@/lib/logger";
+import { notifyLoanPaymentReceived } from "@/lib/notifications";
 
 export async function POST(
   _request: Request,
@@ -146,6 +149,18 @@ export async function POST(
       ...funderUpdates,
     ]);
 
+    // Notify funders of repayment
+    for (const share of loan.shares) {
+      const funderCredit = actualPrincipal * (share.count / totalShares);
+      notifyLoanPaymentReceived(share.funderId, funderCredit, loan.purpose).catch(() => {});
+    }
+
+    // If loan completed, check for credit tier upgrade
+    let tierChange = null;
+    if (isCompleted) {
+      tierChange = await updateUserCreditTier(session.user.id);
+    }
+
     return NextResponse.json({
       success: true,
       data: {
@@ -154,9 +169,11 @@ export async function POST(
         servicingFee,
         isCompleted,
         borrowerNewBalance,
+        tierChange,
       },
     });
-  } catch {
+  } catch (error) {
+    logError("api/loans/repay", error, { userId: session.user.id, route: `POST /api/loans/${id}/repay` });
     return NextResponse.json(
       { error: "Internal server error." },
       { status: 500 }
