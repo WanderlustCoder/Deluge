@@ -82,6 +82,7 @@ model User {
   skills                    UserSkill[]
   inKindDonations           InKindDonation[]
   totalVerifiedHours        Float     @default(0)
+  corporateEmployee         CorporateEmployee?
 }
 
 model Watershed {
@@ -1863,5 +1864,124 @@ model ProjectNeed {
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
   @@index([projectId, fulfilled])
+}
+
+// ==================== Corporate Portal ====================
+
+model CorporateAccount {
+  id                String    @id @default(cuid())
+  name              String    // Company name
+  slug              String    @unique
+  logoUrl           String?
+  primaryColor      String?   // Brand color hex
+  secondaryColor    String?
+  adminEmail        String
+  tier              String    @default("starter") // starter, growth, enterprise
+  employeeLimit     Int?
+  matchingBudget    Float     @default(0)
+  matchingSpent     Float     @default(0)
+  matchingRatio     Float     @default(1) // 1:1, 2:1, etc.
+  matchingCategories String?  // JSON array of categories, empty = all
+  billingEmail      String?
+  contractStart     DateTime?
+  contractEnd       DateTime?
+  status            String    @default("active") // active, suspended, expired
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  employees       CorporateEmployee[]
+  invites         CorporateInvite[]
+  campaigns       CorporateCampaign[]
+  reports         CorporateReport[]
+  matchingHistory CorporateMatchingRecord[]
+
+  @@index([status])
+}
+
+model CorporateEmployee {
+  id                 String   @id @default(cuid())
+  corporateAccountId String
+  userId             String   @unique
+  employeeId         String?  // Internal employee ID (optional)
+  department         String?
+  isAdmin            Boolean  @default(false)
+  joinedAt           DateTime @default(now())
+  status             String   @default("active") // active, inactive
+
+  corporateAccount CorporateAccount @relation(fields: [corporateAccountId], references: [id], onDelete: Cascade)
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([corporateAccountId, employeeId])
+  @@index([corporateAccountId, status])
+}
+
+model CorporateInvite {
+  id                 String    @id @default(cuid())
+  corporateAccountId String
+  email              String
+  token              String    @unique
+  expiresAt          DateTime
+  usedAt             DateTime?
+  usedBy             String?
+  createdAt          DateTime  @default(now())
+
+  corporateAccount CorporateAccount @relation(fields: [corporateAccountId], references: [id], onDelete: Cascade)
+
+  @@index([corporateAccountId])
+  @@index([token])
+}
+
+model CorporateMatchingRecord {
+  id                 String   @id @default(cuid())
+  corporateAccountId String
+  userId             String
+  originalAmount     Float
+  matchedAmount      Float
+  projectId          String?
+  loanId             String?
+  category           String?
+  matchDate          DateTime @default(now())
+
+  corporateAccount CorporateAccount @relation(fields: [corporateAccountId], references: [id], onDelete: Cascade)
+
+  @@index([corporateAccountId, matchDate])
+  @@index([userId])
+}
+
+model CorporateCampaign {
+  id                 String   @id @default(cuid())
+  corporateAccountId String
+  name               String
+  description        String?
+  startDate          DateTime
+  endDate            DateTime
+  targetAmount       Float?
+  currentAmount      Float    @default(0)
+  matchingBonus      Float?   // Extra matching during campaign
+  featuredProjects   String?  // JSON array of project IDs
+  categories         String?  // JSON array of focus categories
+  status             String   @default("draft") // draft, active, completed
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  corporateAccount CorporateAccount @relation(fields: [corporateAccountId], references: [id], onDelete: Cascade)
+
+  @@index([corporateAccountId, status])
+  @@index([status, startDate])
+}
+
+model CorporateReport {
+  id                 String   @id @default(cuid())
+  corporateAccountId String
+  type               String   // monthly, quarterly, annual, custom
+  startDate          DateTime
+  endDate            DateTime
+  data               String   // JSON aggregated metrics
+  pdfUrl             String?
+  generatedAt        DateTime @default(now())
+
+  corporateAccount CorporateAccount @relation(fields: [corporateAccountId], references: [id], onDelete: Cascade)
+
+  @@index([corporateAccountId, type])
 }
 

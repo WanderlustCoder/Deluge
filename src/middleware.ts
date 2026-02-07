@@ -61,6 +61,7 @@ export default auth((req) => {
     "/onboarding",
     "/feed",
     "/volunteer",
+    "/corporate",
   ];
 
   const isProtected = protectedPaths.some((path) =>
@@ -77,7 +78,7 @@ export default auth((req) => {
   }
 
   // User-only routes — block admins, redirect to /admin
-  const userOnlyPaths = ["/dashboard", "/watch", "/fund", "/contribute", "/impact", "/account", "/loans", "/communities", "/aquifer", "/leaderboards", "/challenges", "/proposals", "/business", "/onboarding", "/volunteer"];
+  const userOnlyPaths = ["/dashboard", "/watch", "/fund", "/contribute", "/impact", "/account", "/loans", "/communities", "/aquifer", "/leaderboards", "/challenges", "/proposals", "/business", "/onboarding", "/volunteer", "/corporate"];
   if (userOnlyPaths.some(p => pathname.startsWith(p)) && req.auth?.user?.accountType === "admin") {
     return NextResponse.redirect(new URL("/admin", req.nextUrl));
   }

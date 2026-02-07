@@ -194,20 +194,10 @@ See full plan: `docs/plans/plan-12-volunteer-contributions.md`
 
 #### Epic 13: Corporate Employee Portal
 
-White-label employer dashboards, team giving, ESG reporting.
+**Status: Complete** — See Plan 13 in `docs/plans/plan-13-corporate-portal.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-CORP-001 | Corporate account structure | corporate | CorporateAccount model |
-| DLG-CORP-001a | Employee enrollment via invite | corporate | CorporateEmployee model |
-| DLG-CORP-002 | Corporate admin dashboard | corporate | `/corporate` |
-| DLG-CORP-002a | Employee management | corporate | Roster + permissions |
-| DLG-CORP-003 | Corporate matching — company matches employee giving | corporate | CorporateMatchingRecord |
-| DLG-CORP-003a | Matching budget tracking | corporate | Budget management |
-| DLG-CORP-004 | Internal campaigns — themed giving campaigns for employees | corporate | CorporateCampaign model |
-| DLG-CORP-005 | ESG reporting — impact reports for corporate partners | corporate | CorporateReport model |
-| DLG-CORP-005a | UN SDG mapping | corporate | Category-to-SDG mapping |
-| DLG-CORP-006 | White-label branding — custom logos and colors | corporate | Branded experience |
+White-label employer dashboards, team giving, ESG reporting.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-13-corporate-portal.md`
 
@@ -701,3 +691,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-TAX-001 | Tax & giving documentation (Plan 10) | tax | 2026-02-07 |
 | DLG-RECUR-001 | Recurring giving & subscriptions (Plan 11) | recurring | 2026-02-07 |
 | DLG-VOLUNTEER-001 | Volunteer hours & in-kind contributions (Plan 12) | volunteer | 2026-02-07 |
+| DLG-CORP-001 | Corporate employee portal (Plan 13) | corporate | 2026-02-07 |
