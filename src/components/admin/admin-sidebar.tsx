@@ -22,6 +22,7 @@ import {
   FileStack,
   FileText,
   CreditCard,
+  Heart,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -40,6 +41,7 @@ const navLinks = [
   { href: "/admin/invites", label: "Invites", icon: UserPlus },
   { href: "/admin/roles", label: "Roles", icon: Shield },
   { href: "/admin/credit-reporting", label: "Credit Reporting", icon: CreditCard },
+  { href: "/admin/advocates", label: "Advocates", icon: Heart },
   { href: "/admin/audit", label: "Audit Log", icon: ClipboardList },
 ];
 

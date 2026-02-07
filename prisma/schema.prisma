@@ -89,6 +89,8 @@ model User {
   scheduledGifts            ScheduledGift[]
   creditReportingConsents   CreditReportingConsent[]
   creditDisputes            CreditDispute[]
+  advocateProfile           CommunityAdvocate?
+  advocateInterest          AdvocateInterest?
 }
 
 model Watershed {
@@ -2460,5 +2462,126 @@ model CreditDisputeNote {
   dispute CreditDispute @relation(fields: [disputeId], references: [id], onDelete: Cascade)
 
   @@index([disputeId])
+}
+
+// ============================================================================
+// COMMUNITY ADVOCATES
+// Natural leaders who help others - no tiers, points, or gamification
+// ============================================================================
+
+model CommunityAdvocate {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  status        String   @default("active") // active, paused, alumni
+  region        String?  // Geographic focus
+  communityIds  String?  // Comma-separated community IDs they support
+  interests     String?  // Comma-separated areas (events, onboarding, content)
+  bio           String?
+  publicProfile Boolean  @default(true)
+  joinedAt      DateTime @default(now())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user       User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activities AdvocateActivity[]
+  events     AdvocateEvent[]
+
+  @@index([status])
+  @@index([region])
+}
+
+model AdvocateInterest {
+  id           String    @id @default(cuid())
+  userId       String    @unique
+  motivation   String    // Why they want to help
+  interests    String?   // Comma-separated interests
+  availability String?   // General availability
+  region       String?
+  status       String    @default("pending") // pending, welcomed, declined
+  welcomedBy   String?
+  welcomedAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+model AdvocateActivity {
+  id          String   @id @default(cuid())
+  advocateId  String
+  type        String   // welcome, event, content, support, outreach
+  description String
+  communityId String?  // Which community this was for
+  createdAt   DateTime @default(now())
+
+  advocate CommunityAdvocate @relation(fields: [advocateId], references: [id], onDelete: Cascade)
+
+  @@index([advocateId, type])
+  @@index([createdAt])
+}
+
+model AdvocateEvent {
+  id          String    @id @default(cuid())
+  advocateId  String
+  communityId String?
+  title       String
+  description String
+  type        String    // meetup, workshop, welcome_session, info_session
+  date        DateTime
+  endDate     DateTime?
+  location    String?
+  isVirtual   Boolean   @default(false)
+  virtualLink String?
+  recap       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  advocate CommunityAdvocate   @relation(fields: [advocateId], references: [id], onDelete: Cascade)
+  rsvps    AdvocateEventRSVP[]
+
+  @@index([advocateId, date])
+  @@index([communityId, date])
+  @@index([date])
+}
+
+model AdvocateEventRSVP {
+  id        String   @id @default(cuid())
+  eventId   String
+  userId    String?
+  email     String?  // For non-users
+  name      String?
+  attended  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  event AdvocateEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([eventId])
+}
+
+model AdvocateResource {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  type        String   // presentation, flyer, video, guide, template
+  category    String   // welcome, events, outreach
+  fileUrl     String?
+  content     String?  // For text-based resources
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category, type])
+}
+
+model AdvocateAppreciation {
+  id          String   @id @default(cuid())
+  advocateId  String
+  type        String   // thank_you, highlight, invite, swag
+  message     String?
+  sentBy      String   // Admin who sent it
+  sentAt      DateTime @default(now())
+
+  @@index([advocateId])
 }
 
