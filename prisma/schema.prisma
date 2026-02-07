@@ -87,6 +87,8 @@ model User {
   giftContributions         GiftContribution[]
   birthdayFundraisers       BirthdayFundraiser[]
   scheduledGifts            ScheduledGift[]
+  creditReportingConsents   CreditReportingConsent[]
+  creditDisputes            CreditDispute[]
 }
 
 model Watershed {
@@ -248,6 +250,10 @@ model Loan {
   goalVerification   GoalVerification?
   refinances         LoanRefinance[]
   deadlineExtensions LoanDeadlineExtension[]
+  creditReportingConsent CreditReportingConsent?
+  creditReportingStatus  CreditReportingStatus?
+  metro2Records          Metro2Record[]
+  creditDisputes         CreditDispute[]
 }
 
 model LoanStretchGoal {
@@ -2320,5 +2326,139 @@ model SeasonalCampaign {
   updatedAt        DateTime @updatedAt
 
   @@index([status, startDate])
+}
+
+// ==========================================
+// Credit Bureau Reporting (Plan 16)
+// ==========================================
+
+model CreditReportingConsent {
+  id              String    @id @default(cuid())
+  userId          String
+  loanId          String    @unique
+  consentGiven    Boolean
+  consentDate     DateTime
+  consentVersion  String    // Version of consent form
+  ipAddress       String?
+  userAgent       String?
+  withdrawnAt     DateTime?
+  withdrawnReason String?
+  createdAt       DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CreditReportingStatus {
+  id              String    @id @default(cuid())
+  loanId          String    @unique
+  isReporting     Boolean   @default(false)
+  bureaus         String?   // Comma-separated: experian,transunion,equifax
+  firstReportDate DateTime?
+  lastReportDate  DateTime?
+  reportingErrors String?   // JSON string for errors
+  status          String    @default("pending") // pending, active, completed, error
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+}
+
+model Metro2Record {
+  id              String    @id @default(cuid())
+  loanId          String
+  recordType      String    // header, base, trailer
+  reportingPeriod DateTime
+  accountStatus   String    // 11=current, 71=30days, 78=60days, etc.
+  paymentHistory  String    // 24-month payment pattern
+  currentBalance  Float
+  amountPastDue   Float     @default(0)
+  dateOpened      DateTime
+  scheduledPayment Float
+  actualPayment   Float?
+  rawData         String    // The formatted Metro 2 record
+  submitted       Boolean   @default(false)
+  submittedAt     DateTime?
+  accepted        Boolean?
+  rejectionReason String?
+  createdAt       DateTime  @default(now())
+
+  loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+
+  @@index([loanId, reportingPeriod])
+  @@index([submitted, reportingPeriod])
+}
+
+model BureauConnection {
+  id              String    @id @default(cuid())
+  bureau          String    @unique // experian, transunion, equifax
+  furnisherId     String    // Deluge's furnisher ID with this bureau
+  apiEndpoint     String
+  apiKeyEncrypted String    // Encrypted API credentials
+  status          String    @default("pending") // pending, active, suspended
+  lastSubmission  DateTime?
+  lastSuccess     DateTime?
+  lastError       String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model BureauSubmission {
+  id              String    @id @default(cuid())
+  bureau          String
+  reportingPeriod DateTime
+  recordCount     Int
+  fileReference   String    // Submission file ID
+  status          String    @default("pending") // pending, submitted, accepted, rejected
+  submittedAt     DateTime?
+  responseAt      DateTime?
+  acceptedCount   Int?
+  rejectedCount   Int?
+  errorDetails    String?   // JSON string for error details
+  createdAt       DateTime  @default(now())
+
+  @@index([bureau, reportingPeriod])
+  @@index([status])
+}
+
+model CreditDispute {
+  id               String    @id @default(cuid())
+  loanId           String
+  userId           String
+  disputeType      String    // balance, payment_history, account_status, identity
+  description      String
+  evidence         String?   // JSON string for uploaded documents
+  status           String    @default("open") // open, investigating, resolved, escalated
+  resolution       String?
+  resolvedAt       DateTime?
+  resolvedBy       String?
+  bureauNotified   Boolean   @default(false)
+  bureauNotifiedAt DateTime?
+  dueDate          DateTime  // 30 days from creation
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  loan  Loan               @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  user  User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notes CreditDisputeNote[]
+
+  @@index([status, dueDate])
+  @@index([loanId])
+  @@index([userId])
+}
+
+model CreditDisputeNote {
+  id         String   @id @default(cuid())
+  disputeId  String
+  authorId   String
+  content    String
+  isInternal Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  dispute CreditDispute @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+
+  @@index([disputeId])
 }
 
