@@ -248,17 +248,9 @@ See full plan: `docs/plans/plan-18-project-verification.md`
 
 #### Epic 19: Developer API & Integrations
 
-Public API and integration ecosystem for developers.
+**Status: Complete** — Public API and integration ecosystem for developers.
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-API-001 | API key management | api | Issue and manage keys |
-| DLG-API-002 | Rate limiting | api | Protect from abuse |
-| DLG-API-003 | Public API v1 endpoints | api | Projects, communities, stats |
-| DLG-API-004 | Webhooks | api | Push events to external systems |
-| DLG-API-005 | OAuth provider | api | Third-party app auth |
-| DLG-API-006 | Embeddable widgets | api | Project widgets, donate buttons |
-| DLG-API-007 | Developer portal and docs | api | API documentation |
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-19-developer-api.md`
 
@@ -658,3 +650,10 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-CREDIT-001 | Credit bureau reporting (Plan 16) | credit | 2026-02-07 |
 | DLG-ADV-001 | Community advocates program (Plan 17) | advocates | 2026-02-07 |
 | DLG-VERIFY-001 | Project verification & auditing (Plan 18) | verification | 2026-02-07 |
+| DLG-API-001 | API key management (Plan 19) | api | 2026-02-07 |
+| DLG-API-002 | Rate limiting (Plan 19) | api | 2026-02-07 |
+| DLG-API-003 | Public API v1 endpoints (Plan 19) | api | 2026-02-07 |
+| DLG-API-004 | Webhooks (Plan 19) | api | 2026-02-07 |
+| DLG-API-005 | OAuth provider (Plan 19) | api | 2026-02-07 |
+| DLG-API-006 | Embeddable widgets (Plan 19) | api | 2026-02-07 |
+| DLG-API-007 | Developer portal and docs (Plan 19) | api | 2026-02-07 |
