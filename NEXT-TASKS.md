@@ -176,18 +176,10 @@ See full plan: `docs/plans/plan-10-tax-documentation.md`
 
 #### Epic 11: Recurring Giving & Subscriptions
 
-Monthly auto-contributions, project subscriptions, giving goals.
+**Status: Complete** — See Plan 11 in `docs/plans/plan-11-recurring-giving.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-RECUR-001 | Recurring watershed contributions | recurring | RecurringContribution model |
-| DLG-RECUR-001a | Subscription management UI | recurring | `/account/recurring` |
-| DLG-RECUR-002 | Project subscriptions — recurring support for specific projects | recurring | ProjectSubscription model |
-| DLG-RECUR-002a | Auto-pause when project funded | recurring | Smart subscription handling |
-| DLG-RECUR-003 | Community subscriptions — recurring support for community projects | recurring | CommunitySubscription model |
-| DLG-RECUR-004 | Personal giving goals — set and track targets | recurring | PersonalGivingGoal model |
-| DLG-RECUR-005 | Pause/skip functionality — flexible subscription control | recurring | Subscription management |
-| DLG-RECUR-006 | Billing dashboard — manage all subscriptions | recurring | `/account/billing` |
+Recurring watershed contributions, project/community subscriptions, personal giving goals.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-11-recurring-giving.md`
 
@@ -716,3 +708,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-FAMILY-001 | Family accounts (Plan 8) | family | 2026-02-07 |
 | DLG-MOBILE-001 | PWA/Mobile experience (Plan 9) | mobile | 2026-02-07 |
 | DLG-TAX-001 | Tax & giving documentation (Plan 10) | tax | 2026-02-07 |
+| DLG-RECUR-001 | Recurring giving & subscriptions (Plan 11) | recurring | 2026-02-07 |
