@@ -84,6 +84,9 @@ model User {
   totalVerifiedHours        Float     @default(0)
   corporateEmployee         CorporateEmployee?
   circleMemberships         CircleMember[]
+  giftContributions         GiftContribution[]
+  birthdayFundraisers       BirthdayFundraiser[]
+  scheduledGifts            ScheduledGift[]
 }
 
 model Watershed {
@@ -156,6 +159,7 @@ model Project {
   volunteerOpportunities VolunteerOpportunity[]
   inKindDonations        InKindDonation[]
   needs                  ProjectNeed[]
+  birthdayFundraisers    BirthdayFundraiser[]
 }
 
 model Allocation {
@@ -2150,5 +2154,171 @@ model CircleRecurring {
 
   @@unique([circleId, userId])
   @@index([nextChargeDate, status])
+}
+
+// ============================================
+// Plan 15: Seasonal & Event-Driven Giving
+// ============================================
+
+model GivingOccasion {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  type            String   // holiday, awareness, disaster, personal, local
+  description     String?
+  startDate       DateTime
+  endDate         DateTime
+  imageUrl        String?
+  iconName        String?  // Lucide icon name
+  color           String?  // Theme color
+  isRecurring     Boolean  @default(false)
+  recurrenceRule  String?  // iCal RRULE for annual events
+  matchingBonus   Float?   // Extra matching during occasion
+  featuredProjects String? // Comma-separated project IDs
+  categories      String?  // Comma-separated categories
+  isGlobal        Boolean  @default(true) // vs community-specific
+  communityId     String?  // For local occasions
+  status          String   @default("active") // draft, active, completed
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  scheduledGifts ScheduledGift[]
+
+  @@index([status, startDate])
+  @@index([type])
+}
+
+model GiftContribution {
+  id               String    @id @default(cuid())
+  contributorId    String
+  recipientName    String
+  recipientEmail   String?
+  occasionType     String    // birthday, memorial, celebration, thank_you, holiday
+  message          String?
+  amount           Float
+  projectId        String?
+  communityId      String?
+  isAnonymous      Boolean   @default(false)
+  notificationSent Boolean   @default(false)
+  notificationDate DateTime?
+  certificateUrl   String?
+  createdAt        DateTime  @default(now())
+
+  contributor User @relation(fields: [contributorId], references: [id], onDelete: Cascade)
+
+  @@index([contributorId])
+  @@index([notificationDate])
+}
+
+model BirthdayFundraiser {
+  id            String   @id @default(cuid())
+  userId        String
+  projectId     String?
+  communityId   String?
+  title         String
+  description   String
+  birthdayDate  DateTime
+  goalAmount    Float
+  currentAmount Float    @default(0)
+  backerCount   Int      @default(0)
+  status        String   @default("active") // active, completed, cancelled
+  shareUrl      String   @unique
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project? @relation(fields: [projectId], references: [id])
+
+  @@index([userId])
+  @@index([birthdayDate])
+  @@index([shareUrl])
+  @@index([status])
+}
+
+model EmergencyCampaign {
+  id              String    @id @default(cuid())
+  title           String
+  slug            String    @unique
+  description     String
+  type            String    // natural_disaster, crisis, emergency, humanitarian
+  location        String?
+  affectedArea    String?   // GeoJSON as string
+  startDate       DateTime  @default(now())
+  endDate         DateTime?
+  targetAmount    Float?
+  currentAmount   Float     @default(0)
+  backerCount     Int       @default(0)
+  verifiedOrgs    String?   // Comma-separated organization IDs
+  status          String    @default("active") // active, resolved, closed
+  updateFrequency String    @default("daily") // How often updates are posted
+  priority        Int       @default(0) // For ordering (higher = more urgent)
+  createdBy       String    // Admin who created
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  updates EmergencyUpdate[]
+
+  @@index([status])
+  @@index([priority])
+}
+
+model EmergencyUpdate {
+  id         String   @id @default(cuid())
+  campaignId String
+  title      String
+  content    String
+  authorId   String
+  createdAt  DateTime @default(now())
+
+  campaign EmergencyCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId, createdAt])
+}
+
+model ScheduledGift {
+  id             String    @id @default(cuid())
+  userId         String
+  occasionId     String?   // Link to GivingOccasion
+  customOccasion String?   // User-defined occasion
+  scheduledDate  DateTime
+  amount         Float
+  projectId      String?
+  communityId    String?
+  recipientName  String?   // For gift contributions
+  recipientEmail String?
+  message        String?
+  status         String    @default("scheduled") // scheduled, completed, skipped, failed
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user     User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  occasion GivingOccasion? @relation(fields: [occasionId], references: [id], onDelete: SetNull)
+
+  @@index([userId, scheduledDate])
+  @@index([scheduledDate, status])
+}
+
+model SeasonalCampaign {
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  tagline          String?
+  description      String
+  startDate        DateTime
+  endDate          DateTime
+  platformGoal     Float?
+  platformProgress Float    @default(0)
+  matchingPartner  String?
+  matchingRatio    Float?
+  heroImageUrl     String?
+  themeColor       String?
+  featuredProjects String?  // Comma-separated project IDs
+  badges           String?  // Comma-separated badge keys for this campaign
+  status           String   @default("draft") // draft, active, completed
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([status, startDate])
 }
 

@@ -365,6 +365,12 @@ async function main() {
     { key: "circle_joiner", name: "Circle Joiner", description: "Join your first giving circle", tier: "first_drop", icon: "⭕" },
     { key: "circle_active", name: "Circle Active", description: "Join 3 giving circles", tier: "stream", icon: "🔗" },
     { key: "circle_proposer", name: "Circle Proposer", description: "Create your first circle proposal", tier: "stream", icon: "📝" },
+    // Seasonal giving badges
+    { key: "gift_giver", name: "Gift Giver", description: "Send your first gift contribution", tier: "first_drop", icon: "🎁" },
+    { key: "generous_gifter", name: "Generous Gifter", description: "Send 5 gift contributions", tier: "stream", icon: "💝" },
+    { key: "birthday_host", name: "Birthday Host", description: "Create a birthday fundraiser", tier: "stream", icon: "🎂" },
+    { key: "first_responder", name: "First Responder", description: "Donate to an emergency campaign", tier: "first_drop", icon: "🚨" },
+    { key: "crisis_hero", name: "Crisis Hero", description: "Donate to 5 emergency campaigns", tier: "creek", icon: "🦸" },
   ];
 
   for (const def of badgeDefs) {

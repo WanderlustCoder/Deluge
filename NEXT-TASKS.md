@@ -212,19 +212,10 @@ See full plan: `docs/plans/plan-14-giving-circles.md`
 
 #### Epic 15: Seasonal & Event-Driven Giving
 
-Holiday campaigns, gift giving, disaster response, giving calendar.
+**Status: Complete** — See Plan 15 in `docs/plans/plan-15-seasonal-giving.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-SEASON-001 | Giving occasions — holidays, awareness days, local events | seasonal | GivingOccasion model |
-| DLG-SEASON-001a | Occasion landing pages | seasonal | `/occasions/[slug]` |
-| DLG-SEASON-002 | Gift contributions — give in someone's honor/memory | seasonal | GiftContribution model |
-| DLG-SEASON-002a | Gift certificates — PDF generation | seasonal | Shareable certificates |
-| DLG-SEASON-003 | Birthday fundraisers — personal giving campaigns | seasonal | BirthdayFundraiser model |
-| DLG-SEASON-004 | Emergency campaigns — disaster response | seasonal | EmergencyCampaign model |
-| DLG-SEASON-004a | Verified relief organizations | seasonal | Org verification |
-| DLG-SEASON-005 | Giving calendar — schedule giving throughout the year | seasonal | ScheduledGift model |
-| DLG-SEASON-006 | Seasonal campaigns — platform-wide themed campaigns | seasonal | SeasonalCampaign model |
+Giving occasions, gift contributions, birthday fundraisers, emergency campaigns, giving calendar, seasonal campaigns.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-15-seasonal-giving.md`
 
@@ -683,3 +674,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-VOLUNTEER-001 | Volunteer hours & in-kind contributions (Plan 12) | volunteer | 2026-02-07 |
 | DLG-CORP-001 | Corporate employee portal (Plan 13) | corporate | 2026-02-07 |
 | DLG-CIRCLE-001 | Giving circles (Plan 14) | circles | 2026-02-07 |
+| DLG-SEASON-001 | Seasonal & event-driven giving (Plan 15) | seasonal | 2026-02-07 |

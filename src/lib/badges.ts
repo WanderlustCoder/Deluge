@@ -14,6 +14,9 @@ interface UserStats {
   volunteerHours: number; // verified volunteer hours
   circleCount: number; // circles joined
   circleProposalsCreated: number; // proposals created in circles
+  giftsSent: number; // gift contributions made
+  birthdayFundraisersCreated: number; // birthday fundraisers created
+  emergencyDonations: number; // emergency campaign contributions
 }
 
 const BADGE_CHECKS: BadgeDef[] = [
@@ -35,6 +38,12 @@ const BADGE_CHECKS: BadgeDef[] = [
   { key: "circle_joiner", check: (s) => s.circleCount >= 1 },
   { key: "circle_active", check: (s) => s.circleCount >= 3 },
   { key: "circle_proposer", check: (s) => s.circleProposalsCreated >= 1 },
+  // Seasonal giving badges
+  { key: "gift_giver", check: (s) => s.giftsSent >= 1 },
+  { key: "generous_gifter", check: (s) => s.giftsSent >= 5 },
+  { key: "birthday_host", check: (s) => s.birthdayFundraisersCreated >= 1 },
+  { key: "first_responder", check: (s) => s.emergencyDonations >= 1 },
+  { key: "crisis_hero", check: (s) => s.emergencyDonations >= 5 },
 ];
 
 /**
@@ -43,24 +52,39 @@ const BADGE_CHECKS: BadgeDef[] = [
  */
 export async function checkAndAwardBadges(userId: string): Promise<string[]> {
   // Get user stats
-  const [adCount, projectsFunded, contributionCount, streak, volunteerLogs, circleCount, circleProposalsCreated] =
-    await Promise.all([
-      prisma.adView.count({ where: { userId } }),
-      prisma.allocation.groupBy({
-        by: ["projectId"],
-        where: { userId },
-      }),
-      prisma.contribution.count({ where: { userId } }),
-      prisma.streak.findUnique({
-        where: { userId_type: { userId, type: "ad_watch" } },
-      }),
-      prisma.volunteerLog.aggregate({
-        where: { userId, verified: true },
-        _sum: { hours: true },
-      }),
-      prisma.circleMember.count({ where: { userId, status: "active" } }),
-      prisma.circleProposal.count({ where: { proposerId: userId } }),
-    ]);
+  const [
+    adCount,
+    projectsFunded,
+    contributionCount,
+    streak,
+    volunteerLogs,
+    circleCount,
+    circleProposalsCreated,
+    giftsSent,
+    birthdayFundraisersCreated,
+    emergencyDonations,
+  ] = await Promise.all([
+    prisma.adView.count({ where: { userId } }),
+    prisma.allocation.groupBy({
+      by: ["projectId"],
+      where: { userId },
+    }),
+    prisma.contribution.count({ where: { userId } }),
+    prisma.streak.findUnique({
+      where: { userId_type: { userId, type: "ad_watch" } },
+    }),
+    prisma.volunteerLog.aggregate({
+      where: { userId, verified: true },
+      _sum: { hours: true },
+    }),
+    prisma.circleMember.count({ where: { userId, status: "active" } }),
+    prisma.circleProposal.count({ where: { proposerId: userId } }),
+    prisma.giftContribution.count({ where: { contributorId: userId } }),
+    prisma.birthdayFundraiser.count({ where: { userId } }),
+    prisma.watershedTransaction.count({
+      where: { watershed: { userId }, type: "emergency_contribution" },
+    }),
+  ]);
 
   const stats: UserStats = {
     adCount,
@@ -70,6 +94,9 @@ export async function checkAndAwardBadges(userId: string): Promise<string[]> {
     volunteerHours: volunteerLogs._sum?.hours ?? 0,
     circleCount,
     circleProposalsCreated,
+    giftsSent,
+    birthdayFundraisersCreated,
+    emergencyDonations,
   };
 
   // Get user's existing badges
