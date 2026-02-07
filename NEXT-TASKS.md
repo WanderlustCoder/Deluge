@@ -221,16 +221,10 @@ See full plan: `docs/plans/plan-15-seasonal-giving.md`
 
 #### Epic 16: Credit Bureau Reporting
 
-Report microloan repayment to credit bureaus for borrower credit building.
+**Status: Complete** — See Plan 16 in `docs/plans/plan-16-credit-bureau.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-CREDIT-001 | FCRA compliance infrastructure | credit | Consent, compliance checks |
-| DLG-CREDIT-002 | Metro 2 format integration | credit | Industry standard reporting |
-| DLG-CREDIT-003 | Bureau API connections | credit | Experian, TransUnion, Equifax |
-| DLG-CREDIT-004 | Dispute resolution system | credit | 30-day FCRA requirement |
-| DLG-CREDIT-005 | Borrower credit dashboard | credit | Track credit-building progress |
-| DLG-CREDIT-006 | Admin reporting dashboard | credit | Monitor reporting health |
+Metro 2 format credit bureau reporting with FCRA compliance, consent management, dispute resolution, user credit dashboard, and admin reporting tools.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-16-credit-bureau.md`
 
@@ -675,3 +669,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-CORP-001 | Corporate employee portal (Plan 13) | corporate | 2026-02-07 |
 | DLG-CIRCLE-001 | Giving circles (Plan 14) | circles | 2026-02-07 |
 | DLG-SEASON-001 | Seasonal & event-driven giving (Plan 15) | seasonal | 2026-02-07 |
+| DLG-CREDIT-001 | Credit bureau reporting (Plan 16) | credit | 2026-02-07 |
