@@ -23,6 +23,8 @@ model User {
   profileVisibility  String   @default("private") // private, community, public
   bio                String?
   avatarUrl          String?
+  followerCount      Int      @default(0)
+  followingCount     Int      @default(0)
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
@@ -59,19 +61,33 @@ model User {
   proposals                 ProjectProposal[] @relation("ProposedProjects")
   deadlineExtensions        LoanDeadlineExtension[] @relation("DeadlineExtensions")
   projectFollows            ProjectFollow[]
+  ralliesCreated            Rally[]             @relation("RalliesCreated")
+  rallyParticipations       RallyParticipant[]  @relation("RallyParticipations")
+  following                 UserFollow[]        @relation("Following")
+  followers                 UserFollow[]        @relation("Followers")
+  communityFollows          CommunityFollow[]   @relation("CommunityFollows")
+  feedItems                 FeedItem[]          @relation("FeedItems")
+  mentionedIn               DiscussionMention[] @relation("DiscussionMentions")
+  badgeProgress             BadgeProgress[]
+  pushSubscriptions         PushSubscription[]
+  familyMembership          FamilyMember?
+  receipts                  ContributionReceipt[]
+  annualSummaries           AnnualGivingSummary[]
 }
 
 model Watershed {
-  id           String   @id @default(cuid())
-  userId       String   @unique
-  balance      Float    @default(0)
-  totalInflow  Float    @default(0)
-  totalOutflow Float    @default(0)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  balance          Float    @default(0)
+  totalInflow      Float    @default(0)
+  totalOutflow     Float    @default(0)
+  floatContributed Float    @default(0) // Cumulative float interest attributed to this watershed
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   user         User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
   transactions WatershedTransaction[]
+  familyShared Family[]
 }
 
 model WatershedTransaction {
@@ -102,6 +118,11 @@ model Project {
   disbursementStatus String   @default("none") // "none" | "partial" | "disbursed"
   completedAt        DateTime?
   impactSummary      String?
+  // Tax info
+  taxDeductible      Boolean  @default(false)
+  ein                String?  // Employer Identification Number
+  orgName            String?  // Legal organization name
+  orgType            String?  // 501c3, 501c4, government, etc.
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
@@ -115,6 +136,11 @@ model Project {
   proposal       ProjectProposal?
   impactMetrics  ImpactMetric[]
   followers      ProjectFollow[]
+  rallies               Rally[]
+  shareEvents           ShareEvent[]
+  momentumScore         Float     @default(0)
+  momentumUpdatedAt     DateTime?
+  cascadeSponsorEvents  CascadeSponsorEvent[]
 }
 
 model Allocation {
@@ -345,22 +371,40 @@ model UserBadge {
   userId   String
   badgeId  String
   earnedAt DateTime @default(now())
+  featured Boolean  @default(false) // Show on profile
 
   user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
   badge Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
 
   @@unique([userId, badgeId])
+  @@index([userId])
+}
+
+model BadgeProgress {
+  id           String   @id @default(cuid())
+  userId       String
+  badgeKey     String   // Badge key (e.g., "projects_10")
+  currentValue Float    @default(0)
+  targetValue  Float
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeKey])
+  @@index([userId])
 }
 
 model Streak {
-  id             String    @id @default(cuid())
-  userId         String
-  type           String
-  currentDays    Int       @default(0)
-  longestDays    Int       @default(0)
-  lastActiveDate DateTime?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  userId          String
+  type            String
+  currentDays     Int       @default(0)
+  longestDays     Int       @default(0)
+  lastActiveDate  DateTime?
+  gracePeriodUsed Boolean   @default(false)
+  graceExpiresAt  DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -368,16 +412,17 @@ model Streak {
 }
 
 model Community {
-  id          String   @id @default(cuid())
-  name        String
-  description String
-  location    String?
-  category    String?
-  imageUrl    String?
-  createdBy   String
-  memberCount Int      @default(1)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  location     String?
+  category     String?
+  imageUrl     String?
+  createdBy    String
+  memberCount  Int      @default(1)
+  followerCount Int     @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   // Type: geographic (uses hierarchy) or interest (flat, no hierarchy)
   type        String   @default("geographic")
@@ -409,6 +454,7 @@ model Community {
   milestones         CommunityMilestone[]
   events             CommunityEvent[]
   flagshipNominations FlagshipProject[]
+  followers          CommunityFollow[] @relation("CommunityFollowers")
 
   @@index([parentId])
   @@index([level])
@@ -464,12 +510,18 @@ model Discussion {
   userId      String
   title       String
   body        String
+  parentId    String?  // For threaded replies
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   community Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments  Comment[]
+  parent    Discussion?  @relation("DiscussionReplies", fields: [parentId], references: [id])
+  replies   Discussion[] @relation("DiscussionReplies")
+  mentions  DiscussionMention[]
+
+  @@index([parentId])
 }
 
 model Comment {
@@ -820,6 +872,49 @@ model ProjectFollow {
   @@unique([userId, projectId])
 }
 
+model Rally {
+  id          String   @id @default(cuid())
+  projectId   String
+  creatorId   String
+  title       String   // "Let's get 50 backers by Friday!"
+  targetType  String   // "backers" or "amount"
+  targetValue Float    // 50 backers or $500
+  deadline    DateTime
+  status      String   @default("active") // active, succeeded, failed
+  createdAt   DateTime @default(now())
+
+  project      Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  creator      User               @relation("RalliesCreated", fields: [creatorId], references: [id])
+  participants RallyParticipant[]
+
+  @@index([projectId, status])
+  @@index([deadline])
+}
+
+model RallyParticipant {
+  id       String   @id @default(cuid())
+  rallyId  String
+  userId   String
+  joinedAt DateTime @default(now())
+
+  rally Rally @relation(fields: [rallyId], references: [id], onDelete: Cascade)
+  user  User  @relation("RallyParticipations", fields: [userId], references: [id])
+
+  @@unique([rallyId, userId])
+}
+
+model ShareEvent {
+  id        String   @id @default(cuid())
+  projectId String
+  userId    String?  // null for anonymous shares
+  platform  String   // twitter, facebook, email, copy, other
+  createdAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
+}
+
 // --- Activity Feed ---
 model ActivityFeedItem {
   id          String   @id @default(cuid())
@@ -874,6 +969,8 @@ model BusinessListing {
   views           BusinessView[]
   saves           SavedBusiness[]
   recommendations BusinessRecommendation[]
+  cascadeSponsors     CascadeSponsor[]
+  notificationSponsors NotificationSponsor[]
 
   @@index([category])
   @@index([location])
@@ -938,7 +1035,8 @@ model MatchingCampaign {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  matches MatchingContribution[]
+  matches         MatchingContribution[]
+  cascadeSponsors CascadeSponsor[]
 }
 
 model MatchingContribution {
@@ -1122,3 +1220,417 @@ model ProjectProposal {
   @@index([proposerId])
   @@index([status])
 }
+
+// --- Social Features (Plan 4) ---
+
+model UserFollow {
+  id         String   @id @default(cuid())
+  followerId String
+  followeeId String
+  createdAt  DateTime @default(now())
+
+  follower User @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  followee User @relation("Followers", fields: [followeeId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followeeId])
+  @@index([followerId])
+  @@index([followeeId])
+}
+
+model CommunityFollow {
+  id          String   @id @default(cuid())
+  userId      String
+  communityId String
+  createdAt   DateTime @default(now())
+
+  user      User      @relation("CommunityFollows", fields: [userId], references: [id], onDelete: Cascade)
+  community Community @relation("CommunityFollowers", fields: [communityId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, communityId])
+  @@index([userId])
+  @@index([communityId])
+}
+
+model FeedItem {
+  id          String   @id @default(cuid())
+  userId      String   // Who this feed item is for
+
+  // Activity details
+  actorId     String?  // Who did the action (null for system)
+  actionType  String   // funded, cascaded, posted_update, joined, proposed, rally_created, loan_funded, milestone
+
+  // Target references
+  projectId   String?
+  communityId String?
+  loanId      String?
+  updateId    String?
+
+  // Denormalized for fast display
+  title       String
+  description String?
+
+  read        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user User @relation("FeedItems", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([userId, read])
+}
+
+model DiscussionMention {
+  id           String   @id @default(cuid())
+  discussionId String
+  userId       String
+  createdAt    DateTime @default(now())
+
+  discussion Discussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+  user       User       @relation("DiscussionMentions", fields: [userId], references: [id])
+
+  @@unique([discussionId, userId])
+}
+
+// --- Sponsorship & Push Notifications (Plan 6) ---
+
+model CascadeSponsor {
+  id            String    @id @default(cuid())
+
+  // Sponsor details
+  sponsorType   String    // business, corporate, matching_campaign
+  businessId    String?
+  campaignId    String?
+  corporateName String?
+
+  // Sponsorship configuration
+  tier          String    // basic ($100), featured ($250), premium ($500)
+  logoUrl       String?
+  message       String?
+  linkUrl       String?
+
+  // Targeting (JSON arrays)
+  categories    String?
+  locations     String?
+
+  // Budget & scheduling
+  budgetTotal   Float
+  budgetUsed    Float     @default(0)
+  costPerCascade Float
+  startDate     DateTime
+  endDate       DateTime?
+
+  status        String    @default("active") // active, paused, exhausted, expired
+  createdAt     DateTime  @default(now())
+
+  business      BusinessListing?  @relation(fields: [businessId], references: [id])
+  campaign      MatchingCampaign? @relation(fields: [campaignId], references: [id])
+  cascades      CascadeSponsorEvent[]
+
+  @@index([status, startDate])
+}
+
+model CascadeSponsorEvent {
+  id          String   @id @default(cuid())
+  sponsorId   String
+  projectId   String
+
+  impressions Int      @default(0)
+  clicks      Int      @default(0)
+
+  createdAt   DateTime @default(now())
+
+  sponsor     CascadeSponsor @relation(fields: [sponsorId], references: [id], onDelete: Cascade)
+  project     Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([sponsorId])
+}
+
+model NotificationSponsor {
+  id            String   @id @default(cuid())
+  businessId    String
+
+  message       String
+  linkUrl       String?
+
+  // Hyperlocal targeting
+  latitude      Float
+  longitude     Float
+  radiusMeters  Int      @default(1000)
+
+  notificationTypes String  // JSON array
+
+  budgetTotal   Float
+  budgetUsed    Float    @default(0)
+  costPerNotification Float
+
+  status        String   @default("active")
+  createdAt     DateTime @default(now())
+
+  business      BusinessListing @relation(fields: [businessId], references: [id])
+  events        NotificationSponsorEvent[]
+
+  @@index([status])
+}
+
+model NotificationSponsorEvent {
+  id          String   @id @default(cuid())
+  sponsorId   String
+  userId      String
+
+  notificationType String
+  delivered   Boolean  @default(false)
+  clicked     Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+
+  sponsor     NotificationSponsor @relation(fields: [sponsorId], references: [id], onDelete: Cascade)
+
+  @@index([sponsorId])
+}
+
+model PushSubscription {
+  id          String   @id @default(cuid())
+  userId      String
+
+  endpoint    String
+  p256dh      String
+  auth        String
+
+  userAgent   String?
+
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// --- Financial Transparency (Plan 7) ---
+
+model FloatSnapshot {
+  id              String   @id @default(cuid())
+  date            DateTime @unique
+  totalWatersheds Float
+  totalReserve    Float
+  interestRate    Float
+  dailyInterest   Float
+  createdAt       DateTime @default(now())
+
+  @@index([date])
+}
+
+model RevenueRecord {
+  id            String   @id @default(cuid())
+  date          DateTime
+  source        String   // ads, directory, float, corporate, loans, cascade_sponsor, notification_sponsor
+  amount        Float
+  adViewCount   Int?
+  businessCount Int?
+  loanVolume    Float?
+  createdAt     DateTime @default(now())
+
+  @@index([date, source])
+}
+
+model CostRecord {
+  id          String   @id @default(cuid())
+  date        DateTime
+  category    String   // infrastructure, payment_processing, legal, marketing, staffing, other
+  description String
+  amount      Float
+  createdAt   DateTime @default(now())
+
+  @@index([date, category])
+}
+
+model TransparencyReport {
+  id                String    @id @default(cuid())
+  period            String    // "2026-Q1", "2026"
+  periodType        String    // quarterly, annual
+  totalRevenue      Float
+  totalCosts        Float
+  netMargin         Float
+  revenueBreakdown  String    // JSON
+  totalFunded       Float
+  totalLoansIssued  Float
+  totalUsersActive  Int
+  pdfUrl            String?
+  publishedAt       DateTime?
+  createdAt         DateTime  @default(now())
+
+  @@unique([period, periodType])
+}
+
+// --- Family Accounts (Plan 8) ---
+
+model Family {
+  id                     String   @id @default(cuid())
+  name                   String
+  sharedWatershedEnabled Boolean  @default(false)
+  sharedWatershedId      String?
+  createdAt              DateTime @default(now())
+
+  members         FamilyMember[]
+  sharedWatershed Watershed?     @relation(fields: [sharedWatershedId], references: [id])
+  goals           FamilyGoal[]
+
+  @@index([sharedWatershedId])
+}
+
+model FamilyMember {
+  id                String   @id @default(cuid())
+  familyId          String
+  userId            String   @unique
+  role              String   // admin, adult, child
+  nickname          String?
+  monthlyLimit      Float?
+  requireApproval   Boolean  @default(false)
+  allowedCategories String?  // JSON array
+  joinedAt          DateTime @default(now())
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+}
+
+model FamilyGoal {
+  id           String    @id @default(cuid())
+  familyId     String
+  title        String
+  description  String?
+  targetType   String    // projects_funded, amount_given, categories_supported
+  targetValue  Float
+  currentValue Float     @default(0)
+  deadline     DateTime?
+  status       String    @default("active")
+  createdAt    DateTime  @default(now())
+
+  family Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, status])
+}
+
+model FamilyActivity {
+  id          String   @id @default(cuid())
+  familyId    String
+  memberId    String
+  actionType  String
+  description String
+  projectId   String?
+  communityId String?
+  badgeId     String?
+  amount      Float?
+  createdAt   DateTime @default(now())
+
+  @@index([familyId, createdAt])
+}
+
+model PendingFamilyAction {
+  id         String    @id @default(cuid())
+  familyId   String
+  memberId   String
+  approverId String?
+  actionType String
+  targetId   String
+  amount     Float
+  status     String    @default("pending")
+  note       String?
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+
+  @@index([familyId, status])
+}
+
+model FamilyBadge {
+  id            String @id @default(cuid())
+  slug          String @unique
+  name          String
+  description   String
+  icon          String
+  criteriaType  String
+  criteriaValue String
+}
+
+model FamilyBadgeEarned {
+  id       String   @id @default(cuid())
+  familyId String
+  badgeId  String
+  earnedAt DateTime @default(now())
+
+  @@unique([familyId, badgeId])
+}
+
+model FamilyInvite {
+  id        String   @id @default(cuid())
+  familyId  String
+  email     String
+  role      String   // adult, child
+  token     String   @unique
+  status    String   @default("pending") // pending, accepted, expired
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+}
+
+// --- Tax & Giving Documentation (Plan 10) ---
+
+model ContributionReceipt {
+  id              String    @id @default(cuid())
+  userId          String
+  contributionId  String?   // For cash contributions
+  allocationId    String?   // For project funding
+  type            String    // cash, ad_funded, referral, matching
+  amount          Float
+  date            DateTime
+  projectName     String?
+  communityName   String?
+  receiptNumber   String    @unique
+  downloadedAt    DateTime?
+  createdAt       DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, date])
+  @@index([receiptNumber])
+}
+
+model AnnualGivingSummary {
+  id                    String    @id @default(cuid())
+  userId                String
+  year                  Int
+  totalCashContributed  Float     @default(0)
+  totalAdFunded         Float     @default(0)
+  totalReferralCredits  Float     @default(0)
+  totalMatchingReceived Float     @default(0)
+  totalAllocated        Float     @default(0)
+  projectsFunded        Int       @default(0)
+  loansFunded           Int       @default(0)
+  loansRepaid           Float     @default(0)
+  communitiesSupported  Int       @default(0)
+  deductibleAmount      Float     @default(0)
+  nonDeductibleAmount   Float     @default(0)
+  generatedAt           DateTime?
+  pdfUrl                String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, year])
+}
+
+model FamilyAnnualSummary {
+  id                String    @id @default(cuid())
+  familyId          String
+  year              Int
+  totalFamilyGiving Float     @default(0)
+  memberBreakdown   String    // JSON: { memberId: amount }
+  projectsFunded    Int       @default(0)
+  generatedAt       DateTime?
+  pdfUrl            String?
+  createdAt         DateTime  @default(now())
+
+  @@unique([familyId, year])
+}
+

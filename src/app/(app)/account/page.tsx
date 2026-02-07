@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EditNameForm } from "@/components/account/edit-name-form";
 import { formatCurrency, formatCurrencyPrecise } from "@/lib/utils";
-import { Tv, Heart, DollarSign, FolderOpen, Mail, Calendar, Shield, Award, TrendingUp, SlidersHorizontal, BadgeCheck } from "lucide-react";
+import { Tv, Heart, DollarSign, FolderOpen, Mail, Calendar, Shield, Award, TrendingUp, SlidersHorizontal, BadgeCheck, FileText } from "lucide-react";
 import { RoleBadge } from "@/components/ui/role-badge";
 import { CREDIT_TIERS } from "@/lib/constants";
 import { getTierName } from "@/lib/loans";
@@ -171,6 +171,29 @@ export default async function AccountPage() {
           </div>
           <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1">
             Earn badges for watching ads, funding projects, and building streaks.
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* Giving History & Tax Documents */}
+      <Card className="mb-6">
+        <CardContent className="pt-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <FileText className="h-4 w-4 text-ocean" />
+              <span className="font-heading font-semibold text-storm dark:text-dark-text">
+                Giving History
+              </span>
+            </div>
+            <Link
+              href="/account/giving-history"
+              className="text-sm text-ocean hover:underline dark:text-ocean-light"
+            >
+              View &rarr;
+            </Link>
+          </div>
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1">
+            Download receipts and annual summaries for your tax records.
           </p>
         </CardContent>
       </Card>

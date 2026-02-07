@@ -167,18 +167,10 @@ All tasks moved to Done section.
 
 #### Epic 10: Tax & Giving Documentation
 
-Year-end giving summaries, tax documents, contribution receipts.
+**Status: Complete** — See Plan 10 in `docs/plans/plan-10-tax-documentation.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-TAX-001 | Contribution receipts — downloadable per transaction | tax | `src/lib/receipts.ts` |
-| DLG-TAX-001a | PDF receipt generation | tax | @react-pdf/renderer |
-| DLG-TAX-002 | Annual giving summary — year-end report | tax | AnnualGivingSummary model |
-| DLG-TAX-002a | Summary PDF generation | tax | Tax-ready format |
-| DLG-TAX-003 | Project tax status — track 501c3 eligibility | tax | Project model update |
-| DLG-TAX-003a | Deductible vs non-deductible breakdown | tax | Report enhancement |
-| DLG-TAX-004 | Family tax reports — combined family giving | tax | FamilyAnnualSummary |
-| DLG-TAX-005 | Giving history page — browse all contributions | tax | `/account/giving-history` |
+Contribution receipts with PDF generation, annual giving summaries, tax deductibility tracking.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-10-tax-documentation.md`
 
@@ -723,3 +715,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-TRANS-001 | Financial transparency (Plan 7) | transparency | 2026-02-07 |
 | DLG-FAMILY-001 | Family accounts (Plan 8) | family | 2026-02-07 |
 | DLG-MOBILE-001 | PWA/Mobile experience (Plan 9) | mobile | 2026-02-07 |
+| DLG-TAX-001 | Tax & giving documentation (Plan 10) | tax | 2026-02-07 |
