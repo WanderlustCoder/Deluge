@@ -208,3 +208,43 @@ export const MILESTONE_TYPES = {
   members: (count: number) => `members_${count}`,
   projects: (count: number) => `projects_${count}`,
 } as const;
+
+// --- Impact Metric Templates ---
+export const IMPACT_METRIC_TEMPLATES: Record<string, Array<{ name: string; unit: string }>> = {
+  Education: [
+    { name: "Students Served", unit: "students" },
+    { name: "Teachers Trained", unit: "teachers" },
+    { name: "Books Distributed", unit: "books" },
+  ],
+  Environment: [
+    { name: "Trees Planted", unit: "trees" },
+    { name: "Trash Collected", unit: "lbs" },
+    { name: "Area Restored", unit: "acres" },
+  ],
+  Health: [
+    { name: "People Served", unit: "people" },
+    { name: "Meals Provided", unit: "meals" },
+    { name: "Medical Supplies", unit: "kits" },
+  ],
+  Housing: [
+    { name: "Homes Repaired", unit: "homes" },
+    { name: "Families Housed", unit: "families" },
+  ],
+  Technology: [
+    { name: "Prototypes Built", unit: "prototypes" },
+    { name: "Jobs Created", unit: "jobs" },
+  ],
+  "Arts & Culture": [
+    { name: "Performances", unit: "shows" },
+    { name: "Artists Supported", unit: "artists" },
+    { name: "Attendees", unit: "people" },
+  ],
+  Community: [
+    { name: "Community Members Impacted", unit: "people" },
+    { name: "Events Held", unit: "events" },
+  ],
+  Youth: [
+    { name: "Youth Served", unit: "youth" },
+    { name: "Programs Run", unit: "programs" },
+  ],
+} as const;

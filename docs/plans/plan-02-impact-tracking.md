@@ -1,6 +1,6 @@
 # Plan 2: Post-Cascade Impact Tracking
 
-**Status:** Approved
+**Status:** Complete
 **Priority:** High
 **Epic:** DLG-IMPACT-001 through DLG-IMPACT-005
 **Reference:** `docs/user-experience.md`, `docs/executive-summary.md`
@@ -229,14 +229,14 @@ export const IMPACT_METRIC_TEMPLATES = {
 
 ## Success Criteria
 
-- [ ] Proposers can post updates after funding
-- [ ] Backers see update timeline on project page
-- [ ] Impact metrics can be recorded and displayed
-- [ ] Users can follow/unfollow projects
-- [ ] Followers are notified of new updates
-- [ ] Projects can be marked complete with summary
-- [ ] Completion certificate is shareable
-- [ ] "Impact Witness" badge awarded at 5+ updates
+- [x] Proposers can post updates after funding
+- [x] Backers see update timeline on project page
+- [x] Impact metrics can be recorded and displayed
+- [x] Users can follow/unfollow projects
+- [x] Followers are notified of new updates
+- [x] Projects can be marked complete with summary
+- [x] Completion certificate is shareable
+- [x] "Impact Witness" badge awarded at 5+ updates
 
 ---
 

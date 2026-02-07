@@ -58,6 +58,7 @@ model User {
   notificationPreference    NotificationPreference?
   proposals                 ProjectProposal[] @relation("ProposedProjects")
   deadlineExtensions        LoanDeadlineExtension[] @relation("DeadlineExtensions")
+  projectFollows            ProjectFollow[]
 }
 
 model Watershed {
@@ -99,6 +100,8 @@ model Project {
   isFlagship         Boolean  @default(false)
   disbursedAmount    Float    @default(0)
   disbursementStatus String   @default("none") // "none" | "partial" | "disbursed"
+  completedAt        DateTime?
+  impactSummary      String?
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
 
@@ -110,6 +113,8 @@ model Project {
   updates        ProjectUpdate[]
   grant          CommunityGrant?
   proposal       ProjectProposal?
+  impactMetrics  ImpactMetric[]
+  followers      ProjectFollow[]
 }
 
 model Allocation {
@@ -779,12 +784,40 @@ model ProjectDisbursement {
 model ProjectUpdate {
   id        String   @id @default(cuid())
   projectId String
+  type      String   @default("text") // text, photo, milestone, completion
   title     String
   body      String
   imageUrls String?  // JSON array
   createdAt DateTime @default(now())
 
   project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, createdAt])
+}
+
+model ImpactMetric {
+  id         String   @id @default(cuid())
+  projectId  String
+  name       String   // e.g., "Students Served", "Trees Planted"
+  value      Float
+  unit       String   // e.g., "students", "trees"
+  reportedAt DateTime @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model ProjectFollow {
+  id        String   @id @default(cuid())
+  userId    String
+  projectId String
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, projectId])
 }
 
 // --- Activity Feed ---
