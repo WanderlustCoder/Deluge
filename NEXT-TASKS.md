@@ -185,19 +185,10 @@ See full plan: `docs/plans/plan-11-recurring-giving.md`
 
 #### Epic 12: Volunteer Hours & In-Kind Contributions
 
-Non-monetary contributions, skills matching, volunteer tracking.
+**Status: Complete** — See Plan 12 in `docs/plans/plan-12-volunteer-contributions.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-VOLUNTEER-001 | Volunteer opportunities — projects can request volunteers | volunteer | VolunteerOpportunity model |
-| DLG-VOLUNTEER-001a | Volunteer signup and hour logging | volunteer | VolunteerLog model |
-| DLG-VOLUNTEER-002 | Skills marketplace — users list contributable skills | volunteer | UserSkill model |
-| DLG-VOLUNTEER-002a | Skills matching algorithm | volunteer | Match volunteers to needs |
-| DLG-VOLUNTEER-003 | In-kind donations — track non-monetary contributions | volunteer | InKindDonation model |
-| DLG-VOLUNTEER-003a | Project needs list | volunteer | ProjectNeed model |
-| DLG-VOLUNTEER-004 | Hour verification — project leads verify logged hours | volunteer | Verification workflow |
-| DLG-VOLUNTEER-005 | Volunteer badges — recognize volunteer contributions | volunteer | Badge engine update |
-| DLG-VOLUNTEER-006 | Browse volunteer opportunities page | volunteer | `/volunteer` |
+Volunteer opportunities, hour logging, skills marketplace, in-kind donations, volunteer badges.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-12-volunteer-contributions.md`
 
@@ -709,3 +700,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-MOBILE-001 | PWA/Mobile experience (Plan 9) | mobile | 2026-02-07 |
 | DLG-TAX-001 | Tax & giving documentation (Plan 10) | tax | 2026-02-07 |
 | DLG-RECUR-001 | Recurring giving & subscriptions (Plan 11) | recurring | 2026-02-07 |
+| DLG-VOLUNTEER-001 | Volunteer hours & in-kind contributions (Plan 12) | volunteer | 2026-02-07 |

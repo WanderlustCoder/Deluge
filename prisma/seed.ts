@@ -352,12 +352,16 @@ async function main() {
     { key: "first_ad", name: "Time Giver", description: "Watch your first ad", tier: "first_drop", icon: "⏱️" },
     { key: "first_fund", name: "First Backer", description: "Fund your first project", tier: "first_drop", icon: "🤝" },
     { key: "first_contribution", name: "First Drop", description: "Make your first cash contribution", tier: "first_drop", icon: "💧" },
+    { key: "first_volunteer", name: "First Hour", description: "Log your first volunteer hour", tier: "first_drop", icon: "🙋" },
     { key: "ads_10", name: "Dedicated Viewer", description: "Watch 10 ads", tier: "stream", icon: "📺" },
     { key: "ads_100", name: "Century Watcher", description: "Watch 100 ads", tier: "stream", icon: "💯" },
     { key: "projects_3", name: "Triple Backer", description: "Fund 3 different projects", tier: "stream", icon: "🎯" },
     { key: "projects_10", name: "Community Pillar", description: "Fund 10 different projects", tier: "creek", icon: "🏛️" },
     { key: "week_streak", name: "Week Streak", description: "Watch ads 7 days in a row", tier: "stream", icon: "🔥" },
     { key: "month_streak", name: "Monthly Devotion", description: "Watch ads 30 days in a row", tier: "creek", icon: "⭐" },
+    { key: "volunteer_10", name: "Helping Hand", description: "Log 10 volunteer hours", tier: "stream", icon: "🤲" },
+    { key: "volunteer_50", name: "Community Hero", description: "Log 50 volunteer hours", tier: "creek", icon: "🦸" },
+    { key: "volunteer_100", name: "Century Volunteer", description: "Log 100 volunteer hours", tier: "river", icon: "🏆" },
   ];
 
   for (const def of badgeDefs) {

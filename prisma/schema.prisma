@@ -77,6 +77,11 @@ model User {
   projectSubscriptions      ProjectSubscription[]
   communitySubscriptions    CommunitySubscription[]
   givingGoals               PersonalGivingGoal[]
+  volunteerSignups          VolunteerSignup[]
+  volunteerLogs             VolunteerLog[]
+  skills                    UserSkill[]
+  inKindDonations           InKindDonation[]
+  totalVerifiedHours        Float     @default(0)
 }
 
 model Watershed {
@@ -146,6 +151,9 @@ model Project {
   momentumUpdatedAt     DateTime?
   cascadeSponsorEvents  CascadeSponsorEvent[]
   subscriptions         ProjectSubscription[]
+  volunteerOpportunities VolunteerOpportunity[]
+  inKindDonations        InKindDonation[]
+  needs                  ProjectNeed[]
 }
 
 model Allocation {
@@ -1738,5 +1746,122 @@ model PersonalGivingGoal {
 
   @@index([userId, status])
   @@index([periodEnd, status])
+}
+
+// ==========================================
+// PLAN 12: VOLUNTEER & IN-KIND CONTRIBUTIONS
+// ==========================================
+
+model VolunteerOpportunity {
+  id              String    @id @default(cuid())
+  projectId       String
+  title           String
+  description     String
+  hoursNeeded     Float?    // Target hours (optional)
+  hoursLogged     Float     @default(0)
+  skillsRequired  String?   // JSON array: ["construction", "teaching", "admin"]
+  location        String?
+  isRemote        Boolean   @default(false)
+  startDate       DateTime?
+  endDate         DateTime?
+  status          String    @default("open") // open, filled, closed
+  maxVolunteers   Int?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  project  Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  signups  VolunteerSignup[]
+  logs     VolunteerLog[]
+
+  @@index([projectId, status])
+  @@index([status, startDate])
+}
+
+model VolunteerSignup {
+  id            String   @id @default(cuid())
+  opportunityId String
+  userId        String
+  status        String   @default("interested") // interested, confirmed, completed, cancelled
+  message       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  opportunity VolunteerOpportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([opportunityId, userId])
+}
+
+model VolunteerLog {
+  id            String    @id @default(cuid())
+  opportunityId String
+  userId        String
+  hours         Float
+  date          DateTime
+  description   String?
+  verified      Boolean   @default(false)
+  verifiedBy    String?
+  verifiedAt    DateTime?
+  createdAt     DateTime  @default(now())
+
+  opportunity VolunteerOpportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, date])
+  @@index([opportunityId])
+}
+
+model UserSkill {
+  id          String   @id @default(cuid())
+  userId      String
+  skill       String
+  category    String   // technical, professional, trade, education, administrative
+  level       String   @default("intermediate") // beginner, intermediate, expert
+  description String?
+  isPublic    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, skill])
+  @@index([skill])
+  @@index([category])
+}
+
+model InKindDonation {
+  id          String    @id @default(cuid())
+  projectId   String
+  userId      String
+  type        String    // materials, equipment, space, services
+  description String
+  value       Float?    // Estimated value (optional)
+  status      String    @default("offered") // offered, accepted, received, declined
+  receivedAt  DateTime?
+  notes       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, status])
+  @@index([userId])
+}
+
+model ProjectNeed {
+  id             String   @id @default(cuid())
+  projectId      String
+  type           String   // materials, equipment, space, services, volunteer_hours
+  description    String
+  quantity       Int?
+  estimatedValue Float?
+  fulfilled      Boolean  @default(false)
+  fulfilledBy    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, fulfilled])
 }
 

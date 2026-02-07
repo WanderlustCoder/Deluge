@@ -11,6 +11,7 @@ interface UserStats {
   fundCount: number; // distinct projects funded
   contributionCount: number;
   streakDays: number;
+  volunteerHours: number; // verified volunteer hours
 }
 
 const BADGE_CHECKS: BadgeDef[] = [
@@ -23,6 +24,11 @@ const BADGE_CHECKS: BadgeDef[] = [
   { key: "projects_10", check: (s) => s.fundCount >= 10 },
   { key: "week_streak", check: (s) => s.streakDays >= 7 },
   { key: "month_streak", check: (s) => s.streakDays >= 30 },
+  // Volunteer badges
+  { key: "first_volunteer", check: (s) => s.volunteerHours >= 1 },
+  { key: "volunteer_10", check: (s) => s.volunteerHours >= 10 },
+  { key: "volunteer_50", check: (s) => s.volunteerHours >= 50 },
+  { key: "volunteer_100", check: (s) => s.volunteerHours >= 100 },
 ];
 
 /**
@@ -31,7 +37,7 @@ const BADGE_CHECKS: BadgeDef[] = [
  */
 export async function checkAndAwardBadges(userId: string): Promise<string[]> {
   // Get user stats
-  const [adCount, projectsFunded, contributionCount, streak] =
+  const [adCount, projectsFunded, contributionCount, streak, volunteerLogs] =
     await Promise.all([
       prisma.adView.count({ where: { userId } }),
       prisma.allocation.groupBy({
@@ -42,6 +48,10 @@ export async function checkAndAwardBadges(userId: string): Promise<string[]> {
       prisma.streak.findUnique({
         where: { userId_type: { userId, type: "ad_watch" } },
       }),
+      prisma.volunteerLog.aggregate({
+        where: { userId, verified: true },
+        _sum: { hours: true },
+      }),
     ]);
 
   const stats: UserStats = {
@@ -49,6 +59,7 @@ export async function checkAndAwardBadges(userId: string): Promise<string[]> {
     fundCount: projectsFunded.length,
     contributionCount,
     streakDays: streak?.currentDays ?? 0,
+    volunteerHours: volunteerLogs._sum?.hours ?? 0,
   };
 
   // Get user's existing badges
