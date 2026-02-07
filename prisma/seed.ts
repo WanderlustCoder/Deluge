@@ -362,6 +362,9 @@ async function main() {
     { key: "volunteer_10", name: "Helping Hand", description: "Log 10 volunteer hours", tier: "stream", icon: "🤲" },
     { key: "volunteer_50", name: "Community Hero", description: "Log 50 volunteer hours", tier: "creek", icon: "🦸" },
     { key: "volunteer_100", name: "Century Volunteer", description: "Log 100 volunteer hours", tier: "river", icon: "🏆" },
+    { key: "circle_joiner", name: "Circle Joiner", description: "Join your first giving circle", tier: "first_drop", icon: "⭕" },
+    { key: "circle_active", name: "Circle Active", description: "Join 3 giving circles", tier: "stream", icon: "🔗" },
+    { key: "circle_proposer", name: "Circle Proposer", description: "Create your first circle proposal", tier: "stream", icon: "📝" },
   ];
 
   for (const def of badgeDefs) {

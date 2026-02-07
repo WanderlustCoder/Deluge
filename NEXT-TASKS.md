@@ -203,20 +203,10 @@ See full plan: `docs/plans/plan-13-corporate-portal.md`
 
 #### Epic 14: Giving Circles
 
-Group pooled giving, collective decision making, circle voting.
+**Status: Complete** — See Plan 14 in `docs/plans/plan-14-giving-circles.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-CIRCLE-001 | Giving circle foundation — create and join circles | circles | GivingCircle model |
-| DLG-CIRCLE-001a | Circle discovery and creation UI | circles | `/circles` |
-| DLG-CIRCLE-002 | Pool contributions — members contribute to shared pool | circles | CircleContribution model |
-| DLG-CIRCLE-003 | Funding proposals — propose and vote on projects | circles | CircleProposal model |
-| DLG-CIRCLE-003a | Voting system — approve/reject proposals | circles | CircleVote model |
-| DLG-CIRCLE-003b | Auto-execute approved proposals | circles | Fund on approval |
-| DLG-CIRCLE-004 | Circle activity feed — show circle activity | circles | CircleActivity model |
-| DLG-CIRCLE-004a | Circle discussions | circles | CircleDiscussion model |
-| DLG-CIRCLE-005 | Circle impact dashboard | circles | Track collective impact |
-| DLG-CIRCLE-006 | Circle badges | circles | New badge category |
+Group pooled giving, collective decision making, circle voting.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-14-giving-circles.md`
 
@@ -692,3 +682,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-RECUR-001 | Recurring giving & subscriptions (Plan 11) | recurring | 2026-02-07 |
 | DLG-VOLUNTEER-001 | Volunteer hours & in-kind contributions (Plan 12) | volunteer | 2026-02-07 |
 | DLG-CORP-001 | Corporate employee portal (Plan 13) | corporate | 2026-02-07 |
+| DLG-CIRCLE-001 | Giving circles (Plan 14) | circles | 2026-02-07 |

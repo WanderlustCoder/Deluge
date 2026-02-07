@@ -83,6 +83,7 @@ model User {
   inKindDonations           InKindDonation[]
   totalVerifiedHours        Float     @default(0)
   corporateEmployee         CorporateEmployee?
+  circleMemberships         CircleMember[]
 }
 
 model Watershed {
@@ -1983,5 +1984,171 @@ model CorporateReport {
   corporateAccount CorporateAccount @relation(fields: [corporateAccountId], references: [id], onDelete: Cascade)
 
   @@index([corporateAccountId, type])
+}
+
+// ============================================================================
+// GIVING CIRCLES
+// ============================================================================
+
+model GivingCircle {
+  id               String   @id @default(cuid())
+  name             String
+  slug             String   @unique
+  description      String?
+  imageUrl         String?
+  isPrivate        Boolean  @default(false)
+  memberLimit      Int?     // null = unlimited
+  minContribution  Float?   // Monthly minimum (optional)
+  pooledBalance    Float    @default(0)
+  totalContributed Float    @default(0)
+  totalDeployed    Float    @default(0)
+  votingThreshold  Float    @default(0.5) // % needed to approve
+  votingPeriod     Int      @default(7) // days
+  focusCategories  String?  // JSON array of preferred categories
+  focusCommunities String?  // JSON array of preferred community IDs
+  status           String   @default("active") // active, paused, archived
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  members       CircleMember[]
+  contributions CircleContribution[]
+  proposals     CircleProposal[]
+  activity      CircleActivity[]
+  invites       CircleInvite[]
+  discussions   CircleDiscussion[]
+  recurring     CircleRecurring[]
+
+  @@index([status])
+}
+
+model CircleMember {
+  id               String   @id @default(cuid())
+  circleId         String
+  userId           String
+  role             String   @default("member") // founder, admin, member
+  totalContributed Float    @default(0)
+  joinedAt         DateTime @default(now())
+  status           String   @default("active") // active, inactive, left
+
+  circle GivingCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([circleId, userId])
+  @@index([userId])
+}
+
+model CircleContribution {
+  id        String   @id @default(cuid())
+  circleId  String
+  userId    String
+  amount    Float
+  note      String?
+  createdAt DateTime @default(now())
+
+  circle GivingCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+
+  @@index([circleId, createdAt])
+  @@index([userId])
+}
+
+model CircleInvite {
+  id        String    @id @default(cuid())
+  circleId  String
+  email     String?
+  token     String    @unique
+  invitedBy String
+  expiresAt DateTime
+  usedAt    DateTime?
+  usedBy    String?
+  createdAt DateTime  @default(now())
+
+  circle GivingCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+
+  @@index([circleId])
+  @@index([token])
+}
+
+model CircleProposal {
+  id           String    @id @default(cuid())
+  circleId     String
+  proposerId   String
+  projectId    String?   // For project funding
+  loanId       String?   // For loan funding
+  type         String    // project, loan, custom
+  title        String
+  description  String?
+  amount       Float
+  votingEnds   DateTime
+  status       String    @default("voting") // voting, approved, rejected, funded, expired
+  yesVotes     Int       @default(0)
+  noVotes      Int       @default(0)
+  abstainVotes Int       @default(0)
+  fundedAt     DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  circle GivingCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+  votes  CircleVote[]
+
+  @@index([circleId, status])
+  @@index([votingEnds])
+}
+
+model CircleVote {
+  id         String   @id @default(cuid())
+  proposalId String
+  userId     String
+  vote       String   // yes, no, abstain
+  comment    String?
+  createdAt  DateTime @default(now())
+
+  proposal CircleProposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+
+  @@unique([proposalId, userId])
+}
+
+model CircleActivity {
+  id        String   @id @default(cuid())
+  circleId  String
+  type      String   // contribution, proposal_created, vote_cast, proposal_funded, member_joined, member_left, discussion
+  actorId   String?
+  data      String   // JSON data
+  createdAt DateTime @default(now())
+
+  circle GivingCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+
+  @@index([circleId, createdAt])
+}
+
+model CircleDiscussion {
+  id        String   @id @default(cuid())
+  circleId  String
+  userId    String
+  content   String
+  parentId  String?  // For threading
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  circle GivingCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+
+  @@index([circleId, createdAt])
+  @@index([parentId])
+}
+
+model CircleRecurring {
+  id             String   @id @default(cuid())
+  circleId       String
+  userId         String
+  amount         Float
+  frequency      String   @default("monthly")
+  nextChargeDate DateTime
+  status         String   @default("active") // active, paused, cancelled
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  circle GivingCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+
+  @@unique([circleId, userId])
+  @@index([nextChargeDate, status])
 }
 
