@@ -93,6 +93,10 @@ model User {
   advocateInterest          AdvocateInterest?
   identityVerifications     IdentityVerification[]
   auditorProfile            Auditor?
+  apiKeys                   ApiKey[]
+  webhooks                  Webhook[]
+  oauthApps                 OAuthApp[]
+  oauthAuthorizations       OAuthAuthorization[]
 }
 
 model Watershed {
@@ -2775,5 +2779,136 @@ model ProjectFlag {
   @@index([projectId, status])
   @@index([severity, status])
   @@index([type])
+}
+
+// =============================================================================
+// Developer API & Integrations (Plan 19)
+// =============================================================================
+
+model ApiKey {
+  id           String    @id @default(cuid())
+  userId       String
+  name         String
+  keyHash      String    @unique // Hashed key for lookup
+  keyPrefix    String    // First 8 chars for identification
+  scopes       String    // Comma-separated: read, write, webhooks
+  rateLimit    Int       @default(1000) // Requests per hour
+  status       String    @default("active") // active, revoked, expired
+  lastUsedAt   DateTime?
+  usageCount   Int       @default(0)
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  revokedAt    DateTime?
+  revokedReason String?
+
+  user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  logs ApiRequestLog[]
+
+  @@index([keyHash])
+  @@index([userId, status])
+}
+
+model ApiRequestLog {
+  id           String   @id @default(cuid())
+  apiKeyId     String
+  endpoint     String
+  method       String
+  statusCode   Int
+  responseTime Int      // ms
+  ipAddress    String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+
+  apiKey ApiKey @relation(fields: [apiKeyId], references: [id], onDelete: Cascade)
+
+  @@index([apiKeyId, createdAt])
+  @@index([endpoint, createdAt])
+}
+
+model Webhook {
+  id              String    @id @default(cuid())
+  userId          String
+  name            String
+  url             String
+  secret          String    // For signature verification
+  events          String    // Comma-separated: project.funded, loan.repaid, etc.
+  status          String    @default("active") // active, paused, failed
+  failureCount    Int       @default(0)
+  lastTriggeredAt DateTime?
+  lastSuccessAt   DateTime?
+  lastErrorAt     DateTime?
+  lastError       String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deliveries WebhookDelivery[]
+
+  @@index([userId, status])
+}
+
+model WebhookDelivery {
+  id           String    @id @default(cuid())
+  webhookId    String
+  event        String
+  payload      String    // JSON string
+  statusCode   Int?
+  responseBody String?
+  duration     Int?      // ms
+  status       String    @default("pending") // pending, delivered, failed
+  attempts     Int       @default(0)
+  nextRetry    DateTime?
+  createdAt    DateTime  @default(now())
+
+  webhook Webhook @relation(fields: [webhookId], references: [id], onDelete: Cascade)
+
+  @@index([webhookId, createdAt])
+  @@index([status, nextRetry])
+}
+
+model OAuthApp {
+  id               String    @id @default(cuid())
+  userId           String    // App owner
+  name             String
+  description      String?
+  logoUrl          String?
+  websiteUrl       String?
+  redirectUris     String    // Comma-separated URIs
+  clientId         String    @unique
+  clientSecretHash String
+  scopes           String    // Comma-separated allowed scopes
+  status           String    @default("pending") // pending, approved, suspended
+  approvedAt       DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  authorizations OAuthAuthorization[]
+
+  @@index([clientId])
+}
+
+model OAuthAuthorization {
+  id                    String    @id @default(cuid())
+  appId                 String
+  userId                String
+  scopes                String    // Comma-separated granted scopes
+  // Authorization code (temporary, before token exchange)
+  authCode              String?   @unique
+  codeExpiresAt         DateTime?
+  // Tokens (hashed for security)
+  accessToken           String?   @unique
+  accessTokenExpiresAt  DateTime?
+  refreshToken          String?   @unique
+  refreshTokenExpiresAt DateTime?
+  revokedAt             DateTime?
+  createdAt             DateTime  @default(now())
+
+  app  OAuthApp @relation(fields: [appId], references: [id], onDelete: Cascade)
+  user User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([accessToken])
+  @@index([authCode])
+  @@index([userId, appId])
 }
 
