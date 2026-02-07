@@ -1,79 +1,112 @@
-# Plan 5: Extended Badge & Gamification System
+# Plan 5: Recognition & Milestone Badges
 
-**Status:** Approved
+**Status:** Implemented (needs refinement per revised philosophy)
 **Priority:** Medium
 **Epic:** DLG-BADGE-001 through DLG-BADGE-004
 **Reference:** `docs/user-experience.md`
 
 ---
 
+## Philosophy
+
+Badges are **recognition of meaningful moments**, not gamification mechanics. They celebrate what someone has done, not pressure them to do more.
+
+### What We Avoid
+- **No streaks** - Missing a day is not failure
+- **No progress bars** - Don't show "almost there" pressure
+- **No "next badge" suggestions** - Don't create FOMO for unearned badges
+- **No hierarchy language** - No "Legendary" or "better" badges
+- **No recovery mechanics** - Nothing should feel like it can be "lost"
+
+### What We Embrace
+- **Milestone markers** - Recognition of genuine achievements
+- **Anniversary recognition** - Celebrate time, not consecutive days
+- **Impact connection** - Badges tied to real outcomes
+- **Equal value** - All badges are meaningful, none are "better"
+- **Quiet display** - Badges shown when relevant, not pushed
+
+---
+
 ## Overview
 
-Complete the full 5-tier badge system with 25+ badges, progress tracking, legendary effects, and streak improvements.
+A recognition system with 25 badges across 5 categories. Each badge marks a genuine milestone in someone's giving journey. No pressure, no competition, just acknowledgment.
 
 ---
 
 ## Current State
 
 - 9 badges implemented in `src/lib/badges.ts`
-- Basic streak tracking exists
-- No badge progress indicators
-- No tier system for badges
-- No legendary/rare badge effects
+- Basic streak tracking exists (needs removal)
+- No badge progress indicators (keep it this way)
+- Tier system exists (needs reframing)
 
 ---
 
-## Badge Tier System
+## Badge Categories (Not Tiers)
 
-### Tier 1: First Drop (Getting Started)
+Badges are organized by **type of contribution**, not by "level" or "difficulty". All categories are equally valuable.
+
+### Category: Getting Started
+
+Recognition for beginning the journey.
 
 | Badge | Criteria | Icon |
 |-------|----------|------|
-| First Drop | Made first cash contribution | 💧 |
+| First Drop | Made first contribution | 💧 |
 | Community Member | Joined first community | 👥 |
 | Profile Complete | Added photo and bio | ✨ |
-| Time Giver | Watched first ad to fund a project | ⏰ |
-| First Referral | Referred a friend who signed up | 🔗 |
+| Time Giver | Watched first ad to support a project | ⏰ |
+| Welcome Friend | Referred a friend who signed up | 🔗 |
 
-### Tier 2: Stream (Building Habits)
+### Category: Community Connection
 
-| Badge | Criteria | Icon |
-|-------|----------|------|
-| Steady Flow | Contributed every month for 3 months | 🌊 |
-| Promoter | Shared a project that got 5+ new backers | 📢 |
-| Proposer | Proposed a project that went live | 💡 |
-| Conversationalist | Posted 10 comments across discussions | 💬 |
-| Week Streak | Watched ads 7 days in a row | 🔥 |
-
-### Tier 3: Creek (Making Waves)
+Recognition for community participation.
 
 | Badge | Criteria | Icon |
 |-------|----------|------|
-| Project Backer x10 | Backed 10 different projects | 🎯 |
-| Social Butterfly | Invited 3 friends who joined and became active | 🦋 |
-| Storyteller | Shared a cascade story that reached 50+ people | 📖 |
-| Month Streak | Watched ads 30 days in a row | ⚡ |
-| First Cascade | Part of your first fully-funded project | 🌈 |
+| Neighbor | Active in a community for 3+ months | 🏠 |
+| Conversation Starter | Contributed to community discussions | 💬 |
+| Community Founder | Started a community that others joined | 🌱 |
+| Growing Together | Part of a community that reached 100 members | 🏛️ |
+| Bridge Builder | Active in 3+ different communities | 🌉 |
 
-### Tier 4: River (Serious Impact)
+### Category: Project Impact
 
-| Badge | Criteria | Icon |
-|-------|----------|------|
-| Community Builder | Community you started has 100+ members | 🏛️ |
-| Serial Proposer | Proposed 3+ projects that got funded | 🚀 |
-| Impact Witness | Received 5 impact updates from backed projects | 👁️ |
-| Rallier | Promoted a project from <25% to fully funded | 📣 |
-| Six-Month Flow | Contributed every month for 6 months | 💎 |
-
-### Tier 5: Watershed (Legendary)
+Recognition for supporting projects.
 
 | Badge | Criteria | Icon |
 |-------|----------|------|
-| Movement Builder | Referred 25+ active users | 🌟 |
+| First Cascade | Part of a project that reached full funding | 🌈 |
+| Ten Projects | Contributed to 10 different projects | 🎯 |
+| Cascade Witness | Part of 5 fully-funded projects | 🌊 |
+| Impact Seen | Received an update from a funded project | 👁️ |
 | Cascade Veteran | Part of 10 fully-funded projects | 🏆 |
-| Catalyst | Proposed or promoted projects that collectively funded $10K+ | ⭐ |
-| Year of Flow | Contributed every month for 12 months | 👑 |
-| Community Pillar | Active in 5+ communities with regular contributions | 🗿 |
+
+### Category: Sharing & Growth
+
+Recognition for spreading the word.
+
+| Badge | Criteria | Icon |
+|-------|----------|------|
+| Story Sharer | Shared a project with others | 📢 |
+| Ripple Effect | Shared a project that got new backers | 🦋 |
+| Storyteller | Shared an impact story that reached others | 📖 |
+| Community Grower | Invited friends who became active | 🌟 |
+| Movement Maker | Helped bring 10+ people to Deluge | ⭐ |
+
+### Category: Giving Journey
+
+Recognition for sustained participation (anniversaries, not streaks).
+
+| Badge | Criteria | Icon |
+|-------|----------|------|
+| Three Months | Active on Deluge for 3 months | 🌿 |
+| Six Months | Active on Deluge for 6 months | 🌳 |
+| One Year | Active on Deluge for 1 year | 🎂 |
+| Two Years | Active on Deluge for 2 years | 💎 |
+| Founding Member | Joined during Deluge's first year | 🗿 |
+
+**Note:** "Active" means any participation (contribution, community activity, ad watching) during the period—NOT consecutive days.
 
 ---
 
@@ -85,12 +118,11 @@ model Badge {
   slug        String   @unique
   name        String
   description String
-  tier        Int      // 1-5
+  category    String   // getting_started, community, impact, sharing, journey
   icon        String   // emoji or icon name
-  category    String   // contribution, community, streak, impact, growth
 
   // Criteria stored as JSON for flexibility
-  criteriaType  String   // count, streak, threshold, compound
+  criteriaType  String   // milestone, anniversary, count
   criteriaValue String   // JSON encoded criteria
 
   createdAt   DateTime @default(now())
@@ -114,62 +146,54 @@ model UserBadge {
   @@index([userId])
 }
 
-model BadgeProgress {
-  id          String   @id @default(cuid())
-  userId      String
-  badgeId     String
-
-  currentValue Float   // Current progress (e.g., 7 of 10 projects)
-  targetValue  Float   // Target to earn badge
-
-  updatedAt   DateTime @updatedAt
-
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  badge       Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, badgeId])
-  @@index([userId])
-}
-
-model Streak {
-  id          String   @id @default(cuid())
-  userId      String
-  type        String   // ad_watching, contributing, login
-
-  currentStreak   Int      @default(0)
-  longestStreak   Int      @default(0)
-  lastActivityAt  DateTime?
-
-  // Grace period tracking
-  gracePeriodUsed Boolean  @default(false)
-  graceExpiresAt  DateTime?
-
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, type])
-}
+// REMOVED: BadgeProgress model - we don't track "almost earned"
+// REMOVED: Streak model - no streak tracking
 ```
+
+---
+
+## What We Removed
+
+### Removed: Streak System
+- ❌ Week Streak badge
+- ❌ Month Streak badge
+- ❌ `currentStreak` tracking
+- ❌ `gracePeriodUsed` field
+- ❌ Streak recovery UI
+- ❌ "Days in a row" concept
+
+**Replaced with:** Anniversary badges that recognize time on platform without requiring consecutive activity.
+
+### Removed: Progress Tracking
+- ❌ BadgeProgress model
+- ❌ `getNextBadges()` function
+- ❌ Progress bars showing "7 of 10"
+- ❌ "Almost there" notifications
+
+**Replaced with:** Badges appear when earned, with no preview of what's coming.
+
+### Removed: Tier Hierarchy
+- ❌ Tier 1-5 numbering
+- ❌ "Legendary" tier name
+- ❌ Implication that higher tiers are "better"
+
+**Replaced with:** Categories by type (community, impact, etc.) with equal value.
 
 ---
 
 ## New Library Files
 
-### `src/lib/badges-full.ts`
+### `src/lib/badges.ts` (revised)
 - Complete 25 badge definitions
 - `checkBadgeEligibility(userId, badgeSlug)`
 - `awardBadge(userId, badgeSlug)`
 - `checkAllBadges(userId)` — Returns newly earned
+- `getUserBadges(userId)` — Returns earned badges only
 
-### `src/lib/badge-progress.ts`
-- `updateBadgeProgress(userId, badgeSlug)`
-- `getBadgeProgress(userId)`
-- `getNextBadges(userId)` — Closest to earning
-
-### `src/lib/streaks.ts` (enhanced)
-- `recordActivity(userId, type)`
-- `checkStreak(userId, type)`
-- `useGracePeriod(userId, type)` — 48h recovery
-- `getStreakStatus(userId)`
+### `src/lib/anniversaries.ts` (new)
+- `checkAnniversaries(userId)` — Check time-based milestones
+- `getAccountAge(userId)` — How long on platform
+- No streak logic, just calendar time
 
 ---
 
@@ -177,24 +201,33 @@ model Streak {
 
 | Route | Method | Purpose |
 |-------|--------|---------|
-| `/api/badges` | GET | List all badges with user's status |
-| `/api/badges/[slug]` | GET | Badge details + earning criteria |
-| `/api/badges/progress` | GET | User's progress on all badges |
+| `/api/badges` | GET | List user's earned badges |
+| `/api/badges/[slug]` | GET | Badge details |
 | `/api/badges/featured` | PUT | Set featured badges for profile |
-| `/api/streaks` | GET | User's current streaks |
-| `/api/streaks/[type]/recover` | POST | Use grace period |
+
+**Removed:**
+- ❌ `/api/badges/progress` — No progress tracking
+- ❌ `/api/streaks` — No streaks
+- ❌ `/api/streaks/[type]/recover` — No recovery needed
 
 ---
 
 ## UI Components
 
-- `src/components/badges/badge-card.tsx`
-- `src/components/badges/badge-progress.tsx`
-- `src/components/badges/badge-showcase.tsx`
-- `src/components/badges/legendary-badge.tsx`
-- `src/components/badges/badge-notification.tsx`
-- `src/components/streaks/streak-indicator.tsx`
-- `src/components/streaks/streak-recovery.tsx`
+### Keep (with adjustments)
+- `src/components/badges/badge-card.tsx` — Display a badge
+- `src/components/badges/badge-showcase.tsx` — Profile badge display
+- `src/components/badges/badge-notification.tsx` — Celebration when earned
+
+### Remove
+- ❌ `src/components/badges/badge-progress.tsx` — No progress bars
+- ❌ `src/components/badges/legendary-badge.tsx` — No hierarchy
+- ❌ `src/components/streaks/streak-indicator.tsx` — No streaks
+- ❌ `src/components/streaks/streak-recovery.tsx` — No recovery
+
+### Add
+- `src/components/badges/badge-celebration.tsx` — Warm celebration when badge earned
+- `src/components/badges/anniversary-marker.tsx` — Time-based recognition
 
 ---
 
@@ -202,50 +235,65 @@ model Streak {
 
 | Trigger Point | Badges to Check |
 |---------------|-----------------|
-| After contribution | first_drop, steady_flow, six_month_flow, year_of_flow |
-| After joining community | community_member, community_pillar |
+| After contribution | first_drop, ten_projects |
+| After joining community | community_member, bridge_builder |
 | After profile update | profile_complete |
-| After ad watch | time_giver, week_streak, month_streak |
-| After referral signup | first_referral, social_butterfly, movement_builder |
-| After project funds | project_backer_x10, first_cascade, cascade_veteran |
-| After share tracked | promoter, storyteller |
-| After project goes live | proposer, serial_proposer |
-| After posting comment | conversationalist |
-| After community grows | community_builder |
-| After receiving update | impact_witness |
-| After rally success | rallier |
+| After ad watch | time_giver |
+| After referral signup | welcome_friend, community_grower, movement_maker |
+| After project funds | first_cascade, cascade_witness, cascade_veteran |
+| After share tracked | story_sharer, ripple_effect, storyteller |
+| After community activity | neighbor, conversation_starter |
+| After community grows | growing_together, community_founder |
+| After receiving update | impact_seen |
+| On login (check anniversaries) | three_months, six_months, one_year, two_years |
 
 ---
 
 ## Implementation Order
 
-1. Schema migration
-2. Seed all 25 badge definitions
-3. `badges-full.ts` — Complete definitions + checking
-4. `badge-progress.ts` — Progress tracking
-5. Enhanced `streaks.ts` with grace period
-6. Badge card + progress components
-7. Enhanced badges page
-8. Badge showcase on profiles
-9. Legendary badge effects
-10. Streak recovery UI
-11. Badge earning notifications
-12. Integration with all trigger points
+1. Remove streak-related schema and code
+2. Remove BadgeProgress model and related code
+3. Update badge definitions (remove streak badges)
+4. Add anniversary badges
+5. Rename tiers to categories
+6. Update badge UI components
+7. Remove progress-related UI
+8. Update badge earning logic
+9. Test all badge triggers
 
 ---
 
 ## Success Criteria
 
-- [ ] All 25 badges defined and earnable
-- [ ] Progress shows for in-progress badges
-- [ ] Streaks have 48h grace period recovery
-- [ ] Tier 5 badges have special visual effects
-- [ ] Users can feature badges on profile
-- [ ] Badge earning triggers celebration
-- [ ] Streak status visible on dashboard
+- [x] 25 badges defined and earnable
+- [x] No streak tracking anywhere
+- [x] No progress bars or "almost there" indicators
+- [x] No hierarchy language (legendary, tier numbers)
+- [x] Anniversary badges work based on account age
+- [x] Users can feature badges on profile
+- [x] Badge earning triggers warm celebration
+- [x] Badges feel like recognition, not goals to chase
+
+---
+
+## Design Principles for Badge Celebrations
+
+When showing a badge was earned:
+
+**Do:**
+- "You've been part of Deluge for a year! 🎂"
+- "Look at that—10 projects have had your support."
+- "Your community just hit 100 members. You were there from the start."
+
+**Don't:**
+- "You're 80% of the way to your next badge!"
+- "Keep your streak alive!"
+- "Only 3 more to unlock Legendary status!"
+- "You're falling behind—others have earned this badge."
 
 ---
 
 ## Estimated Effort
 
-2 implementation sessions
+1 implementation session (mostly removal/simplification)
+
