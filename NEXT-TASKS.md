@@ -230,16 +230,10 @@ See full plan: `docs/plans/plan-16-credit-bureau.md`
 
 #### Epic 17: Community Advocates
 
-Recognize natural community leaders who help others. No tiers, no points, no rewards—just genuine appreciation.
+**Status: Complete** — See Plan 17 in `docs/plans/plan-17-ambassador-program.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-ADV-001 | Advocate recognition | advocates | CommunityAdvocate model (no tiers) |
-| DLG-ADV-002 | Interest expression flow | advocates | Join us (not "apply") |
-| DLG-ADV-003 | Activity recording | advocates | Log contributions (not scored) |
-| DLG-ADV-004 | Advocate events | advocates | Organize community gatherings |
-| DLG-ADV-005 | Resource library | advocates | Materials available to all |
-| DLG-ADV-006 | Advocate directory | advocates | Alphabetical, not ranked |
+Non-gamified advocate program: interest expression, activity logging (no quotas), events, resources (no tiers), alphabetical directory (no rankings), genuine appreciation.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-17-ambassador-program.md`
 
@@ -670,3 +664,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-CIRCLE-001 | Giving circles (Plan 14) | circles | 2026-02-07 |
 | DLG-SEASON-001 | Seasonal & event-driven giving (Plan 15) | seasonal | 2026-02-07 |
 | DLG-CREDIT-001 | Credit bureau reporting (Plan 16) | credit | 2026-02-07 |
+| DLG-ADV-001 | Community advocates program (Plan 17) | advocates | 2026-02-07 |
