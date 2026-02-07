@@ -52,8 +52,13 @@ export default auth((req) => {
     "/account",
     "/loans",
     "/communities",
+    "/aquifer",
     "/admin",
     "/leaderboards",
+    "/challenges",
+    "/proposals",
+    "/business",
+    "/onboarding",
   ];
 
   const isProtected = protectedPaths.some((path) =>
@@ -65,13 +70,20 @@ export default auth((req) => {
   }
 
   // Admin routes — require admin role
-  if (pathname.startsWith("/admin") && req.auth?.user?.role !== "admin") {
+  if (pathname.startsWith("/admin") && req.auth?.user?.accountType !== "admin") {
     return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
+  }
+
+  // User-only routes — block admins, redirect to /admin
+  const userOnlyPaths = ["/dashboard", "/watch", "/fund", "/contribute", "/impact", "/account", "/loans", "/communities", "/aquifer", "/leaderboards", "/challenges", "/proposals", "/business", "/onboarding"];
+  if (userOnlyPaths.some(p => pathname.startsWith(p)) && req.auth?.user?.accountType === "admin") {
+    return NextResponse.redirect(new URL("/admin", req.nextUrl));
   }
 
   // Redirect logged-in users away from auth pages
   if ((pathname === "/login" || pathname === "/register") && isLoggedIn) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
+    const dest = req.auth?.user?.accountType === "admin" ? "/admin" : "/dashboard";
+    return NextResponse.redirect(new URL(dest, req.nextUrl));
   }
 
   return NextResponse.next();

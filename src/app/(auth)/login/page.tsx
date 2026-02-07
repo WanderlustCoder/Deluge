@@ -31,7 +31,10 @@ export default function LoginPage() {
     if (result?.error) {
       setError("Invalid email or password.");
     } else {
-      router.push("/dashboard");
+      // Admins (@deluge.fund) go to /admin, users go to /dashboard
+      // Middleware handles enforcement — this is just for initial redirect
+      const dest = email.toLowerCase().endsWith("@deluge.fund") ? "/admin" : "/dashboard";
+      router.push(dest);
       router.refresh();
     }
   }

@@ -12,11 +12,13 @@ import {
   BarChart3,
   Banknote,
   Users2,
-  Trophy,
+  TrendingUp,
   UserCircle,
   LogOut,
   Menu,
   X,
+  FileText,
+  Store,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -26,12 +28,15 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 const navLinks = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/projects", label: "Projects", icon: FolderOpen },
+  { href: "/proposals", label: "Propose", icon: FileText },
   { href: "/watch", label: "Watch Ads", icon: Tv },
   { href: "/fund", label: "Fund", icon: Heart },
   { href: "/impact", label: "Impact", icon: BarChart3 },
   { href: "/loans", label: "Loans", icon: Banknote },
   { href: "/communities", label: "Communities", icon: Users2 },
-  { href: "/leaderboards", label: "Leaderboards", icon: Trophy },
+  { href: "/business", label: "Directory", icon: Store },
+  { href: "/aquifer", label: "Aquifer", icon: Droplets },
+  { href: "/leaderboards", label: "Progress", icon: TrendingUp },
   { href: "/account", label: "Account", icon: UserCircle },
 ];
 
@@ -82,10 +87,22 @@ export function Navbar() {
               <>
                 <ThemeToggle />
                 <NotificationBell />
-                <span className="text-sm text-storm-light dark:text-dark-text-secondary">
-                  {session.user.name}
-                </span>
-                {session.user.role === "admin" && (
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm text-storm-light dark:text-dark-text-secondary">
+                    {session.user.name}
+                  </span>
+                  {session.user.platformRoles?.length > 0 && (
+                    <span className="flex gap-0.5">
+                      {session.user.platformRoles.includes("verified_giver") && (
+                        <span title="Verified Giver" className="text-teal text-xs">&#x2713;</span>
+                      )}
+                      {session.user.platformRoles.includes("sponsor") && (
+                        <span title="Sponsor" className="text-gold text-xs">&#x2605;</span>
+                      )}
+                    </span>
+                  )}
+                </div>
+                {session.user.accountType === "admin" && (
                   <Link
                     href="/admin"
                     className="text-sm text-gold font-medium hover:text-gold-light"

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default async function NewProjectPage() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "admin") redirect("/dashboard");
+  if (!session?.user || session.user.accountType !== "admin") redirect("/dashboard");
 
   return (
     <div className="max-w-2xl mx-auto">

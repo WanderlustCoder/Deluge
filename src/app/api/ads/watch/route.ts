@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { simulateAdRevenue, DAILY_AD_CAP } from "@/lib/constants";
 import { checkFirstActionReferral } from "@/lib/referrals";
 import { checkAndAwardBadges, updateAdStreak } from "@/lib/badges";
+import { isLivePayments } from "@/lib/payments";
+import { accrueToReserve, getOrCreateReserve } from "@/lib/reserve";
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -60,6 +62,9 @@ export async function POST(request: Request) {
   const newBalance = watershed.balance + adRevenue.watershedCredit;
   const newInflow = watershed.totalInflow + adRevenue.watershedCredit;
 
+  // In mock mode, auto-clear settlement; in live mode, stays pending
+  const autoCleared = !isLivePayments();
+
   await prisma.$transaction([
     prisma.adView.create({
       data: {
@@ -68,6 +73,7 @@ export async function POST(request: Request) {
         platformCut: adRevenue.platformCut,
         watershedCredit: adRevenue.watershedCredit,
         completionRate,
+        settlementStatus: autoCleared ? "cleared" : "pending",
       },
     }),
     prisma.watershed.update({
@@ -87,6 +93,16 @@ export async function POST(request: Request) {
       },
     }),
   ]);
+
+  // In mock mode, immediately accrue platform cut to reserve
+  if (autoCleared) {
+    try {
+      await getOrCreateReserve();
+      await accrueToReserve(adRevenue.platformCut, "auto-cleared");
+    } catch {
+      // Non-blocking — reserve accrual failure shouldn't break ad watching
+    }
+  }
 
   // Update streak + check badges + referral milestone (non-blocking)
   await updateAdStreak(userId);

@@ -2,16 +2,39 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { hash } from "bcryptjs";
+import { logAudit } from "@/lib/audit";
+import { RESERVE_INITIAL_BALANCE } from "@/lib/constants";
 
 export async function POST() {
   const session = await auth();
-  if (!session?.user || session.user.role !== "admin") {
+  if (!session?.user || session.user.accountType !== "admin") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  // Log BEFORE reset since data gets wiped
+  logAudit({
+    adminId: session.user.id!,
+    adminEmail: session.user.email!,
+    action: "demo_reset",
+    targetType: "system",
+    details: JSON.stringify({ note: "Full demo data reset initiated" }),
+  });
+
+  // Small delay to allow audit log to persist
+  await new Promise((r) => setTimeout(r, 100));
+
   const passwordHash = await hash("password123", 12);
 
-  // Clear all data
+  // Clear all data (including new settlement/reserve tables)
+  await prisma.reserveTransaction.deleteMany();
+  await prisma.platformReserve.deleteMany();
+  await prisma.projectDisbursement.deleteMany();
+  await prisma.revenueSettlement.deleteMany();
+  await prisma.electionVote.deleteMany();
+  await prisma.electionNomination.deleteMany();
+  await prisma.communityElection.deleteMany();
+  await prisma.loanSponsorship.deleteMany();
+  await prisma.userRole.deleteMany();
   await prisma.watershedTransaction.deleteMany();
   await prisma.allocation.deleteMany();
   await prisma.adView.deleteMany();
@@ -26,7 +49,7 @@ export async function POST() {
       name: "Admin",
       email: "admin@deluge.fund",
       passwordHash,
-      role: "admin",
+      accountType: "admin",
       watershed: { create: { balance: 0, totalInflow: 0, totalOutflow: 0 } },
     },
   });
@@ -36,7 +59,7 @@ export async function POST() {
       name: "Angela Martinez",
       email: "angela@example.com",
       passwordHash,
-      role: "user",
+      accountType: "user",
       watershed: { create: { balance: 12.5, totalInflow: 45.0, totalOutflow: 32.5 } },
     },
   });
@@ -46,7 +69,7 @@ export async function POST() {
       name: "DeAndre Johnson",
       email: "deandre@example.com",
       passwordHash,
-      role: "user",
+      accountType: "user",
       watershed: { create: { balance: 3.2, totalInflow: 3.2, totalOutflow: 0 } },
     },
   });
@@ -56,7 +79,7 @@ export async function POST() {
       name: "Demo User",
       email: "demo@deluge.fund",
       passwordHash,
-      role: "user",
+      accountType: "user",
       watershed: { create: { balance: 0, totalInflow: 0, totalOutflow: 0 } },
     },
   });
@@ -76,6 +99,26 @@ export async function POST() {
   for (const p of projectData) {
     await prisma.project.create({ data: p });
   }
+
+  // Seed PlatformReserve with initial balance
+  const reserve = await prisma.platformReserve.create({
+    data: {
+      balance: RESERVE_INITIAL_BALANCE,
+      totalInflow: RESERVE_INITIAL_BALANCE,
+      totalOutflow: 0,
+      totalReplenished: RESERVE_INITIAL_BALANCE,
+    },
+  });
+
+  await prisma.reserveTransaction.create({
+    data: {
+      reserveId: reserve.id,
+      type: "manual_adjustment",
+      amount: RESERVE_INITIAL_BALANCE,
+      balanceAfter: RESERVE_INITIAL_BALANCE,
+      description: "Initial reserve seed on demo reset",
+    },
+  });
 
   return NextResponse.json({ success: true, message: "Demo data reset complete." });
 }

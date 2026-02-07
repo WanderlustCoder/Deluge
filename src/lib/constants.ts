@@ -119,3 +119,73 @@ export const AD_CATEGORIES = [
 ] as const;
 
 export type AdCategory = (typeof AD_CATEGORIES)[number];
+
+// --- Aquifer Constants ---
+export const AQUIFER_VOTE_DURATION_DAYS = 30;
+export const AQUIFER_APPROVAL_THRESHOLD = 0.66; // 66% approval required
+export const AQUIFER_REACTIVATION_THRESHOLD = 0.10; // 10% sponsors to reactivate tabled project
+
+// --- Settlement & Reserve Constants ---
+export const SETTLEMENT_NET_TERM_DAYS = 30;
+export const RESERVE_INITIAL_BALANCE = 5000;
+export const RESERVE_HEALTHY_COVERAGE = 1.0;    // 100% = healthy
+export const RESERVE_WATCH_COVERAGE = 0.5;       // 50% = watch
+export const RESERVE_CRITICAL_COVERAGE = 0.25;   // 25% = critical
+
+// --- Loan Q&A ---
+export const LOAN_QA_MAX_QUESTIONS_PER_FUNDER = 2;
+export const LOAN_QA_QUESTION_MAX_CHARS = 280;
+export const LOAN_QA_FLAG_HIDE_THRESHOLD = 3;
+
+// --- Refinancing ---
+export const REFINANCE_MIN_BALANCE = 1000;
+export const REFINANCE_FEE_PERCENT = 0.01;
+export const REFINANCE_MIN_FEE = 10;
+
+// --- Business Directory ---
+export const BUSINESS_VIEW_REVENUE_BASE = 0.002;
+export const BUSINESS_ENHANCED_MONTHLY = 20;
+
+// --- Matching Campaigns ---
+export const MATCHING_MANAGEMENT_FEE_PERCENT = 0.10; // 10%
+
+// --- Goal Verification ---
+export const GOAL_VERIFICATION_FLAG_THRESHOLD = 3;
+
+// --- Community Hierarchy ---
+export const COMMUNITY_TYPES = ["geographic", "interest"] as const;
+export type CommunityType = (typeof COMMUNITY_TYPES)[number];
+
+export const COMMUNITY_LEVELS = [
+  "country",
+  "state",
+  "county",
+  "city",
+  "district",
+  "neighborhood",
+] as const;
+export type CommunityLevel = (typeof COMMUNITY_LEVELS)[number];
+
+// Level hierarchy for validation (each level can only have the next level as children)
+export const COMMUNITY_LEVEL_HIERARCHY: Record<CommunityLevel, CommunityLevel | null> = {
+  country: "state",
+  state: "county",
+  county: "city",
+  city: "district",
+  district: "neighborhood",
+  neighborhood: null, // No children
+};
+
+// --- Community Milestone Thresholds ---
+export const COMMUNITY_MILESTONES = {
+  funding: [1000, 5000, 10000, 25000, 50000, 100000],
+  members: [10, 50, 100, 500, 1000],
+  projects: [5, 10, 25, 50, 100],
+} as const;
+
+// Milestone type keys
+export const MILESTONE_TYPES = {
+  funding: (amount: number) => `funding_${amount}`,
+  members: (count: number) => `members_${count}`,
+  projects: (count: number) => `projects_${count}`,
+} as const;

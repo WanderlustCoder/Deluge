@@ -3,21 +3,89 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrency, formatCurrencyPrecise, formatNumber } from "@/lib/utils";
-import { Droplets, Tv, Heart, Users, FolderOpen, TrendingUp } from "lucide-react";
+import {
+  Droplets,
+  Tv,
+  Heart,
+  Users,
+  FolderOpen,
+  TrendingUp,
+  Calendar,
+  Banknote,
+} from "lucide-react";
+import { ImpactTabs } from "@/components/impact/impact-tabs";
+import { ImpactTimeline } from "@/components/impact/impact-timeline";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "My Impact",
+  robots: { index: false },
+};
 
 export default async function ImpactPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
 
+  const userId = session.user.id;
+
+  // Personal stats
+  const [
+    personalAdViews,
+    personalAdRevenue,
+    personalContributions,
+    personalAllocations,
+    personalAllocationsAgg,
+    personalLoansShares,
+    personalLoansAgg,
+    fundedProjects,
+    recentActivity,
+  ] = await Promise.all([
+    prisma.adView.count({ where: { userId } }),
+    prisma.adView.aggregate({
+      where: { userId },
+      _sum: { watershedCredit: true },
+    }),
+    prisma.contribution.aggregate({
+      where: { userId },
+      _sum: { watershedCredit: true },
+    }),
+    prisma.allocation.count({ where: { userId } }),
+    prisma.allocation.aggregate({
+      where: { userId },
+      _sum: { amount: true },
+    }),
+    prisma.loanShare.count({ where: { funderId: userId } }),
+    prisma.loanShare.aggregate({
+      where: { funderId: userId },
+      _sum: { amount: true },
+    }),
+    prisma.allocation.findMany({
+      where: { userId },
+      include: {
+        project: { select: { title: true, status: true } },
+      },
+      distinct: ["projectId"],
+    }),
+    prisma.allocation.findMany({
+      where: { userId },
+      include: {
+        project: { select: { id: true, title: true, status: true, category: true } },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 10,
+    }),
+  ]);
+
+  // Platform stats
   const [
     totalUsers,
     totalProjects,
-    fundedProjects,
+    totalFundedProjects,
     totalAdViews,
     totalAllocations,
-    adRevenueAgg,
-    contributionsAgg,
-    allocationsAgg,
+    platformAdRevenue,
+    platformContributions,
+    platformFunded,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.project.count(),
@@ -29,11 +97,64 @@ export default async function ImpactPage() {
     prisma.allocation.aggregate({ _sum: { amount: true } }),
   ]);
 
-  const totalAdRevenue = adRevenueAgg._sum.watershedCredit ?? 0;
-  const totalContributions = contributionsAgg._sum.watershedCredit ?? 0;
-  const totalFunded = allocationsAgg._sum.amount ?? 0;
+  const myAdRevenue = personalAdRevenue._sum.watershedCredit ?? 0;
+  const myCashContributions = personalContributions._sum.watershedCredit ?? 0;
+  const myTotalFunded = personalAllocationsAgg._sum.amount ?? 0;
+  const myLoansFunded = personalLoansAgg._sum.amount ?? 0;
+  const myTotalImpact = myTotalFunded + myLoansFunded;
+  const myProjectsCount = fundedProjects.length;
+  const myCompletedProjects = fundedProjects.filter(
+    (a) => a.project.status === "funded" || a.project.status === "completed"
+  ).length;
 
-  const stats = [
+  const platformTotal = platformFunded._sum.amount ?? 0;
+
+  const personalStats = [
+    {
+      label: "Ads Watched",
+      value: formatNumber(personalAdViews),
+      icon: Tv,
+      color: "text-sky",
+      bg: "bg-sky/10",
+    },
+    {
+      label: "Ad Revenue Earned",
+      value: formatCurrencyPrecise(myAdRevenue),
+      icon: TrendingUp,
+      color: "text-teal",
+      bg: "bg-teal/10",
+    },
+    {
+      label: "Cash Contributed",
+      value: formatCurrencyPrecise(myCashContributions),
+      icon: Droplets,
+      color: "text-ocean",
+      bg: "bg-ocean/10",
+    },
+    {
+      label: "Projects Backed",
+      value: formatNumber(myProjectsCount),
+      icon: FolderOpen,
+      color: "text-gold",
+      bg: "bg-gold/10",
+    },
+    {
+      label: "Successful Projects",
+      value: formatNumber(myCompletedProjects),
+      icon: Heart,
+      color: "text-teal",
+      bg: "bg-teal/10",
+    },
+    {
+      label: "Loans Funded",
+      value: formatNumber(personalLoansShares),
+      icon: Banknote,
+      color: "text-sky",
+      bg: "bg-sky/10",
+    },
+  ];
+
+  const platformStats = [
     {
       label: "Total Users",
       value: formatNumber(totalUsers),
@@ -50,7 +171,7 @@ export default async function ImpactPage() {
     },
     {
       label: "Projects Funded",
-      value: formatNumber(fundedProjects),
+      value: formatNumber(totalFundedProjects),
       icon: Heart,
       color: "text-gold",
       bg: "bg-gold/10",
@@ -64,14 +185,14 @@ export default async function ImpactPage() {
     },
     {
       label: "Ad Revenue Earned",
-      value: formatCurrencyPrecise(totalAdRevenue),
+      value: formatCurrencyPrecise(platformAdRevenue._sum.watershedCredit ?? 0),
       icon: TrendingUp,
       color: "text-teal",
       bg: "bg-teal/10",
     },
     {
       label: "Cash Contributed",
-      value: formatCurrencyPrecise(totalContributions),
+      value: formatCurrencyPrecise(platformContributions._sum.watershedCredit ?? 0),
       icon: Droplets,
       color: "text-ocean",
       bg: "bg-ocean/10",
@@ -85,60 +206,68 @@ export default async function ImpactPage() {
     },
     {
       label: "Total Funded",
-      value: formatCurrency(totalFunded),
+      value: formatCurrency(platformTotal),
       icon: TrendingUp,
       color: "text-teal",
       bg: "bg-teal/10",
     },
   ];
 
+  const timelineItems = recentActivity.map((allocation) => ({
+    id: allocation.id,
+    type: "allocation" as const,
+    amount: allocation.amount,
+    projectId: allocation.projectId,
+    projectTitle: allocation.project.title,
+    projectCategory: allocation.project.category,
+    projectStatus: allocation.project.status,
+    date: allocation.createdAt,
+  }));
+
   return (
     <div>
       <div className="mb-8">
-        <h1 className="font-heading font-bold text-3xl text-storm">
-          Platform Impact
+        <h1 className="font-heading font-bold text-3xl text-storm dark:text-white">
+          My Impact
         </h1>
-        <p className="text-storm-light mt-1">
-          The collective power of the community, measured.
+        <p className="text-storm-light dark:text-gray-400 mt-1">
+          Track your contributions and see the difference you're making.
         </p>
       </div>
 
-      {/* Hero stat */}
-      <Card className="mb-8">
+      {/* Personal Hero Stat */}
+      <Card className="mb-8 bg-gradient-to-r from-ocean/5 to-teal/5 dark:from-ocean/10 dark:to-teal/10">
         <CardContent className="py-8 text-center">
-          <p className="text-sm text-storm-light uppercase tracking-wider mb-2">
-            Total Community Impact
+          <p className="text-sm text-storm-light dark:text-gray-400 uppercase tracking-wider mb-2">
+            Your Total Impact
           </p>
           <p className="text-5xl font-heading font-bold text-ocean mb-2">
-            {formatCurrency(totalFunded)}
+            {formatCurrency(myTotalImpact)}
           </p>
-          <p className="text-storm-light">
-            deployed to {fundedProjects} funded projects by {formatNumber(totalUsers)} users
+          <p className="text-storm-light dark:text-gray-400">
+            deployed to {myProjectsCount} projects and {personalLoansShares} loans
           </p>
         </CardContent>
       </Card>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {stats.map((stat) => {
-          const Icon = stat.icon;
-          return (
-            <Card key={stat.label}>
-              <CardContent className="pt-5">
-                <div className={`w-9 h-9 rounded-lg ${stat.bg} flex items-center justify-center mb-3`}>
-                  <Icon className={`h-4 w-4 ${stat.color}`} />
-                </div>
-                <p className="text-2xl font-heading font-bold text-storm">
-                  {stat.value}
-                </p>
-                <p className="text-xs text-storm-light mt-0.5">
-                  {stat.label}
-                </p>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
+      <ImpactTabs
+        personalStats={personalStats}
+        platformStats={platformStats}
+        platformTotal={platformTotal}
+        totalFundedProjects={totalFundedProjects}
+        totalUsers={totalUsers}
+      />
+
+      {/* Impact Timeline */}
+      {timelineItems.length > 0 && (
+        <div className="mt-8">
+          <h2 className="font-heading font-bold text-xl text-storm dark:text-white mb-4 flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-ocean" />
+            Recent Activity
+          </h2>
+          <ImpactTimeline items={timelineItems} />
+        </div>
+      )}
     </div>
   );
 }

@@ -16,12 +16,19 @@ export async function GET(
   const loan = await prisma.loan.findUnique({
     where: { id },
     include: {
-      borrower: { select: { name: true } },
+      borrower: { select: { id: true, name: true } },
       shares: {
-        include: { funder: { select: { name: true } } },
+        include: { funder: { select: { id: true, name: true } } },
         orderBy: { createdAt: "desc" },
       },
       repayments: { orderBy: { createdAt: "desc" } },
+      stretchGoals: { orderBy: { priority: "asc" } },
+      goalVerification: true,
+      questions: {
+        where: { hidden: false },
+        include: { asker: { select: { id: true, name: true } } },
+        orderBy: { createdAt: "desc" },
+      },
     },
   });
 

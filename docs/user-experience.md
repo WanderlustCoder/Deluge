@@ -13,13 +13,13 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 | Income | $48K/year |
 | Location | Urban (Denver, CO) |
 
-**Who she is:** Angela donates to every GoFundMe in her feed, volunteers at the food bank on weekends, and organized a neighborhood cleanup last month. Her generosity is genuine and constant -- but she spreads it thin across too many causes and never sees the result. She wants to know that her giving actually makes a difference.
+**Who she is:** Angela donates to every GoFundMe in her feed and organized a neighborhood cleanup last month. Her generosity is genuine and constant -- but she spreads it thin across too many causes and never sees the result. She wants to know that her giving actually makes a difference.
 
 **Goals:** Give back to her community. Feel like her contributions matter. Find projects that need help in her neighborhood. See exactly where her money goes and what it accomplishes.
 
 **Pain points:** Existing platforms optimize for maximum giving with no transparency. She spreads her giving thin across too many causes and never sees the result. She wants to give meaningfully but doesn't know which causes need help most or whether her donations are making a difference.
 
-**How Deluge helps:** Deluge helps Angela channel her giving into transparent, measurable community projects instead of spreading it thin. She watches ads on her commute, contributes small amounts ($5-10/month), browses local businesses in the evening, and volunteers for a community grant project on her block. Within a month she has watershed capital and proof that her contributions matter -- she can see exactly which projects her money funded, how many people were served, and what her community accomplished together.
+**How Deluge helps:** Deluge helps Angela channel her giving into transparent, measurable community projects instead of spreading it thin. She watches ads on her commute, contributes small amounts ($5-10/month), and browses local businesses in the evening. Within a month she has watershed capital and proof that her contributions matter -- she can see exactly which projects her money funded, how many people were served, and what her community accomplished together.
 
 **Key insight:** Angela is a giver who needs a better way to give -- transparently, collectively, and sustainably. The platform is built for her.
 
@@ -38,9 +38,9 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Goals:** Contribute to his community without needing cash. Earn something for his effort. See tangible results from his participation. Be part of something bigger than himself.
 
-**Pain points:** Every giving platform requires money he doesn't have. Volunteering through traditional channels feels disconnected from results. He has time and energy but no mechanism to convert that into community impact at scale.
+**Pain points:** Every giving platform requires money he doesn't have. He has energy but no mechanism to convert that into community impact at scale.
 
-**How Deluge helps:** DeAndre watches ads during breaks (earning $1.35/month to projects), browses local businesses in the evening (another $1/month), refers three friends in his first month ($7.50 in watershed credits), and volunteers for a community grant to clean up the lot behind his apartment ($15 watershed credit). Within weeks he has watershed capital and has helped fund his first microloan. DeAndre enters the community through attention and effort, and builds toward cash contributions as his circumstances change.
+**How Deluge helps:** DeAndre watches ads during breaks (earning $1.35/month to projects), browses local businesses in the evening (another $1/month), and refers three friends in his first month ($7.50 in watershed credits). Within weeks he has watershed capital and has helped fund his first microloan. DeAndre enters the community through attention and builds toward cash contributions as his circumstances change.
 
 **Key insight:** DeAndre represents why the free-tier pathways exist. If Deluge only works for people with money, it fails its mission.
 
@@ -74,9 +74,9 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Goals:** Use tech for good. Support innovation and education. Gamified, engaging experience. Real-time impact tracking.
 
-**Pain points:** Charity feels disconnected from results. Wants to see metrics. Craves community and competition.
+**Pain points:** Charity feels disconnected from results. Wants to see metrics. Craves community connection.
 
-**How Deluge helps:** Game mechanics (achievements, leaderboards). Tech/innovation category speaks to him. Real-time impact dashboards. Social features, challenge friends. Sponsors a borrower, tracks their progress, watches the loan get repaid, and redeploys his watershed capital. The cycle makes him feel like his money is alive.
+**How Deluge helps:** Badges, streaks, and real-time impact dashboards. Tech/innovation category speaks to him. Community progress tracking. Sponsors a borrower, tracks their progress, watches the loan get repaid, and redeploys his watershed capital. The cycle makes him feel like his money is alive.
 
 ---
 
@@ -112,7 +112,7 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Pain points:** Can't afford Facebook or Google ads. Yelp feels transactional. Her community contributions are invisible. She'd propose a project for her block but doesn't know where to start.
 
-**How Deluge helps:** Rosa creates a free business card listing in 10 minutes. Neighborhood users discover her bakery while browsing -- and every view funds community projects. Her listing shows "Rosa's Bakery has contributed $47 to local projects this month" just by existing. She proposes a community grant project to install flower planters on her block. Contributors fund the $80 budget. A volunteer from the neighborhood does the planting and earns $15 in watershed credit. Rosa's block looks better, the volunteer earned toward their first microloan, and 12 contributors funded something real for under $7 each.
+**How Deluge helps:** Rosa creates a free business card listing in 10 minutes. Neighborhood users discover her bakery while browsing -- and every view funds community projects. Her listing shows "Rosa's Bakery has contributed $47 to local projects this month" just by existing. She proposes a project to install flower planters on her block. Contributors fund the $80 budget. Rosa's block looks better, and 12 contributors funded something real for under $7 each.
 
 **Key insight:** Rosa is both a participant and a beneficiary. She contributes to the ecosystem (listing generates project funding) and draws from it (proposes community projects). The business directory isn't a separate product -- it's another node in the community network.
 
@@ -162,7 +162,7 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Objective:** Connect a new user to something they care about and help them make their first contribution -- in any form -- within 5 minutes.
 
-The onboarding leads with what the user cares about, not how they pay. The contribution pathway (cash, ads, browsing, volunteering) comes after the user has found their community and a project worth caring about. This is a giving platform -- the emotional connection comes first, the mechanism comes second.
+The onboarding leads with what the user cares about, not how they pay. The contribution pathway (cash, ads, browsing) comes after the user has found their community and a project worth caring about. This is a giving platform -- the emotional connection comes first, the mechanism comes second.
 
 **Steps:**
 
@@ -180,7 +180,7 @@ The onboarding leads with what the user cares about, not how they pay. The contr
    - Slide 1: Raindrop animation -- "You want to give. We're here to help."
    - Slide 2: How it works -- "Contribute cash or attention. It all flows to your watershed — your personal impact fund. From there, you fund the projects and people that matter to your community."
    - Slide 3: Community forming -- "Find your people. Fund what matters. Together they've deployed $X to real projects."
-   - Slide 4: Pathways -- "Contribute with cash, your attention, your time, or all three. Every path funds real change." Brief icons showing: cash contribution, video ads, local business browsing, community grant volunteering.
+   - Slide 4: Pathways -- "Contribute with cash, your attention, or both. Every path funds real change." Brief icons showing: cash contribution, video ads, local business browsing.
 
 4. **What do you care about?**
    - Browse interest tags: education, environment, innovation, local community, housing, health, arts
@@ -192,8 +192,6 @@ The onboarding leads with what the user cares about, not how they pay. The contr
    - Community-promoted projects shown with momentum indicators, filtered by selected interests
    - Show: goal, progress, community size backing it, impact metrics
    - "243 people are rallying behind this. Join them."
-   - Community grants with open volunteer slots also appear here: "This project needs a volunteer -- could that be you?"
-
 6. **How do you want to contribute?**
 
    Present all pathways equally. No hierarchy, no pressure toward cash. The user picks what works for them.
@@ -203,8 +201,6 @@ The onboarding leads with what the user cares about, not how they pay. The contr
    | **Contribute cash** | "Start with just $1. 100% goes to your watershed to fund projects and microloans." | "Contribute now" |
    | **Watch ads** | "Donate your attention. Each ad funds about $0.01 to this project." | "Watch your first ad" |
    | **Browse local businesses** | "Discover your neighborhood. Every view funds community projects." | "Start browsing" |
-   | **Volunteer** | "Community grants near you need hands. Earn watershed credit for your effort." | "See volunteer opportunities" |
-
    If the user selects cash contribution:
    - Enter amount ($0.25 minimum; suggest $1, $5, $10, $25)
    - Payment method (Stripe)
@@ -219,16 +215,11 @@ The onboarding leads with what the user cares about, not how they pay. The contr
    - Opens the Browse Local section with nearby business cards
    - First few views show micro-credit animations
 
-   If the user selects volunteering:
-   - Shows available community grants near the user with open volunteer slots
-   - User can claim a slot or bookmark for later
-
 7. **Celebration**
    - Adapts to whichever pathway the user chose:
      - Cash: "You're a raindrop!" animation. "First Drop" badge unlocked.
      - Ads: "You just funded your first project with your attention." "Time Giver" badge unlocked.
      - Browsing: "You discovered [X] local businesses and funded $0.02 to [Project]." Counter animation.
-     - Volunteering: "You've claimed your first community grant. Your community is counting on you."
    - All paths: "Share this project with your community" prompt
    - Navigate to dashboard
 
@@ -378,169 +369,7 @@ This is the core differentiator. Deluge doesn't decide what gets funded -- the c
 
 ---
 
-### Flow 5: Community Grant Projects (Sweat Equity)
-
-**Objective:** Enable community members to propose real-world projects that need volunteer labor, fund them collectively, and verify completion -- giving any user (especially free-tier) a pathway to earn watershed capital through community service.
-
-This flow uses the same project infrastructure as standard grants and microloans. Community grants are a project type, not a separate system.
-
-**Who can propose:**
-- Any verified user (the proposer does not have to be the beneficiary or the volunteer)
-- Community organizations, neighborhood groups, individuals identifying a need
-
-**Who can volunteer:**
-- Any user. The feature is geared toward free-tier users as an earning pathway, but anyone can volunteer.
-
-#### Proposing a Community Grant
-
-1. **Start a community grant**
-   - Title and description of the work needed
-   - Specific requirements: what exactly needs to be done (clear, concrete, measurable)
-   - Before photos/evidence of current state
-   - Category tags (same tag system as all projects)
-   - Location
-
-2. **Set the budget**
-   - Materials budget (if any): itemized where possible
-   - Volunteer watershed credit amount: what the volunteer earns upon verified completion
-   - Number of volunteer slots (1 or more)
-   - If multi-volunteer: define discrete tasks per slot (e.g., "Slot 1: clear north side. Slot 2: clear south side.")
-   - Credit splits evenly across slots
-   - Total funding goal = materials + total volunteer credit, displayed transparently: "$50 materials + $15 volunteer credit = $65 total"
-
-3. **Set the timeline**
-   - Default: 60 days from full funding + volunteer assignment
-   - Poster can set a custom timeline
-   - Displayed prominently so volunteers and contributors know the window
-
-4. **Designate the beneficiary**
-   - **Individual beneficiary:** Named person (e.g., "My neighbor Maria"). Beneficiary consent required -- short video, signed note, or in-app confirmation. Privacy option: "A neighbor in Denver" for the public listing.
-   - **Community benefit:** No individual beneficiary. The community at large benefits (roadside cleanup, park work, public space). Contributors can mark themselves as beneficiary endorsers.
-   - **If proposer is also volunteering:** Must name an individual beneficiary (not themselves) OR designate as community-benefit with GPS-verifiable public location.
-
-5. **Quality expectation disclaimer (mandatory)**
-   - Poster acknowledges: "Community volunteers are donating their time and effort, not professional services. If this project requires licensed, insured, or professional-grade work, consider creating a standard project grant with a professional labor budget instead."
-
-6. **Verification queue**
-   - Same legitimacy review as any project proposal
-   - Deluge verifies: proposer is real, project is legal, location exists, beneficiary consent (if individual)
-   - Deluge does NOT judge: whether the work is "worth" the posted credit, whether the project is popular enough, or whether the quality expectations are reasonable
-   - Target: 48-72 hour review
-
-7. **Go live**
-   - Project appears in discovery feeds tagged as "Community Grant"
-   - Distinct card style from standard grants and loans (see UI below)
-
-#### Funding a Community Grant
-
-Same flow as standard project funding. Contributors see:
-
-- Project description and before photos
-- Full budget breakdown (materials + volunteer credit)
-- Beneficiary designation
-- Quality expectation notice: "This is community volunteer work, not professional service"
-- Number of volunteer slots and their defined tasks
-- Project timeline
-
-Contributors fund knowing their money covers both materials and the volunteer's watershed credit. Minimum 3 contributors to proceed. Funds are escrowed.
-
-#### Volunteering for a Community Grant
-
-1. **Browse available projects**
-   - Funded community grants with open volunteer slots appear in a dedicated "Volunteer" section within the Give tab, and in main discovery feeds
-   - Filter by: location (near me), category, credit amount, timeline
-   - Each listing shows: work description, requirements, credit offered, timeline, number of slots (open/filled)
-
-2. **Claim a slot**
-   - Volunteer reviews the full project details, requirements, and posted credit
-   - Volunteer acknowledgment (mandatory): "This is community volunteer work. I'm agreeing to put in good-faith effort toward the posted requirements. Professional-quality results are not expected."
-   - Volunteer confirms. Slot is claimed. Timeline starts (or continues if other slots were already claimed).
-
-3. **Do the work**
-   - Volunteer completes the work in the real world
-   - Progress updates encouraged but not required
-   - Platform provides no oversight -- the volunteer and community handle execution
-
-4. **Submit completion evidence**
-   - After photos/video (GPS-tagged, timestamped -- location must match before photos)
-   - Brief description of work completed
-   - For multi-volunteer projects: each volunteer submits evidence for their specific slot
-
-#### Verification and Payout
-
-1. **Approvers are randomly selected**
-   - Drawn from the contributor pool for this project
-   - Minimum 3, maximum 7 approvers
-   - If 3 or fewer total contributors, all serve as approvers
-   - Approvers cannot share a referral chain with the volunteer
-
-2. **Approver review**
-   - Approvers see: before photos, after photos, project requirements, volunteer's description
-   - Simple vote: "Work completed as described" / "Work not completed" / "Can't determine"
-   - Approver guidance: "Was the described work completed in good faith? This is about effort and completion, not professional quality."
-
-3. **Resolution**
-   - Majority approval: escrowed funds release. Materials budget disbursed. Volunteer's watershed credited.
-   - Majority rejection: funds return to contributors. Volunteer receives nothing. Project can be reposted.
-   - Split with no majority: Deluge reviews manually, defaults to releasing if work is demonstrably done.
-
-4. **For multi-volunteer projects**
-   - Each slot is verified independently
-   - Slot 1 can be approved while Slot 2 is rejected
-   - Each volunteer's credit is independent of other slots
-
-#### Edge Cases
-
-**No volunteer picks up the project:**
-- If no volunteer claims a slot within the project timeline, contributors are notified: "No volunteer was found for this project. Your funds are being returned to your watershed."
-- Funds return to all contributors
-- Project can be reposted with adjusted terms (higher credit, broader scope, longer timeline)
-
-**Volunteer abandons mid-project:**
-- If a volunteer does not submit completion evidence by the timeline, their slot is treated as abandoned
-- That slot's portion of the escrow returns to contributors
-- For multi-volunteer projects: other slots proceed normally. The abandoned slot can reopen for a replacement volunteer if time permits.
-- No penalty to the volunteer beyond not earning the credit
-
-**Proposer is also the volunteer (self-proposed community benefit):**
-- Allowed only for community-benefit projects (public space work with GPS-verifiable location) or individual-beneficiary projects where the beneficiary is a third party
-- GPS-tagged evidence of a public/community space is the primary anti-collusion mechanism
-- Approvers are still randomly selected from contributors
-
-**Dispute between volunteer and approvers:**
-- If a volunteer believes their work was unfairly rejected, they can request Deluge review
-- Deluge reviews the evidence (before/after photos, GPS data, project requirements)
-- Deluge's review is final -- but defaults to releasing funds if the work is demonstrably done in good faith
-
-#### Community Grant UI Elements
-
-**Project card (in discovery feeds):**
-
-| Element | Community Grant Card |
-|---------|---------------------|
-| Label | "Community Grant" |
-| Icon | Hands/community icon |
-| Progress bar | Water filling (same as grants) |
-| Key metric | "$45 of $65 funded -- 2 of 3 volunteer slots open" |
-| Badge | "Volunteer opportunity" when slots are open |
-| Quality notice | Small text: "Community volunteer work" |
-
-**Volunteer slot display (on project detail page):**
-
-| Slot | Task | Status | Credit |
-|------|------|--------|--------|
-| 1 | Clear north side of lot | Claimed by @Marcus | $5.00 |
-| 2 | Clear south side of lot | Open -- volunteer needed | $5.00 |
-| 3 | Bag debris and haul to dump | Open -- volunteer needed | $5.00 |
-
-**Success metrics:**
-- 30%+ of free-tier users engage with community grants (proposing, funding, or volunteering) within their first 6 months
-- Average time from project funding to volunteer claim < 14 days
-- Approval rate on completed work > 85% (indicates clear requirements and good-faith execution)
-
----
-
-### Flow 6: Referral Program
+### Flow 5: Referral Program
 
 **Objective:** Give users a simple way to invite friends and earn watershed credits, while protecting the platform against referral fraud.
 
@@ -632,7 +461,6 @@ This isn't just regulatory caution -- it's alignment with the mission. The delug
 | Proposer | Proposed a project that went live | Initiative |
 | Conversationalist | Posted 10 comments across project discussions | Engagement |
 | Week Streak | Watched ads 7 days in a row | Daily commitment |
-| Helping Hand | Completed first community grant as a volunteer | Showing up for your community |
 
 #### Tier 3: Creek (Making Waves)
 
@@ -640,7 +468,6 @@ This isn't just regulatory caution -- it's alignment with the mission. The delug
 |-------|----------|--------------------|
 | Project Backer x10 | Backed 10 different projects | Breadth of care |
 | Social Butterfly | Invited 3 friends who joined and became active | Growing the community |
-| Neighbor | Completed 3 community grant projects as a volunteer | Consistent community service |
 | Storyteller | Shared a cascade story that reached 50+ people | Spreading the word |
 | Month Streak | Watched ads 30 days in a row | Dedication |
 | First Cascade | Part of your first fully-funded project | Collective achievement |
@@ -654,7 +481,6 @@ This isn't just regulatory caution -- it's alignment with the mission. The delug
 | Impact Witness | Received 5 impact updates from projects you backed | Seeing results |
 | Rallier | Promoted a project from <25% to fully funded | Momentum building |
 | Six-Month Flow | Contributed every month for 6 months (any amount) | Long-term commitment |
-| Block Captain | Proposed or volunteered for 5+ community grants in your local area | Neighborhood leadership |
 
 #### Tier 5: Watershed (Legendary)
 
@@ -668,35 +494,42 @@ This isn't just regulatory caution -- it's alignment with the mission. The delug
 
 ---
 
-### Leaderboards
+### Community Progress
 
-Leaderboards rank **participation and impact**, never dollar amounts. The person who gives $5 and shares with 20 friends ranks higher than someone who quietly gives $5,000.
+Deluge focuses on **collective progress**, not individual competition. There are no individual leaderboards or rankings. This is about building something together, not racing against each other.
 
-| Type | Ranked By | Resets |
-|------|-----------|--------|
-| Friends | Projects backed, badges earned, communities joined | Rolling |
-| Community | Members contributing, projects proposed and funded, discussion activity | Monthly |
-| Regional | Projects funded in your area, local community growth | Monthly |
-| Impact | Verified outcomes from projects you backed (students served, trees planted, etc.) | Quarterly |
+**Platform Impact Dashboard:**
 
-**Community Loan Activity Dashboard:**
-
-Loan activity is tracked and displayed at the community level, not the individual level. This shows collective progress rather than creating individual competition around lending.
+The Progress page shows what we've accomplished as a platform:
 
 | Metric | Display | Example |
 |--------|---------|---------|
-| Active loans funded | Count + trend | "47 loans active -- 12 new this month" |
-| Watershed capital recycled | Aggregate total | "Our community has recycled $12,400 across 3 cycles this quarter" |
-| Borrowers backed | Count | "89 individuals backed by this community" |
-| Repayment rate | Percentage | "93% of loans funded by this community have been repaid" |
-| Credit score impact | Aggregate (voluntary reports) | "Borrowers backed by this community have reported +340 total credit score points" |
-| Recovery stories | Count | "6 borrowers recovered from default this quarter" |
+| Total members | Count | "4,200 members" |
+| Projects funded | Count + trend | "89 projects funded -- 12 this month" |
+| Loans funded | Count | "156 loans funded" |
+| Total watershed flow | Aggregate | "$48,200 has flowed through watersheds" |
 
-This dashboard appears on community pages and in the community-level leaderboard. The focus is always on what the community accomplished together, not which individual funded the most loans. A funder who contributed $20 to one loan and a funder who contributed $20 to ten loans both contributed equally to the community's collective metrics.
+**Communities Making Waves:**
 
-**What you'll never see:** Rankings by total dollars contributed. That's a spending leaderboard, not an impact leaderboard. Individual loan funder rankings would contradict the "no single hero" principle -- the community decides what gets funded, and the community shares the outcome.
+Communities are highlighted by their collective impact -- how many projects their members have backed, how many loans they've supported. This celebrates community effort, not individual achievement.
 
-**Rewards for active participants:** Special badges, temporary premium access, in-app recognition, invitations to community events.
+| Metric | Display | Example |
+|--------|---------|---------|
+| Projects backed | Count | "Denver Metro: 34 projects backed" |
+| Loans supported | Count | "Austin Tech: 28 loans supported" |
+| Member count | Count | "89 members" |
+
+**Your Progress (Private):**
+
+Personal stats are shown only to you -- ads watched, projects backed, loans funded, badges earned, current streak. These are for your own reflection and motivation, never displayed publicly or ranked against others.
+
+**What you'll never see:**
+- Individual rankings or leaderboards
+- Dollar-amount comparisons between users
+- "Top giver" or "most generous" designations
+- Competition-based challenges that pit users against each other
+
+**Why no leaderboards:** Individual rankings create FOMO, racing behavior, and a "hero" mentality that undermines the collective spirit. The cascade metaphor is about collective force -- no single raindrop takes credit for the river. Every contribution matters equally, regardless of amount.
 
 ---
 
@@ -829,7 +662,7 @@ Project funding visualized as water filling a container:
 
 ## Give Tab Architecture
 
-The Give tab is the hub for all non-cash contribution pathways. It's where users go to donate their attention, discover local businesses, volunteer for community projects, and invite friends. Cash contributions happen through the dashboard and project detail pages. The Give tab is for everything else.
+The Give tab is the hub for all non-cash contribution pathways. It's where users go to donate their attention, discover local businesses, and invite friends. Cash contributions happen through the dashboard and project detail pages. The Give tab is for everything else.
 
 ### What Lives in the Give Tab
 
@@ -837,8 +670,8 @@ The Give tab is the hub for all non-cash contribution pathways. It's where users
 |-------------|---------------------|
 | Video ad watching | Cash contributions |
 | Local business browsing | Impact dashboard |
-| Community grant volunteering | Project discovery (that's the Discover tab) |
-| Referral sharing | Impact tracking (that's My Impact tab) |
+| Referral sharing | Project discovery (that's the Discover tab) |
+| | Impact tracking (that's My Impact tab) |
 
 ### Information Hierarchy
 
@@ -863,10 +696,9 @@ Below the summary bar, four sections appear in a card-based layout. Each card sh
 |---------|-------------|----------------|
 | **Watch Ads** | "3 of 10 today -- $0.036 funded" | "Watch next ad" |
 | **Browse Local** | "12 businesses viewed -- $0.024 funded" | "Start browsing" |
-| **Volunteer** | "2 grants near you need help" | "See opportunities" |
 | **Invite Friends** | "8 friends joined -- $18.50 earned" | "Invite a friend" |
 
-Section order is fixed: Watch Ads and Browse Local are the daily-use features (top), Volunteer and Invite Friends are occasional-use features (bottom). All four sections are visible on a single scroll -- no sub-tabs or nested navigation. This avoids the "hidden feature" problem where users don't know a pathway exists because it's behind a tab they never tap.
+Section order is fixed: Watch Ads and Browse Local are the daily-use features (top), Invite Friends is an occasional-use feature (bottom). All three sections are visible on a single scroll -- no sub-tabs or nested navigation. This avoids the "hidden feature" problem where users don't know a pathway exists because it's behind a tab they never tap.
 
 **Level 3: Section Detail (on tap)**
 
@@ -886,13 +718,6 @@ Tapping a section card expands into the full experience for that pathway (detail
 - Number of businesses near the user
 - "Start browsing" CTA
 - **Geographic availability:** In markets without local business listings, this card shows: "Coming soon to your area. Want to help? Invite a local business to list." with a share link. Visible but clearly marked as upcoming -- not hidden, because hiding it removes the opportunity for users to share it with businesses they know.
-
-**Volunteer card:**
-- Number of grants near the user with open slots
-- Distance to nearest opportunity
-- Credit range available (e.g., "$10-20 per project")
-- "See opportunities" CTA
-- If no opportunities exist nearby: "No volunteer opportunities near you right now. Check back later or expand your search area." with a radius filter option.
 
 **Invite Friends card:**
 - Friends joined through referrals (total count)
@@ -919,7 +744,7 @@ The Give tab sits in the app's main bottom navigation:
 | **Give** | All non-cash contribution pathways |
 | **Profile** | Settings, achievements, referral dashboard, my loans |
 
-The Give tab icon uses the raindrop motif. A small badge on the icon shows available actions (e.g., a dot if ads are available, a number if volunteer opportunities are open nearby).
+The Give tab icon uses the raindrop motif. A small badge on the icon shows available actions (e.g., a dot if ads are available).
 
 ---
 
@@ -935,7 +760,7 @@ The Home tab is the default view when a user opens the app. It contains the pers
 | My Giving tab (contributions, impact, projections, goals) | Community pages |
 | My Impact tab (watershed, projects backed, loans funded, impact timeline) | Ad watching or business browsing |
 | Borrower dashboard ("My Loan" section for active borrowers) | Referral management |
-| Private milestones | Public leaderboards |
+| Private milestones | Community progress (separate page) |
 | Impact cards | Achievement browsing |
 | Quick-action row (Add funds, Watch ads, Explore projects) | |
 
@@ -998,13 +823,13 @@ A scrollable feed of project and loan cards, with feed filters accessible at the
 | Feed | Content |
 |------|---------|
 | **Trending** | Projects and loans gaining momentum fastest right now |
-| **Near You** | Projects, loans, and community grants in the user's area |
+| **Near You** | Projects and loans in the user's area |
 | **Your Communities** | Activity from communities the user follows |
 | **Almost There** | Projects close to their funding goal (cascade incoming) |
 | **New** | Recently proposed projects and loan requests |
 | **Following** | Updates from projects, people, and communities the user follows |
 
-Feed filters appear as horizontal scrollable chips at the top. "Trending" is the default view. Project cards, loan cards, and community grant cards all appear in the same feeds, distinguished by their card type labels ("Project," "Microloan," "Community Grant").
+Feed filters appear as horizontal scrollable chips at the top. "Trending" is the default view. Project cards and loan cards appear in the same feeds, distinguished by their card type labels ("Project," "Microloan").
 
 **Level 2: Search**
 
@@ -1015,19 +840,18 @@ A search bar at the top of the Discover tab. Search across projects, loans, comm
 Tapping a community name anywhere in the app navigates to the community page within the Discover tab. Community pages show:
 - Community description and member count
 - Projects and loans associated with the community
-- Community loan activity dashboard (see Leaderboards section)
+- Community loan activity dashboard (see Community Progress section)
 - Discussion threads
 - Community milestones
 
 ### Project and Loan Cards
 
-Project cards, loan cards, and community grant cards share a common card format but are visually distinguished:
+Project cards and loan cards share a common card format but are visually distinguished:
 
 | Card Type | Label | Icon | Progress Bar | Key Metric |
 |-----------|-------|------|-------------|------------|
 | Grant project | "Project" | River/cascade | Water filling (one-way) | "$2,400 of $5,000 raised" |
 | Microloan | "Microloan" | Cycle/loop arrow | Water filling with return arrow | "$340 of $500 funded" |
-| Community grant | "Community Grant" | Hands/community | Water filling | "$45 of $65 funded -- 2 slots open" |
 
 All card types navigate to their respective detail pages on tap.
 
@@ -1595,7 +1419,6 @@ Money flows INTO the watershed from five sources:
 | Cash contributions | 100% of every cash contribution |
 | Ad-funded contributions | 100% of the user's ad revenue share ($0.009/ad at base), amplified by corporate matching when active |
 | Referral credits | Vesting credits earned by referring new active users ($2.50-3.00 per referral) |
-| Community grant volunteer credit | Credits earned by completing verified community grant work (amount set by project poster, funded by contributors) |
 | Loan repayments | Principal returned from microloans via share-based repayment |
 
 Money flows OUT of the watershed to two types of projects:
@@ -1787,7 +1610,7 @@ Loans appear alongside grant projects in the discovery feeds, clearly labeled. A
 1. User taps a loan card, views the borrower's profile and loan purpose
 2. Loan detail page shows: borrower name, verified identity status, loan purpose and category (general or niche), borrower location, total amount with stretch goals (stacked progress bar), funding deadline and time remaining, payment schedule, share price ($0.25), total shares in loan, shares remaining
 3. User taps "Fund this loan"
-4. Amount screen: "$0.25 minimum (one share). Fund any amount in $0.25 increments." Watershed funds come from cash contributions, referral credits, volunteer credits, or recycled loan repayments -- users don't need cash on hand to build a watershed balance.
+4. Amount screen: "$0.25 minimum (one share). Fund any amount in $0.25 increments." Watershed funds come from cash contributions, referral credits, or recycled loan repayments -- users don't need cash on hand to build a watershed balance.
 5. Funds come from the user's watershed balance
 6. **Risk disclosure (mandatory, not skippable):**
 
@@ -2446,7 +2269,7 @@ Deluge uses three notification channels: push notifications, in-app notification
 
 | Channel | Purpose | When to Use | When NOT to Use |
 |---------|---------|-------------|-----------------|
-| **Push notification** | Time-sensitive, high-value moments that warrant interrupting the user | Cascades, microloan repayments received, corporate match going live, community grant available nearby | Marketing campaigns, weekly digests, low-value updates |
+| **Push notification** | Time-sensitive, high-value moments that warrant interrupting the user | Cascades, microloan repayments received, corporate match going live | Marketing campaigns, weekly digests, low-value updates |
 | **In-app notification** | Updates the user should see next time they open the app | Achievement unlocks, project updates, community activity, referral milestones | Anything requiring immediate attention |
 | **Email** | Detailed content, summaries, and content worth reading outside the app | Weekly digest, impact milestones, triggered campaigns, welcome series | Real-time events (too slow), minor updates (too noisy) |
 
@@ -2461,8 +2284,6 @@ Push notifications are reserved for moments that feel worth interrupting someone
 | Cascade on a project you funded | "The Lincoln Elementary project just cascaded! You were part of it." | Core emotional moment. Users want to know immediately. |
 | Microloan repayment received | "$20 returned to your watershed from [Borrower]. Ready to fund someone new." | Money arriving is always worth a notification. |
 | Corporate match campaign goes live | "5x match active right now. Your ad views are worth 5x for the next 48 hours." | Time-limited opportunity. Users who miss this lose value. |
-| Community grant available within 5 miles | "A community grant just posted 2 miles from you: [Title]." | Location-based, time-sensitive. Volunteer slots fill. |
-
 **Tier 2 -- Push if user has opted in (valuable but not urgent):**
 
 | Trigger | Message Example | Rationale |
@@ -2470,7 +2291,6 @@ Push notifications are reserved for moments that feel worth interrupting someone
 | Project you funded hits 75% / 90% | "[Project] is 90% funded. Almost there." | Builds anticipation. May prompt additional contribution. |
 | Achievement unlocked | "You earned the [Badge Name] badge!" | Fun, but not time-sensitive. User preference matters. |
 | Friend joined via referral | "[Name] just joined Deluge through your link!" | Social moment, but not urgent. |
-| Community grant completed (one you funded) | "The Maple Street garden is done. Before/after photos inside." | Meaningful, but can wait for in-app. |
 | Contribution milestone ($100, $500, $1K) | "You just hit $1,000 contributed. You're making a real difference." | Milestone celebration. Some users love this; others find it patronizing. |
 
 **Tier 3 -- Never push (in-app or email only):**
@@ -2489,7 +2309,7 @@ A notification bell (Home tab header) shows unread in-app notifications. Grouped
 
 | Group | Examples | Badge Count? |
 |-------|---------|-------------|
-| **Impact updates** | Project milestones, cascade celebrations, community grant completions | Yes |
+| **Impact updates** | Project milestones, cascade celebrations | Yes |
 | **Giving** | Contribution milestones, microloan repayments, watershed credit earned | Yes |
 | **Social** | Referral milestones, community activity, friend achievements | No (too noisy) |
 | **Challenges** | Challenge progress, achievement unlocks, leaderboard changes | No |
@@ -2505,7 +2325,6 @@ Badge count only shows for Impact and Giving notifications. Social and Challenge
 | Max push notifications per hour | 2 | Prevents notification clustering during active periods (cascade + achievement + referral all at once). |
 | Minimum gap between pushes | 30 minutes | Ensures each notification has breathing room. |
 | Corporate match pushes per campaign | 2 (launch + ending reminder) | More than 2 feels like advertising, not notification. |
-| Community grant proximity pushes per week | 3 | Prevents location-based spam in dense markets. |
 
 If multiple notifications queue during a capped period, prioritize by tier (Tier 1 first), then by recency. Deprioritized notifications move to in-app only.
 
@@ -2518,7 +2337,6 @@ Accessible from Profile tab → Settings → Notifications.
 | Push notifications | On / Off | On |
 | Cascade alerts | On / Off | On |
 | Giving updates (repayments, milestones) | On / Off | On |
-| Community grant alerts | On / Off (+ radius: 2mi / 5mi / 10mi / Any) | On, 5mi |
 | Achievement notifications | Push / In-app only / Off | Push |
 | Corporate match alerts | On / Off | On |
 | Social notifications (referrals, friends) | Push / In-app only / Off | In-app only |
@@ -2533,7 +2351,6 @@ When both channels would fire for the same event:
 - **Cascade:** Push immediately. Email in the next weekly digest (not a separate email).
 - **Contribution milestone:** Push (if Tier 2 opted in). Dedicated milestone email with shareable card.
 - **Microloan repayment:** Push immediately. No separate email (appears in weekly digest).
-- **Community grant completion:** Push (if Tier 2 opted in). Dedicated email with before/after photos.
 - **Referral milestone:** Push (if social opted in). Dedicated email only at the 5th and 25th referral.
 
 General rule: push is for the moment. Email is for the summary or the shareable artifact. Don't send both a push and a dedicated email for the same event unless the email adds significant content (photos, shareable card, detailed breakdown).
@@ -2542,7 +2359,7 @@ General rule: push is for the moment. Email is for the summary or the shareable 
 
 ## Moderation Framework
 
-Deluge is infrastructure, not editorial. The platform verifies legitimacy and enforces safety -- it does not judge whether a project is "good enough," whether a loan purpose is "worthy," or whether a community grant is "important." The community decides what gets funded. Moderation exists to keep the platform safe, legal, and trustworthy -- not to curate.
+Deluge is infrastructure, not editorial. The platform verifies legitimacy and enforces safety -- it does not judge whether a project is "good enough" or whether a loan purpose is "worthy." The community decides what gets funded. Moderation exists to keep the platform safe, legal, and trustworthy -- not to curate.
 
 ### Moderation Principles
 
@@ -2557,7 +2374,6 @@ Deluge is infrastructure, not editorial. The platform verifies legitimacy and en
 | Content Type | Moderation Scope | Community Role | Platform Role |
 |-------------|-----------------|----------------|---------------|
 | **Project proposals** | Legitimacy only | N/A (pre-publication) | Verify identity, organization, legality, funds traceability |
-| **Community grants** | Legitimacy + completion | Contributors approve/reject completion evidence | Verify proposer identity, location, beneficiary consent |
 | **Loan requests** | Legitimacy + prohibited purposes | Flag miscategorization | Verify identity, reject prohibited purposes, recategorize if needed |
 | **Discussion threads** | Safety + civility | Flag inappropriate comments | Review flagged content, auto-hide at threshold |
 | **Loan Q&A** | Safety + relevance | Flag inappropriate questions | Review flagged questions, enforce 2-question limit |
@@ -2635,7 +2451,6 @@ Account actions are progressive unless the violation is severe. First-time viola
 **What does NOT result in account action:**
 - A project that fails to get funded (that's normal)
 - A loan that defaults (that's a disclosed risk, not a violation)
-- A community grant where the work is rejected by approvers (dispute resolution, not moderation)
 - Unpopular opinions in discussion threads (as long as they don't violate the prohibited content policy)
 
 ### Moderation by Content Type
@@ -2645,13 +2460,6 @@ Account actions are progressive unless the violation is severe. First-time viola
 - Post-publication: community can flag concerns, Deluge reviews flagged projects
 - Project removal is rare and reserved for fraud or misrepresentation discovered after verification
 - A project that's merely unpopular is never removed -- the community decides what gets funded
-
-**Community grants:**
-- Same pre-publication review as projects
-- Post-completion: approval workflow handles quality disputes (contributor voting)
-- Deluge reviews manually if approval vote is split with no majority
-- Fraud (fake before/after photos, GPS mismatch) results in content removal + feature restriction
-- Quality disputes between volunteer and approvers are handled through the existing dispute resolution flow, not moderation
 
 **Loans:**
 - Pre-publication review verifies identity and screens for prohibited purposes

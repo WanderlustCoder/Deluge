@@ -14,14 +14,14 @@ import {
 } from "lucide-react";
 
 const categories = [
-  { name: "Education", icon: GraduationCap, color: "bg-blue-50 text-blue-600" },
-  { name: "Environment", icon: TreePine, color: "bg-green-50 text-green-600" },
-  { name: "Health", icon: HeartPulse, color: "bg-red-50 text-red-600" },
-  { name: "Technology", icon: Cpu, color: "bg-purple-50 text-purple-600" },
-  { name: "Community", icon: Users, color: "bg-amber-50 text-amber-600" },
-  { name: "Arts & Culture", icon: Palette, color: "bg-pink-50 text-pink-600" },
-  { name: "Housing", icon: Home, color: "bg-teal-50 text-teal-700" },
-  { name: "Youth", icon: Baby, color: "bg-orange-50 text-orange-600" },
+  { name: "Education", icon: GraduationCap, color: "bg-blue-50 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400" },
+  { name: "Environment", icon: TreePine, color: "bg-green-50 text-green-600 dark:bg-green-900/30 dark:text-green-400" },
+  { name: "Health", icon: HeartPulse, color: "bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400" },
+  { name: "Technology", icon: Cpu, color: "bg-purple-50 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400" },
+  { name: "Community", icon: Users, color: "bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400" },
+  { name: "Arts & Culture", icon: Palette, color: "bg-pink-50 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400" },
+  { name: "Housing", icon: Home, color: "bg-teal-50 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400" },
+  { name: "Youth", icon: Baby, color: "bg-orange-50 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400" },
 ];
 
 export function Categories() {

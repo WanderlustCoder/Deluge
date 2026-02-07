@@ -1,22 +1,10 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { z } from "zod";
-import {
-  SHARE_PRICE,
-  LOAN_CATEGORIES,
-} from "@/lib/constants";
+import { SHARE_PRICE } from "@/lib/constants";
 import { getTierConfig } from "@/lib/loans";
 import { logError } from "@/lib/logger";
-
-const applySchema = z.object({
-  amount: z.number().positive(),
-  purpose: z.string().min(1, "Purpose is required"),
-  purposeCategory: z.enum(LOAN_CATEGORIES as unknown as [string, ...string[]]),
-  story: z.string().optional(),
-  location: z.string().min(1, "Location is required"),
-  repaymentMonths: z.number().int().min(1),
-});
+import { loanApplySchema } from "@/lib/validation";
 
 // GET: list loans in funding status
 export async function GET() {
@@ -29,7 +17,8 @@ export async function GET() {
     where: { status: "funding" },
     include: {
       borrower: { select: { name: true } },
-      _count: { select: { shares: true } },
+      stretchGoals: { orderBy: { priority: "asc" } },
+      _count: { select: { shares: true, sponsorships: true } },
     },
     orderBy: { createdAt: "desc" },
   });
@@ -46,7 +35,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const parsed = applySchema.safeParse(body);
+    const parsed = loanApplySchema.safeParse(body);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -67,13 +56,8 @@ export async function POST(request: Request) {
 
     const tierConfig = getTierConfig(user.creditTier);
 
-    // Validate against tier-specific limits
-    if (parsed.data.amount > tierConfig.maxAmount) {
-      return NextResponse.json(
-        { error: `Maximum loan amount for Tier ${user.creditTier} is $${tierConfig.maxAmount}.` },
-        { status: 400 }
-      );
-    }
+    // Check if loan exceeds credit limit — if so, mark as seeking sponsor
+    const needsSponsor = parsed.data.amount > tierConfig.maxAmount;
 
     if (parsed.data.repaymentMonths > tierConfig.maxMonths) {
       return NextResponse.json(
@@ -97,7 +81,23 @@ export async function POST(request: Request) {
       );
     }
 
-    const { amount, purpose, purposeCategory, story, location, repaymentMonths } =
+    // Check if user has unverified completed loans
+    const unverifiedLoan = await prisma.loan.findFirst({
+      where: {
+        borrowerId: session.user.id,
+        status: "completed",
+        goalVerification: null,
+      },
+    });
+
+    if (unverifiedLoan) {
+      return NextResponse.json(
+        { error: "Please verify your previous loan's goal before applying for a new one." },
+        { status: 400 }
+      );
+    }
+
+    const { amount, purpose, purposeCategory, story, location, repaymentMonths, stretchGoals } =
       parsed.data;
 
     const totalShares = Math.ceil(amount / SHARE_PRICE);
@@ -107,25 +107,49 @@ export async function POST(request: Request) {
     const deadline = new Date();
     deadline.setDate(deadline.getDate() + tierConfig.deadlineDays);
 
-    const loan = await prisma.loan.create({
-      data: {
-        borrowerId: session.user.id,
-        amount: actualAmount,
-        totalShares,
-        sharesRemaining: totalShares,
-        purpose,
-        purposeCategory,
-        story: story || null,
-        location,
-        status: "funding",
-        tier: user.creditTier,
-        fundingDeadline: deadline,
-        repaymentMonths,
-        monthlyPayment,
-      },
+    // Create loan with stretch goals in a transaction
+    const loan = await prisma.$transaction(async (tx) => {
+      const newLoan = await tx.loan.create({
+        data: {
+          borrowerId: session.user.id,
+          amount: actualAmount,
+          totalShares,
+          sharesRemaining: totalShares,
+          purpose,
+          purposeCategory,
+          story: story || null,
+          location,
+          status: "funding",
+          tier: user.creditTier,
+          fundingDeadline: deadline,
+          repaymentMonths,
+          monthlyPayment,
+          seekingSponsor: needsSponsor,
+        },
+      });
+
+      // Create stretch goals if provided
+      if (stretchGoals && stretchGoals.length > 0) {
+        await tx.loanStretchGoal.createMany({
+          data: stretchGoals.map((goal) => ({
+            loanId: newLoan.id,
+            priority: goal.priority,
+            amount: goal.amount,
+            purpose: goal.purpose,
+          })),
+        });
+      }
+
+      return newLoan;
     });
 
-    return NextResponse.json({ success: true, data: loan });
+    // Fetch the loan with stretch goals
+    const loanWithGoals = await prisma.loan.findUnique({
+      where: { id: loan.id },
+      include: { stretchGoals: { orderBy: { priority: "asc" } } },
+    });
+
+    return NextResponse.json({ success: true, data: loanWithGoals });
   } catch (error) {
     logError("api/loans", error, { userId: session.user.id, route: "POST /api/loans" });
     return NextResponse.json(

@@ -4,7 +4,7 @@
 
 People naturally want to collaborate and contribute, but they face connected problems:
 
-- **No way to find what needs doing** -- coordination is fragmented. If you care about education in your city, your options are: donate to a big nonprofit (no idea where it goes), find a random GoFundMe (no vetting), volunteer your time (limited scale), or do nothing (most common outcome).
+- **No way to find what needs doing** -- coordination is fragmented. If you care about education in your city, your options are: donate to a big nonprofit (no idea where it goes), find a random GoFundMe (no vetting), or do nothing (most common outcome).
 - **No mechanism for collective action** -- people care about the same things but can't find each other. A thousand people in Denver who care about youth education have no way to pool their energy and resources into something real.
 - **High barriers to giving** -- charity platforms take money but offer no transparency. People who can't give cash are locked out entirely. No platform lets you contribute meaningfully with $0.
 - **Exploitative models** -- some platforms take real money while delivering negligible value under deceptive framing. Others pressure users to give more than they can afford.
@@ -27,13 +27,12 @@ People naturally want to collaborate and contribute, but they face connected pro
 ### How It Works
 
 1. **Find your community** -- users discover or create communities around what matters to them (education, environment, local projects, innovation)
-2. **Anyone can propose a project** -- community members, nonprofits, local organizations, and individuals submit projects they want funded. Volunteers can pick up community grant projects for watershed credit.
+2. **Anyone can propose a project** -- community members, nonprofits, local organizations, and individuals submit projects they want funded.
 3. **Communities rally behind what they believe in** -- members promote projects, share them, and build momentum. When enough people care, the funding follows.
 4. **Contribute in the way that works for you:**
    - **Give cash** ($0.25 minimum) -- fund the projects you believe in directly
    - **Watch ads** -- donate your attention to fund projects with $0 out of pocket
    - **Browse local businesses** -- every view of a community business card funds projects in your area
-   - **Volunteer** -- complete community grant projects and earn watershed credit for your effort
    - **Refer friends** -- earn watershed credit for every friend who joins and stays active
 5. **Track everything** -- see exactly where every dollar and every ad view goes, with real-world outcome reporting from funded projects
 6. Platform costs covered by **ad revenue, business directory fees, custodial float income, corporate partnerships, and microloan servicing** — individuals never pay
@@ -45,13 +44,13 @@ Deluge is **infrastructure, not editorial**. The platform provides:
 - Community tools (discussion, promotion, voting, sharing)
 - Impact reporting (tracking and verifying outcomes)
 - A local business directory where browsing funds community projects
-- Multiple contribution pathways (cash, attention, volunteering)
+- Multiple contribution pathways (cash, attention)
 
 But the community decides what gets funded. Deluge doesn't pick winners -- the users do. If enough people rally behind a project, it gets funded. If not, it doesn't. The excitement is organic.
 
 ### The Vision
 
-One by one, people join because something speaks to them. They find their community -- maybe it's local education, maybe it's clean energy, maybe it's their neighborhood park. They propose projects or rally behind someone else's. They volunteer for community grants. They share. Others join. The momentum builds. Until suddenly -- all at once -- there is critical mass. The cascade happens. The project gets funded. Real change occurs.
+One by one, people join because something speaks to them. They find their community -- maybe it's local education, maybe it's clean energy, maybe it's their neighborhood park. They propose projects or rally behind someone else's. They share. Others join. The momentum builds. Until suddenly -- all at once -- there is critical mass. The cascade happens. The project gets funded. Real change occurs.
 
 This is what happens when you give people a transparent way to give and a community to amplify it.
 
@@ -78,7 +77,7 @@ This is what happens when you give people a transparent way to give and a commun
 
 ### vs. Charity Platforms (DonorsChoose, Kiva, GoFundMe)
 
-- Multiple participation pathways -- cash, ads, volunteering, browsing (not just cash)
+- Multiple participation pathways -- cash, ads, browsing (not just cash)
 - Community-driven discovery (the crowd decides, not the platform)
 - Broader scope (7 categories vs narrow focus)
 - Free-tier users can participate meaningfully without spending a dollar
@@ -109,8 +108,8 @@ Deluge brings together four proven models that no one else has unified:
 
 - **Transparent impact** (like DonorsChoose) -- see exactly where your money goes
 - **Community-driven funding** (like Kickstarter) -- the crowd decides what gets funded, not the platform
-- **Gamified engagement** (like Strava) -- achievements, leaderboards, social features
-- **Attention-funded giving** (novel) -- watch ads, browse businesses, volunteer -- contribute with $0
+- **Engaging progress tracking** -- badges, community milestones, collective impact
+- **Attention-funded giving** (novel) -- watch ads, browse businesses -- contribute with $0
 - **Local business discovery** -- browse community businesses, fund projects with every view
 
 ---
@@ -128,7 +127,7 @@ Deluge brings together four proven models that no one else has unified:
 - **Customer acquisition cost** -- community platform CAC varies widely ($5-30/user). Deluge must build organic channels (referrals, PR, content) to survive, because paid-only acquisition will not work at early scale.
 - **Project quality at scale** -- a community-driven model means anyone can propose projects. Deluge must verify legitimacy and track impact without becoming a bottleneck. Too much curation kills the community energy; too little invites fraud. Finding the right balance is critical.
 - **Community moderation** -- user-driven platforms inevitably face moderation challenges. What projects are allowed? Who decides? How do you prevent the platform from being used to fund things that damage the brand?
-- **Two-sided marketplace dynamics** -- community grants require both proposers and volunteers. Local business cards require both businesses and browsers. Building both sides simultaneously in each market is hard.
+- **Two-sided marketplace dynamics** -- local business cards require both businesses and browsers. Building both sides simultaneously in each market is hard.
 - **Regulatory classification** -- how user contributions and watershed credits are legally classified (donations, money transmission, or platform credits) determines the regulatory burden. The classification is the single most important legal question.
 - **Ad revenue dependency** -- free-tier participation depends on sustainable ad eCPM rates. If ad rates drop, the zero-dollar pathway weakens. This is supplementary revenue but critical to the "everyone can participate" promise.
 - **Proving impact** -- "third-party audited outcomes" is easy to say and hard to do at scale. Building a credible impact verification pipeline is an operational challenge that grows with every funded project.
@@ -145,7 +144,7 @@ Without an investment/brokerage component, Deluge's regulatory landscape is dram
 |--------|-----------------|---------------|----------------|
 | Money transmission | FinCEN, state regulators | Movement of funds (user contributions to projects, watershed credits, microloan disbursements) | **Likely yes** -- depends on structure |
 | Charitable solicitation | State attorneys general (varies by state) | Soliciting donations for projects, if contributions are classified as "donations" | **Maybe** -- depends on legal classification |
-| Consumer data / privacy | FTC, state privacy laws (CCPA, etc.) | User data, location data (GPS from community grants) | **No** -- not a launch blocker, but must be compliant from Day 1 |
+| Consumer data / privacy | FTC, state privacy laws (CCPA, etc.) | User data, location data | **No** -- not a launch blocker, but must be compliant from Day 1 |
 | Microloan regulation | State lending laws, CFPB | Microloan origination, servicing, collection | **Yes for microloans** -- can defer microloans to Year 2 |
 
 ### Phase 1: Entity Formation & Legal Structure (Months 1-3)
@@ -155,7 +154,7 @@ Without an investment/brokerage component, Deluge's regulatory landscape is dram
 | Engage attorney | Experienced in crowdfunding, charitable platforms, or money transmission. Does not need to be a securities attorney. | $5-15K retainer | Yes |
 | Determine entity structure | LLC, C-Corp, or nonprofit hybrid. Attorney advises based on fundraising plans and tax implications. | Included in retainer | Yes |
 | Classify user contributions | Are contributions to projects "donations," "purchases," or "directed platform credits"? This determines which charitable solicitation rules apply. | Included in retainer | Yes -- foundational legal question |
-| Classify watershed credits | Are referral credits, volunteer credits, and ad contributions "money," "points," or "platform credits"? Money transmission laws may apply. | Included in retainer | Yes |
+| Classify watershed credits | Are referral credits and ad contributions "money," "points," or "platform credits"? Money transmission laws may apply. | Included in retainer | Yes |
 | Entity formation | State filing, operating agreements, EIN, bank accounts. | $2-5K | Yes |
 | **Phase 1 total** | | **$7-20K** | |
 
@@ -166,7 +165,7 @@ Without an investment/brokerage component, Deluge's regulatory landscape is dram
 | Money transmitter analysis | If fund movement is classified as money transmission, licenses may be required per state. Mitigation: use a licensed payment processor (Stripe, PayPal) as the money movement layer so Deluge is not the transmitter. | $0-10K (analysis) or $50-200K (if licenses required) | Potentially -- Stripe/PayPal mitigation usually resolves this |
 | Charitable solicitation registration | If contributions are classified as donations, registration required in ~40 states. | $10-25K if required | Only if classified as donations |
 | Payment processing integration | Stripe, PayPal, or equivalent for handling user payments. These processors handle PCI compliance and fund custody. | $2-5K (integration cost) | Yes |
-| Privacy policy & terms of service | CCPA compliance, GPS data policies (community grants), ad tracking disclosure. | $3-8K (legal drafting) | Yes |
+| Privacy policy & terms of service | CCPA compliance, ad tracking disclosure. | $3-8K (legal drafting) | Yes |
 | **Phase 2 total** | | **$15-48K** (or up to $240K if MTL required -- unlikely with Stripe/PayPal) | |
 
 ### Phase 3: Microloan Compliance (Year 2, deferred)
@@ -211,7 +210,7 @@ Microloans add regulatory complexity. By deferring to Year 2, Deluge can launch 
 
 **Ad-funded impact:** Users can watch video ads or browse local business cards to fund community projects directly. "Can't give cash? Donate your attention instead." Video ads: $0.008-0.025/view. Business card views: $0.001-0.003/view (higher volume). Deluge keeps 40%, remaining 60% goes directly to the user's chosen impact project. Corporate matching funds can amplify ad contributions up to 10x during campaigns.
 
-**Free-tier pathways:** Referral credits, community grant volunteering, and corporate ad matching give free-tier users realistic earning potential of $13-31/month in watershed capital -- enough to fund a microloan contribution within the first month.
+**Free-tier pathways:** Referral credits and corporate ad matching give free-tier users realistic earning potential in watershed capital -- enough to fund a microloan contribution within the first month.
 
 **Path to profitability (base scenario):** Year 1 is founder-built with AI tools (~$14K total cost, break-even). After validating the core loop with ~3K users, a seed round ($150-300K) funds Year 2 growth. Year 4 is solidly profitable at ~75K users. Total external capital needed: approximately $150-300K.
 
@@ -275,8 +274,8 @@ The founder handles moderation, project verification, and community management a
 
 | Role | Type | Focus | Trigger |
 |------|------|-------|---------|
-| 1-2 additional engineers | Full-time | Business card directory, community grants, mobile performance, microloan system | > 10K users |
-| Dedicated moderator | Full-time | Project verification, content moderation, community grant oversight | > 10K users |
+| 1-2 additional engineers | Full-time | Business card directory, mobile performance, microloan system | > 10K users |
+| Dedicated moderator | Full-time | Project verification, content moderation | > 10K users |
 | Operations | Full-time | Ad revenue reconciliation, business directory management, reporting | > 20K users or first B2B client |
 | Nonprofit / impact partnerships | Full-time | Project sourcing, nonprofit relationships, impact verification, corporate ESG sales | > 30K users |
 

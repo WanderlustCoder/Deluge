@@ -2,11 +2,11 @@
 
 ## What Deluge Believes
 
-Generous people give until it hurts. Deluge makes giving sustainable -- multiple pathways to contribute (cash, ads, volunteering, business browsing, referrals), transparent tracking of where every cent goes, and a watershed model that recycles capital through microloans. The giving is the product. Sustainability is the design principle.
+Generous people give until it hurts. Deluge makes giving sustainable -- multiple pathways to contribute (cash, ads, business browsing, referrals), transparent tracking of where every cent goes, and a watershed model that recycles capital through microloans. The giving is the product. Sustainability is the design principle.
 
-**Who it's for:** The person who donates to every GoFundMe and never knows where the money went. The person who volunteers 20 hours a week and wishes they could do more. Deluge competes with the fragmented, opaque world of informal community giving, not with GoFundMe or DonorsChoose.
+**Who it's for:** The person who donates to every GoFundMe and never knows where the money went. The person who gives 20 hours a week and wishes they could do more. Deluge competes with the fragmented, opaque world of informal community giving, not with GoFundMe or DonorsChoose.
 
-**The on-ramp:** Not everyone has cash to give. That's why Deluge has zero-dollar pathways: watching ads, browsing local businesses, volunteering for community grants, and referring friends all generate real project funding. Every pathway is equally valid. Deluge works for people with money and people without it.
+**The on-ramp:** Not everyone has cash to give. That's why Deluge has zero-dollar pathways: watching ads, browsing local businesses, and referring friends all generate real project funding. Every pathway is equally valid. Deluge works for people with money and people without it.
 
 **The metaphor:** Individual drops become collective force. One by one, all at once. No single raindrop takes credit for the river.
 
@@ -19,7 +19,7 @@ Deluge is infrastructure, not editorial. The platform verifies identity, legitim
 ### Deluge IS
 
 - **Community-driven** -- the people decide what gets funded, not the platform
-- **Accessible** -- start with $5, or $0 through ads, volunteering, and browsing
+- **Accessible** -- start with $5, or $0 through ads and browsing
 - **Transparent** -- see everything: where money goes, how it splits, what it funds
 - **Engaging** -- game mechanics make giving fun
 - **Bottom-up** -- anyone can propose, everyone can rally
@@ -43,7 +43,7 @@ Deluge is infrastructure, not editorial. The platform verifies identity, legitim
 
 **Funders:** Deploy impact capital that regenerates. See money turn into real outcomes. Participate in something bigger without going broke.
 
-**Free-tier users:** A realistic on-ramp to meaningful participation through ads, referrals, community grants, and corporate matching. If Deluge only works for people with money, it fails its mission.
+**Free-tier users:** A realistic on-ramp to meaningful participation through ads, referrals, and corporate matching. If Deluge only works for people with money, it fails its mission.
 
 **Everyone:** Individual growth within collective progress.
 
@@ -83,10 +83,11 @@ Every gamification mechanic must pass one test: does this reward behavior that's
 
 **We never reward:**
 
-- Dollar amounts contributed (no "$1K Club" or spending-based leaderboards)
+- Dollar amounts contributed (no "$1K Club" or spending-based rankings)
 - Competitive spending (no "contribute more than your friend" challenges)
 - Individual hero moments that create FOMO or racing behavior
 - Breadth of spending for completionism's sake
+- Individual rankings or leaderboards of any kind
 
 The deluge is made of drops, not whales. A user who contributes $5/month and watches ads to fund projects in their community is as valuable as someone contributing $500/month. The platform's universal unit of participation -- $0.25 -- is achievable through under a week of casual ad-watching. No cash required to be part of a cascade.
 
@@ -94,7 +95,7 @@ The deluge is made of drops, not whales. A user who contributes $5/month and wat
 
 The cascade metaphor is about collective force. No single raindrop takes credit for the river. Celebrating one person as the "trigger" creates FOMO, incentivizes racing to be last, and undermines the "one by one, all at once" message. Every backer matters equally.
 
-Leaderboards rank participation and impact, never dollar amounts. The person who contributes $5 and shares with 20 friends ranks higher than someone who quietly contributes $5,000.
+There are no individual leaderboards. Progress is tracked at the community level, and personal stats are private -- visible only to you for your own reflection and motivation.
 
 ### Verify, Don't Curate
 

@@ -71,7 +71,7 @@ export function Hero() {
         >
           <Link
             href="/register"
-            className="inline-flex items-center justify-center px-8 py-3.5 bg-white text-ocean font-heading font-semibold rounded-lg hover:bg-gray-100 transition-colors text-lg"
+            className="inline-flex items-center justify-center px-8 py-3.5 font-heading font-semibold rounded-lg transition-colors text-lg hero-btn-primary"
           >
             Join the Flow
           </Link>

@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { SERVICING_FEE_RATE } from "@/lib/constants";
 import { updateUserCreditTier } from "@/lib/loans";
+import { checkAndUpdateRoles } from "@/lib/roles";
 import { logError } from "@/lib/logger";
 import { notifyLoanPaymentReceived } from "@/lib/notifications";
 
@@ -155,10 +156,11 @@ export async function POST(
       notifyLoanPaymentReceived(share.funderId, funderCredit, loan.purpose).catch(() => {});
     }
 
-    // If loan completed, check for credit tier upgrade
+    // If loan completed, check for credit tier upgrade + platform roles
     let tierChange = null;
     if (isCompleted) {
       tierChange = await updateUserCreditTier(session.user.id);
+      checkAndUpdateRoles(session.user.id).catch(() => {});
     }
 
     return NextResponse.json({

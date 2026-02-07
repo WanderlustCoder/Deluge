@@ -10,12 +10,20 @@ import { ProjectGrid } from "@/components/projects/project-grid";
 import { MemberList } from "@/components/communities/member-list";
 import { VoteButtons } from "@/components/communities/vote-buttons";
 import { useToast } from "@/components/ui/toast";
-import { Users, MapPin, MessageSquare, FolderOpen } from "lucide-react";
+import { Users, MapPin, MessageSquare, FolderOpen, Vote, Crown, Map, ChevronRight, Activity, Target, Calendar } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { ElectionCard } from "@/components/communities/election-card";
+import { StartElectionModal } from "@/components/communities/start-election-modal";
+import { ImpactStatsCard } from "@/components/communities/impact-stats-card";
+import { ActivityFeed } from "@/components/feed/activity-feed";
+import { GoalCard } from "@/components/communities/goal-card";
+import { CreateGoalModal } from "@/components/communities/create-goal-modal";
+import { EventsList } from "@/components/communities/events-list";
+import { CreateEventModal } from "@/components/communities/create-event-modal";
 import type { Project } from "@prisma/client";
 
-type TabType = "projects" | "discussions";
+type TabType = "projects" | "discussions" | "elections" | "activity" | "goals" | "events";
 
 export default function CommunityDetailPage() {
   const params = useParams();
@@ -30,14 +38,43 @@ export default function CommunityDetailPage() {
   const [addingProject, setAddingProject] = useState(false);
   const [selectedProjectId, setSelectedProjectId] = useState("");
 
+  // Elections
+  const [elections, setElections] = useState<any[]>([]);
+  const [electedRoles, setElectedRoles] = useState<any[]>([]);
+  const [showElectionModal, setShowElectionModal] = useState(false);
+
+  // Goals
+  const [goals, setGoals] = useState<any[]>([]);
+  const [showGoalModal, setShowGoalModal] = useState(false);
+
+  // Events
+  const [showEventModal, setShowEventModal] = useState(false);
+
   function fetchCommunity() {
     fetch(`/api/communities/${params.id}`)
       .then((res) => res.json())
       .then((data) => setCommunity(data));
   }
 
+  function fetchElections() {
+    fetch(`/api/communities/${params.id}/elections`)
+      .then((res) => res.json())
+      .then((data) => {
+        setElections(data.elections || []);
+        setElectedRoles(data.electedRoles || []);
+      });
+  }
+
+  function fetchGoals() {
+    fetch(`/api/communities/${params.id}/goals`)
+      .then((res) => res.json())
+      .then((data) => setGoals(Array.isArray(data) ? data : []));
+  }
+
   useEffect(() => {
     fetchCommunity();
+    fetchElections();
+    fetchGoals();
     fetch("/api/projects")
       .then((res) => res.json())
       .then((data) => setAllProjects(data));
@@ -137,30 +174,64 @@ export default function CommunityDetailPage() {
         <CardContent className="pt-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              {community.category && (
-                <Badge variant="ocean" className="mb-2">
-                  {community.category}
-                </Badge>
-              )}
+              <div className="flex items-center gap-2 mb-2">
+                {community.category && (
+                  <Badge variant="ocean">
+                    {community.category}
+                  </Badge>
+                )}
+                {community.level && (
+                  <Badge variant="default">
+                    {community.level.charAt(0).toUpperCase() + community.level.slice(1)}
+                  </Badge>
+                )}
+                {community.type === "interest" && (
+                  <Badge variant="default">Interest</Badge>
+                )}
+              </div>
               <h1 className="font-heading font-bold text-2xl text-storm">
                 {community.name}
               </h1>
             </div>
-            {isMember ? (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleLeave}
-                loading={joinLoading}
-              >
-                Leave
-              </Button>
-            ) : (
-              <Button size="sm" onClick={handleJoin} loading={joinLoading}>
-                Join
-              </Button>
-            )}
+            <div className="flex gap-2">
+              {community.slug && (
+                <Link href={`/communities/map/${community.slug}`}>
+                  <Button variant="outline" size="sm">
+                    <Map className="h-4 w-4 mr-1" />
+                    Map
+                  </Button>
+                </Link>
+              )}
+              {isMember ? (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleLeave}
+                  loading={joinLoading}
+                >
+                  Leave
+                </Button>
+              ) : (
+                <Button size="sm" onClick={handleJoin} loading={joinLoading}>
+                  Join
+                </Button>
+              )}
+            </div>
           </div>
+
+          {/* Parent community breadcrumb */}
+          {community.parent && (
+            <div className="flex items-center gap-1 text-sm text-storm-light mb-3">
+              <span>Part of</span>
+              <Link
+                href={`/communities/${community.parent.id}`}
+                className="text-ocean hover:underline flex items-center gap-1"
+              >
+                {community.parent.name}
+                <ChevronRight className="h-3 w-3" />
+              </Link>
+            </div>
+          )}
 
           <p className="text-storm mb-4">{community.description}</p>
 
@@ -179,6 +250,29 @@ export default function CommunityDetailPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Child communities (for geographic communities) */}
+      {community.children && community.children.length > 0 && (
+        <Card className="mb-6">
+          <CardContent className="pt-5">
+            <h3 className="font-heading font-semibold text-sm text-storm mb-3">
+              Sub-regions ({community.children.length})
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {community.children.map((child: any) => (
+                <Link
+                  key={child.id}
+                  href={`/communities/${child.id}`}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md text-sm text-storm transition-colors"
+                >
+                  <MapPin className="h-3 w-3 text-ocean" />
+                  {child.name}
+                </Link>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Tabs */}
       <div className="flex gap-1 mb-6 border-b border-gray-200">
@@ -205,6 +299,54 @@ export default function CommunityDetailPage() {
         >
           <MessageSquare className="h-4 w-4" />
           Discussions
+        </button>
+        <button
+          onClick={() => setActiveTab("elections")}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
+            activeTab === "elections"
+              ? "border-ocean text-ocean"
+              : "border-transparent text-storm-light hover:text-storm"
+          )}
+        >
+          <Vote className="h-4 w-4" />
+          Elections
+        </button>
+        <button
+          onClick={() => setActiveTab("activity")}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
+            activeTab === "activity"
+              ? "border-ocean text-ocean"
+              : "border-transparent text-storm-light hover:text-storm"
+          )}
+        >
+          <Activity className="h-4 w-4" />
+          Activity
+        </button>
+        <button
+          onClick={() => setActiveTab("goals")}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
+            activeTab === "goals"
+              ? "border-ocean text-ocean"
+              : "border-transparent text-storm-light hover:text-storm"
+          )}
+        >
+          <Target className="h-4 w-4" />
+          Goals
+        </button>
+        <button
+          onClick={() => setActiveTab("events")}
+          className={cn(
+            "flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors -mb-px",
+            activeTab === "events"
+              ? "border-ocean text-ocean"
+              : "border-transparent text-storm-light hover:text-storm"
+          )}
+        >
+          <Calendar className="h-4 w-4" />
+          Events
         </button>
       </div>
 
@@ -319,18 +461,177 @@ export default function CommunityDetailPage() {
               </Link>
             </div>
           )}
+
+          {activeTab === "elections" && (
+            <>
+              {/* Elected Roles */}
+              {electedRoles.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="font-heading font-semibold text-sm text-storm mb-2">
+                    Current Role Holders
+                  </h3>
+                  <div className="space-y-2">
+                    {electedRoles.map((er: any) => {
+                      const member = community.members?.find((m: any) => m.user.id === er.userId);
+                      return (
+                        <div
+                          key={er.role + er.userId}
+                          className="flex items-center justify-between py-2 px-3 rounded-lg bg-gold/5 border border-gold/20"
+                        >
+                          <div className="flex items-center gap-2">
+                            <Crown className="h-4 w-4 text-gold" />
+                            <span className="text-sm font-medium text-storm">
+                              {er.role.replace("steward:", "Steward: ").replace("steward", "Steward").replace("champion", "Champion")}
+                            </span>
+                          </div>
+                          <span className="text-sm text-storm-light">
+                            {member?.user.name || "Unknown"} &middot; until {new Date(er.termEnd).toLocaleDateString()}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Start Election Button */}
+              {isMember && (
+                <div className="mb-4">
+                  <Button size="sm" onClick={() => setShowElectionModal(true)}>
+                    <Vote className="h-4 w-4 mr-1" />
+                    Start Election
+                  </Button>
+                </div>
+              )}
+
+              {/* Active & Past Elections */}
+              {elections.length > 0 ? (
+                <div className="space-y-3">
+                  {elections.map((election: any) => (
+                    <ElectionCard
+                      key={election.id}
+                      election={election}
+                      communityId={params.id as string}
+                      members={(community.members || []).map((m: any) => ({
+                        userId: m.user.id,
+                        name: m.user.name,
+                      }))}
+                      currentUserId={session?.user?.id || ""}
+                      onUpdate={fetchElections}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <Vote className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                  <p className="text-storm-light">
+                    No elections yet. Start one to elect community leaders.
+                  </p>
+                </div>
+              )}
+
+              {showElectionModal && (
+                <StartElectionModal
+                  communityId={params.id as string}
+                  onClose={() => setShowElectionModal(false)}
+                  onCreated={fetchElections}
+                />
+              )}
+            </>
+          )}
+
+          {activeTab === "activity" && (
+            <ActivityFeed
+              endpoint={`/api/communities/${params.id}/activity`}
+              title="Community Activity"
+              limit={15}
+              emptyMessage="No community activity yet. Fund projects and invite neighbors to get started!"
+            />
+          )}
+
+          {activeTab === "goals" && (
+            <>
+              {isAdmin && (
+                <div className="mb-4">
+                  <Button size="sm" onClick={() => setShowGoalModal(true)}>
+                    <Target className="h-4 w-4 mr-1" />
+                    Create Goal
+                  </Button>
+                </div>
+              )}
+
+              {goals.length > 0 ? (
+                <div className="space-y-4">
+                  {goals.map((goal) => (
+                    <GoalCard key={goal.id} goal={goal} />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <Target className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                  <p className="text-storm-light dark:text-gray-400">
+                    No community goals yet.
+                    {isAdmin && " Create one to rally the community!"}
+                  </p>
+                </div>
+              )}
+
+              {showGoalModal && (
+                <CreateGoalModal
+                  communityId={params.id as string}
+                  onClose={() => setShowGoalModal(false)}
+                  onCreated={fetchGoals}
+                />
+              )}
+            </>
+          )}
+
+          {activeTab === "events" && (
+            <>
+              {isAdmin && (
+                <div className="mb-4">
+                  <Button size="sm" onClick={() => setShowEventModal(true)}>
+                    <Calendar className="h-4 w-4 mr-1" />
+                    Create Event
+                  </Button>
+                </div>
+              )}
+
+              <EventsList
+                communityId={params.id as string}
+                isMember={isMember}
+              />
+
+              {showEventModal && (
+                <CreateEventModal
+                  communityId={params.id as string}
+                  onClose={() => setShowEventModal(false)}
+                  onCreated={() => {
+                    // Trigger refresh by remounting EventsList
+                    setShowEventModal(false);
+                  }}
+                />
+              )}
+            </>
+          )}
         </div>
 
-        {/* Members sidebar */}
-        <div>
-          <h2 className="font-heading font-semibold text-lg text-storm mb-4">
-            Members
-          </h2>
-          <Card>
-            <CardContent className="pt-5">
-              <MemberList members={community.members || []} />
-            </CardContent>
-          </Card>
+        {/* Sidebar */}
+        <div className="space-y-6">
+          {/* Impact Stats */}
+          <ImpactStatsCard communityId={params.id as string} />
+
+          {/* Members */}
+          <div>
+            <h2 className="font-heading font-semibold text-lg text-storm mb-4">
+              Members
+            </h2>
+            <Card>
+              <CardContent className="pt-5">
+                <MemberList members={community.members || []} />
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

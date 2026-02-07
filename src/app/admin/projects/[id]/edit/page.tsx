@@ -10,7 +10,7 @@ export default async function EditProjectPage({
   params: Promise<{ id: string }>;
 }) {
   const session = await auth();
-  if (!session?.user || session.user.role !== "admin") redirect("/dashboard");
+  if (!session?.user || session.user.accountType !== "admin") redirect("/dashboard");
 
   const { id } = await params;
   const project = await prisma.project.findUnique({ where: { id } });

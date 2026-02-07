@@ -26,6 +26,25 @@ export async function GET(
         orderBy: { createdAt: "desc" },
       },
       votes: true,
+      // Hierarchy data
+      parent: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          level: true,
+        },
+      },
+      children: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          level: true,
+          memberCount: true,
+        },
+        orderBy: { name: "asc" },
+      },
     },
   });
 

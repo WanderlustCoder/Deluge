@@ -12,6 +12,7 @@ import { generateProjectJsonLd } from "@/lib/structured-data";
 import { MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { JointProjectBadge } from "@/components/projects/joint-project-badge";
 
 export async function generateMetadata({
   params,
@@ -43,9 +44,20 @@ export default async function ProjectDetailPage({
   const { id } = await params;
   const project = await prisma.project.findUnique({
     where: { id },
+    include: {
+      communities: {
+        include: {
+          community: {
+            select: { id: true, name: true },
+          },
+        },
+      },
+    },
   });
 
   if (!project) notFound();
+
+  const linkedCommunities = project.communities.map((cp) => cp.community);
 
   const stage = getCascadeStage(project.fundingRaised, project.fundingGoal);
   const jsonLd = generateProjectJsonLd(project);
@@ -69,17 +81,34 @@ export default async function ProjectDetailPage({
         <CardContent className="pt-6">
           <div className="flex items-start justify-between mb-4">
             <Badge variant="ocean">{project.category}</Badge>
-            <Badge
-              variant={
-                project.status === "funded"
-                  ? "success"
-                  : project.status === "completed"
-                  ? "teal"
-                  : "default"
-              }
-            >
-              {project.status}
-            </Badge>
+            <div className="flex items-center gap-2">
+              {project.status === "funded" && (
+                <Badge
+                  variant={
+                    project.disbursementStatus === "disbursed"
+                      ? "teal"
+                      : "default"
+                  }
+                >
+                  {project.disbursementStatus === "disbursed"
+                    ? "Funds disbursed"
+                    : project.disbursementStatus === "partial"
+                    ? "Partially disbursed"
+                    : "Pledged"}
+                </Badge>
+              )}
+              <Badge
+                variant={
+                  project.status === "funded"
+                    ? "success"
+                    : project.status === "completed"
+                    ? "teal"
+                    : "default"
+                }
+              >
+                {project.status}
+              </Badge>
+            </div>
           </div>
 
           <h1 className="font-heading font-bold text-2xl text-storm mb-2">
@@ -97,9 +126,19 @@ export default async function ProjectDetailPage({
             </span>
           </div>
 
-          <p className="text-storm mb-8 leading-relaxed">
+          <p className="text-storm mb-6 leading-relaxed">
             {project.description}
           </p>
+
+          {/* Linked communities / Joint project badge */}
+          {linkedCommunities.length > 0 && (
+            <div className="mb-6">
+              <p className="text-sm text-storm-light mb-2">
+                {linkedCommunities.length > 1 ? "Collaborating Communities" : "Community"}
+              </p>
+              <JointProjectBadge communities={linkedCommunities} showAll />
+            </div>
+          )}
 
           {/* Cascade Stage Visualization */}
           <div className="bg-gray-50 rounded-lg p-6 mb-6">

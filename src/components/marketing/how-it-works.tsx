@@ -58,10 +58,10 @@ export function HowItWorks() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.15 }}
               >
-                <div className="w-16 h-16 rounded-2xl bg-ocean/10 text-ocean flex items-center justify-center mx-auto mb-5">
+                <div className="w-16 h-16 rounded-2xl bg-ocean/10 dark:bg-sky/20 text-ocean dark:text-sky-light flex items-center justify-center mx-auto mb-5">
                   <Icon className="h-7 w-7" />
                 </div>
-                <div className="text-sm font-heading font-semibold text-ocean/60 mb-1">
+                <div className="text-sm font-heading font-semibold text-ocean/60 dark:text-sky-light mb-1">
                   Step {item.step}
                 </div>
                 <h3 className="font-heading font-semibold text-xl text-storm mb-3">

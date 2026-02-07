@@ -24,6 +24,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
 
         if (!user) return null;
+        if (user.archivedAt) return null;
 
         const isValid = await compare(
           credentials.password as string,
@@ -36,23 +37,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
-          role: user.role,
+          accountType: user.accountType,
         };
       },
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id;
-        token.role = user.role;
+        token.accountType = user.accountType;
+      }
+      // Load platform roles on sign-in or session update
+      if ((user || trigger === "update") && token.id) {
+        const roles = await prisma.userRole.findMany({
+          where: { userId: token.id as string, isActive: true },
+          select: { role: true },
+        });
+        token.platformRoles = roles.map((r) => r.role);
       }
       return token;
     },
     session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
-        session.user.role = token.role as string;
+        session.user.accountType = token.accountType as string;
+        session.user.platformRoles = (token.platformRoles as string[]) || [];
       }
       return session;
     },

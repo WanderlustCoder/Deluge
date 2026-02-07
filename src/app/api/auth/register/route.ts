@@ -19,6 +19,14 @@ export async function POST(request: Request) {
 
     const { name, email, password, referralCode } = parsed.data;
 
+    // Block @deluge.fund emails — reserved for admin accounts
+    if (email.toLowerCase().endsWith("@deluge.fund")) {
+      return NextResponse.json(
+        { error: "This email domain is reserved for admin accounts." },
+        { status: 400 }
+      );
+    }
+
     // Check if user exists
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {

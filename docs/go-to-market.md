@@ -57,7 +57,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 
 **Target audience:**
 - Age: 25-45
-- Interests: community giving, sustainability, social entrepreneurship, DonorsChoose, Kiva, GoFundMe, volunteering
+- Interests: community giving, sustainability, social entrepreneurship, DonorsChoose, Kiva, GoFundMe
 - Locations: US (urban/suburban focus)
 
 **Ad creative (A/B test):**
@@ -335,7 +335,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 ### 4. Platform Evolution
 - API for third-party integrations
 - Corporate white-label impact dashboards
-- International expansion (community grants, microloans)
+- International expansion (microloans)
 - Advanced impact measurement and reporting
 
 ### 5. Exit Strategy Options
@@ -501,7 +501,7 @@ If validation is **weak** at any gate:
 | Risk | Mitigation |
 |------|------------|
 | Major competitor launches similar feature | First-mover advantage; community loyalty; focus on transparency; PBC mission lock |
-| Economic downturn reduces giving appetite | Free-tier pathways (ads, volunteering) unaffected; community engagement maintains participation; free-tier model means zero barrier to continued participation |
+| Economic downturn reduces giving appetite | Free-tier pathways (ads, browsing) unaffected; community engagement maintains participation; free-tier model means zero barrier to continued participation |
 
 ### Operational Risks
 
@@ -537,14 +537,13 @@ If validation is **weak** at any gate:
 | Patreon | Creator-focused recurring giving | Individual creators, not community projects; no impact measurement |
 | GiveDirectly | Direct cash transfers to extreme poverty | Narrow focus; no community choice; no project variety |
 | Change.org | Petition-based activism | No funding mechanism; awareness only |
-| VolunteerMatch | Volunteer opportunity matching | No funding integration; no watershed; no impact tracking |
 
 ### Why Deluge Wins
 
 Deluge uniquely combines:
-1. **Zero-barrier entry** (like GoFundMe) -- fund projects with $0 through ads and volunteering
+1. **Zero-barrier entry** (like GoFundMe) -- fund projects with $0 through ads and browsing
 2. **Transparent impact** (like DonorsChoose) -- specific projects, real updates
-3. **Gamified engagement** (like Strava) -- achievements, leaderboards, social features
+3. **Engaging progress tracking** -- badges, community milestones, collective impact
 4. **Recycled capital** (like Kiva) -- microloans that come back and get redeployed
 
 No existing platform combines all four.

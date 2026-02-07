@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,8 +10,6 @@ import { Button } from "@/components/ui/button";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const referralCode = searchParams.get("ref") || "";
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,7 +29,6 @@ export default function RegisterPage() {
         name,
         email,
         password,
-        ...(referralCode && { referralCode }),
       }),
     });
 
@@ -69,12 +66,6 @@ export default function RegisterPage() {
         <p className="text-sm text-storm-light text-center mb-6">
           Every deluge starts with a single drop.
         </p>
-
-        {referralCode && (
-          <div className="bg-teal/10 text-teal rounded-lg p-3 mb-4 text-sm text-center">
-            You were invited by a friend!
-          </div>
-        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input

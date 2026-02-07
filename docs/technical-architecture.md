@@ -110,9 +110,8 @@ Planned for Phase 3-4. Requires becoming an approved data furnisher, implementin
 
 | Integration | Purpose | Options |
 |-------------|---------|---------|
-| Geocoding | Address verification for business listings and community grants | Google Maps Platform, Mapbox |
-| Proximity Search | "Near me" filtering for business cards and volunteer opportunities | PostGIS (PostgreSQL extension) or Elasticsearch geo queries |
-| GPS Verification | Validate GPS-tagged evidence for community grant completion | Custom validation against listing/project coordinates |
+| Geocoding | Address verification for business listings | Google Maps Platform, Mapbox |
+| Proximity Search | "Near me" filtering for business cards | PostGIS (PostgreSQL extension) or Elasticsearch geo queries |
 
 ### Identity & Fraud Prevention
 
@@ -128,6 +127,167 @@ Planned for Phase 3-4. Requires becoming an approved data furnisher, implementin
 |-------------|---------|---------|
 | Help Desk | Ticket management, knowledge base | Zendesk or Intercom |
 | Chatbot | AI-powered first-line support | Intercom or custom |
+
+---
+
+## Payment Service Architecture
+
+The payment service is abstracted to support both development/demo mode (mock) and production (Stripe). This allows the app to function fully without real payment credentials during development.
+
+### Service Interface
+
+Located at `src/lib/payments/`:
+
+```
+src/lib/payments/
+├── index.ts           # Main export, auto-selects mock or Stripe
+├── types.ts           # TypeScript interfaces for all payment operations
+├── mock.ts            # Fake implementation for dev/demo
+└── stripe.ts          # Real Stripe implementation (stub, ready to complete)
+```
+
+### Environment Configuration
+
+| Variable | Purpose | Required |
+|----------|---------|----------|
+| `PAYMENT_MODE` | Force mock mode even with Stripe credentials | No |
+| `STRIPE_SECRET_KEY` | Stripe API secret key | For live payments |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signature verification | For webhooks |
+| `STRIPE_PUBLISHABLE_KEY` | Stripe client-side key | For frontend |
+| `PLAID_CLIENT_ID` | Plaid API client ID | For bank linking |
+| `PLAID_SECRET` | Plaid API secret | For bank linking |
+
+### Core Operations
+
+**Money In (Contributions):**
+```typescript
+// Create payment intent (returns client secret for frontend)
+const intent = await paymentService.createPaymentIntent(userId, 25.00, 'card');
+
+// Confirm contribution (called from webhook or after frontend completion)
+const result = await paymentService.confirmContribution(intent.paymentIntentId);
+```
+
+**Money Out (Disbursements):**
+```typescript
+// Disburse to project recipient
+const disbursement = await paymentService.createDisbursement({
+  type: 'project',
+  referenceId: projectId,
+  recipientId: connectAccountId,
+  amount: 15000,
+  description: 'Montbello Food Market - Full funding',
+});
+```
+
+**Recipient Onboarding (Stripe Connect Standard):**
+```typescript
+// Create connected account for recipient
+const account = await paymentService.createConnectAccount({
+  userId: recipientUserId,
+  email: 'recipient@example.com',
+  type: 'nonprofit',
+});
+
+// Get onboarding link for recipient to complete
+const link = await paymentService.getOnboardingLink(account.accountId);
+// Redirect recipient to link.url
+```
+
+**Loan Repayments:**
+```typescript
+// Process manual repayment
+const repayment = await paymentService.processRepayment({
+  loanId,
+  borrowerId,
+  amount: 61.20, // $60 principal + $1.20 fee
+  method: 'ach_push',
+  isScheduled: false,
+});
+
+// Set up auto-pay
+const autoPay = await paymentService.setupAutoPay({
+  loanId,
+  borrowerId,
+  bankAccountId,
+  dayOfMonth: 15,
+});
+```
+
+**Bank Linking (Plaid):**
+```typescript
+// Create link token for Plaid Link frontend
+const linkToken = await paymentService.createLinkToken(userId);
+
+// Exchange public token after user completes Plaid Link
+const bankAccount = await paymentService.exchangePublicToken(publicToken, userId);
+```
+
+**KYC (Stripe Identity):**
+```typescript
+// Create identity verification session
+const session = await paymentService.createKycSession(userId);
+// Redirect user to session.url
+
+// Check verification status
+const status = await paymentService.getKycStatus(userId);
+```
+
+### Webhook Handling
+
+Stripe webhooks should be routed to `/api/webhooks/stripe`:
+
+```typescript
+// In API route handler
+export async function POST(request: Request) {
+  const payload = await request.text();
+  const signature = request.headers.get('stripe-signature')!;
+
+  if (!paymentService.verifyWebhookSignature(payload, signature)) {
+    return new Response('Invalid signature', { status: 400 });
+  }
+
+  const event = paymentService.parseWebhookEvent(payload);
+
+  switch (event.type) {
+    case 'payment_intent.succeeded':
+      // Update watershed balance
+      break;
+    case 'transfer.created':
+      // Mark disbursement as in_transit
+      break;
+    case 'account.updated':
+      // Update Connect account status
+      break;
+  }
+
+  return new Response('OK');
+}
+```
+
+### Mock Mode Behavior
+
+In mock mode (default for development):
+- All payment intents succeed immediately
+- All disbursements show as "in_transit" with 3-day estimated arrival
+- Connect accounts are auto-approved
+- Bank linking always succeeds with "Mock Bank ****1234"
+- KYC is auto-verified
+- Webhook signatures always pass
+
+This allows full end-to-end testing of payment flows without real money or credentials.
+
+### Implementation Status
+
+| Component | Status |
+|-----------|--------|
+| Type definitions | Complete |
+| Mock implementation | Complete |
+| Stripe contributions | Stub (ready to implement) |
+| Stripe Connect payouts | Stub |
+| Plaid bank linking | Stub |
+| Stripe Identity KYC | Stub |
+| Webhook handlers | Stub |
 
 ---
 
@@ -165,7 +325,7 @@ Planned for Phase 3-4. Requires becoming an approved data furnisher, implementin
   id: uuid
   user_id: uuid
   amount: decimal
-  type: enum (cash, ad_funded, business_card, volunteer_credit, referral_credit, corporate_match)
+  type: enum (cash, ad_funded, business_card, referral_credit, corporate_match)
   timestamp: timestamp
   watershed_credit: decimal         // amount credited to user's watershed (100% for cash, 60% for ads/cards)
   status: enum (pending, complete, refunded)
@@ -432,83 +592,6 @@ Ad revenue enters the user's watershed. The user's 60% share is credited to thei
 
 Business card views are lower value per-view ($0.001-0.003) than video ads ($0.008-0.025) but generate higher volume per session. A user can browse 50 cards in a minute versus watching one 30-second video ad. Views are batched for processing efficiency -- individual view records are written to a buffer and flushed to the database in batches of 50-100.
 
-### Community Grant
-
-```
-{
-  id: uuid
-  project_id: uuid                  // community grants use the standard project infrastructure
-  proposer_id: uuid                 // who proposed the work (not necessarily the volunteer or beneficiary)
-  description: text                 // what work needs to be done
-  requirements: text                // specific, concrete requirements for completion
-  before_evidence: [
-    {
-      url: url
-      type: enum (photo, video)
-      gps: { lat, lng }
-      timestamp: timestamp
-    }
-  ]
-  budget: {
-    materials: decimal              // cost of materials (if any)
-    volunteer_credit_total: decimal  // total watershed credit for all volunteers
-    volunteer_credit_per_slot: decimal  // credit_total / num_slots
-    funding_goal: decimal           // materials + volunteer_credit_total
-  }
-  volunteer_slots: [
-    {
-      slot_number: integer
-      task_description: string      // discrete task for this slot (e.g., "Clear north side")
-      volunteer_id: uuid | null     // null until claimed
-      claimed_at: timestamp | null
-      status: enum (open, claimed, submitted, approved, rejected, abandoned)
-      completion_evidence: [
-        {
-          url: url
-          type: enum (photo, video)
-          gps: { lat, lng }
-          timestamp: timestamp
-          description: string
-        }
-      ]
-    }
-  ]
-  num_slots: integer                // total volunteer slots
-  beneficiary: {
-    type: enum (individual, community)
-    name: string | null             // for individual: beneficiary name (may be privacy-masked)
-    consent: {
-      method: enum (video, signed_note, in_app) | null
-      verified: boolean
-    }
-    privacy_masked: boolean         // "A neighbor in Denver" instead of real name
-  }
-  timeline: {
-    default_days: 60
-    custom_days: integer | null     // poster-set override
-    deadline: timestamp             // calculated: funded_at + volunteer_claimed_at + timeline_days
-    funded_at: timestamp | null
-    expired: boolean
-  }
-  approval: {
-    approvers: [
-      {
-        user_id: uuid               // randomly selected from contributor pool
-        vote: enum (approved, rejected, undetermined) | null
-        voted_at: timestamp | null
-      }
-    ]
-    min_approvers: 3
-    max_approvers: 7
-    result: enum (pending, approved, rejected, manual_review)
-  }
-  min_contributors: 3               // minimum to proceed (seeds approver pool)
-  proposer_is_volunteer: boolean    // anti-collusion flag
-  status: enum (pending_review, active, funding, funded, in_progress,
-                submitted, approved, rejected, expired, cancelled)
-}
-```
-
 ### Referral
 
 ```
@@ -589,7 +672,7 @@ Business card views are lower value per-view ($0.001-0.003) than video ads ($0.0
   id: uuid
   user_id: uuid
   balance: decimal                // available funds to deploy to grants or loans
-  total_inflow: decimal           // lifetime total: cash contributions + referral credits + volunteer credits + corporate match + loan repayments
+  total_inflow: decimal           // lifetime total: cash contributions + referral credits + corporate match + loan repayments
   total_outflow: decimal          // lifetime total: grants funded + loans funded
   total_returned: decimal         // lifetime total: loan repayments received
   total_lost: decimal             // lifetime total: defaulted loan contributions
@@ -597,7 +680,7 @@ Business card views are lower value per-view ($0.001-0.003) than video ads ($0.0
     {
       date: timestamp
       type: enum (cash_contribution, ad_contribution, business_card_contribution,
-                  referral_credit, volunteer_credit, corporate_match,
+                  referral_credit, corporate_match,
                   loan_repayment, grant_funded, loan_funded, loan_default)
       amount: decimal
       reference_id: uuid          // contribution_id, ad_view_id, card_view_id, referral_id, grant_id, match_campaign_id, loan_id, or project_id
@@ -607,7 +690,7 @@ Business card views are lower value per-view ($0.001-0.003) than video ads ($0.0
 }
 ```
 
-The watershed is the user's personal impact fund. All giving capital flows through the watershed: cash contributions (100%), ad revenue (60% of each view), business card browsing revenue, referral credits, community grant volunteer credits, corporate ad matching, and loan repayments all flow in. Grants and loan funding flow out. Every contribution pathway feeds the same watershed. The balance represents deployable impact capital at any given time.
+The watershed is the user's personal impact fund. All giving capital flows through the watershed: cash contributions (100%), ad revenue (60% of each view), business card browsing revenue, referral credits, corporate ad matching, and loan repayments all flow in. Grants and loan funding flow out. Every contribution pathway feeds the same watershed. The balance represents deployable impact capital at any given time.
 
 ### Microloan
 
@@ -817,7 +900,7 @@ Each funder can submit a maximum of 2 questions per loan. Questions are short-fo
 ```
 {
   user_id: uuid
-  base_contributions: decimal             // total platform contributions (cash contributed + ad-funded + volunteer credits)
+  base_contributions: decimal             // total platform contributions (cash contributed + ad-funded)
   total_sponsored_value: decimal          // sum of all loans sponsored
   total_repaid_value: decimal             // sum of sponsored loans that repaid in full
   total_defaulted_value: decimal          // sum of sponsored loans that defaulted
@@ -862,7 +945,7 @@ GET    /api/user/:id/achievements
 ### Personal Dashboard
 
 ```
-GET    /api/contributions/history         // user's contribution history (cash, ad, card, volunteer, referral)
+GET    /api/contributions/history         // user's contribution history (cash, ad, card, referral)
 GET    /api/contributions/summary         // aggregate totals by type, time period
 GET    /api/impact/personal              // user's aggregate impact across all backed projects
 GET    /api/account/milestones           // retrieve user's private milestones (achieved + unseen)
@@ -892,21 +975,6 @@ POST   /api/listings/:id/recommend     // leave a recommendation note
 GET    /api/listings/saved             // user's saved businesses
 GET    /api/listings/mine              // business owner's own listing(s)
 GET    /api/listings/mine/dashboard    // owner dashboard: views, saves, recommendations, impact generated
-```
-
-### Community Grants
-
-```
-POST   /api/grants                     // propose a community grant project
-GET    /api/grants                     // browse funded grants with open volunteer slots -- filters: location, category, credit_amount, timeline
-GET    /api/grants/:id                 // grant detail: requirements, slots, budget breakdown, beneficiary
-POST   /api/grants/:id/volunteer       // claim a volunteer slot
-POST   /api/grants/:id/submit          // submit completion evidence for a slot (volunteer)
-GET    /api/grants/:id/evidence        // view submitted evidence (approvers, contributors)
-POST   /api/grants/:id/vote            // approver votes on completion (approved, rejected, undetermined)
-GET    /api/grants/:id/approval-status // current approval state
-GET    /api/grants/mine/volunteering   // user's active volunteer commitments
-GET    /api/grants/mine/proposed       // user's proposed grants
 ```
 
 ### Referral Program
@@ -1065,7 +1133,7 @@ POST   /api/communities/:id/discuss    // post in community discussion
 ```
 GET    /api/feed                       // personalized: cascades, community activity, project updates
 GET    /api/feed/trending              // trending projects and communities
-GET    /api/leaderboard                // global, friends, community
+GET    /api/progress                    // platform stats, community impact, personal progress
 POST   /api/referral/send
 GET    /api/user/:id/public-profile
 ```
@@ -1103,8 +1171,8 @@ All data is classified into tiers that determine encryption, access controls, re
 |------|-----------|-----------|--------|-----------|-------|
 | **Critical** | Bank account numbers (for payouts), payment processor API keys, microloan disbursement credentials | AES-256 + application-level encryption. Never logged. Never cached. | Service-to-service only. No human access without dual-approval. | As required by law (typically 7 years for financial records). | Every access logged with requester identity, timestamp, and purpose. |
 | **Sensitive** | Contribution history, microloan payment records, watershed balances, referral chains, business directory billing | AES-256 at rest. Encrypted in application logs. | Authenticated users (own data only). Support staff with audit trail. | Account lifetime + 3 years post-deletion. | Access logged. Quarterly review of access patterns. |
-| **Personal** | Name, email, phone, physical address, GPS coordinates (community grants), device fingerprints | AES-256 at rest. | Authenticated users (own data only). Support + moderation staff. | Account lifetime + 1 year post-deletion. GPS data: 90 days after grant approval. | Standard logging. |
-| **Public** | Project descriptions, community names, business card listings, achievement badges, leaderboard positions | Standard database encryption. | Anyone (read). Authenticated users (write, own content). | Indefinite. User-deleted content removed within 30 days. | Standard logging. |
+| **Personal** | Name, email, phone, physical address, device fingerprints | AES-256 at rest. | Authenticated users (own data only). Support + moderation staff. | Account lifetime + 1 year post-deletion. | Standard logging. |
+| **Public** | Project descriptions, community names, business card listings, achievement badges, community progress stats | Standard database encryption. | Anyone (read). Authenticated users (write, own content). | Indefinite. User-deleted content removed within 30 days. | Standard logging. |
 
 ### KYC/AML Integration Flow
 
@@ -1136,7 +1204,7 @@ User signs up (email + password)
     │           Deluge stores ONLY: verification status, verification date.
     │           Deluge does NOT store government ID documents or SSN.
     │
-    └── Non-cash pathways (ads, volunteering, referrals, browsing) → NO KYC required.
+    └── Non-cash pathways (ads, referrals, browsing) → NO KYC required.
         Users can participate fully in the free tier without identity verification.
 ```
 
@@ -1156,20 +1224,6 @@ User signs up (email + password)
 | SAR filing | Any flagged activity that meets FinCEN Suspicious Activity Report criteria | Filed through compliance team (Phase 3+). May require Money Services Business registration depending on legal classification. |
 
 AML monitoring runs as a background job (daily batch). Flagged transactions are reviewed by the operations team (Phase 3-4) or the compliance lead (Phase 5).
-
-### GPS Verification Architecture (Community Grants)
-
-Community grants require GPS-tagged, timestamped photos as evidence. This creates a technical verification challenge.
-
-| Component | Implementation |
-|-----------|---------------|
-| GPS capture | Device GPS at time of photo capture. Embedded in EXIF metadata. |
-| Timestamp verification | Server-side timestamp comparison. Photo EXIF timestamp must be within 1 hour of upload time. |
-| Location matching | Before-photo GPS and after-photo GPS must be within 100 meters of each other. |
-| Photo integrity | Hash computed at upload. Any modification after upload invalidates the evidence. |
-| Storage | Evidence photos stored in encrypted blob storage (S3 or equivalent). Access restricted to: the volunteer, the approvers, and platform moderators. |
-| Retention | Evidence retained for 90 days after grant approval. After 90 days, photos are deleted; only the verification result (approved/denied) and GPS summary (neighborhood-level, not exact coordinates) are retained. |
-| Spoofing mitigation | Device GPS is the primary source. Known GPS spoofing apps are detected via device fingerprinting. If spoofing is suspected, the grant is flagged for manual review. |
 
 ### Financial Compliance
 
@@ -1197,10 +1251,9 @@ Community grants require GPS-tagged, timestamped photos as evidence. This create
 |-------------|----------|
 | GDPR compliance | For any EU users (unlikely at launch, but architecture supports it) |
 | CCPA compliance | For California users. Required from Day 1. |
-| Privacy policy / ToS | Drafted by fintech/compliance lawyer. Covers: contribution data, GPS data (community grants), device fingerprinting (fraud detection), ad tracking. |
+| Privacy policy / ToS | Drafted by fintech/compliance lawyer. Covers: contribution data, device fingerprinting (fraud detection), ad tracking. |
 | User data export | GDPR/CCPA-compliant export: all personal data, contribution history, impact history, community membership. JSON format. Available within 30 days of request. |
 | User data deletion | Right to delete: personal data removed within 30 days. Financial records retained as required by law (7 years). Anonymized data (aggregated impact stats) retained indefinitely. |
-| GPS data | Collected only during community grant evidence submission. Retained 90 days post-approval. Not sold or shared. Not used for advertising. |
 | Device fingerprinting | Used solely for fraud detection (referral abuse, ad fraud, account duplication). Not used for advertising. Disclosed in privacy policy. |
 
 ---
@@ -1230,8 +1283,6 @@ Community grants require GPS-tagged, timestamped photos as evidence. This create
 - Business card view aggregation (batch processing of view records, flush every 60 seconds)
 - Referral milestone checking (periodic scan for milestone completions, triggers credit vesting)
 - Referral fraud detection (pattern analysis for self-referral, account farming, collusion rings)
-- Community grant timeline enforcement (daily check for expired grants, trigger fund returns)
-- Community grant approver selection (random selection from contributor pool when evidence submitted)
 - Corporate match fund tracking (decrement fund balance per matched view, trigger exhaustion notifications)
 - Ad streak calculation (daily streak evaluation, badge triggers at 7-day and 30-day milestones)
 
@@ -1240,7 +1291,7 @@ Community grants require GPS-tagged, timestamped photos as evidence. This create
 ## FAQ (Technical)
 
 **Q: Is my money safe?**
-All contributions -- cash, ad revenue, referral credits, volunteer credits -- flow into your personal watershed. Watershed funds are held in Deluge's platform accounts (Stripe) and are available for deployment to grants and microloans. Once deployed to a project, funds are disbursed to the verified nonprofit or borrower. All transactions are encrypted and auditable.
+All contributions -- cash, ad revenue, referral credits -- flow into your personal watershed. Watershed funds are held in Deluge's platform accounts (Stripe) and are available for deployment to grants and microloans. Once deployed to a project, funds are disbursed to the verified nonprofit or borrower. All transactions are encrypted and auditable.
 
 **Q: Can I get my money back?**
 Watershed funds that have not yet been deployed can be withdrawn (cash contributions only -- ad-earned and credit-based watershed funds are non-withdrawable). Once you deploy funds to a grant project or fund a microloan, those funds are committed. Microloan funds are returned to your watershed as the borrower repays ($0.25 per share).
@@ -1255,7 +1306,7 @@ Projects have funding deadlines. If a project doesn't reach its goal, your contr
 Ad revenue (platform keeps 40% of ad revenue from users watching ads to fund community projects), business directory fees (enhanced listings for local businesses), custodial float income (interest earned on aggregate watershed balances held in FDIC-insured accounts -- user principal is always protected and available), corporate ESG partnership fees, microloan servicing fees, and cascade sponsorship. No subscription fees and no per-transaction fees on contributions. All economics are transparent, including exactly how much of each ad view goes to projects and how much custodial interest is earned.
 
 **Q: Is this a charity?**
-Deluge is a platform that facilitates community giving and impact lending. Cash contributions fund verified nonprofit projects through your watershed. You can also watch ads, browse local business cards, or volunteer to generate project funding without spending money. Microloans are repaid to your watershed, creating a cycle of redeployable impact capital.
+Deluge is a platform that facilitates community giving and impact lending. Cash contributions fund verified nonprofit projects through your watershed. You can also watch ads or browse local business cards to generate project funding without spending money. Microloans are repaid to your watershed, creating a cycle of redeployable impact capital.
 
 **Q: What happens if Deluge shuts down?**
 Watershed funds not yet deployed would be returned per the terms of service. Contributions already disbursed to nonprofits continue funding those projects. Active microloans would be serviced through wind-down procedures with borrowers.

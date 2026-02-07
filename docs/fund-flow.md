@@ -1,0 +1,493 @@
+# Fund Flow Architecture
+
+How money moves through Deluge: from source to watershed to project/loan disbursement and back.
+
+---
+
+## Core Principle: The Single Pool Model
+
+All user funds are held in a single Deluge-controlled pool. User watershed balances are **ledger entries** representing their share of control over this pool, not segregated accounts. The balance shows how much the user can direct to projects or loans, but the actual dollars sit in Deluge's custody until deployment.
+
+```
+                     DELUGE MASTER POOL
+                    (FDIC-Insured Accounts)
+                            │
+    ┌───────────────────────┼───────────────────────┐
+    │                       │                       │
+┌───┴───┐             ┌─────┴─────┐           ┌─────┴─────┐
+│ User A │             │  User B  │           │  User C   │
+│ $12.50 │             │  $45.00  │           │   $3.20   │
+└────────┘             └──────────┘           └───────────┘
+ (Ledger)               (Ledger)               (Ledger)
+```
+
+**Key implication:** When User A allocates $5 to a project, Deluge marks $5 as earmarked from A's balance. When the project is funded, Deluge disburses from the master pool. The dollars are fungible; the accounting is per-user.
+
+---
+
+## Money In: Sources of Funds
+
+### 1. Direct Cash Contributions
+
+User pays real money into Deluge. Full amount credited to watershed.
+
+**Flow:**
+```
+User's Bank Account
+    │
+    ├─► Payment Processor (Stripe)
+    │       ├─► Credit/Debit Card
+    │       ├─► ACH Bank Transfer (via Plaid)
+    │       └─► Apple Pay / Google Pay
+    │
+    ▼
+Deluge Master Pool
+    │
+    ▼
+User's Watershed Balance: +$25.00 (100%)
+```
+
+**Implementation:**
+- **Stripe** handles PCI compliance, card processing, ACH
+- **Plaid** for bank account verification and direct transfers
+- Minimum contribution: $0.25
+- KYC required for >$250/month (Stripe Identity)
+
+### 2. Ad Revenue
+
+User watches ads. Deluge receives payment from ad network. 60% credited to user's watershed.
+
+**Flow:**
+```
+User Watches Ad
+    │
+    ▼
+Ad Network (Google AdMob, ironSource)
+    │
+    ├─► Pays Deluge (eCPM: $0.008-$0.025 per view)
+    │
+    ▼
+Deluge Master Pool
+    │
+    ├─► 40% retained by Deluge (platform revenue)
+    └─► 60% credited to User's Watershed
+            Example: $0.015 view = $0.009 to watershed
+```
+
+**Implementation:**
+- Ad networks pay Deluge monthly (NET 30-60)
+- User receives immediate ledger credit after verified view
+- Anti-fraud: device fingerprinting, CAPTCHA, view validation
+- Daily cap: 30 ads per user
+
+### 3. Business Card Browsing Revenue
+
+User browses local business cards. Views generate micro-revenue.
+
+**Flow:**
+```
+User Views Business Card
+    │
+    ▼
+Revenue Generated (~$0.001-$0.003 per view)
+    │
+    ▼
+Deluge Master Pool
+    │
+    ├─► 40% retained by Deluge
+    └─► 60% credited to User's Watershed
+            Example: $0.002 view = $0.0012 to watershed
+```
+
+**Implementation:**
+- Views batched for processing (flush every 60 seconds)
+- Lower per-view value, higher volume than video ads
+
+### 4. Referral Credits
+
+User refers friends. Credits vest at milestones.
+
+**Flow:**
+```
+Referral Milestones:
+    │
+    ├─► Signup: $0.50 credit
+    ├─► First Action: $1.00 credit (ads) or $1.50 (cash contribution)
+    └─► 30-Day Active: $1.00 credit
+    │
+    ▼
+User's Watershed Balance: +$2.50-$3.00 (fully vested)
+```
+
+**Implementation:**
+- Credits are ledger entries (no external money movement)
+- Fraud checks: unique phone, device fingerprinting, separate bank accounts
+- Monthly cap: 10 referrals
+
+### 5. Loan Repayments
+
+Borrower repays loan. Funds return to original funders' watersheds.
+
+**Flow:**
+```
+Borrower Makes Payment ($60 + $1.20 fee)
+    │
+    ├─► $1.20 fee → Deluge (platform revenue)
+    │
+    └─► $60 principal → Distributed to funders' watersheds
+            (Proportional to share ownership, FIFO interleaved)
+```
+
+**Implementation:**
+- Shares repaid round-robin across all funders
+- Smaller funders finish first, larger stay longer
+- Default: funders lose remaining unpaid shares
+
+---
+
+## Money Held: Custody and Interest
+
+### Custodial Structure
+
+All watershed balances are pooled in Deluge's custody:
+
+| Component | Purpose | FDIC Coverage |
+|-----------|---------|---------------|
+| **Primary Bank Account** | Operating + short-term custody | Up to $250K per bank |
+| **Sweep Accounts** | Multi-bank FDIC coverage (IntraFi/CDARS) | $250K per bank, scaled across network |
+| **Money Market Funds** | Interest-bearing, liquid | Not FDIC, but low-risk |
+| **Short-Term Treasuries** | Interest-bearing, US government backed | Not FDIC, but sovereign guarantee |
+
+### Float Income
+
+Deluge earns interest on custodial balances:
+
+| Pool Size | Interest (4.5%) | Interest (2%) |
+|-----------|----------------|---------------|
+| $160K (Year 1) | $7K/year | $3.2K/year |
+| $2.6M (Year 3) | $118K/year | $52K/year |
+| $11.25M (Year 5) | $506K/year | $225K/year |
+
+**User principal is always protected.** Float income belongs to Deluge as the custodian (standard practice: PayPal, Venmo, Cash App all do this).
+
+---
+
+## Money Movement: Earmarking and Deployment
+
+### Project Funding
+
+When a user allocates to a project:
+
+```
+User Allocates $5 to "Montbello Food Market"
+    │
+    ▼
+User's Watershed: $12.50 → $7.50
+    │
+    ▼
+Project Earmarked Funds: +$5.00
+    │
+    (No real money moves yet - just ledger entries)
+```
+
+When the project reaches its goal:
+
+```
+Project "Montbello Food Market" Reaches $15,000 Goal
+    │
+    ▼
+DISBURSEMENT TRIGGERED
+    │
+    ▼
+Deluge Master Pool
+    │
+    └─► $15,000 transferred to Project Recipient
+            │
+            ├─► ACH to verified bank account
+            ├─► Wire transfer (for large amounts)
+            └─► Check (fallback)
+```
+
+### Loan Funding
+
+When a user funds a loan:
+
+```
+User Funds $25 (100 shares) to Bakery Loan
+    │
+    ▼
+User's Watershed: $45.00 → $20.00
+    │
+    ▼
+Loan Funded Shares: +100 shares ($25)
+    │
+    (No real money moves yet)
+```
+
+When the loan is fully funded and borrower accepts:
+
+```
+Loan Fully Funded → Borrower Accepts
+    │
+    ▼
+DISBURSEMENT TRIGGERED
+    │
+    ▼
+Deluge Master Pool
+    │
+    └─► $500 transferred to Borrower's Bank Account
+            │
+            └─► ACH to verified bank account (Stripe/Plaid)
+```
+
+---
+
+## Money Out: Disbursement
+
+### Project Disbursement
+
+| Trigger | Project reaches 100% funding goal |
+|---------|-----------------------------------|
+| **Verification Required** | Recipient bank account, tax ID (EIN for nonprofits), identity verification |
+| **Payment Method** | ACH (primary), Wire (large amounts), Check (fallback) |
+| **Timeline** | 3-5 business days after goal reached |
+| **Tax Reporting** | 1099 issued for payments >$600/year |
+
+**Disbursement Schedule Options:**
+- **Lump sum:** Full amount upon goal (default for small projects)
+- **Milestone-based:** Partial disbursements as project hits milestones
+- **Custom:** Per project agreement (for large flagships)
+
+### Loan Disbursement
+
+| Trigger | Loan fully funded AND borrower accepts |
+|---------|----------------------------------------|
+| **Verification Required** | Borrower bank account (Plaid), identity verification |
+| **Payment Method** | ACH direct deposit |
+| **Timeline** | 1-3 business days after acceptance |
+| **Tax Reporting** | Not taxable income (it's a loan) |
+
+### Aquifer Disbursement
+
+| Fund | Disbursement Rules |
+|------|-------------------|
+| **Reserve** | Deluge-directed. Tied to active Strategic Plan. Disbursed when flagship project milestones are met. |
+| **Pool** | Community-voted. Requires 66% approval via Community Ripple Vote. Disbursed upon vote completion + project acceptance. |
+
+---
+
+## Money Back: Loan Repayments
+
+### Repayment Flow
+
+```
+Borrower Makes $61.20 Payment (scheduled $60 + 2% fee)
+    │
+    ▼
+Payment Processor (Stripe)
+    │
+    ├─► $1.20 servicing fee → Deluge Revenue
+    │
+    └─► $60.00 principal → Deluge Master Pool
+            │
+            ▼
+        Share Repayment Distribution
+            │
+            ├─► Round-robin across all funders
+            ├─► Each funder receives proportional share
+            └─► User's Watershed Balance: +$X.XX
+```
+
+### Share-Based Distribution (FIFO Interleaved)
+
+All funders receive repayment proportionally:
+
+| Funder | Shares Owned | % of Loan | Per $60 Payment |
+|--------|-------------|-----------|-----------------|
+| Angela | 200 shares | 10% | $6.00 |
+| DeAndre | 80 shares | 4% | $2.40 |
+| Others | 1,720 shares | 86% | $51.60 |
+
+Smaller funders finish first (fewer shares to repay), larger funders stay through end of loan.
+
+### Default Handling
+
+If borrower defaults (90+ days overdue, no communication):
+
+```
+Loan Defaults
+    │
+    ▼
+Remaining Unpaid Shares → LOST
+    │
+    ├─► Funders' balances NOT restored
+    ├─► Funders notified: "Your remaining shares are unlikely to be repaid"
+    └─► Default reported to credit bureaus
+
+Recovery Path:
+    │
+    ├─► 3 consecutive on-time payments → Loan reactivates
+    └─► Full payoff → Immediate recovery
+```
+
+---
+
+## Tax Implications
+
+### For Users (Contributors)
+
+| Contribution Type | Tax Deductible? | Notes |
+|------------------|-----------------|-------|
+| Cash to watershed | **No** | Deluge is a PBC (for-profit), not 501(c)(3) |
+| Ad-earned credits | **No** | Not a donation; it's platform credit |
+| Referral credits | **No** | Not a donation |
+| Loan funding | **No** | It's lending, not giving |
+
+**Why not tax-deductible:** Deluge Fund is a Public Benefit Corporation (PBC), not a 501(c)(3) nonprofit. Contributions flow through Deluge's custody, breaking the direct charitable giving chain. This is a conscious design choice that enables the hybrid for-profit/mission model.
+
+**Future consideration:** Direct-to-nonprofit option could enable tax deductions but adds complexity.
+
+### For Recipients
+
+| Payment Type | Tax Treatment | Reporting |
+|-------------|---------------|-----------|
+| Project disbursement to nonprofit | Not taxable (to 501c3) | 1099 for records |
+| Project disbursement to individual | Taxable income | 1099 if >$600/year |
+| Loan disbursement | Not taxable (it's debt) | None |
+
+---
+
+## Payment Processor Integration
+
+### Stripe
+
+Primary payment processor for:
+- Card payments (contributions)
+- ACH transfers (contributions, disbursements)
+- Identity verification (Stripe Identity for KYC)
+- Connect accounts (for project recipients)
+
+### Plaid
+
+Bank account integration for:
+- Bank account verification (linking)
+- Balance checks (before disbursement)
+- ACH initiation (some flows)
+
+### Implementation Notes
+
+```typescript
+// Contribution Flow
+1. User initiates $25 contribution
+2. Stripe PaymentIntent created
+3. Card charged / ACH initiated
+4. Webhook confirms payment
+5. Watershed balance updated (+$25)
+6. Master pool balance increased
+
+// Disbursement Flow
+1. Project reaches goal
+2. Recipient's Stripe Connect account verified
+3. Transfer initiated from Deluge's Stripe balance
+4. ACH to recipient's bank (2-3 business days)
+5. Project marked "disbursed"
+```
+
+---
+
+## Security and Compliance
+
+### Financial Controls
+
+| Control | Implementation |
+|---------|---------------|
+| **Segregation** | User funds in dedicated sweep accounts, separate from operating |
+| **Reconciliation** | Daily: ledger balances vs. bank balances |
+| **Audit trail** | Every transaction logged with timestamp, user, amount, type |
+| **Disbursement approval** | >$10K requires dual approval |
+
+### Regulatory Considerations
+
+| Requirement | Status |
+|-------------|--------|
+| **Money Transmission License (MTL)** | TBD - depends on legal classification. Architecture supports both outcomes. |
+| **KYC/AML** | Implemented via Stripe Identity + custom monitoring |
+| **PCI Compliance** | Stripe handles; Deluge never touches card numbers |
+| **State-by-state** | If MTL required, phased rollout starting with favorable states |
+
+---
+
+## System States and Edge Cases
+
+### What if a project fails to fund?
+
+```
+Project deadline passes without reaching goal
+    │
+    ▼
+All earmarked funds released
+    │
+    ▼
+Contributors' watersheds restored
+    │
+    (Or: redirected to next most-popular project in category, user's choice)
+```
+
+### What if Deluge shuts down?
+
+```
+Wind-down procedure:
+    │
+    ├─► Undeployed watershed funds returned to users
+    │       (Cash contributions refunded; ad/credit earnings lost)
+    │
+    ├─► Active projects continue through completion
+    │       (Disbursed funds already with recipients)
+    │
+    └─► Active loans serviced through wind-down
+            (Third-party loan servicer takes over)
+```
+
+### What if a recipient can't be verified?
+
+```
+Project funded but recipient fails KYC
+    │
+    ▼
+Disbursement blocked
+    │
+    ├─► 30-day window to resolve
+    │
+    ├─► If resolved: disbursement proceeds
+    │
+    └─► If not resolved: funds returned to contributors' watersheds
+```
+
+---
+
+## Implementation Roadmap
+
+### Phase 1: MVP (Current)
+- [ ] Virtual watershed balances (ledger only)
+- [ ] No real payment processing yet
+- [ ] Demo mode with simulated funds
+
+### Phase 2: Payment Integration
+- [ ] Stripe integration for contributions
+- [ ] Plaid for bank verification
+- [ ] Real watershed balances backed by real money
+
+### Phase 3: Disbursement
+- [ ] Stripe Connect for project recipients
+- [ ] ACH disbursements
+- [ ] KYC flow for recipients
+
+### Phase 4: Loans
+- [ ] Loan disbursement infrastructure
+- [ ] Repayment processing
+- [ ] Default handling
+
+### Phase 5: Compliance
+- [ ] MTL determination and licensing (if required)
+- [ ] Credit bureau reporting
+- [ ] Full AML monitoring

@@ -62,6 +62,15 @@ body {
 .dark .divide-gray-100 > * + * { border-color: var(--color-dark-border) !important; }
 .dark .divide-gray-200 > * + * { border-color: var(--color-dark-border) !important; }
 
+/* Hero button — always white bg/ocean text regardless of dark mode */
+.hero-btn-primary {
+  background-color: white;
+  color: var(--color-ocean);
+}
+.hero-btn-primary:hover {
+  background-color: #f1f5f9;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }

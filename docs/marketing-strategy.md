@@ -8,7 +8,7 @@
 
 ### Elevator Pitch
 
-"Deluge is a platform for people who want to give back to their communities. Anyone can propose a project. The community rallies behind the ones they believe in. You can contribute with cash, by watching ads, browsing local businesses, or volunteering for community grants -- even with $0 to give. It's community-driven giving that actually works."
+"Deluge is a platform for people who want to give back to their communities. Anyone can propose a project. The community rallies behind the ones they believe in. You can contribute with cash, by watching ads, or browsing local businesses -- even with $0 to give. It's community-driven giving that actually works."
 
 ---
 
@@ -18,10 +18,10 @@
 
 | Key Message | Supporting Point |
 |-------------|-----------------|
-| Start with $5 cash, or $0 through ads, volunteering, and browsing | Traditional ESG funds require $10K; charity platforms assume you have money to give |
+| Start with $5 cash, or $0 through ads and browsing | Traditional ESG funds require $10K; charity platforms assume you have money to give |
 | No expertise required | Guided experience, simple choices |
 | Simple, beautiful app | Intuitive design, zero learning curve |
-| Multiple pathways to participate | Cash, ads, local business browsing, community grant volunteering, referrals |
+| Multiple pathways to participate | Cash, ads, local business browsing, referrals |
 
 ### Pillar 2: Transparency -- "See exactly where every drop goes"
 
@@ -37,7 +37,7 @@
 | Key Message | Supporting Point |
 |-------------|-----------------|
 | Give what you can, when you can | $0.25 minimum cash contributions. No pressure to give more than you're comfortable with |
-| Multiple free pathways | Can't give cash? Watch ads, browse businesses, volunteer. Zero-dollar impact is real impact |
+| Multiple free pathways | Can't give cash? Watch ads, browse businesses. Zero-dollar impact is real impact |
 | Watershed builds over time | Loan repayments recycle back -- your giving grows even when you stop adding |
 | Proof, not promises | Stories and data from real outcomes |
 
@@ -58,16 +58,15 @@
 | Watch ads to fund real community projects | No cash needed to make an impact |
 | Browse local businesses to fund your community | Discover what's in your neighborhood while funding projects with every view |
 | Full transparency on ad economics | "60% went to your watershed. Deluge kept 40%." -- the opposite of exploitative |
-| Volunteer for community grants | Complete real-world projects, earn watershed credit for your effort |
-| Multiple pathways, one mission | Ads, business browsing, volunteering, referrals -- participate however works for you |
+| Multiple pathways, one mission | Ads, business browsing, referrals -- participate however works for you |
 
 ### Pillar 6: Engagement -- "Giving that doesn't bore you to death"
 
 | Key Message | Supporting Point |
 |-------------|-----------------|
 | Game mechanics make it fun | Not "set and forget" |
-| Achievements, challenges, leaderboards | Daily reasons to check in |
-| Active, not passive | Compete with friends, unlock badges |
+| Badges, streaks, community progress | Daily reasons to check in |
+| Active, not passive | Track your impact, earn badges |
 | Build habits | Recurring engagement loops |
 
 ### Pillar 7: Trust & Legitimacy -- "Real transparency. Real accountability."
@@ -137,26 +136,6 @@
 
 ---
 
-### Ongoing Campaign: Community Grant Stories
-
-**Concept:** Showcase completed community grant projects -- the before/after of real volunteer work in real neighborhoods. These are uniquely shareable because they feature actual people doing physical work, not just dollar amounts.
-
-**Creative:**
-- Before/after photos (overgrown lot → community garden, peeling walls → fresh mural)
-- Short volunteer profile videos ("Meet Sarah. She spent Saturday building a lending library.")
-- Time-lapse of project completion
-- GPS-tagged location reveal ("This happened 3 blocks from you")
-
-**Example:** "Last Saturday, 4 volunteers turned a vacant lot on Maple Street into a community garden. 12 families now have fresh produce. Zero dollars spent -- just time, effort, and a community that showed up."
-
-**Channels:** Instagram Reels, TikTok (time-lapse format performs well), local community Facebook groups, Nextdoor, local news tip lines.
-
-**Frequency:** 2-3x/week as grant volume grows.
-
-**Success metric:** 15% of users who see a community grant story sign up for their first volunteer slot within 14 days.
-
----
-
 ### Ongoing Campaign: Local Business Spotlights
 
 **Concept:** Feature local businesses in the Deluge directory -- who they are, what they do, and how browsing their card funds community projects. Dual purpose: recruit businesses to list and drive user browsing engagement.
@@ -170,8 +149,6 @@
 1. Seed 20-30 business listings per launch market before going live
 2. Local PR push: "Deluge launches in [City] -- browse local businesses, fund local projects"
 3. Business outreach via local chambers of commerce and small business associations
-4. Cross-promote with community grant projects in the same neighborhood
-
 **Channels:** Instagram (carousel of local businesses), Facebook (targeted local), Google My Business cross-promotion, local newsletter sponsorships.
 
 **Frequency:** 1 business spotlight per market per week.
@@ -187,12 +164,9 @@
 **In-app referral prompts:**
 - After first cascade participation: "You just helped fund a project. Know someone who'd want to be part of the next one?"
 - After achievement unlock: "You earned [badge]. Challenge a friend to catch up."
-- After community grant completion: "You showed up for your community. Who else would?"
-
 **Share templates (pre-written, editable):**
 - "I just helped fund a community garden through Deluge -- no money required. [link]"
 - "I funded a community project through Deluge by watching a few ads. It took 5 minutes. [link]"
-- "I volunteered through Deluge this weekend and earned credit toward a real project. [link]"
 
 **Milestone celebrations:**
 - 1 referral: "Your first raindrop joined the stream"
@@ -235,12 +209,11 @@
 - "7-Day Streak" -- watch at least one ad per day for 7 days
 - "Community Explorer" -- browse 50 local business cards in a month
 - "Cascade Contributor" -- contribute to 3 different projects in one week
-- "Volunteer Badge" -- complete your first community grant
 - "Raindrop Rally" -- refer 3 friends in one month
 
 **Creative:**
 - Challenge announcement post with countdown
-- Mid-challenge leaderboard update
+- Mid-challenge community progress update
 - Completion celebration with badge reveal
 - Community stats: "4,200 people completed the 7-Day Streak this month"
 
@@ -281,18 +254,13 @@ Monthly focus on one impact category:
 
 **Launch:**
 - "New app helps generous people give without going broke"
-- "The platform that turns ads, business browsing, and volunteering into funded community projects"
+- "The platform that turns ads and business browsing into funded community projects"
 - "How one dad built a giving platform with built-in self-care"
 
 **Milestones:**
 - "$1M deployed to education projects through Deluge"
 - "100,000 users join the deluge"
 - "First school funded entirely through the app"
-
-**Community grants:**
-- "No money? No problem. This app lets you volunteer your way to community impact"
-- "4 strangers spent Saturday fixing a playground. Here's the app that brought them together"
-- "The community grant model: how Deluge turns volunteer hours into funded projects"
 
 **Local business:**
 - "This app pays for community projects every time you browse a local business"
@@ -314,7 +282,6 @@ Monthly focus on one impact category:
 - Interview with "cascade trigger" user
 - Corporate adoption stories
 - Founder story: network security professional builds impact platform
-- Community grant volunteer profiles ("I had $0 to give. So I gave my Saturday instead.")
 - Local business owner who funded a neighborhood project through card views
 - Microloan borrower success story ("$100 loan → catering business → full repayment → funding the next person")
 - Sponsor profile ("Why I vouch for strangers on Deluge")
@@ -326,11 +293,11 @@ Monthly focus on one impact category:
 |----------|---------|
 | Tech | TechCrunch, VentureBeat |
 | Business/Impact | Fast Company, Forbes |
-| Local news | Regional outlets (project-specific, community grant stories) |
+| Local news | Regional outlets (project-specific) |
 | ESG/Sustainability | GreenBiz, Responsible Investor |
 | Financial media | Financial Times, Bloomberg (community lending model, microloan credit-building) |
 | Small business / Local economy | Local chambers of commerce newsletters, small business publications |
-| Volunteering / Civic | VolunteerMatch blog, Points of Light, local civic organizations |
+| Civic | Points of Light, local civic organizations |
 | Personal finance / giving | NerdWallet, Charity Navigator blog (community giving, impact transparency) |
 | Social impact | Stanford Social Innovation Review, SSIR (community-driven giving models) |
 
@@ -361,12 +328,6 @@ Monthly focus on one impact category:
 - "The psychology of collective action"
 - "Why small contributions matter"
 
-**Community grant stories:**
-- "She had $0 to give. She built a lending library instead."
-- "What happens when 4 strangers show up to fix a playground"
-- "The community grant that changed Maple Street"
-- "How to propose a community grant (and why you should)"
-
 **Local business spotlights:**
 - "Meet the bakery funding your neighborhood park"
 - "Why local businesses are joining the Deluge directory"
@@ -374,7 +335,7 @@ Monthly focus on one impact category:
 
 **Free-tier success stories:**
 - "I funded my first project without spending a dollar"
-- "Ads, volunteering, and referrals: one user's path to $50 in community impact"
+- "Ads and referrals: one user's path to $50 in community impact"
 - "You don't need money to make a difference -- here's proof"
 
 **Microloan stories (Year 2+):**
@@ -400,7 +361,6 @@ Monthly focus on one impact category:
 - "How we vet projects"
 - "Meet our nonprofit partners"
 - "A day in the life at Deluge"
-- "How we verify community grants (GPS, photos, and neighbor approval)"
 - "What happens to ad revenue -- a transparent breakdown"
 - "How we protect your contributions: security and trust at Deluge"
 - "Building the sponsorship system: trust, reputation, and community vouching"
@@ -413,19 +373,17 @@ Monthly focus on one impact category:
 
 **Instagram:**
 - Beautiful water imagery
-- Before/after project photos (cascades and community grants)
+- Before/after project photos (cascades)
 - User testimonials (carousel posts)
 - Stories: daily updates, polls, quick stats
-- Reels: quick impact stories, community grant time-lapses
+- Reels: quick impact stories
 - Carousel: "Meet [Local Business] -- browse their card, fund your community"
-- Volunteer recognition posts ("This week's grant heroes")
 
 **TikTok:**
 - "POV: You just triggered a cascade"
 - "Watch this school get funded in real-time"
 - Behind-the-scenes project visits
 - Trending sounds with impact twist
-- Community grant time-lapses (before → during → after)
 - "I funded a project by watching ads for a week" challenge
 - Local business reveal: "Bet you didn't know this was in your neighborhood"
 
@@ -434,7 +392,6 @@ Monthly focus on one impact category:
 - Quick stats and impact metrics
 - Engage in ESG conversations
 - Thread: "How Deluge works" explainers
-- Community grant completion announcements with before/after photos
 - Referral milestone celebrations (user-shared)
 - Local business launch market announcements
 
@@ -451,13 +408,10 @@ Monthly focus on one impact category:
 - AMA in r/IAmA
 - Participate in r/personalfinance, r/SocialEntrepreneurship, r/nonprofit
 - Authentic engagement, not promotional
-- Community grant stories in local city subreddits (with mod permission)
 
 **Nextdoor / Local Facebook Groups:**
-- Community grant completion stories (hyperlocal)
 - Local business directory announcements per market
 - "Your neighbors just funded [project]" posts
-- Volunteer callouts for upcoming community grants
 
 ### Posting Frequency
 
@@ -489,7 +443,6 @@ Monthly focus on one impact category:
 - New projects (personalized recommendations)
 - Cascade celebrations
 - Community milestones
-- Community grants completed this week (with photos)
 - New local businesses in your area
 - Referral impact summary (if active referrer)
 - Active corporate match campaigns
@@ -504,9 +457,6 @@ Monthly focus on one impact category:
 | Friend joined via referral | "Someone you invited just joined!" |
 | Impact milestone | "Projects you backed just served 100 students!" |
 | Consistency milestone | "6 months of steady flow -- you haven't missed a month" |
-| Community grant completed | "You showed up. Here's what you built." (before/after photos, impact summary) |
-| Community grant approved | "Your neighbors verified your work. Watershed credit earned." |
-| Community grant available nearby | "A community grant just opened 2 miles from you" |
 | Referral milestone (1/5/25) | "Your [1st/5th/25th] raindrop joined. Here's your impact so far." |
 | Business listing milestone | "[Business] you browsed just helped fund $10 toward [project]" |
 | Corporate match campaign live | "Your ad views are worth 5x right now. [Company] is matching." |
@@ -528,7 +478,6 @@ Monthly focus on one impact category:
 - Seasonal giving (year-end push)
 - Re-engagement (inactive users, "We miss your drops")
 - Corporate matching events and business directory launch campaigns
-- Community grant recruitment ("Your neighborhood has a grant open -- will you show up?")
 - Local business launch ("Deluge just launched in [City]. Browse local businesses, fund local projects.")
 - Corporate match events ("Double your impact this week -- [Company] is matching all ad views")
 
@@ -579,7 +528,7 @@ Temporary installations in high-traffic public spaces:
 
 > Deluge: One by One, All at Once
 >
-> Deluge is a community-driven giving platform. Contribute with as little as $1 in cash -- or with $0 by watching ads, browsing local businesses, or volunteering for community grants. Discover verified projects in your area. See what your neighbors are backing. Track the real-world outcomes of projects you helped fund.
+> Deluge is a community-driven giving platform. Contribute with as little as $1 in cash -- or with $0 by watching ads or browsing local businesses. Discover verified projects in your area. See what your neighbors are backing. Track the real-world outcomes of projects you helped fund.
 >
 > Fund microloans that come back to your watershed and get redeployed. Propose projects your community needs. Celebrate cascades when projects hit 100% funding.
 >
@@ -598,7 +547,6 @@ Temporary installations in high-traffic public spaces:
 - "The deluge begins with you"
 - "You just hit $500 in contributions. Here's the impact you've created."
 - "A stranger paid back the loan you funded. Your money's ready to work again."
-- "Your community grant changed Maple Street. Before and after inside."
 
 ---
 
@@ -630,7 +578,7 @@ Corporate ESG programs and impact matching funds are projected to generate $600K
 **Corporate outreach sequence:**
 1. Cold email to CSR/sustainability leads: "What if your employee giving program funded verified local projects -- and you could prove it?"
 2. Case study follow-up: "[Company X] matched $25K in ad-funded contributions. Here's what happened." (requires first corporate partner as proof point)
-3. ROI comparison: "Traditional corporate volunteer day: $15K, 1 day of impact. Deluge Impact Matching Fund: $25K, 3.7 months of sustained community funding."
+3. ROI comparison: "Deluge Impact Matching Fund: $25K, 3.7 months of sustained community funding."
 
 **Local business outreach sequence:**
 1. In-person pitch at local business associations, chambers of commerce
@@ -697,7 +645,7 @@ Phase 0 validation requires landing page traffic, survey responses, and communit
 - Create a "Deluge Founders" email list from landing page signups
 - Monthly update emails: "Here's what we're building and why"
 - Invite top-engaged signups to a founding community (Discord, Slack, or email group)
-- Founding community members get input on early product decisions (category naming, badge design, first community grant templates)
+- Founding community members get input on early product decisions (category naming, badge design)
 - "Founding Raindrop" badge reserved for users who signed up before launch
 
 **Social media (pre-launch):**
@@ -734,7 +682,6 @@ Phase 0 validation requires landing page traffic, survey responses, and communit
 | Business card views per active user per day | 5-10 | Measures directory engagement. Low numbers mean insufficient local listings. |
 | Cascade rate | 1/week at 50K users | Measures project funding velocity. Fewer cascades = less community energy. |
 | Referral rate | 20% of active users refer at least 1 | Measures organic growth engine. Below 10% means referral program isn't working. |
-| Community grant completion rate | > 70% | Measures volunteer follow-through. Below 50% means project scoping is wrong. |
 | NPS | > 50 | Measures product-market fit. Below 30 signals a core experience problem. |
 
 ### Financial Health Metrics
@@ -754,7 +701,6 @@ Phase 0 validation requires landing page traffic, survey responses, and communit
 | Total deployed to projects (cumulative) | $500K by Year 3 | Proves the platform creates real impact |
 | Projects fully funded (cascades) | 50+ by Year 2 | Proves the community model works |
 | Microloan repayment rate | > 85% | Below 80% signals vetting or support problems |
-| Community grants completed | 100+ by Year 2 | Proves the sweat equity model works |
 | Free-tier users who fund a project | > 40% within first 3 months | Proves the zero-dollar pathway delivers |
 
 ### B2B Metrics (Year 2+)

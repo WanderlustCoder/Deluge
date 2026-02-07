@@ -6,7 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EditNameForm } from "@/components/account/edit-name-form";
 import { formatCurrency, formatCurrencyPrecise } from "@/lib/utils";
-import { Tv, Heart, DollarSign, FolderOpen, Mail, Calendar, Shield, Share2, Award, TrendingUp, SlidersHorizontal } from "lucide-react";
+import { Tv, Heart, DollarSign, FolderOpen, Mail, Calendar, Shield, Award, TrendingUp, SlidersHorizontal, BadgeCheck } from "lucide-react";
+import { RoleBadge } from "@/components/ui/role-badge";
 import { CREDIT_TIERS } from "@/lib/constants";
 import { getTierName } from "@/lib/loans";
 import Link from "next/link";
@@ -22,7 +23,7 @@ export default async function AccountPage() {
 
   const userId = session.user.id;
 
-  const [user, watershed, adViewCount, adCreditsAgg, contributionAgg, allocationAgg, projectsFunded] =
+  const [user, watershed, adViewCount, adCreditsAgg, contributionAgg, allocationAgg, projectsFunded, platformRoles] =
     await Promise.all([
       prisma.user.findUnique({ where: { id: userId } }),
       prisma.watershed.findUnique({ where: { userId } }),
@@ -42,6 +43,10 @@ export default async function AccountPage() {
       prisma.allocation.groupBy({
         by: ["projectId"],
         where: { userId },
+      }),
+      prisma.userRole.findMany({
+        where: { userId, isActive: true },
+        select: { role: true, grantedAt: true },
       }),
     ]);
 
@@ -73,10 +78,19 @@ export default async function AccountPage() {
               </h2>
               <p className="text-storm-light dark:text-dark-text-secondary">{user.email}</p>
             </div>
-            <Badge variant={user.role === "admin" ? "gold" : "ocean"}>
-              {user.role}
+            <Badge variant={user.accountType === "admin" ? "gold" : "ocean"}>
+              {user.accountType}
             </Badge>
           </div>
+
+          {/* Platform Roles */}
+          {platformRoles.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {platformRoles.map((pr) => (
+                <RoleBadge key={pr.role} role={pr.role} size="md" />
+              ))}
+            </div>
+          )}
           <EditNameForm initialName={user.name} />
         </CardContent>
       </Card>
@@ -200,29 +214,6 @@ export default async function AccountPage() {
         </CardContent>
       </Card>
 
-      {/* Referrals */}
-      <Card className="mb-6">
-        <CardContent className="pt-5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Share2 className="h-4 w-4 text-teal" />
-              <span className="font-heading font-semibold text-storm dark:text-dark-text">
-                Invite Friends
-              </span>
-            </div>
-            <Link
-              href="/account/referrals"
-              className="text-sm text-ocean hover:underline dark:text-ocean-light"
-            >
-              View Referrals &rarr;
-            </Link>
-          </div>
-          <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1">
-            Earn watershed credit when friends join and get active.
-          </p>
-        </CardContent>
-      </Card>
-
       {/* Ad Preferences */}
       <Card className="mb-6">
         <CardContent className="pt-5">
@@ -263,7 +254,7 @@ export default async function AccountPage() {
             <Shield className="h-4 w-4 text-storm-light dark:text-dark-text-secondary" />
             <div>
               <p className="text-sm text-storm-light dark:text-dark-text-secondary">Role</p>
-              <p className="text-storm dark:text-dark-text capitalize">{user.role}</p>
+              <p className="text-storm dark:text-dark-text capitalize">{user.accountType}</p>
             </div>
           </div>
           <div className="flex items-center gap-3">

@@ -2,15 +2,15 @@
 
 ## Core Model: Community-Driven Giving
 
-Deluge is a platform where communities fund what matters. Users contribute cash or attention (watching ads, browsing local businesses, volunteering, referring friends), and those contributions flow to community-proposed projects. There is no investment component, no portfolio management, no brokerage. The platform does one thing: it makes community giving transparent, collective, and sustainable.
+Deluge is a platform where communities fund what matters. Users contribute cash or attention (watching ads, browsing local businesses, referring friends), and those contributions flow to community-proposed projects. There is no investment component, no portfolio management, no brokerage. The platform does one thing: it makes community giving transparent, collective, and sustainable.
 
 ### Who Deluge Serves
 
-The target user is the person who donates to every GoFundMe in their feed, volunteers for neighborhood cleanups, and shares every fundraiser they see. The person who wants to help but doesn't know where their money goes after they give it. Deluge doesn't compete with investment platforms -- it competes with the fragmented, opaque world of informal community giving.
+The target user is the person who donates to every GoFundMe in their feed and shares every fundraiser they see. The person who wants to help but doesn't know where their money goes after they give it. Deluge doesn't compete with investment platforms -- it competes with the fragmented, opaque world of informal community giving.
 
 ### How It Works
 
-1. **Users contribute** -- cash ($0.25 minimum), or attention (ads, business cards, volunteering, referrals)
+1. **Users contribute** -- cash ($0.25 minimum), or attention (ads, business cards, referrals)
 2. **Contributions flow to the watershed** -- each user's personal impact fund
 3. **Users deploy from their watershed** -- to community projects (one-way grants) or microloans (recycling capital)
 4. **Projects cascade** -- when fully funded, the project is executed, verified, and reported
@@ -29,7 +29,7 @@ This is the raindrop-to-river thesis: individual contributions are small, but co
 - **No portfolio management.** There are no stocks, bonds, ETFs, or investment products.
 - **No enforced savings mechanisms.** If users want to invest in their own financial future, Deluge encourages it through education and messaging -- but doesn't build the infrastructure.
 
-This simplification is deliberate. The giving side -- communities, projects, cascades, community grants, microloans, the watershed -- is what makes Deluge different. Investment infrastructure is commodity that any funded startup can replicate. Removing it lets the team focus entirely on what makes the platform unique: making community giving work.
+This simplification is deliberate. The giving side -- communities, projects, cascades, microloans, the watershed -- is what makes Deluge different. Investment infrastructure is commodity that any funded startup can replicate. Removing it lets the team focus entirely on what makes the platform unique: making community giving work.
 
 ---
 
@@ -113,7 +113,6 @@ Users can watch video ads to grow their watershed balance. Ad revenue enters the
 |---------|--------|
 | Daily cap | 10 ads per user per day |
 | Monthly max to watershed (base) | ~$2.70/month (10 ads/day x 30 days x $0.009) |
-| Streak bonuses (future) | 7-day streak = 1.25x, 30-day = 1.5x |
 | Anti-fraud | CAPTCHA, pattern detection, device fingerprinting, account verification |
 
 **What this means per user (watershed growth from ads):**
@@ -146,7 +145,7 @@ These are small numbers per person. The value is in the collective: 10,000 users
 
 Ad revenue is the largest single platform revenue stream. It scales linearly with active users and daily ad engagement.
 
-**Why ad revenue flows through the watershed:** Ad revenue enters the user's watershed like any other contribution. The user decides where to deploy it -- a grant project, a microloan, or hold it for later. This makes ad-watching a true pathway to full platform participation: a user with no cash can build watershed capital through attention and fund a microloan share just like a cash contributor. The watershed is the universal funnel. Money is money once it's there, regardless of whether it came from cash, ads, volunteering, or referrals.
+**Why ad revenue flows through the watershed:** Ad revenue enters the user's watershed like any other contribution. The user decides where to deploy it -- a grant project, a microloan, or hold it for later. This makes ad-watching a true pathway to full platform participation: a user with no cash can build watershed capital through attention and fund a microloan share just like a cash contributor. The watershed is the universal funnel. Money is money once it's there, regardless of whether it came from cash, ads, or referrals.
 
 ### Local Business Directory (Community Business Cards)
 
@@ -222,7 +221,7 @@ Local business cards don't require production quality. A photo of the storefront
 Local business cards require enough users and businesses in a geography to be useful. This is a market-by-market feature:
 - Launch in initial markets where Deluge has user density
 - Expand to new markets as user base grows
-- In markets without local business listings, the Give tab focuses on video ads and community grants
+- In markets without local business listings, the Give tab focuses on video ads
 
 ---
 
@@ -230,7 +229,7 @@ Local business cards require enough users and businesses in a geography to be us
 
 Ad-funded impact gives every user a way to contribute, but at $2.70/month (10 ads/day, base scenario), it takes over 7 months for a user to accumulate enough watershed capital to fund a single microloan contribution. That's too slow. A user who can't contribute cash needs a realistic on-ramp to meaningful participation within their first month or two.
 
-Three additional mechanisms address this: referral credits, community grants (sweat equity), and corporate ad matching. Each uses a different funding source and serves a different role in the user experience.
+Two additional mechanisms address this: referral credits and corporate ad matching. Each uses a different funding source and serves a different role in the user experience.
 
 ### Referral Credits
 
@@ -289,117 +288,6 @@ Referral credits are front-loaded and exhaustible -- a user's referral network s
 
 ---
 
-### Community Grants (Sweat Equity)
-
-Community members can propose real-world projects that need hands-on volunteer labor. The community funds materials and volunteer compensation through the standard project funding mechanism. Volunteers earn watershed credit for verified completed work. This creates a direct pathway for any user -- particularly free-tier users -- to earn meaningful watershed capital through community service.
-
-Deluge does not oversee the work. This operates like any other grant: Deluge verifies legitimacy, facilitates funding, and stays out of execution. The community handles everything else.
-
-**How it works:**
-
-1. **Anyone proposes a community grant project**
-   - Description of work needed, with specific requirements
-   - Before photos/evidence of current state
-   - Materials budget (if any)
-   - Volunteer watershed credit amount (set by the poster)
-   - Number of volunteer slots (one or more)
-   - If multi-volunteer: discrete tasks or areas defined per slot, credit split evenly
-   - Project timeline (default: 60 days; poster can set a custom timeline)
-   - Beneficiary designation (see below)
-
-2. **Contributors fund it**
-   - Funds are escrowed, not released
-   - Funding goal includes both materials AND volunteer watershed credit
-   - Contributors see the full breakdown: "$50 for materials + $15 volunteer watershed credit = $65 total"
-   - Minimum 3 contributors to proceed (seeds the approver pool)
-
-3. **Volunteers pick up the work**
-   - Volunteers browse available funded projects and agree to posted requirements and pay
-   - Take it or leave it -- no negotiation
-   - Volunteer does not have to be a free-tier user; anyone can volunteer
-
-4. **Work is completed, evidence submitted**
-   - After photos/video evidence posted by volunteer
-   - GPS-tagged, timestamped photos required (location must match before photos)
-   - Progress updates encouraged during the work
-
-5. **Randomized contributor approval**
-   - Approvers randomly selected from the contributor pool
-   - Minimum 3, maximum 7 approvers depending on contributor count
-   - If 3 or fewer contributors, all serve as approvers
-   - Simple vote: "Work completed as described" / "Work not completed" / "Can't determine"
-   - Majority approval releases escrowed funds and credits the volunteer's watershed
-   - If approval is split with no majority, Deluge reviews manually
-
-6. **Payout**
-   - Material funds released for procurement/reimbursement
-   - Volunteer receives watershed credit as posted
-   - For multi-volunteer projects: each slot is independently verified and independently paid
-
-**Beneficiary designation:**
-
-Two project subtypes based on who benefits:
-
-| Subtype | Beneficiary | Example | Requirements |
-|---------|-------------|---------|--------------|
-| Individual beneficiary | A specific named person | Mrs. Johnson's yard cleanup | Named beneficiary required. Beneficiary consent required (video, signed note, or in-app confirmation). Privacy option available -- "A neighbor in Denver" is sufficient for the public listing. |
-| Community benefit | The community at large | Roadside trash cleanup, park maintenance, public garden | No individual beneficiary. Contributors implicitly benefit as community members. Any contributor can mark themselves as a beneficiary endorser. GPS-tagged photos must show a public/community space. |
-
-**If the proposer is also the volunteer:** A named individual beneficiary (who is not the proposer/volunteer) is required, OR the project must be clearly community-benefit (public space, verifiable from GPS-tagged evidence of a public/community location).
-
-**Quality expectations (explicit in UX):**
-
-Community grant volunteers are offering good-faith effort, not professional services. This must be clearly communicated to both sides:
-
-- **To the poster:** "Community volunteers are donating their time and effort, not professional services. If your project requires licensed, insured, or professional-grade work, consider hiring a professional through the platform instead."
-- **To the volunteer:** "This is volunteer community work. You're agreeing to put in good-faith effort toward the posted requirements."
-- **To the approvers:** "Was the described work completed in good faith? This is a yes/no question about effort and completion, not a quality review."
-
-If professional-grade work is needed, the poster can create a standard project grant with a professional labor budget instead. Same funding infrastructure, different execution expectations and pay scale.
-
-**Multi-volunteer projects:**
-
-- Poster defines discrete tasks or areas per volunteer slot when creating the project
-- Each slot has a defined scope (e.g., "Slot 1: clear north side. Slot 2: clear south side. Slot 3: bag and haul debris")
-- Watershed credit is split evenly across slots
-- Each slot is independently verified and independently paid
-- If a volunteer abandons their slot: slot reopens for a replacement volunteer. If no replacement is found by the project timeline, that slot's credit returns to contributors
-
-**Volunteer abandonment:**
-
-If a volunteer agrees to a project and does not submit completion evidence by the project timeline, the escrow returns to contributors for that volunteer's portion. No penalty to the volunteer beyond not earning the credit.
-
-**Project timeline:**
-
-- Default: 60 days from when the project is fully funded and a volunteer has been assigned
-- Poster can set a custom timeline at project creation
-- If the project is funded but no volunteer picks it up within the timeline, contributors are notified and funds return to their watersheds
-- The project can be reposted
-
-**Anti-fraud protections:**
-
-| Risk | Mitigation |
-|------|------------|
-| Fake before/after photos | GPS-tagged, timestamped photos required. Location must match between before and after. |
-| Proposer-volunteer collusion | If proposer is also volunteer, individual beneficiary (third party) or community-benefit designation required. |
-| Contributor-volunteer collusion | Approvers randomly selected from contributor pool. Approvers cannot share a referral chain with the volunteer. |
-| Inflated project scope or pay | Contributors decide whether to fund. The crowd self-corrects -- nobody funds "$100 for picking up 3 pieces of trash." |
-
-**Funding source:** The community. Volunteer watershed credit is included in the project funding goal alongside materials. Contributors explicitly fund the volunteer credit. Deluge does not subsidize. Money flows: contributors → escrow → (materials + volunteer watershed credit). Deluge facilitates, does not fund.
-
-**Economics:**
-
-| Metric | Value |
-|--------|-------|
-| Platform cost per project | $0 (community-funded) |
-| Average project funding goal (est.) | $30-80 (materials + volunteer credit) |
-| Average volunteer credit per project (est.) | $10-20 |
-| Verification overhead | Minimal (randomized contributor approval, automated) |
-
-Community grants are the lowest-cost free-tier pathway for Deluge because the platform doesn't fund them. The community does. Deluge's cost is limited to the project verification process (same as any other project proposal).
-
----
-
 ### Corporate Ad Matching
 
 Corporate partners multiply the value of ad-funded contributions by committing matching funds. When users watch ads for projects in a matched category, the per-ad contribution is amplified. This is the simplest mechanism to dramatically increase free-tier user earning power.
@@ -428,7 +316,7 @@ At a 5x match, a free-tier user maxing daily ads earns $13.50/month toward proje
 - Employee engagement: "Your team watches ads, your brand matches the impact"
 - Brand visibility: corporate logo on matched project pages, visible in the crediting animation
 - ESG reporting: verified impact metrics tied to the corporate matching fund
-- Cost efficiency: $25K matching fund at 5x for 500 active ad-watchers lasts ~3.7 months -- comparable to a small corporate volunteer program budget
+- Cost efficiency: $25K matching fund at 5x for 500 active ad-watchers lasts ~3.7 months -- comparable to a small corporate community program budget
 
 **Match fund duration and communication:**
 
@@ -455,9 +343,8 @@ With all three mechanisms plus existing ad revenue, a free-tier user's realistic
 |-----------|-----------------|--------------|
 | Ads (5/day average) | $1.35 | Daily, passive |
 | Referral credits (2-3 friends in first month) | $5.00-7.50 | Front-loaded, first 2-3 months |
-| Community grant project (1 small project) | $10-20 | When available, active effort |
 | Corporate match on ads (3x average when active) | $2.70 | Campaign-dependent |
-| **Combined first-month estimate** | **$19-31** | |
+| **Combined first-month estimate** | **$9-12** | |
 
 A free-tier user can realistically fund a microloan contribution within their first month. The on-ramp works.
 
@@ -466,11 +353,10 @@ A free-tier user can realistically fund a microloan contribution within their fi
 | Mechanism | Monthly Estimate | Notes |
 |-----------|-----------------|-------|
 | Ads (5/day) | $1.35 | Ongoing baseline |
-| Community grant (1 project/month) | $10-20 | Depends on project availability in user's area |
 | Corporate match (when active) | $1.35-4.05 | Campaigns come and go |
-| **Sustained monthly estimate** | **$13-25** | |
+| **Sustained monthly estimate** | **$3-5** | |
 
-Even after referral credits dry up, the combination of community grants and corporate matching keeps free-tier users at a meaningful earning level. Community grants are the core long-term mechanism because they're community-funded and scale with community size.
+Even after referral credits dry up, the combination of ads and corporate matching keeps free-tier users at a meaningful earning level. Corporate matching is the key amplifier because it multiplies the value of attention-based contributions.
 
 ---
 
@@ -583,7 +469,6 @@ Every user has a personal watershed -- a fund balance representing their deploya
 | Ad revenue | 60% of each ad view credited to the user's watershed ($0.009 at base) |
 | Business card browsing | Revenue from card views credited to the user's watershed |
 | Referral credits | Vesting watershed credits earned by referring new active users (funded from marketing budget) |
-| Community grant volunteer credit | Watershed credits earned by completing verified community grant work (funded by project contributors) |
 | Loan repayments | When a microloan borrower makes a payment, principal returns to funders' watersheds via share-based repayment |
 
 *Every contribution pathway feeds the same watershed. The user decides how to deploy: grants, loans, or hold.*
@@ -597,7 +482,7 @@ Every user has a personal watershed -- a fund balance representing their deploya
 
 The watershed enables capital recycling. A single dollar of impact capital can fund multiple loans over time if borrowers repay. This is the key economic advantage of microloans over grants: one dollar of impact does work, returns, and does work again.
 
-**$0.25 as the universal unit of participation:** Whether someone contributes cash, watches ads, earns referral credits, or volunteers -- every pathway feeds the same watershed, and $0.25 is the minimum meaningful unit. An ad-watcher builds $0.25 in watershed capital within a week of casual attention. That $0.25 can fund a grant project or a microloan share -- the user decides. The entry ticket to full platform participation is the same regardless of pathway. At scale, 2,000 ad-watchers each building $0.25/week in their watersheds generate $500/week in deployable impact capital -- $26,000/year from people who gave zero dollars, flowing into both projects and loans.
+**$0.25 as the universal unit of participation:** Whether someone contributes cash, watches ads, or earns referral credits -- every pathway feeds the same watershed, and $0.25 is the minimum meaningful unit. An ad-watcher builds $0.25 in watershed capital within a week of casual attention. That $0.25 can fund a grant project or a microloan share -- the user decides. The entry ticket to full platform participation is the same regardless of pathway. At scale, 2,000 ad-watchers each building $0.25/week in their watersheds generate $500/week in deployable impact capital -- $26,000/year from people who gave zero dollars, flowing into both projects and loans.
 
 ### Microloan Economics
 
@@ -1062,7 +947,7 @@ These metrics predict whether a community will thrive or stall.
 | Borrower credit history + sponsorship networks | Very hard -- reputation systems can't be copied | 3-5 years | Very strong |
 | Brand association with sustainable giving | Moderate -- first-mover advantage matters | 1-2 years | Moderate |
 
-**The real moat is the community graph + impact history.** A competitor can clone the app in 12 months, but they can't replicate 3 years of funded projects, verified outcomes, community relationships, borrower credit histories, and sponsor reputation scores. Every cascade, every repaid loan, every verified community grant adds to a data and trust asset that compounds.
+**The real moat is the community graph + impact history.** A competitor can clone the app in 12 months, but they can't replicate 3 years of funded projects, verified outcomes, community relationships, borrower credit histories, and sponsor reputation scores. Every cascade, every repaid loan adds to a data and trust asset that compounds.
 
 ### What Happens If a Major Competitor Enters
 
@@ -1070,9 +955,9 @@ If GoFundMe, a major tech platform, or a well-funded startup launches a competin
 
 | Scenario | Deluge's Defense |
 |----------|-----------------|
-| Competitor adds "community giving" to existing app | Deluge's community-driven model is philosophically different from tacked-on charity features. A "donate" button doesn't compete with a giving-first platform with watershed mechanics, cascades, microloans, and community grants. The community, project history, and cascade dynamics don't transfer. |
+| Competitor adds "community giving" to existing app | Deluge's community-driven model is philosophically different from tacked-on charity features. A "donate" button doesn't compete with a giving-first platform with watershed mechanics, cascades, and microloans. The community, project history, and cascade dynamics don't transfer. |
 | Competitor launches community-funded projects | Takes 12+ months to build community density. Deluge's head start in specific markets (500+ member communities, funded projects, impact data) creates a switching cost for users with community ties. |
-| Competitor offers free-tier giving through ads | Deluge's multi-pathway model (ads + business cards + volunteering + referrals) is broader. The combined free-tier on-ramp is harder to replicate than any single mechanism. |
+| Competitor offers free-tier giving through ads | Deluge's multi-pathway model (ads + business cards + referrals) is broader. The combined free-tier on-ramp is harder to replicate than any single mechanism. |
 | Well-funded clone launches | The biggest risk. Mitigate by building community density fast in initial markets, creating strong brand identity, and making community switching costs high (project history, achievements, sponsorship reputation). |
 
 ---
@@ -1085,7 +970,7 @@ If GoFundMe, a major tech platform, or a well-funded startup launches a competin
 - Initial: $5-10
 - Monthly additions: $2-3
 - Many users will try it once or twice, then contribute primarily through ads
-- Some users contribute only through ads and volunteering ($0 in cash)
+- Some users contribute only through ads ($0 in cash)
 - Cash contributions are pure giving -- users won't contribute as much as they would invest in themselves
 
 **Platform revenue per user (blended across all user types):**
@@ -1472,9 +1357,8 @@ These are the make-or-break questions. Year 1's purpose is to answer them with r
 5. **Is the CAC achievable below $20?** (If not, unit economics don't work -- especially without subscription revenue boosting LTV)
 6. **Can we retain 30%+ MAU after Month 3?** (Without subscription lock-in, retention depends entirely on engagement. The cascade experience is the key retention lever.)
 7. **Will users refer friends for watershed credits?** (Referral programs only work if the product is worth recommending -- and without subscriptions, the referral program's CAC reduction is what makes unit economics viable)
-8. **Will communities propose and fund sweat equity projects?** (Requires both people willing to post needs AND people willing to volunteer -- two-sided marketplace dynamics)
-9. **Can we sign corporate partners for ad matching funds?** (ESG budgets exist, but is "match ad-funded community impact" a compelling enough product to sell?)
-10. **Will interest rates remain above 2%?** (Custodial float income is 14.4% of Year 5 revenue at current rates. In a low-rate environment it drops to near-zero. Not a make-or-break assumption, but it affects the margin of safety.)
+8. **Can we sign corporate partners for ad matching funds?** (ESG budgets exist, but is "match ad-funded community impact" a compelling enough product to sell?)
+9. **Will interest rates remain above 2%?** (Custodial float income is 14.4% of Year 5 revenue at current rates. In a low-rate environment it drops to near-zero. Not a make-or-break assumption, but it affects the margin of safety.)
 
 ---
 
@@ -1516,18 +1400,7 @@ These test whether the fundamental value proposition resonates. If these fail, n
 
 These test whether the specific participation mechanisms will sustain engagement beyond initial signup.
 
-**Test 3: Community Grant Interest (Two-Sided)**
-
-| Element | Detail |
-|---------|--------|
-| What to test | Will people both propose community projects AND volunteer to complete them? |
-| Method | Post in 3-5 local community groups (Facebook, Nextdoor, Reddit neighborhood subs). Describe the concept: "An app where neighbors can post small projects (yard cleanup, mural painting, lending library building) and other neighbors can volunteer. Volunteers earn credit toward funding other community projects." Two surveys: one for potential proposers ("Would you post a project?"), one for potential volunteers ("Would you pick up a project?"). |
-| Measure | Response rate. Ratio of proposers to volunteers. Types of projects people describe. Willingness to do GPS-verified photo evidence. |
-| Pass | Both proposer and volunteer interest exist in the same communities. At least 20% of respondents express interest in volunteering. People suggest realistic, completable project ideas. |
-| Fail | Strong interest on one side but not the other (lots of proposers, no volunteers -- or vice versa). Projects suggested are too large/complex for the community grant model. |
-| If it fails | If volunteer interest is low: consider paid gig-style compensation instead of watershed credits. If proposer interest is low: seed projects through nonprofit partnerships instead of relying on community proposals. If project scope is wrong: tighten the grant format to micro-projects only (2-4 hours, 1-2 people). |
-
-**Test 4: Local Business Directory + Enhanced Listings**
+**Test 3: Local Business Directory + Enhanced Listings**
 
 | Element | Detail |
 |---------|--------|
@@ -1538,7 +1411,7 @@ These test whether the specific participation mechanisms will sustain engagement
 | Fail | Businesses aren't interested or don't understand the value. No interest in paid enhanced listings. Users don't see a reason to browse (already use Google/Yelp). |
 | If it fails | If businesses won't list: consider seeding the directory from public data (Google Places) with an opt-in upgrade to claimed listings. If businesses won't pay for enhanced: reduce pricing or explore alternative B2B monetization (per-lead fees, sponsored community projects). If users won't browse: make business cards a passive background element in other flows rather than a standalone browsing experience. **This is a critical test** -- business directory enhanced listings are the primary B2B revenue stream replacing subscriptions. |
 
-**Test 5: Referral Willingness**
+**Test 4: Referral Willingness**
 
 | Element | Detail |
 |---------|--------|
@@ -1553,7 +1426,7 @@ These test whether the specific participation mechanisms will sustain engagement
 
 These test whether the business can actually operate.
 
-**Test 6: Ad Network Viability**
+**Test 5: Ad Network Viability**
 
 | Element | Detail |
 |---------|--------|
@@ -1564,7 +1437,7 @@ These test whether the business can actually operate.
 | Fail | All networks estimate below $8 eCPM. Impact/social good inventory is undervalued by advertisers. |
 | If it fails | Reduce ad revenue projections by 30-50%. **This is a serious problem** -- attention-funded revenue is the largest revenue category (56.6% of Year 5). At half projections, Year 4 break-even is at risk. Consider supplementing with direct-sold sponsorship ads from mission-aligned brands (higher eCPM but requires sales effort) or explore alternative attention-funded formats. |
 
-**Test 7: Corporate Matching Interest**
+**Test 6: Corporate Matching Interest**
 
 | Element | Detail |
 |---------|--------|
@@ -1583,13 +1456,13 @@ After all tests are complete, score the results:
 |--------|--------|
 | Tests 1-2 both pass | Core concept and ad-funded pathway validated. Proceed to Phase 1 (legal + partnerships). |
 | Test 1 fails | Fundamental concept question. Pivot the giving model framing or reconsider the approach. |
-| Test 2 fails | Ad-funded pathway doesn't drive engagement. **This is serious** -- attention-funded revenue is 56.6% of projections. Reduce ad revenue projections significantly and explore alternative monetization. May still proceed if Test 4 (business directory) is strong. |
-| Tests 3-5 mixed results | Engagement mechanics need adjustment but aren't fatal. Proceed with modifications. |
-| Test 4 fails (business directory) | **Critical** -- business directory is the primary B2B revenue stream. If businesses won't list or won't pay for enhanced features, the revenue model needs rethinking. Explore alternative B2B products. |
-| Test 6 fails (ad eCPM) | Reduce ad revenue projections by 30-50%. Consider direct-sold sponsorship ads from mission-aligned brands. Year 4 break-even at risk -- may need more capital. |
-| Test 7 fails | Defer corporate matching to Year 2+. Not a launch dependency. |
+| Test 2 fails | Ad-funded pathway doesn't drive engagement. **This is serious** -- attention-funded revenue is 56.6% of projections. Reduce ad revenue projections significantly and explore alternative monetization. May still proceed if Test 3 (business directory) is strong. |
+| Tests 3-4 mixed results | Engagement mechanics need adjustment but aren't fatal. Proceed with modifications. |
+| Test 3 fails (business directory) | **Critical** -- business directory is the primary B2B revenue stream. If businesses won't list or won't pay for enhanced features, the revenue model needs rethinking. Explore alternative B2B products. |
+| Test 5 fails (ad eCPM) | Reduce ad revenue projections by 30-50%. Consider direct-sold sponsorship ads from mission-aligned brands. Year 4 break-even at risk -- may need more capital. |
+| Test 6 fails | Defer corporate matching to Year 2+. Not a launch dependency. |
 
-**The kill criteria:** If Test 1 (concept resonance) and Test 2 (ad-funded engagement) both fail, the core product concept does not have market demand as designed. Stop and rethink before spending $100K+ on engineering. If Tests 2, 4, and 6 all fail (ad engagement low, businesses won't pay, eCPM below projections), the revenue model has no viable path -- the platform may need to reconsider optional premium features or find alternative monetization.
+**The kill criteria:** If Test 1 (concept resonance) and Test 2 (ad-funded engagement) both fail, the core product concept does not have market demand as designed. Stop and rethink before spending $100K+ on engineering. If Tests 2, 3, and 5 all fail (ad engagement low, businesses won't pay, eCPM below projections), the revenue model has no viable path -- the platform may need to reconsider optional premium features or find alternative monetization.
 
 ### Phase 0 Budget
 

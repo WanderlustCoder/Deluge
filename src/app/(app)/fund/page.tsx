@@ -297,15 +297,16 @@ export default function FundPage() {
       <Modal
         open={showSuccess}
         onClose={() => setShowSuccess(false)}
-        title="Funds Deployed!"
+        title="Pledge Recorded!"
       >
         <div className="text-center">
           <CheckCircle className="h-12 w-12 text-teal mx-auto mb-4" />
           <p className="text-storm mb-1">
+            Your pledge of{" "}
             <span className="font-semibold">
               {formatCurrencyPrecise(result?.amountFunded ?? 0)}
             </span>{" "}
-            deployed to
+            has been recorded for
           </p>
           <p className="font-heading font-semibold text-lg text-storm mb-4">
             {result?.projectTitle}

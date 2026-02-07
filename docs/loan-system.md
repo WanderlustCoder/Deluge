@@ -2,7 +2,7 @@
 
 Grants fund projects. Loans fund people. Microloans let the community directly back individuals -- a person starting a bakery, buying tools for a trade, covering training costs -- with the understanding that if the borrower is responsible, the money comes back to be deployed again. If it doesn't come back, that's the risk the funder accepted.
 
-Funders deploy capital from their watershed balance. Watersheds grow from all contribution pathways: cash contributions (100%), ad revenue (60% of each view), business card browsing revenue, referral credits, community grant volunteer credits, and loan repayments. Every pathway feeds the same watershed.
+Funders deploy capital from their watershed balance. Watersheds grow from all contribution pathways: cash contributions (100%), ad revenue (60% of each view), business card browsing revenue, referral credits, and loan repayments. Every pathway feeds the same watershed.
 
 ---
 
@@ -196,7 +196,7 @@ Community groups are the opt-in mechanism. Joining a group subscribes you to tha
 1. Funder taps a loan card, views borrower profile and purpose
 2. Loan detail page shows: borrower info, verified identity status, purpose and category, location, total amount with stretch goals, funding deadline, payment schedule, share price ($0.25), total shares in loan, shares remaining, your share count
 3. Funder taps "Fund this loan"
-4. $0.25 minimum (one share). Fund any amount in $0.25 increments. Watershed funds can come from cash contributions, ad revenue, business card browsing revenue, referral credits, volunteer credits, or recycled loan repayments -- multiple pathways to build a watershed balance without cash on hand.
+4. $0.25 minimum (one share). Fund any amount in $0.25 increments. Watershed funds can come from cash contributions, ad revenue, business card browsing revenue, referral credits, or recycled loan repayments -- multiple pathways to build a watershed balance without cash on hand.
 5. Funds come from watershed balance
 6. **Risk disclosure (mandatory, not skippable):** "This is a loan, not a grant. If the borrower repays, your contribution will return to your watershed a little at a time. If the borrower does not repay, some or all of your contribution may be lost. Deluge does not guarantee repayment."
 7. Confirmation shows share count and estimated repayment timeline: "You funded 80 shares ($20.00). Estimated full repayment by month 8."
@@ -395,7 +395,7 @@ Sponsors extend a borrower's credit ceiling. They don't fund the loan -- funders
 sponsorship_power = base_contributions x multiplier
 ```
 
-- `base_contributions` = total platform contributions (cash contributed + ad-funded + volunteer credits)
+- `base_contributions` = total platform contributions (cash contributed + ad-funded)
 - `multiplier` = track_record_ratio x (100% + volume_bonus), capped at 200%
 - `track_record_ratio` = total_repaid_value / total_completed_value
 - `volume_bonus` = grows with successful sponsorship history, up to +100%

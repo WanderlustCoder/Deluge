@@ -3,9 +3,15 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getCascadeStage } from "@/lib/constants";
 import { checkAndAwardBadges } from "@/lib/badges";
+import { checkAndUpdateRoles } from "@/lib/roles";
 import { logError } from "@/lib/logger";
 import { notifyProjectMilestone } from "@/lib/notifications";
 import { fundProjectSchema } from "@/lib/validation";
+import { checkAutoDisburse } from "@/lib/disbursement";
+import { updateGoalProgress } from "@/lib/community-goals";
+import { checkAndAwardMilestones } from "@/lib/community-milestones";
+import { updateChallengeProgress } from "@/lib/challenges";
+import { findMatchingCampaigns, applyMatch } from "@/lib/matching";
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -78,6 +84,7 @@ export async function POST(request: Request) {
           userId,
           projectId,
           amount: actualAmount,
+          status: "pledged",
         },
       }),
       prisma.watershed.update({
@@ -110,21 +117,76 @@ export async function POST(request: Request) {
     const newStage = getCascadeStage(newFundingRaised, project.fundingGoal);
     const stageChanged = oldStage.name !== newStage.name;
 
-    // Check badges
+    // Auto-disburse if project just became fully funded
+    if (isFunded) {
+      checkAutoDisburse(projectId).catch(() => {});
+    }
+
+    // Apply matching campaigns
+    let matchAmount = 0;
+    let matchCampaignName: string | null = null;
+    try {
+      const campaigns = await findMatchingCampaigns(
+        projectId,
+        project.category,
+        actualAmount
+      );
+      if (campaigns.length > 0) {
+        const bestMatch = campaigns[0]; // Highest ratio
+        const result = await applyMatch(
+          bestMatch.campaignId,
+          userId,
+          projectId,
+          actualAmount
+        );
+        if (result) {
+          matchAmount = result.matchAmount;
+          matchCampaignName = bestMatch.corporateName;
+
+          // Add match amount to project funding
+          await prisma.project.update({
+            where: { id: projectId },
+            data: {
+              fundingRaised: { increment: matchAmount },
+            },
+          });
+        }
+      }
+    } catch {
+      // Matching is non-blocking
+    }
+
+    // Check badges + roles
     const newBadges = await checkAndAwardBadges(userId);
+    const newRoles = await checkAndUpdateRoles(userId);
+
+    // Update community goals, milestones, and challenges if project is linked to communities
+    const communityProjects = await prisma.communityProject.findMany({
+      where: { projectId },
+      select: { communityId: true },
+    });
+    for (const cp of communityProjects) {
+      updateGoalProgress(cp.communityId, project.category, actualAmount).catch(() => {});
+      checkAndAwardMilestones(cp.communityId).catch(() => {});
+      updateChallengeProgress(cp.communityId, actualAmount).catch(() => {});
+    }
 
     return NextResponse.json({
       success: true,
       data: {
         amountFunded: actualAmount,
+        matchAmount,
+        matchCampaignName,
+        totalContribution: actualAmount + matchAmount,
         newBalance,
         projectTitle: project.title,
         isFunded,
-        projectProgress: newFundingRaised / project.fundingGoal,
+        projectProgress: (newFundingRaised + matchAmount) / project.fundingGoal,
         stageChanged,
         newStageName: newStage.name,
         newStageEmoji: newStage.emoji,
         newBadges,
+        newRoles,
       },
     });
   } catch (error) {

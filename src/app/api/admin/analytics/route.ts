@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getPendingRevenueSummary } from "@/lib/settlement";
 
 export async function GET(request: Request) {
   const session = await auth();
-  if (!session?.user || session.user.role !== "admin") {
+  if (!session?.user || session.user.accountType !== "admin") {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -126,6 +127,24 @@ export async function GET(request: Request) {
     avgMembers: Math.round((communityAgg._avg.memberCount || 0) * 10) / 10,
   };
 
+  // Avg completion rate
+  const completionAgg = await prisma.adView.aggregate({
+    _avg: { completionRate: true },
+  });
+  const avgCompletionRate = Math.round(
+    (completionAgg._avg.completionRate || 0) * 100
+  );
+
+  // Total contributions
+  const contributionAgg = await prisma.contribution.aggregate({
+    _sum: { watershedCredit: true },
+  });
+  const totalContributions =
+    Math.round((contributionAgg._sum.watershedCredit || 0) * 100) / 100;
+
+  // Pending vs cleared revenue breakdown
+  const revenueBreakdown = await getPendingRevenueSummary();
+
   return NextResponse.json({
     totalRevenue,
     totalWatershedCredits,
@@ -137,5 +156,8 @@ export async function GET(request: Request) {
     projectStats,
     referralStats,
     communityStats,
+    avgCompletionRate,
+    totalContributions,
+    revenueBreakdown,
   });
 }

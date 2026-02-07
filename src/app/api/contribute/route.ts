@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { checkFirstActionReferral } from "@/lib/referrals";
 import { checkAndAwardBadges } from "@/lib/badges";
+import { checkAndUpdateRoles } from "@/lib/roles";
 import { logError } from "@/lib/logger";
 import { contributeSchema } from "@/lib/validation";
 
@@ -71,8 +72,9 @@ export async function POST(request: Request) {
       }),
     ]);
 
-    // Check badges + referral milestone
+    // Check badges + referral milestone + roles
     const newBadges = await checkAndAwardBadges(userId);
+    const newRoles = await checkAndUpdateRoles(userId);
     checkFirstActionReferral(userId).catch(() => {});
 
     return NextResponse.json({
@@ -82,6 +84,7 @@ export async function POST(request: Request) {
         newBalance,
         type,
         newBadges,
+        newRoles,
       },
     });
   } catch (error) {

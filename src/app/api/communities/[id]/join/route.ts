@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { logError } from "@/lib/logger";
+import { checkAndAwardMilestones } from "@/lib/community-milestones";
 
 // POST: join community
 export async function POST(
@@ -42,6 +43,9 @@ export async function POST(
         data: { memberCount: { increment: 1 } },
       }),
     ]);
+
+    // Check for community milestones (member count)
+    checkAndAwardMilestones(id).catch(() => {});
 
     return NextResponse.json({ success: true });
   } catch (error) {

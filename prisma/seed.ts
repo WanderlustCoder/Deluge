@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { hash } from "bcryptjs";
-import { simulateAdRevenue, SHARE_PRICE } from "../src/lib/constants";
+import { simulateAdRevenue, SHARE_PRICE, RESERVE_INITIAL_BALANCE } from "../src/lib/constants";
 
 const prisma = new PrismaClient();
 
@@ -8,6 +8,20 @@ async function main() {
   console.log("Seeding database...");
 
   // Clear existing data
+  await prisma.reserveTransaction.deleteMany();
+  await prisma.platformReserve.deleteMany();
+  await prisma.projectDisbursement.deleteMany();
+  await prisma.revenueSettlement.deleteMany();
+  await prisma.flagshipSponsor.deleteMany();
+  await prisma.flagshipVote.deleteMany();
+  await prisma.flagshipProject.deleteMany();
+  await prisma.strategicPlan.deleteMany();
+  await prisma.aquiferContribution.deleteMany();
+  await prisma.aquifer.deleteMany();
+  await prisma.electionVote.deleteMany();
+  await prisma.electionNomination.deleteMany();
+  await prisma.communityElection.deleteMany();
+  await prisma.loanSponsorship.deleteMany();
   await prisma.communityProject.deleteMany();
   await prisma.communityMember.deleteMany();
   await prisma.community.deleteMany();
@@ -24,6 +38,9 @@ async function main() {
   await prisma.contribution.deleteMany();
   await prisma.watershed.deleteMany();
   await prisma.project.deleteMany();
+  await prisma.userRole.deleteMany();
+  await prisma.roleConfig.deleteMany();
+  await prisma.adminInvite.deleteMany();
   await prisma.user.deleteMany();
 
   const passwordHash = await hash("password123", 12);
@@ -34,7 +51,7 @@ async function main() {
       name: "Admin",
       email: "admin@deluge.fund",
       passwordHash,
-      role: "admin",
+      accountType: "admin",
       watershed: { create: { balance: 0, totalInflow: 0, totalOutflow: 0 } },
     },
     include: { watershed: true },
@@ -45,7 +62,7 @@ async function main() {
       name: "Angela Martinez",
       email: "angela@example.com",
       passwordHash,
-      role: "user",
+      accountType: "user",
       watershed: {
         create: { balance: 12.5, totalInflow: 45.0, totalOutflow: 32.5 },
       },
@@ -58,7 +75,7 @@ async function main() {
       name: "DeAndre Johnson",
       email: "deandre@example.com",
       passwordHash,
-      role: "user",
+      accountType: "user",
       watershed: {
         create: { balance: 3.2, totalInflow: 3.2, totalOutflow: 0 },
       },
@@ -71,7 +88,7 @@ async function main() {
       name: "Demo User",
       email: "demo@deluge.fund",
       passwordHash,
-      role: "user",
+      accountType: "user",
       watershed: { create: { balance: 0, totalInflow: 0, totalOutflow: 0 } },
     },
     include: { watershed: true },
@@ -187,7 +204,7 @@ async function main() {
 
   // --- Seed transactions for Angela ---
   if (angela.watershed) {
-    // Ad view history (variable revenue per ad)
+    // Ad view history (variable revenue per ad) — all marked as cleared for demo
     for (let i = 0; i < 20; i++) {
       const ad = simulateAdRevenue();
       await prisma.adView.create({
@@ -196,6 +213,7 @@ async function main() {
           grossRevenue: ad.grossRevenue,
           platformCut: ad.platformCut,
           watershedCredit: ad.watershedCredit,
+          settlementStatus: "cleared",
         },
       });
     }
@@ -294,6 +312,7 @@ async function main() {
           grossRevenue: ad.grossRevenue,
           platformCut: ad.platformCut,
           watershedCredit: ad.watershedCredit,
+          settlementStatus: "cleared",
         },
       });
     }
@@ -498,9 +517,239 @@ async function main() {
     ],
   });
 
+  // --- Role Configs ---
+  const roleConfigs = [
+    {
+      role: "verified_giver",
+      displayName: "Verified Giver",
+      description: "Funded 5+ distinct projects or loan shares",
+      thresholds: JSON.stringify({ minProjectsFunded: 5, minLoansFunded: 5, requireEither: true }),
+      isAutomatic: true,
+    },
+    {
+      role: "sponsor",
+      displayName: "Sponsor",
+      description: "Verified giver with $50+ total contributions",
+      thresholds: JSON.stringify({ requiresRole: "verified_giver", minContributionTotal: 50 }),
+      isAutomatic: true,
+    },
+    {
+      role: "trusted_borrower",
+      displayName: "Trusted Borrower",
+      description: "Credit tier 3+ with strong repayment history",
+      thresholds: JSON.stringify({ minCreditTier: 3 }),
+      isAutomatic: true,
+    },
+    {
+      role: "mentor",
+      displayName: "Mentor",
+      description: "Manually nominated community mentor",
+      thresholds: JSON.stringify({ manual: true }),
+      isAutomatic: false,
+    },
+  ];
+
+  for (const rc of roleConfigs) {
+    await prisma.roleConfig.create({ data: rc });
+  }
+
+  // --- Aquifer System ---
+  const reserveAquifer = await prisma.aquifer.create({
+    data: { type: "reserve", balance: 25000 },
+  });
+
+  const poolAquifer = await prisma.aquifer.create({
+    data: { type: "pool", balance: 8500 },
+  });
+
+  // Add some Deluge contributions to Reserve
+  await prisma.aquiferContribution.create({
+    data: {
+      aquiferId: reserveAquifer.id,
+      amount: 25000,
+      isDeluge: true,
+      note: "Initial Reserve funding",
+    },
+  });
+
+  // Add user contributions to Pool
+  await prisma.aquiferContribution.create({
+    data: {
+      aquiferId: poolAquifer.id,
+      userId: angela.id,
+      amount: 5.00,
+      isDeluge: false,
+    },
+  });
+
+  await prisma.aquiferContribution.create({
+    data: {
+      aquiferId: poolAquifer.id,
+      amount: 8495,
+      isDeluge: true,
+      note: "Matching funds",
+    },
+  });
+
+  // --- Strategic Plans ---
+  const solarizePlan = await prisma.strategicPlan.create({
+    data: {
+      title: "Solarize West Jordan",
+      description:
+        "Installing community solar infrastructure across the West Jordan neighborhood to reduce energy costs for low-income families.",
+      vision:
+        "West Jordan has some of the highest energy burden rates in Colorado. Families spend up to 15% of their income on electricity. By installing community solar on public buildings, schools, and affordable housing, we can cut those bills in half. This isn't just about solar panels—it's about energy justice. Every dollar saved on electricity is a dollar that can go toward food, medicine, or a child's education. Our vision: West Jordan becomes the first carbon-neutral neighborhood in Denver, powered by the sun and owned by the community.",
+      fundingGoal: 50000,
+      status: "active",
+      order: 0,
+    },
+  });
+
+  // Queue a future plan
+  await prisma.strategicPlan.create({
+    data: {
+      title: "Green Jobs Training Center",
+      description:
+        "Building a workforce development center focused on green jobs in renewable energy, weatherization, and sustainable construction.",
+      vision:
+        "The transition to clean energy must create local jobs for local people. This training center will prepare residents for careers in solar installation, energy auditing, electric vehicle maintenance, and more. We're not just teaching skills—we're building pathways out of poverty.",
+      fundingGoal: 75000,
+      status: "funded",
+      order: 1,
+    },
+  });
+
+  // --- Flagship Projects ---
+  // 1. Active (Reserve-funded) - no voting needed
+  const flagshipProject1 = await prisma.project.create({
+    data: {
+      title: "Denver Metro Regional Food Hub",
+      description: "A central distribution hub connecting local farms with food-insecure neighborhoods across the Denver metro area. This flagship initiative will reduce food waste, create local jobs, and ensure fresh produce reaches communities that need it most. The hub will feature cold storage, a commercial kitchen for value-added processing, and a fleet of electric delivery vehicles.",
+      category: "Community",
+      fundingGoal: 50000,
+      fundingRaised: 12500,
+      backerCount: 0,
+      status: "active",
+      location: "Denver, CO",
+      isFlagship: true,
+    },
+  });
+
+  await prisma.flagshipProject.create({
+    data: {
+      projectId: flagshipProject1.id,
+      status: "active",
+      fundingSource: "reserve",
+      strategicPlanId: solarizePlan.id,
+    },
+  });
+
+  // 2. Voting (Pool-funded) - community vote in progress
+  const votingEndsAt = new Date();
+  votingEndsAt.setDate(votingEndsAt.getDate() + 25);
+
+  const flagshipProject2 = await prisma.project.create({
+    data: {
+      title: "Colorado Youth Climate Corps",
+      description: "A paid summer program for high school students to work on climate resilience projects across Colorado communities. Youth will learn about renewable energy, urban forestry, water conservation, and sustainable agriculture while earning wages and building skills for green careers.",
+      category: "Youth",
+      fundingGoal: 35000,
+      fundingRaised: 0,
+      backerCount: 0,
+      status: "active",
+      location: "Statewide, CO",
+      isFlagship: true,
+    },
+  });
+
+  const flagship2 = await prisma.flagshipProject.create({
+    data: {
+      projectId: flagshipProject2.id,
+      status: "voting",
+      fundingSource: "pool",
+      votingEndsAt,
+    },
+  });
+
+  // Give Angela verified_giver role so she can vote
+  await prisma.userRole.create({
+    data: {
+      userId: angela.id,
+      role: "verified_giver",
+    },
+  });
+
+  // Add a sample vote from Angela
+  await prisma.flagshipVote.create({
+    data: {
+      flagshipProjectId: flagship2.id,
+      userId: angela.id,
+      vote: "approve",
+    },
+  });
+
+  // 3. Tabled (Pool-funded) - was voted to table
+  const tabledAt = new Date();
+  tabledAt.setDate(tabledAt.getDate() - 10);
+
+  const flagshipProject3 = await prisma.project.create({
+    data: {
+      title: "Front Range Tiny Home Initiative",
+      description: "Building a network of tiny home villages along the Front Range to provide transitional housing for individuals experiencing homelessness. Each village will have 20 units with shared amenities and on-site case management.",
+      category: "Housing",
+      fundingGoal: 75000,
+      fundingRaised: 0,
+      backerCount: 0,
+      status: "active",
+      location: "Front Range, CO",
+      isFlagship: true,
+    },
+  });
+
+  const flagship3 = await prisma.flagshipProject.create({
+    data: {
+      projectId: flagshipProject3.id,
+      status: "tabled",
+      fundingSource: "pool",
+      tabledAt,
+    },
+  });
+
+  // Add Angela as a sponsor for the tabled project
+  await prisma.flagshipSponsor.create({
+    data: {
+      flagshipProjectId: flagship3.id,
+      userId: angela.id,
+    },
+  });
+
+  // --- Platform Reserve ---
+  const platformReserve = await prisma.platformReserve.create({
+    data: {
+      balance: RESERVE_INITIAL_BALANCE,
+      totalInflow: RESERVE_INITIAL_BALANCE,
+      totalOutflow: 0,
+      totalReplenished: RESERVE_INITIAL_BALANCE,
+    },
+  });
+
+  await prisma.reserveTransaction.create({
+    data: {
+      reserveId: platformReserve.id,
+      type: "manual_adjustment",
+      amount: RESERVE_INITIAL_BALANCE,
+      balanceAfter: RESERVE_INITIAL_BALANCE,
+      description: "Initial reserve seed",
+    },
+  });
+
   console.log("Seed complete!");
   console.log(`  Users: ${4} (admin, angela, deandre, demo)`);
-  console.log(`  Projects: ${projects.length}`);
+  console.log(`  Projects: ${projects.length} + 3 flagships`);
+  console.log(`  Role Configs: ${roleConfigs.length}`);
+  console.log(`  Aquifer: Reserve $25,000 / Pool $8,500`);
+  console.log(`  Strategic Plans: 2 (1 active, 1 queued)`);
+  console.log(`  Platform Reserve: $${RESERVE_INITIAL_BALANCE.toLocaleString()}`);
   console.log("");
   console.log("Login credentials (all users):");
   console.log("  Password: password123");
