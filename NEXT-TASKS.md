@@ -239,18 +239,10 @@ See full plan: `docs/plans/plan-17-ambassador-program.md`
 
 #### Epic 18: Project Verification & Auditing
 
-Build trust through verification, auditing, and fraud prevention.
+**Status: Complete** — See Plan 18 in `docs/plans/plan-18-project-verification.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-VERIFY-001 | Verification levels framework | verification | Unverified → Basic → Verified → Audited |
-| DLG-VERIFY-002 | Identity verification | verification | Proposer ID verification |
-| DLG-VERIFY-003 | Organization verification | verification | 501c3, EIN validation |
-| DLG-VERIFY-004 | Outcome verification | verification | Track and verify project outcomes |
-| DLG-VERIFY-005 | Community verification | verification | Witnesses verify outcomes |
-| DLG-VERIFY-006 | Third-party audits | verification | Professional audit framework |
-| DLG-VERIFY-007 | Fraud detection and flags | verification | Red flag detection system |
-| DLG-VERIFY-008 | Trust scores | verification | Calculate and display trust |
+4-tier verification levels, identity/organization verification, community verification of outcomes, third-party audits, fraud detection with flag system, trust scores.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-18-project-verification.md`
 
@@ -665,3 +657,4 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-SEASON-001 | Seasonal & event-driven giving (Plan 15) | seasonal | 2026-02-07 |
 | DLG-CREDIT-001 | Credit bureau reporting (Plan 16) | credit | 2026-02-07 |
 | DLG-ADV-001 | Community advocates program (Plan 17) | advocates | 2026-02-07 |
+| DLG-VERIFY-001 | Project verification & auditing (Plan 18) | verification | 2026-02-07 |
