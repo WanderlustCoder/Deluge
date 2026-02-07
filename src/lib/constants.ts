@@ -142,6 +142,25 @@ export const REFINANCE_MIN_BALANCE = 1000;
 export const REFINANCE_FEE_PERCENT = 0.01;
 export const REFINANCE_MIN_FEE = 10;
 
+// --- Default Timeline ---
+export const DEFAULT_TIMELINE = {
+  lateDays: 30,        // 1-30 days = "late"
+  atRiskDays: 90,      // 31-90 days = "at risk"
+  defaultDays: 90,     // 90+ days = "defaulted"
+  recoveryPayments: 3, // 3 consecutive on-time payments to recover
+} as const;
+
+// --- Stretch Goals ---
+export const STRETCH_GOALS = {
+  maxCount: 3,
+} as const;
+
+// --- Deadline Extensions ---
+export const DEADLINE_EXTENSION = {
+  maxExtensions: 2,
+  extensionDays: 7,
+} as const;
+
 // --- Business Directory ---
 export const BUSINESS_VIEW_REVENUE_BASE = 0.002;
 export const BUSINESS_ENHANCED_MONTHLY = 20;

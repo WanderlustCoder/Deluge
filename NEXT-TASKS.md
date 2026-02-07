@@ -12,35 +12,9 @@ When a task is completed, move its row to the **Done** section at the bottom.
 
 #### Epic 1: Advanced Microloan System (Tiers 2-5)
 
-Currently only Tier 1 ($100) is implemented. The loan system docs describe 5 tiers with full credit progression.
+**Status: Complete** — See Plan 1 in `docs/plans/plan-01-advanced-microloans.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-LOAN-001 | Credit progression system — track repayment history, calculate tier eligibility | loans | `src/lib/loan-tiers.ts` |
-| DLG-LOAN-001a | Tier unlock logic — T2 after 1 repaid, T3 after 2, etc. | loans | Per loan-system.md |
-| DLG-LOAN-001b | Credit limit display on user profile and loan apply page | loans | UI enhancement |
-| DLG-LOAN-002 | Higher tier loan applications — $500 (T2), $1K (T3), $2K (T4), $5K (T5) | loans | Schema + validation |
-| DLG-LOAN-002a | Extended repayment terms per tier — T2=12mo, T3=18mo, T4-5=24mo | loans | Constants + UI |
-| DLG-LOAN-002b | Funding deadline scaling per tier — 7d (T1) to 45d (T5) | loans | loan-system.md |
-| DLG-LOAN-003 | Stretch goals system — up to 3 prioritized additions beyond primary | loans | Schema: LoanStretchGoal |
-| DLG-LOAN-003a | Stretch goal funding logic — fill primary first, then in priority order | loans | All-or-nothing per stretch |
-| DLG-LOAN-003b | Stretch goal UI on loan detail and funding pages | loans | Progress indicators |
-| DLG-LOAN-004 | Sponsor deadline extensions — up to 2 extensions per loan | loans | +1x and +0.5x original |
-| DLG-LOAN-004a | Extension request UI for sponsors | loans | Modal + API |
-| DLG-LOAN-005 | Refinancing system for $1K+ loans | loans | `src/lib/refinancing.ts` |
-| DLG-LOAN-005a | Refinancing fee calculation — 1% or $10 minimum | loans | Per loan-system.md |
-| DLG-LOAN-005b | Refinancing UI — `/loans/[id]/refinance` page | loans | Borrower-facing |
-| DLG-LOAN-005c | Refinancing can exceed original term limits | loans | Recovery tool exception |
-| DLG-LOAN-006 | Default escalation timeline — late (1-30d), at risk (31-90d), defaulted (90d+) | loans | `src/lib/default-recovery.ts` |
-| DLG-LOAN-006a | Status transitions with notifications at each stage | loans | Email + in-app |
-| DLG-LOAN-006b | Admin dashboard for at-risk and defaulted loans | loans | `/admin/loans/at-risk` |
-| DLG-LOAN-007 | Default recovery paths — 3 consecutive payments or full payoff | loans | Per loan-system.md |
-| DLG-LOAN-007a | Credit halving after recovery — halved from limit at default | loans | $25 minimum floor |
-| DLG-LOAN-007b | Sponsor track record restoration on recovery | loans | Retroactive fix |
-| DLG-LOAN-008 | Goal verification system — borrower submits evidence when goal met | loans | Photo/receipt upload |
-| DLG-LOAN-008a | Verification depth scales with tier — light (T1) to comprehensive (T5) | loans | Per loan-system.md |
-| DLG-LOAN-008b | Community flagging for suspicious verifications | loans | Flag threshold = 3 |
-| DLG-LOAN-008c | Goal verification gates future loans | loans | Must submit before new app |
+All tasks moved to Done section. Goal verification (DLG-LOAN-008) was already implemented as part of DLG-CORE-020.
 
 #### Epic 2: Post-Cascade Impact Tracking
 
@@ -233,3 +207,24 @@ Not explicitly documented but implied by "engaging, daily habit" vision.
 | DLG-CORE-019 | Enhanced Analytics & Impact Reporting | analytics | 2026-02-06 |
 | DLG-CORE-020 | Enhanced Microloan Features | loans | 2026-02-06 |
 | DLG-CORE-021 | Corporate ESG & Matching Campaigns | matching | 2026-02-06 |
+| DLG-LOAN-001 | Credit progression system | loans | 2026-02-06 |
+| DLG-LOAN-001a | Tier unlock logic | loans | 2026-02-06 |
+| DLG-LOAN-001b | Credit limit display | loans | 2026-02-06 |
+| DLG-LOAN-002 | Higher tier loan applications | loans | 2026-02-06 |
+| DLG-LOAN-002a | Extended repayment terms per tier | loans | 2026-02-06 |
+| DLG-LOAN-002b | Funding deadline scaling per tier | loans | 2026-02-06 |
+| DLG-LOAN-003 | Stretch goals system | loans | 2026-02-06 |
+| DLG-LOAN-003a | Stretch goal funding logic | loans | 2026-02-06 |
+| DLG-LOAN-003b | Stretch goal UI | loans | 2026-02-06 |
+| DLG-LOAN-004 | Sponsor deadline extensions | loans | 2026-02-06 |
+| DLG-LOAN-004a | Extension request UI | loans | 2026-02-06 |
+| DLG-LOAN-005 | Refinancing system | loans | 2026-02-06 |
+| DLG-LOAN-005a | Refinancing fee calculation | loans | 2026-02-06 |
+| DLG-LOAN-005b | Refinancing UI | loans | 2026-02-06 |
+| DLG-LOAN-005c | Refinancing term exceptions | loans | 2026-02-06 |
+| DLG-LOAN-006 | Default escalation timeline | loans | 2026-02-06 |
+| DLG-LOAN-006a | Status transitions | loans | 2026-02-06 |
+| DLG-LOAN-006b | Admin at-risk dashboard | loans | 2026-02-06 |
+| DLG-LOAN-007 | Default recovery paths | loans | 2026-02-06 |
+| DLG-LOAN-007a | Credit halving after recovery | loans | 2026-02-06 |
+| DLG-LOAN-007b | Sponsor track record restoration | loans | 2026-02-06 |

@@ -57,6 +57,7 @@ model User {
   grantVolunteering         CommunityGrantVolunteer[] @relation("GrantVolunteers")
   notificationPreference    NotificationPreference?
   proposals                 ProjectProposal[] @relation("ProposedProjects")
+  deadlineExtensions        LoanDeadlineExtension[] @relation("DeadlineExtensions")
 }
 
 model Watershed {
@@ -171,7 +172,7 @@ model Loan {
   purposeCategory String
   story           String?
   location        String
-  status          String   @default("funding") // funding, active, repaying, completed, defaulted, expired
+  status          String   @default("funding") // funding, active, repaying, completed, defaulted, expired, recovering
   tier            Int      @default(1)
   latePayments    Int      @default(0)
   fundingDeadline DateTime
@@ -183,14 +184,20 @@ model Loan {
   seekingSponsor    Boolean  @default(false)
   sponsorshipAmount Float    @default(0)
 
-  borrower         User               @relation("BorrowerLoans", fields: [borrowerId], references: [id])
-  shares           LoanShare[]
-  repayments       LoanRepayment[]
-  sponsorships     LoanSponsorship[]
-  stretchGoals     LoanStretchGoal[]
-  questions        LoanQuestion[]
-  goalVerification GoalVerification?
-  refinances       LoanRefinance[]
+  // Default/recovery tracking
+  recoveryStartedAt DateTime?
+  defaultedAt       DateTime?
+  recoveryPayments  Int       @default(0) // Consecutive on-time payments during recovery
+
+  borrower           User                    @relation("BorrowerLoans", fields: [borrowerId], references: [id])
+  shares             LoanShare[]
+  repayments         LoanRepayment[]
+  sponsorships       LoanSponsorship[]
+  stretchGoals       LoanStretchGoal[]
+  questions          LoanQuestion[]
+  goalVerification   GoalVerification?
+  refinances         LoanRefinance[]
+  deadlineExtensions LoanDeadlineExtension[]
 }
 
 model LoanStretchGoal {
@@ -249,6 +256,19 @@ model LoanRefinance {
   createdAt       DateTime @default(now())
 
   loan Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+}
+
+model LoanDeadlineExtension {
+  id            String   @id @default(cuid())
+  loanId        String
+  sponsorId     String
+  extensionDays Int
+  extendedAt    DateTime @default(now())
+
+  loan    Loan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  sponsor User @relation("DeadlineExtensions", fields: [sponsorId], references: [id])
+
+  @@index([loanId])
 }
 
 model LoanShare {

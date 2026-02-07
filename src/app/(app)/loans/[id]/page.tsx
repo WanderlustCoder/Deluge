@@ -11,7 +11,7 @@ import { LoanQA } from "@/components/loans/loan-qa";
 import { useToast } from "@/components/ui/toast";
 import { formatCurrency } from "@/lib/utils";
 import { SHARE_PRICE } from "@/lib/constants";
-import { MapPin, Clock, Users, Target, CheckCircle } from "lucide-react";
+import { MapPin, Clock, Users, Target, CheckCircle, AlertTriangle, CalendarPlus } from "lucide-react";
 import Link from "next/link";
 
 interface StretchGoal {
@@ -31,6 +31,13 @@ interface LoanQuestion {
   asker: { id: string; name: string };
 }
 
+interface DeadlineExtension {
+  id: string;
+  extensionDays: number;
+  extendedAt: string;
+  sponsor: { id: string; name: string };
+}
+
 interface Loan {
   id: string;
   purpose: string;
@@ -44,6 +51,7 @@ interface Loan {
   fundingDeadline: string;
   story: string | null;
   location: string;
+  recoveryPayments?: number;
   borrower: { id: string; name: string };
   shares: Array<{
     id: string;
@@ -53,6 +61,14 @@ interface Loan {
   }>;
   stretchGoals: StretchGoal[];
   questions: LoanQuestion[];
+  deadlineExtensions?: DeadlineExtension[];
+}
+
+interface ExtensionInfo {
+  canExtend: boolean;
+  extensionCount: number;
+  maxExtensions: number;
+  extensionDays: number;
 }
 
 export default function LoanDetailPage() {
@@ -62,16 +78,31 @@ export default function LoanDetailPage() {
   const [shares, setShares] = useState("1");
   const [loading, setLoading] = useState(false);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [isSponsor, setIsSponsor] = useState(false);
+  const [extensionInfo, setExtensionInfo] = useState<ExtensionInfo | null>(null);
+  const [extendingDeadline, setExtendingDeadline] = useState(false);
 
   useEffect(() => {
     fetch(`/api/loans/${params.id}`)
       .then((res) => res.json())
       .then((data) => setLoan(data));
 
-    // Get current user ID from session
+    // Get current user info from session
     fetch("/api/auth/session")
       .then((res) => res.json())
-      .then((data) => setCurrentUserId(data?.user?.id || null));
+      .then((data) => {
+        setCurrentUserId(data?.user?.id || null);
+        setIsSponsor(data?.user?.platformRoles?.includes("sponsor") || false);
+      });
+
+    // Fetch deadline extension info
+    fetch(`/api/loans/${params.id}/extend-deadline`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.canExtend !== undefined) {
+          setExtensionInfo(data);
+        }
+      });
   }, [params.id]);
 
   if (!loan) {
@@ -103,7 +134,32 @@ export default function LoanDetailPage() {
     repaying: "gold",
     completed: "success",
     defaulted: "default",
+    recovering: "ocean",
   };
+
+  async function handleExtendDeadline() {
+    setExtendingDeadline(true);
+    const res = await fetch(`/api/loans/${params.id}/extend-deadline`, {
+      method: "POST",
+    });
+    const data = await res.json();
+    setExtendingDeadline(false);
+
+    if (!res.ok) {
+      toast(data.error || "Failed to extend deadline", "error");
+      return;
+    }
+
+    toast(`Deadline extended by ${extensionInfo?.extensionDays} days!`, "success");
+
+    // Refresh loan and extension info
+    const [refreshedLoan, refreshedExt] = await Promise.all([
+      fetch(`/api/loans/${params.id}`).then((r) => r.json()),
+      fetch(`/api/loans/${params.id}/extend-deadline`).then((r) => r.json()),
+    ]);
+    setLoan(refreshedLoan);
+    setExtensionInfo(refreshedExt);
+  }
 
   // Check if current user is a funder of this loan
   const isFunder = loan.shares.some((s) => s.funder.id === currentUserId);
@@ -150,9 +206,16 @@ export default function LoanDetailPage() {
         <CardContent className="pt-6">
           <div className="flex items-start justify-between mb-4">
             <Badge variant="ocean">{loan.purposeCategory}</Badge>
-            <Badge variant={statusVariant[loan.status] || "default"}>
-              {loan.status}
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Badge variant={statusVariant[loan.status] || "default"}>
+                {loan.status}
+              </Badge>
+              {loan.status === "recovering" && loan.recoveryPayments !== undefined && (
+                <Badge variant="ocean">
+                  {loan.recoveryPayments}/3 payments
+                </Badge>
+              )}
+            </div>
           </div>
 
           <h1 className="font-heading font-bold text-2xl text-storm dark:text-white mb-2">
@@ -166,10 +229,18 @@ export default function LoanDetailPage() {
               {loan.location}
             </span>
             {loan.status === "funding" && (
-              <span className="flex items-center gap-1">
-                <Clock className="h-4 w-4" />
-                {daysLeft}d left
-              </span>
+              <>
+                <span className="flex items-center gap-1">
+                  <Clock className="h-4 w-4" />
+                  {daysLeft}d left
+                </span>
+                {extensionInfo && extensionInfo.extensionCount > 0 && (
+                  <span className="flex items-center gap-1 text-teal">
+                    <CalendarPlus className="h-4 w-4" />
+                    +{extensionInfo.extensionCount * extensionInfo.extensionDays}d extended
+                  </span>
+                )}
+              </>
             )}
             <span className="flex items-center gap-1">
               <Users className="h-4 w-4" />
@@ -281,6 +352,32 @@ export default function LoanDetailPage() {
               >
                 Fund {shareCount} Share{shareCount > 1 ? "s" : ""}
               </Button>
+
+              {/* Sponsor Deadline Extension */}
+              {isSponsor && extensionInfo?.canExtend && daysLeft <= 3 && (
+                <div className="mt-4 p-3 bg-gold/10 border border-gold/30 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <AlertTriangle className="h-4 w-4 text-gold" />
+                    <span className="text-sm font-medium text-storm dark:text-white">
+                      Deadline approaching
+                    </span>
+                  </div>
+                  <p className="text-xs text-storm-light dark:text-gray-400 mb-2">
+                    As a sponsor, you can extend the funding deadline by {extensionInfo.extensionDays} days.
+                    ({extensionInfo.extensionCount}/{extensionInfo.maxExtensions} extensions used)
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleExtendDeadline}
+                    loading={extendingDeadline}
+                    className="w-full"
+                  >
+                    <CalendarPlus className="h-4 w-4 mr-1" />
+                    Extend Deadline
+                  </Button>
+                </div>
+              )}
             </div>
           )}
         </CardContent>

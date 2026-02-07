@@ -1,6 +1,6 @@
 # Plan 1: Advanced Microloan System (Tiers 2-5)
 
-**Status:** Approved
+**Status:** Complete
 **Priority:** High
 **Epic:** DLG-LOAN-001 through DLG-LOAN-008
 **Reference:** `docs/loan-system.md`
@@ -227,13 +227,13 @@ export const STRETCH_GOALS = {
 
 ## Success Criteria
 
-- [ ] Users can unlock Tier 2-5 through on-time repayment
-- [ ] Stretch goals fund in priority order after primary
-- [ ] $1K+ loans can refinance to avoid default
-- [ ] Loans transition: late → at risk → defaulted → recovering → active
-- [ ] Sponsors can extend funding deadlines (up to 2 extensions)
-- [ ] Credit is halved after default recovery
-- [ ] Admin can view and manage at-risk loans
+- [x] Users can unlock Tier 2-5 through on-time repayment
+- [x] Stretch goals fund in priority order after primary
+- [x] $1K+ loans can refinance to avoid default
+- [x] Loans transition: late → at risk → defaulted → recovering → active
+- [x] Sponsors can extend funding deadlines (up to 2 extensions)
+- [x] Credit is halved after default recovery
+- [x] Admin can view and manage at-risk loans
 
 ---
 
