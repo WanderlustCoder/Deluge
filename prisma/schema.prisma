@@ -91,6 +91,8 @@ model User {
   creditDisputes            CreditDispute[]
   advocateProfile           CommunityAdvocate?
   advocateInterest          AdvocateInterest?
+  identityVerifications     IdentityVerification[]
+  auditorProfile            Auditor?
 }
 
 model Watershed {
@@ -164,6 +166,9 @@ model Project {
   inKindDonations        InKindDonation[]
   needs                  ProjectNeed[]
   birthdayFundraisers    BirthdayFundraiser[]
+  verification           ProjectVerification?
+  outcomeVerifications   OutcomeVerification[]
+  flags                  ProjectFlag[]
 }
 
 model Allocation {
@@ -2583,5 +2588,192 @@ model AdvocateAppreciation {
   sentAt      DateTime @default(now())
 
   @@index([advocateId])
+}
+
+// =============================================================================
+// Project Verification & Auditing (Plan 18)
+// =============================================================================
+
+model ProjectVerification {
+  id                   String    @id @default(cuid())
+  projectId            String    @unique
+  level                String    @default("unverified") // unverified, basic, verified, audited
+  organizationVerified Boolean   @default(false)
+  documentsVerified    Boolean   @default(false)
+  outcomeVerified      Boolean   @default(false)
+  trustScore           Float?    // Calculated trust score 0-100
+  lastVerifiedAt       DateTime?
+  lastVerifiedBy       String?
+  expiresAt            DateTime?
+  notes                String?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  project Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  checks  VerificationCheck[]
+  audits  ProjectAudit[]
+}
+
+model VerificationCheck {
+  id             String    @id @default(cuid())
+  verificationId String
+  checkType      String    // identity, documents, location, organization, outcome
+  status         String    @default("pending") // pending, passed, failed, expired
+  evidence       String?   // JSON string of submitted evidence
+  reviewedBy     String?
+  reviewedAt     DateTime?
+  reviewNotes    String?
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
+
+  verification ProjectVerification @relation(fields: [verificationId], references: [id], onDelete: Cascade)
+
+  @@index([verificationId, checkType])
+  @@index([status])
+}
+
+model IdentityVerification {
+  id              String    @id @default(cuid())
+  userId          String
+  type            String    // personal, business
+  status          String    @default("pending") // pending, verified, rejected, expired
+  provider        String?   // stripe_identity, manual
+  providerRef     String?   // External verification ID
+  documentType    String?   // drivers_license, passport, ein
+  verifiedName    String?
+  verifiedAddress String?
+  verifiedAt      DateTime?
+  expiresAt       DateTime?
+  rejectionReason String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}
+
+model OrganizationVerification {
+  id                  String    @id @default(cuid())
+  projectId           String?
+  businessId          String?   // For business directory
+  organizationName    String
+  ein                 String?
+  registrationNumber  String?
+  registrationType    String?   // 501c3, 501c4, government, llc
+  verificationStatus  String    @default("pending") // pending, verified, rejected, expired
+  verifiedAt          DateTime?
+  verifiedBy          String?
+  documents           String?   // JSON string of document URLs
+  notes               String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@index([ein])
+  @@index([verificationStatus])
+  @@index([projectId])
+}
+
+model OutcomeVerification {
+  id                  String    @id @default(cuid())
+  projectId           String
+  outcomeType         String    // completion, impact_metric, milestone
+  description         String
+  targetValue         Float?
+  actualValue         Float?
+  evidence            String?   // JSON string of evidence (photos, receipts, documents)
+  status              String    @default("pending") // pending, verified, disputed, unverified
+  verifiedBy          String?
+  verifiedAt          DateTime?
+  verificationMethod  String?   // self_reported, community, third_party
+  notes               String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  project              Project                 @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  communityVerifications CommunityVerification[]
+
+  @@index([projectId, status])
+}
+
+model CommunityVerification {
+  id           String   @id @default(cuid())
+  outcomeId    String
+  userId       String
+  relationship String   // beneficiary, witness, neighbor, volunteer
+  verification String   // confirmed, disputed
+  comment      String?
+  evidence     String?  // JSON string of evidence
+  createdAt    DateTime @default(now())
+
+  outcome OutcomeVerification @relation(fields: [outcomeId], references: [id], onDelete: Cascade)
+
+  @@unique([outcomeId, userId])
+  @@index([outcomeId])
+}
+
+model ProjectAudit {
+  id             String    @id @default(cuid())
+  verificationId String
+  auditorId      String    // User who conducted audit
+  auditorOrg     String?   // Auditing organization
+  auditType      String    // financial, impact, compliance
+  scope          String    // What was audited
+  findings       String?   // JSON string of audit findings
+  rating         String?   // pass, conditional, fail
+  reportUrl      String?
+  startDate      DateTime
+  completedDate  DateTime?
+  status         String    @default("scheduled") // scheduled, in_progress, completed, cancelled
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  verification ProjectVerification @relation(fields: [verificationId], references: [id], onDelete: Cascade)
+
+  @@index([verificationId])
+  @@index([status])
+}
+
+model Auditor {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  organization    String
+  credentials     String    // Comma-separated credentials
+  specialties     String    // Comma-separated specialties/categories
+  status          String    @default("pending") // pending, approved, suspended
+  approvedAt      DateTime?
+  approvedBy      String?
+  auditsCompleted Int       @default(0)
+  averageRating   Float?
+  bio             String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+model ProjectFlag {
+  id          String    @id @default(cuid())
+  projectId   String
+  type        String    // duplicate, suspicious_funding, unresponsive, misuse, fraud
+  severity    String    // low, medium, high, critical
+  description String
+  evidence    String?   // JSON string of evidence
+  status      String    @default("open") // open, investigating, resolved, dismissed
+  reportedBy  String?   // User ID or "system"
+  assignedTo  String?   // Admin investigating
+  resolvedBy  String?
+  resolvedAt  DateTime?
+  resolution  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, status])
+  @@index([severity, status])
+  @@index([type])
 }
 

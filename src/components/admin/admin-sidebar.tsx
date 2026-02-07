@@ -23,6 +23,8 @@ import {
   FileText,
   CreditCard,
   Heart,
+  AlertTriangle,
+  ShieldCheck,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -42,6 +44,8 @@ const navLinks = [
   { href: "/admin/roles", label: "Roles", icon: Shield },
   { href: "/admin/credit-reporting", label: "Credit Reporting", icon: CreditCard },
   { href: "/admin/advocates", label: "Advocates", icon: Heart },
+  { href: "/admin/flags", label: "Flags", icon: AlertTriangle },
+  { href: "/admin/verification", label: "Verification", icon: ShieldCheck },
   { href: "/admin/audit", label: "Audit Log", icon: ClipboardList },
 ];
 
