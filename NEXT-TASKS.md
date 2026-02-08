@@ -256,33 +256,19 @@ See full plan: `docs/plans/plan-19-developer-api.md`
 
 #### Epic 20: Smart Discovery & Recommendations
 
-Intelligent recommendations for projects, communities, and opportunities.
+**Status: Complete** — See Plan 20 in `docs/plans/plan-20-smart-discovery.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-REC-001 | User interest profiling | recommendations | Build interest graph |
-| DLG-REC-002 | Collaborative filtering | recommendations | Similar users → similar projects |
-| DLG-REC-003 | Content-based filtering | recommendations | Category and content matching |
-| DLG-REC-004 | Personalized feeds | recommendations | For You, Nearby, Category feeds |
-| DLG-REC-005 | Smart matching | recommendations | Project-user match scores |
-| DLG-REC-006 | Email digests | recommendations | Personalized weekly recommendations |
-| DLG-REC-007 | Explore mode | recommendations | Swipe-style discovery |
-| DLG-REC-008 | Discovery challenges | recommendations | Gamified exploration |
+User interest profiling, collaborative filtering, content-based filtering, hybrid recommendations, personalized feeds (For You, Nearby, Trending, New), project-user matching, discovery challenges.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-20-smart-discovery.md`
 
 #### Epic 21: Learning Resources & Financial Literacy
 
-Resource library for effective giving and financial wellness. No progress tracking, no gamification—just helpful content available when needed.
+**Status: Complete** — See Plan 21 in `docs/plans/plan-21-learning-literacy.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-LEARN-001 | Resource library | learning | Browse by category, no progress bars |
-| DLG-LEARN-002 | Practical tools | learning | Budget planner, tax estimator |
-| DLG-LEARN-003 | Reflection prompts | learning | Private reflection journal |
-| DLG-LEARN-004 | Decision scenarios | learning | Exploration, not tests |
-| DLG-LEARN-005 | Study circles | learning | Community discussion groups |
-| DLG-LEARN-006 | Optional certificates | learning | Available upon request |
+Resource library, budget planner, tax info, reflection journal, decision scenarios, study circles, optional certificates. No progress tracking, no gamification.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-21-learning-literacy.md`
 
@@ -657,3 +643,17 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-API-005 | OAuth provider (Plan 19) | api | 2026-02-07 |
 | DLG-API-006 | Embeddable widgets (Plan 19) | api | 2026-02-07 |
 | DLG-API-007 | Developer portal and docs (Plan 19) | api | 2026-02-07 |
+| DLG-REC-001 | User interest profiling (Plan 20) | recommendations | 2026-02-07 |
+| DLG-REC-002 | Collaborative filtering (Plan 20) | recommendations | 2026-02-07 |
+| DLG-REC-003 | Content-based filtering (Plan 20) | recommendations | 2026-02-07 |
+| DLG-REC-004 | Hybrid recommendations (Plan 20) | recommendations | 2026-02-07 |
+| DLG-REC-005 | Personalized feeds (Plan 20) | recommendations | 2026-02-07 |
+| DLG-REC-006 | Project-user matching (Plan 20) | recommendations | 2026-02-07 |
+| DLG-REC-007 | Discovery challenges (Plan 20) | recommendations | 2026-02-07 |
+| DLG-REC-008 | Recommendation analytics (Plan 20) | recommendations | 2026-02-07 |
+| DLG-LEARN-001 | Resource library (Plan 21) | learning | 2026-02-07 |
+| DLG-LEARN-002 | Budget planner & tax info (Plan 21) | learning | 2026-02-07 |
+| DLG-LEARN-003 | Reflection journal (Plan 21) | learning | 2026-02-07 |
+| DLG-LEARN-004 | Decision scenarios (Plan 21) | learning | 2026-02-07 |
+| DLG-LEARN-005 | Study circles (Plan 21) | learning | 2026-02-07 |
+| DLG-LEARN-006 | Optional certificates (Plan 21) | learning | 2026-02-07 |
