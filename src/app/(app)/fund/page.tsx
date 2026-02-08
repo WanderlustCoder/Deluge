@@ -134,7 +134,7 @@ function FundPageContent() {
           <Card>
             <CardContent className="pt-5">
               <p className="text-sm text-storm-light">Available Balance</p>
-              <p className="text-3xl font-heading font-bold text-ocean">
+              <p className="text-3xl font-heading font-bold text-ocean" data-testid="available-balance">
                 {formatCurrencyPrecise(balance)}
               </p>
             </CardContent>
@@ -156,6 +156,7 @@ function FundPageContent() {
                         ? "border-ocean bg-ocean/5"
                         : "border-gray-200 hover:border-gray-300"
                     }`}
+                    data-testid="project-card"
                   >
                     <div className="flex justify-between items-start mb-2">
                       <span className="font-medium text-storm">
@@ -245,6 +246,7 @@ function FundPageContent() {
                   disabled={
                     !amount || parseFloat(amount) < 0.25 || parseFloat(amount) > balance
                   }
+                  data-testid="fund-button"
                 >
                   <Heart className="h-4 w-4 mr-2" />
                   Fund Project
@@ -304,6 +306,7 @@ function FundPageContent() {
               className="flex-1"
               onClick={handleFund}
               loading={loading}
+              data-testid="confirm-fund"
             >
               Confirm
             </Button>
@@ -316,6 +319,7 @@ function FundPageContent() {
         open={showSuccess}
         onClose={() => setShowSuccess(false)}
         title="Pledge Recorded!"
+        data-testid="success-modal"
       >
         <div className="text-center">
           <CheckCircle className="h-12 w-12 text-teal mx-auto mb-4" />

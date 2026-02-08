@@ -12,9 +12,10 @@ interface ModalProps {
   title?: string;
   children: ReactNode;
   className?: string;
+  "data-testid"?: string;
 }
 
-export function Modal({ open, onClose, title, children, className }: ModalProps) {
+export function Modal({ open, onClose, title, children, className, "data-testid": testId }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
 
@@ -59,6 +60,7 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.2 }}
+              data-testid={testId}
             >
               {title && (
                 <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-dark-border">

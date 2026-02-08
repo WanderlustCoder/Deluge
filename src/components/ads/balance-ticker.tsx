@@ -134,7 +134,7 @@ export function BalanceTicker({ balance, credit, creditKey }: BalanceTickerProps
                 </motion.div>
               )}
             </AnimatePresence>
-            <span className="text-2xl font-heading font-bold text-storm">
+            <span className="text-2xl font-heading font-bold text-storm" data-testid="balance">
               {formatCurrencyPrecise(displayBalance)}
             </span>
           </div>

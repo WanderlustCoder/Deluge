@@ -204,6 +204,7 @@ export function AdPlayer({ onComplete, disabled, blockedCategories = [] }: AdPla
                 disabled={disabled}
                 size="lg"
                 className="gap-2"
+                data-testid="watch-ad-button"
               >
                 <Play className="h-5 w-5" />
                 Watch Ad
@@ -269,6 +270,7 @@ export function AdPlayer({ onComplete, disabled, blockedCategories = [] }: AdPla
                         ? "bg-white/20 text-white hover:bg-white/30"
                         : "text-white/40 cursor-not-allowed"
                     } transition-colors`}
+                    data-testid="skip-button"
                   >
                     <SkipForward className="h-4 w-4" />
                     {canSkip
@@ -286,6 +288,7 @@ export function AdPlayer({ onComplete, disabled, blockedCategories = [] }: AdPla
               className="absolute inset-0 bg-gray-900 flex flex-col items-center justify-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
+              data-testid="ad-complete"
             >
               <motion.div
                 className="text-center"

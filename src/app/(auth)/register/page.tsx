@@ -86,16 +86,32 @@ export default function RegisterPage() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <Input
-            id="password"
-            label="Password"
-            type="password"
-            placeholder="At least 6 characters"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            minLength={6}
-            required
-          />
+          <div>
+            <Input
+              id="password"
+              label="Password"
+              type="password"
+              placeholder="Create a secure password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              minLength={8}
+              required
+            />
+            <ul className="mt-2 text-xs text-storm-light space-y-0.5">
+              <li className={password.length >= 8 ? "text-teal" : ""}>
+                {password.length >= 8 ? "✓" : "○"} At least 8 characters
+              </li>
+              <li className={/[A-Z]/.test(password) ? "text-teal" : ""}>
+                {/[A-Z]/.test(password) ? "✓" : "○"} One uppercase letter
+              </li>
+              <li className={/[a-z]/.test(password) ? "text-teal" : ""}>
+                {/[a-z]/.test(password) ? "✓" : "○"} One lowercase letter
+              </li>
+              <li className={/[0-9]/.test(password) ? "text-teal" : ""}>
+                {/[0-9]/.test(password) ? "✓" : "○"} One number
+              </li>
+            </ul>
+          </div>
 
           {error && (
             <p className="text-sm text-red-500 text-center">{error}</p>

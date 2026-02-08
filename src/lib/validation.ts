@@ -13,11 +13,20 @@ import {
 const sanitized = (maxLen: number) =>
   z.string().max(maxLen).transform(sanitizeText);
 
+// --- Password schema with strength requirements ---
+export const passwordSchema = z
+  .string()
+  .min(8, "Password must be at least 8 characters")
+  .max(128)
+  .regex(/[A-Z]/, "Password must contain an uppercase letter")
+  .regex(/[a-z]/, "Password must contain a lowercase letter")
+  .regex(/[0-9]/, "Password must contain a number");
+
 // --- Auth schemas ---
 export const registerSchema = z.object({
   name: sanitized(100).pipe(z.string().min(1, "Name is required")),
   email: z.string().email("Invalid email").max(255),
-  password: z.string().min(6, "Password must be at least 6 characters").max(128),
+  password: passwordSchema,
   referralCode: z.string().max(50).optional(),
 });
 
