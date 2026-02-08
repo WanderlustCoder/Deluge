@@ -113,6 +113,8 @@ model User {
   // Plan 25: Accessibility & i18n
   localePreferences         UserLocale?
   accessibilityPreferences  AccessibilityPreferences?
+  // Plan 26: Grants & Large Funding
+  grantApplications         GrantApplication[]
 }
 
 model Watershed {
@@ -3800,5 +3802,223 @@ model AccessibilityPreferences {
   updatedAt     DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================================
+// PLAN 26: GRANTS & LARGE FUNDING PROGRAMS
+// ============================================================================
+
+model GrantProgram {
+  id               String    @id @default(cuid())
+  name             String
+  slug             String    @unique
+  description      String
+  funderId         String
+  funderType       String    // individual, corporate, foundation, institution
+  totalBudget      Float
+  remainingBudget  Float
+  minGrant         Float     @default(1000)
+  maxGrant         Float     @default(50000)
+  categories       String    @default("[]") // JSON array
+  eligibility      String    @default("{}") // JSON
+  focusAreas       String    @default("[]") // JSON array
+  geographicFocus  String    @default("[]") // JSON array
+  applicationStart DateTime
+  applicationEnd   DateTime
+  reviewStart      DateTime?
+  awardDate        DateTime?
+  reportingRequired Boolean  @default(true)
+  reportingFrequency String? // monthly, quarterly, final
+  status           String    @default("draft") // draft, open, reviewing, awarded, completed
+  isPublic         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  applications GrantApplication[]
+  awards       GrantAward[]
+  reviewers    GrantReviewer[]
+  reports      GrantReport[]
+  questions    GrantQuestion[]
+  rubric       GrantRubric?
+
+  @@index([status, applicationEnd])
+  @@index([funderId])
+}
+
+model GrantReviewer {
+  id         String   @id @default(cuid())
+  programId  String
+  userId     String
+  role       String   @default("reviewer") // lead, reviewer, advisor
+  assignedAt DateTime @default(now())
+
+  program GrantProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@unique([programId, userId])
+}
+
+model GrantApplication {
+  id                 String    @id @default(cuid())
+  programId          String
+  applicantId        String
+  projectTitle       String
+  projectSummary     String
+  requestedAmount    Float
+  proposedBudget     String    @default("{}") // JSON
+  timeline           String    @default("[]") // JSON
+  teamMembers        String    @default("[]") // JSON
+  impactStatement    String
+  measurableOutcomes String    @default("[]") // JSON
+  attachments        String    @default("[]") // JSON array
+  answers            String    @default("{}") // JSON
+  status             String    @default("draft") // draft, submitted, under_review, approved, rejected, withdrawn
+  submittedAt        DateTime?
+  lastSavedAt        DateTime  @default(now())
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  program   GrantProgram    @relation(fields: [programId], references: [id], onDelete: Cascade)
+  applicant User            @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  reviews   GrantReview[]
+  feedback  GrantFeedback[]
+  award     GrantAward?
+
+  @@unique([programId, applicantId])
+  @@index([programId, status])
+  @@index([applicantId])
+}
+
+model GrantQuestion {
+  id         String   @id @default(cuid())
+  programId  String
+  question   String
+  type       String   // text, textarea, select, multiselect, file, number
+  options    String   @default("[]") // JSON array
+  isRequired Boolean  @default(true)
+  maxLength  Int?
+  helpText   String?
+  order      Int      @default(0)
+  section    String?
+  createdAt  DateTime @default(now())
+
+  program GrantProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@index([programId, order])
+}
+
+model GrantReview {
+  id             String    @id @default(cuid())
+  applicationId  String
+  reviewerId     String
+  scores         String    @default("{}") // JSON
+  overallScore   Float?
+  strengths      String?
+  weaknesses     String?
+  recommendation String?   // fund, fund_with_conditions, decline, needs_discussion
+  isComplete     Boolean   @default(false)
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  application GrantApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@unique([applicationId, reviewerId])
+  @@index([applicationId])
+}
+
+model GrantRubric {
+  id        String   @id @default(cuid())
+  programId String   @unique
+  criteria  String   // JSON array
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  program GrantProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+}
+
+model GrantFeedback {
+  id            String   @id @default(cuid())
+  applicationId String
+  authorId      String
+  content       String
+  isPublic      Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  application GrantApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+}
+
+model GrantAward {
+  id                   String    @id @default(cuid())
+  programId            String
+  applicationId        String    @unique
+  recipientId          String
+  awardedAmount        Float
+  conditions           String?
+  disbursementSchedule String    @default("[]") // JSON
+  totalDisbursed       Float     @default(0)
+  status               String    @default("pending") // pending, active, completed, terminated
+  awardedAt            DateTime  @default(now())
+  startDate            DateTime
+  endDate              DateTime
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  program       GrantProgram       @relation(fields: [programId], references: [id], onDelete: Cascade)
+  application   GrantApplication   @relation(fields: [applicationId], references: [id])
+  disbursements GrantDisbursement[]
+
+  @@index([programId, status])
+  @@index([recipientId])
+}
+
+model GrantDisbursement {
+  id            String    @id @default(cuid())
+  awardId       String
+  amount        Float
+  scheduledDate DateTime
+  disbursedAt   DateTime?
+  status        String    @default("scheduled") // scheduled, pending, disbursed, failed
+  notes         String?
+  createdAt     DateTime  @default(now())
+
+  award GrantAward @relation(fields: [awardId], references: [id], onDelete: Cascade)
+
+  @@index([awardId, status])
+}
+
+model GrantReport {
+  id          String    @id @default(cuid())
+  awardId     String
+  programId   String
+  type        String    // progress, final, financial
+  periodStart DateTime
+  periodEnd   DateTime
+  content     String    @default("{}") // JSON
+  attachments String    @default("[]") // JSON array
+  status      String    @default("draft") // draft, submitted, approved, revision_requested
+  submittedAt DateTime?
+  reviewedAt  DateTime?
+  reviewedBy  String?
+  feedback    String?
+  dueDate     DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  program GrantProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@index([awardId, type])
+  @@index([programId, status])
+}
+
+model GrantReportTemplate {
+  id        String   @id @default(cuid())
+  programId String
+  type      String   // progress, final, financial
+  sections  String   // JSON
+  createdAt DateTime @default(now())
+
+  @@unique([programId, type])
 }
 

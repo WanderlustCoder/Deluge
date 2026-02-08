@@ -301,16 +301,10 @@ See full plan: `docs/plans/plan-24-impact-storytelling.md`
 
 #### Epic 25: Accessibility & Internationalization
 
-WCAG 2.1 AA compliance and multi-language support.
+**Status: Complete** — See Plan 25 in `docs/plans/plan-25-accessibility-i18n.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-A11Y-001 | Accessibility audit | a11y | Identify and document gaps |
-| DLG-A11Y-002 | Core accessibility fixes | a11y | Keyboard, screen reader, contrast |
-| DLG-A11Y-003 | Accessible components | a11y | Forms, modals, tables |
-| DLG-I18N-001 | i18n infrastructure | i18n | Translation system setup |
-| DLG-I18N-002 | Translation implementation | i18n | UI and content translations |
-| DLG-A11Y-004 | Inclusive design | a11y | Motion, text customization |
+Schema for translations and a11y preferences, keyboard/color/motion utilities, i18n with 7 locales + RTL support, accessibility settings page, locale preferences API.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-25-accessibility-i18n.md`
 
@@ -655,3 +649,9 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-STORY-003 | Story display (Plan 24) | stories | 2026-02-07 |
 | DLG-STORY-004 | Platform impact metrics (Plan 24) | stories | 2026-02-07 |
 | DLG-STORY-005 | Admin stories/testimonials management (Plan 24) | stories | 2026-02-07 |
+| DLG-A11Y-001 | Accessibility utilities (Plan 25) | a11y | 2026-02-07 |
+| DLG-A11Y-002 | A11y components (Plan 25) | a11y | 2026-02-07 |
+| DLG-A11Y-003 | Accessibility preferences (Plan 25) | a11y | 2026-02-07 |
+| DLG-I18N-001 | i18n infrastructure (Plan 25) | i18n | 2026-02-07 |
+| DLG-I18N-002 | Locale detection and formatting (Plan 25) | i18n | 2026-02-07 |
+| DLG-I18N-003 | Translation system (Plan 25) | i18n | 2026-02-07 |
