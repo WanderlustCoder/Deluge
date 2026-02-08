@@ -13,6 +13,9 @@ import { MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { JointProjectBadge } from "@/components/projects/joint-project-badge";
+import { ProjectActions } from "@/components/projects/project-actions";
+import { auth } from "@/lib/auth";
+import { getMomentumTrend } from "@/lib/momentum";
 
 export async function generateMetadata({
   params,
@@ -42,22 +45,29 @@ export default async function ProjectDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const project = await prisma.project.findUnique({
-    where: { id },
-    include: {
-      communities: {
-        include: {
-          community: {
-            select: { id: true, name: true },
+  const [project, session] = await Promise.all([
+    prisma.project.findUnique({
+      where: { id },
+      include: {
+        communities: {
+          include: {
+            community: {
+              select: { id: true, name: true },
+            },
           },
         },
       },
-    },
-  });
+    }),
+    auth(),
+  ]);
 
   if (!project) notFound();
 
   const linkedCommunities = project.communities.map((cp) => cp.community);
+  const momentumTrend = await getMomentumTrend(id);
+  const fundingPercent = project.fundingGoal > 0
+    ? (project.fundingRaised / project.fundingGoal) * 100
+    : 0;
 
   const stage = getCascadeStage(project.fundingRaised, project.fundingGoal);
   const jsonLd = generateProjectJsonLd(project);
@@ -129,6 +139,19 @@ export default async function ProjectDetailPage({
           <p className="text-storm mb-6 leading-relaxed">
             {project.description}
           </p>
+
+          {/* Project Actions: Follow, Share, Rallies */}
+          <div className="mb-6">
+            <ProjectActions
+              projectId={project.id}
+              projectTitle={project.title}
+              fundingPercent={fundingPercent}
+              projectStatus={project.status}
+              isLoggedIn={!!session?.user}
+              momentumScore={project.momentumScore}
+              momentumTrend={momentumTrend}
+            />
+          </div>
 
           {/* Linked communities / Joint project badge */}
           {linkedCommunities.length > 0 && (

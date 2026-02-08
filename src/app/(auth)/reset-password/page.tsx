@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -147,5 +147,29 @@ export default function ResetPasswordPage() {
         </p>
       </CardContent>
     </Card>
+  );
+}
+
+function LoadingCard() {
+  return (
+    <Card>
+      <CardContent className="pt-6 text-center">
+        <div className="animate-pulse space-y-4">
+          <div className="h-8 bg-storm/10 rounded w-1/2 mx-auto" />
+          <div className="h-4 bg-storm/10 rounded w-3/4 mx-auto" />
+          <div className="h-10 bg-storm/10 rounded" />
+          <div className="h-10 bg-storm/10 rounded" />
+          <div className="h-10 bg-storm/10 rounded" />
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<LoadingCard />}>
+      <ResetPasswordForm />
+    </Suspense>
   );
 }

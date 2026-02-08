@@ -3,10 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { generateToken, hashToken } from "@/lib/tokens";
 import { sendEmail, resetPasswordEmailHtml } from "@/lib/email";
 import { logError, logInfo } from "@/lib/logger";
-
-// In-memory token store (would use DB fields in production)
-const resetTokens = new Map<string, { userId: string; expiresAt: Date }>();
-export { resetTokens };
+import { setResetToken, cleanupExpiredTokens } from "@/lib/reset-tokens";
 
 export async function POST(request: Request) {
   try {
@@ -27,17 +24,13 @@ export async function POST(request: Request) {
       const hashedToken = hashToken(rawToken);
 
       // Store hashed token with 1-hour expiry
-      resetTokens.set(hashedToken, {
+      setResetToken(hashedToken, {
         userId: user.id,
         expiresAt: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
       });
 
       // Clean up expired tokens periodically
-      for (const [key, value] of resetTokens.entries()) {
-        if (value.expiresAt < new Date()) {
-          resetTokens.delete(key);
-        }
-      }
+      cleanupExpiredTokens();
 
       // Build reset URL using the raw (unhashed) token
       const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";

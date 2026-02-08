@@ -85,24 +85,36 @@ export async function autoFollowBackers(projectId: string) {
 /**
  * Get projects a user is following.
  */
-export async function getFollowedProjects(userId: string) {
-  const follows = await prisma.projectFollow.findMany({
-    where: { userId },
-    include: {
-      project: {
-        select: {
-          id: true,
-          title: true,
-          category: true,
-          status: true,
-          fundingGoal: true,
-          fundingRaised: true,
-          imageUrl: true,
+export async function getFollowedProjects(userId: string, page: number = 1, limit: number = 20) {
+  const skip = (page - 1) * limit;
+
+  const [follows, total] = await Promise.all([
+    prisma.projectFollow.findMany({
+      where: { userId },
+      include: {
+        project: {
+          select: {
+            id: true,
+            title: true,
+            category: true,
+            status: true,
+            fundingGoal: true,
+            fundingRaised: true,
+            imageUrl: true,
+          },
         },
       },
-    },
-    orderBy: { createdAt: "desc" },
-  });
+      orderBy: { createdAt: "desc" },
+      skip,
+      take: limit,
+    }),
+    prisma.projectFollow.count({ where: { userId } }),
+  ]);
 
-  return follows.map((f) => f.project);
+  return {
+    projects: follows.map((f) => f.project),
+    total,
+    page,
+    totalPages: Math.ceil(total / limit),
+  };
 }

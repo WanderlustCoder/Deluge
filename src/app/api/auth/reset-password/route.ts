@@ -3,7 +3,7 @@ import { hash } from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { hashToken } from "@/lib/tokens";
 import { logError, logInfo } from "@/lib/logger";
-import { resetTokens } from "../forgot-password/route";
+import { getResetToken, deleteResetToken } from "@/lib/reset-tokens";
 
 export async function POST(request: Request) {
   try {
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
     // Hash the provided token to look it up in the store
     const hashedToken = hashToken(token);
-    const stored = resetTokens.get(hashedToken);
+    const stored = getResetToken(hashedToken);
 
     if (!stored) {
       return NextResponse.json(
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     // Check expiry
     if (stored.expiresAt < new Date()) {
-      resetTokens.delete(hashedToken);
+      deleteResetToken(hashedToken);
       return NextResponse.json(
         { error: "Reset link has expired. Please request a new one." },
         { status: 400 }
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     });
 
     // Remove the used token
-    resetTokens.delete(hashedToken);
+    deleteResetToken(hashedToken);
 
     logInfo("reset-password", "Password reset successfully", {
       userId: stored.userId,

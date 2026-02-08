@@ -319,16 +319,10 @@ See full plan: `docs/plans/plan-26-grants-programs.md`
 
 #### Epic 27: Blockchain Transparency Ledger
 
-Optional blockchain-based immutable record of platform transactions.
+**Status: Complete** — See Plan 27 in `docs/plans/plan-27-blockchain-transparency.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-CHAIN-001 | Transparency ledger foundation | blockchain | TransparencyRecord, hashing, merkle |
-| DLG-CHAIN-002 | Blockchain anchoring | blockchain | Multi-chain support, batch anchoring |
-| DLG-CHAIN-003 | Verification system | blockchain | Proof generation, public verification |
-| DLG-CHAIN-004 | Impact certificates | blockchain | ImpactCertificate, optional NFT minting |
-| DLG-CHAIN-005 | Organizational accountability | blockchain | OrganizationLedger, audit trail |
-| DLG-CHAIN-006 | Dashboard & analytics | blockchain | Public and admin dashboards |
+TransparencyRecord, TransparencyAnchor, TransparencyProof, ImpactCertificate, OrganizationLedger, LedgerEntry schema. SHA-256 hashing, Merkle tree construction, multi-chain abstraction (Ethereum, Polygon, Solana), proof generation/verification, impact certificates, public verification page, admin blockchain dashboard.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-27-blockchain-transparency.md`
 

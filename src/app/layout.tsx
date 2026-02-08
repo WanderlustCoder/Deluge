@@ -31,6 +31,15 @@ export const metadata: Metadata = {
     "microloans",
     "charitable giving",
   ],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Deluge",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     siteName: "Deluge",

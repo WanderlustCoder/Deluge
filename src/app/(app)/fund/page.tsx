@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { useSearchParams, redirect } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,7 +15,7 @@ import type { Project } from "@prisma/client";
 import { useToast } from "@/components/ui/toast";
 import { Heart, CheckCircle } from "lucide-react";
 
-export default function FundPage() {
+function FundPageContent() {
   const { data: session, status } = useSession();
   const searchParams = useSearchParams();
   const { toast } = useToast();
@@ -337,5 +337,28 @@ export default function FundPage() {
         }}
       />
     </div>
+  );
+}
+
+function FundPageLoading() {
+  return (
+    <div className="animate-pulse space-y-6">
+      <div className="h-10 bg-storm/10 rounded w-1/3" />
+      <div className="grid lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-4">
+          <div className="h-24 bg-storm/10 rounded-lg" />
+          <div className="h-80 bg-storm/10 rounded-lg" />
+        </div>
+        <div className="h-40 bg-storm/10 rounded-lg" />
+      </div>
+    </div>
+  );
+}
+
+export default function FundPage() {
+  return (
+    <Suspense fallback={<FundPageLoading />}>
+      <FundPageContent />
+    </Suspense>
   );
 }

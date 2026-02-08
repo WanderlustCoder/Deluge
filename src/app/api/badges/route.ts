@@ -1,42 +1,70 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { getUserBadgeProgress, BADGE_TIERS, getNextBadges } from "@/lib/badges-full";
+import { getStreakStatus } from "@/lib/streaks-enhanced";
+import { logError } from "@/lib/logger";
 
+// GET: Get all badges with user's progress/status
 export async function GET() {
   const session = await auth();
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const [allBadges, userBadges, streak] = await Promise.all([
-    prisma.badge.findMany({ orderBy: { createdAt: "asc" } }),
-    prisma.userBadge.findMany({
-      where: { userId: session.user.id },
-      include: { badge: true },
-    }),
-    prisma.streak.findUnique({
-      where: {
-        userId_type: { userId: session.user.id, type: "ad_watch" },
+  try {
+    const [progress, streak, nextBadges] = await Promise.all([
+      getUserBadgeProgress(session.user.id),
+      getStreakStatus(session.user.id, "ad_watch"),
+      getNextBadges(session.user.id, 3),
+    ]);
+
+    // Group by tier
+    const byTier: Record<number, typeof progress> = {};
+    for (const badge of progress) {
+      if (!byTier[badge.tier]) {
+        byTier[badge.tier] = [];
+      }
+      byTier[badge.tier].push(badge);
+    }
+
+    // Calculate summary stats
+    const earnedCount = progress.filter((b) => b.earned).length;
+    const totalCount = progress.length;
+    const earnedByTier: Record<number, number> = {};
+    const totalByTier: Record<number, number> = {};
+
+    for (const badge of progress) {
+      totalByTier[badge.tier] = (totalByTier[badge.tier] || 0) + 1;
+      if (badge.earned) {
+        earnedByTier[badge.tier] = (earnedByTier[badge.tier] || 0) + 1;
+      }
+    }
+
+    return NextResponse.json({
+      badges: progress,
+      byTier,
+      tiers: BADGE_TIERS,
+      nextBadges,
+      streak: {
+        currentDays: streak.currentDays,
+        longestDays: streak.longestDays,
+        isActive: streak.isActive,
+        needsActivity: streak.needsActivity,
+        gracePeriodAvailable: streak.gracePeriodAvailable,
+        graceExpiresAt: streak.graceExpiresAt,
       },
-    }),
-  ]);
-
-  const earnedKeys = new Set(userBadges.map((ub) => ub.badge.key));
-
-  const badges = allBadges.map((badge) => ({
-    ...badge,
-    earned: earnedKeys.has(badge.key),
-    earnedAt: userBadges.find((ub) => ub.badge.key === badge.key)?.earnedAt,
-  }));
-
-  return NextResponse.json({
-    badges,
-    streak: streak
-      ? {
-          currentDays: streak.currentDays,
-          longestDays: streak.longestDays,
-          lastActiveDate: streak.lastActiveDate,
-        }
-      : { currentDays: 0, longestDays: 0, lastActiveDate: null },
-  });
+      summary: {
+        earned: earnedCount,
+        total: totalCount,
+        earnedByTier,
+        totalByTier,
+      },
+    });
+  } catch (error) {
+    logError("api/badges", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
 }

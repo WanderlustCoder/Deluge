@@ -115,6 +115,8 @@ model User {
   accessibilityPreferences  AccessibilityPreferences?
   // Plan 26: Grants & Large Funding
   grantApplications         GrantApplication[]
+  // Plan 27: Blockchain Transparency
+  impactCertificates        ImpactCertificate[]
 }
 
 model Watershed {
@@ -4020,5 +4022,125 @@ model GrantReportTemplate {
   createdAt DateTime @default(now())
 
   @@unique([programId, type])
+}
+
+// =============================================================================
+// PLAN 27: BLOCKCHAIN TRANSPARENCY LEDGER
+// =============================================================================
+
+model TransparencyRecord {
+  id           String    @id @default(cuid())
+  recordType   String    // contribution, allocation, disbursement, impact, loan, milestone
+  entityType   String    // project, loan, community, watershed, user
+  entityId     String
+  amount       Float?
+  metadata     String    @default("{}") // JSON - Record details
+  hash         String    @unique // SHA-256 of record
+  previousHash String?   // Chain link for sequential records
+  anchorStatus String    @default("pending") // pending, anchored, failed
+  anchorTxHash String?   // Blockchain transaction hash
+  anchorChain  String?   // ethereum, polygon, solana
+  anchoredAt   DateTime?
+  createdAt    DateTime  @default(now())
+
+  proofs TransparencyProof[]
+
+  @@index([entityType, entityId])
+  @@index([anchorStatus])
+  @@index([hash])
+  @@index([createdAt])
+}
+
+model TransparencyAnchor {
+  id          String    @id @default(cuid())
+  chain       String    // ethereum, polygon, solana
+  merkleRoot  String    // Root hash of batch
+  recordCount Int
+  fromRecordId String
+  toRecordId  String
+  txHash      String    @unique
+  blockNumber Int?
+  gasUsed     Float?
+  costUsd     Float?
+  status      String    @default("pending") // pending, confirmed, failed
+  confirmedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([chain, status])
+  @@index([createdAt])
+}
+
+model TransparencyProof {
+  id           String    @id @default(cuid())
+  recordId     String
+  proofType    String    // merkle, full_chain
+  proof        String    @default("{}") // JSON - Merkle proof data
+  rootHash     String
+  anchorTxHash String?
+  isValid      Boolean?
+  validatedAt  DateTime?
+  expiresAt    DateTime?
+  accessCount  Int       @default(0)
+  createdAt    DateTime  @default(now())
+
+  record TransparencyRecord @relation(fields: [recordId], references: [id], onDelete: Cascade)
+
+  @@index([recordId])
+  @@index([rootHash])
+}
+
+model ImpactCertificate {
+  id              String   @id @default(cuid())
+  userId          String
+  certificateType String   // contribution, project_backer, loan_funder, volunteer
+  entityType      String   // project, loan, community
+  entityId        String
+  amount          Float?
+  impactClaim     String   // Human-readable impact statement
+  issuedAt        DateTime @default(now())
+  recordHash      String   // Link to TransparencyRecord hash
+  certificateHash String   @unique
+  metadata        String   @default("{}") // JSON
+  imageUrl        String?  // Generated certificate image
+  isPublic        Boolean  @default(true)
+  viewCount       Int      @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([certificateHash])
+  @@index([entityType, entityId])
+}
+
+model OrganizationLedger {
+  id               String   @id @default(cuid())
+  organizationId   String
+  organizationType String   // project, community, institution
+  totalReceived    Float    @default(0)
+  totalDisbursed   Float    @default(0)
+  lastUpdated      DateTime @default(now())
+  ledgerHash       String?  // Current state hash
+  isPublic         Boolean  @default(true)
+
+  entries LedgerEntry[]
+
+  @@unique([organizationId, organizationType])
+  @@index([organizationType])
+}
+
+model LedgerEntry {
+  id          String   @id @default(cuid())
+  ledgerId    String
+  entryType   String   // received, disbursed, expense, transfer
+  amount      Float
+  description String
+  category    String?
+  documentUrl String?
+  recordHash  String?  // Link to TransparencyRecord
+  createdAt   DateTime @default(now())
+
+  ledger OrganizationLedger @relation(fields: [ledgerId], references: [id], onDelete: Cascade)
+
+  @@index([ledgerId, createdAt])
 }
 
