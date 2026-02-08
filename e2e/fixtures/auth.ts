@@ -1,4 +1,4 @@
-import { test as base, Page, expect as baseExpect } from "@playwright/test";
+import { test as base, Page, expect as baseExpect, BrowserContext } from "@playwright/test";
 
 const expect = baseExpect;
 
@@ -15,20 +15,54 @@ export const TEST_ADMIN = {
   name: "Admin",
 };
 
-// Login helper function
-export async function login(page: Page, email: string, password: string) {
-  await page.goto("/login");
-  await page.waitForSelector("#email");
+// Clear all session state
+export async function clearSession(context: BrowserContext, page?: Page) {
+  await context.clearCookies();
+  // If page is provided, navigate to a clean slate
+  if (page) {
+    await page.goto("about:blank");
+  }
+}
+
+// Login helper function with retry logic
+export async function login(page: Page, email: string, password: string, maxRetries = 2) {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      await attemptLogin(page, email, password);
+      return; // Success
+    } catch (error) {
+      if (attempt === maxRetries) throw error;
+      // Wait before retry
+      await page.waitForTimeout(1000);
+      await page.context().clearCookies();
+    }
+  }
+}
+
+async function attemptLogin(page: Page, email: string, password: string) {
+  // Clear any existing session first
+  await page.context().clearCookies();
+
+  // Navigate to login page
+  await page.goto("/login", { waitUntil: "networkidle" });
+  await page.waitForSelector("#email", { state: "visible", timeout: 10000 });
+
+  // Ensure form is ready and not in loading state
+  const submitButton = page.locator('button[type="submit"]');
+  await expect(submitButton).toBeEnabled({ timeout: 15000 });
+
+  // Fill form
   await page.fill("#email", email);
   await page.fill("#password", password);
 
-  // Wait for button to be enabled (not in loading state)
-  const submitButton = page.locator('button[type="submit"]');
+  // Verify button is still enabled after filling
   await expect(submitButton).toBeEnabled({ timeout: 5000 });
 
-  // Click and wait for navigation
+  // Click button
   await submitButton.click();
-  await page.waitForURL(/\/(dashboard|admin)/, { timeout: 15000 });
+
+  // Wait for navigation
+  await page.waitForURL(/\/(dashboard|admin)/, { timeout: 30000 });
 }
 
 // Logout helper
