@@ -110,6 +110,9 @@ model User {
   // Plan 23: Mentorship & Community Support
   mentorProfile             Mentor?
   menteeProfile             Mentee?
+  // Plan 25: Accessibility & i18n
+  localePreferences         UserLocale?
+  accessibilityPreferences  AccessibilityPreferences?
 }
 
 model Watershed {
@@ -186,6 +189,9 @@ model Project {
   verification           ProjectVerification?
   outcomeVerifications   OutcomeVerification[]
   flags                  ProjectFlag[]
+  // Plan 24: Impact Storytelling
+  impactStories          ImpactStory[]
+  beforeAfters           BeforeAfter[]
 }
 
 model Allocation {
@@ -505,6 +511,8 @@ model Community {
   flagshipNominations FlagshipProject[]
   followers          CommunityFollow[] @relation("CommunityFollowers")
   subscriptions      CommunitySubscription[]
+  // Plan 24: Impact Storytelling
+  impactStories      ImpactStory[]
 
   @@index([parentId])
   @@index([level])
@@ -3591,5 +3599,206 @@ model SupportGroupReply {
   post SupportGroupPost @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@index([postId])
+}
+
+// ============================================================================
+// Plan 24: Impact Storytelling & Social Proof
+// ============================================================================
+
+model ImpactStory {
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  summary       String    // 280 char tweet-length
+  content       String    // JSON rich content blocks
+  type          String    // beneficiary, giver, community, project
+  authorId      String?
+  authorName    String?   // For non-users
+  authorRole    String?   // beneficiary, volunteer, funder, organizer
+  projectId     String?
+  communityId   String?
+  loanId        String?
+  mediaUrls     String    @default("[]") // JSON array
+  videoUrl      String?
+  quotes        String?   // JSON array of pull quotes
+  impactMetrics String?   // JSON { "people_helped": 50 }
+  location      String?
+  tags          String    @default("[]") // JSON array
+  isFeatured    Boolean   @default(false)
+  isPublished   Boolean   @default(false)
+  publishedAt   DateTime?
+  status        String    @default("draft") // draft, review, published, archived
+  viewCount     Int       @default(0)
+  shareCount    Int       @default(0)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  project   Project?   @relation(fields: [projectId], references: [id])
+  community Community? @relation(fields: [communityId], references: [id])
+  views     StoryView[]
+  shares    StoryShare[]
+
+  @@index([type, status])
+  @@index([isFeatured])
+  @@index([projectId])
+  @@index([communityId])
+}
+
+model StoryPrompt {
+  id                String   @id @default(cuid())
+  trigger           String   // project_completed, loan_repaid, badge_earned
+  targetType        String   // giver, borrower, beneficiary
+  promptText        String
+  followUpQuestions String   @default("[]") // JSON array
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+
+  @@index([trigger, isActive])
+}
+
+model Testimonial {
+  id             String   @id @default(cuid())
+  content        String   // Short testimonial text
+  authorId       String?
+  authorName     String
+  authorTitle    String?  // "Parent in Boise"
+  authorImageUrl String?
+  rating         Float?   // 1-5 stars
+  type           String   // platform, project, community, loan
+  entityId       String?  // Related entity ID
+  isVerified     Boolean  @default(false)
+  isFeatured     Boolean  @default(false)
+  isPublished    Boolean  @default(false)
+  displayOrder   Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  @@index([type, isPublished])
+  @@index([isFeatured])
+}
+
+model PlatformImpact {
+  id           String   @id @default(cuid())
+  metric       String   @unique // total_funded, projects_completed, etc.
+  value        Float
+  displayValue String?  // Formatted value
+  lastUpdated  DateTime @default(now())
+}
+
+model BeforeAfter {
+  id          String    @id @default(cuid())
+  projectId   String
+  title       String?
+  beforeImage String
+  afterImage  String
+  beforeDate  DateTime?
+  afterDate   DateTime?
+  caption     String?
+  isPublished Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model StoryView {
+  id        String   @id @default(cuid())
+  storyId   String
+  userId    String?
+  source    String?  // direct, social, email
+  createdAt DateTime @default(now())
+
+  story ImpactStory @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@index([storyId, createdAt])
+}
+
+model StoryShare {
+  id        String   @id @default(cuid())
+  storyId   String
+  platform  String   // twitter, facebook, email, copy
+  userId    String?
+  createdAt DateTime @default(now())
+
+  story ImpactStory @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@index([storyId, platform])
+}
+
+model StoryCampaign {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  theme        String?  // "Back to School", "Year in Review"
+  startDate    DateTime
+  endDate      DateTime
+  targetCount  Int?
+  currentCount Int      @default(0)
+  status       String   @default("active")
+  createdAt    DateTime @default(now())
+
+  @@index([status, startDate])
+}
+
+// ============================================================================
+// PLAN 25: ACCESSIBILITY & INTERNATIONALIZATION
+// ============================================================================
+
+model Translation {
+  id        String   @id @default(cuid())
+  locale    String
+  namespace String   // common, auth, projects, communities, loans, account, admin
+  key       String
+  value     String
+  context   String?  // Additional context for translators
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([locale, namespace, key])
+  @@index([locale, namespace])
+}
+
+model UserLocale {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  locale       String   @default("en")
+  timezone     String?
+  dateFormat   String?  // short, medium, long
+  numberFormat String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ContentTranslation {
+  id           String   @id @default(cuid())
+  entityType   String   // project, community, story, etc.
+  entityId     String
+  field        String   // title, description, etc.
+  locale       String
+  content      String
+  isVerified   Boolean  @default(false)
+  translatedBy String?  // userId or "auto"
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([entityType, entityId, field, locale])
+  @@index([entityType, entityId])
+}
+
+model AccessibilityPreferences {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  fontSize      String   @default("medium") // small, medium, large, xl
+  fontFamily    String   @default("default") // default, dyslexic, mono
+  lineSpacing   String   @default("normal") // tight, normal, relaxed
+  highContrast  Boolean  @default(false)
+  reducedMotion Boolean  @default(false)
+  screenReader  Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

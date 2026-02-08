@@ -274,46 +274,28 @@ See full plan: `docs/plans/plan-21-learning-literacy.md`
 
 #### Epic 22: Institutional Partnerships
 
-White-label platform for cities, universities, and foundations.
+**Status: Complete** — See Plan 22 in `docs/plans/plan-22-institutional-partnerships.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-INST-001 | Multi-tenant foundation | institutional | Institution schema, tenant resolution |
-| DLG-INST-002 | White-label branding | institutional | Custom themes, domains, pages |
-| DLG-INST-003 | Institution admin portal | institutional | User/project management |
-| DLG-INST-004 | Institution-specific features | institutional | University, city, foundation features |
-| DLG-INST-005 | Data and reporting | institutional | Custom reports, analytics |
-| DLG-INST-006 | Integration and APIs | institutional | SSO, data sync, embeds |
+Multi-tenant white-label platform with tenant resolution, custom branding, institution management, university/city/foundation features, reporting framework.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-22-institutional-partnerships.md`
 
 #### Epic 23: Mentorship & Community Support
 
-Connect experienced givers with newcomers through structured mentorship.
+**Status: Complete** — See Plan 23 in `docs/plans/plan-23-mentorship-program.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-MENTOR-001 | Mentorship foundation | mentorship | Mentor/mentee profiles |
-| DLG-MENTOR-002 | Matching and connection | mentorship | Smart matching algorithm |
-| DLG-MENTOR-003 | Communication tools | mentorship | Messaging, session scheduling |
-| DLG-MENTOR-004 | Peer support groups | mentorship | Group-based mutual support |
-| DLG-MENTOR-005 | Progress and outcomes | mentorship | Goal tracking, reviews |
-| DLG-MENTOR-006 | Recognition and badges | mentorship | Mentorship achievements |
+Mentor/mentee profiles, smart matching algorithm, messaging, goal tracking, support groups, admin review.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-23-mentorship-program.md`
 
 #### Epic 24: Impact Storytelling & Social Proof
 
-Collect and showcase success stories and testimonials.
+**Status: Complete** — See Plan 24 in `docs/plans/plan-24-impact-storytelling.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-STORY-001 | Story collection system | stories | Story schema, submission flow |
-| DLG-STORY-002 | Testimonials | stories | Short-form testimonial collection |
-| DLG-STORY-003 | Story display | stories | Stories hub, embedded stories |
-| DLG-STORY-004 | Impact visualization | stories | Counters, maps, before/after |
-| DLG-STORY-005 | Social proof elements | stories | Trust indicators, sharing |
-| DLG-STORY-006 | Curation and management | stories | Admin tools, campaigns |
+Stories submission/display, testimonials, platform impact metrics, admin moderation tools.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-24-impact-storytelling.md`
 
@@ -657,3 +639,19 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-LEARN-004 | Decision scenarios (Plan 21) | learning | 2026-02-07 |
 | DLG-LEARN-005 | Study circles (Plan 21) | learning | 2026-02-07 |
 | DLG-LEARN-006 | Optional certificates (Plan 21) | learning | 2026-02-07 |
+| DLG-INST-001 | Multi-tenant foundation (Plan 22) | institutional | 2026-02-07 |
+| DLG-INST-002 | White-label branding (Plan 22) | institutional | 2026-02-07 |
+| DLG-INST-003 | Institution admin portal (Plan 22) | institutional | 2026-02-07 |
+| DLG-INST-004 | Reporting framework (Plan 22) | institutional | 2026-02-07 |
+| DLG-INST-005 | Institution-specific settings (Plan 22) | institutional | 2026-02-07 |
+| DLG-MENTOR-001 | Mentor profiles and applications (Plan 23) | mentorship | 2026-02-07 |
+| DLG-MENTOR-002 | Smart matching algorithm (Plan 23) | mentorship | 2026-02-07 |
+| DLG-MENTOR-003 | Mentorship messaging (Plan 23) | mentorship | 2026-02-07 |
+| DLG-MENTOR-004 | Mentee goal tracking (Plan 23) | mentorship | 2026-02-07 |
+| DLG-MENTOR-005 | Support groups (Plan 23) | mentorship | 2026-02-07 |
+| DLG-MENTOR-006 | Admin mentor review (Plan 23) | mentorship | 2026-02-07 |
+| DLG-STORY-001 | Story collection system (Plan 24) | stories | 2026-02-07 |
+| DLG-STORY-002 | Testimonials (Plan 24) | stories | 2026-02-07 |
+| DLG-STORY-003 | Story display (Plan 24) | stories | 2026-02-07 |
+| DLG-STORY-004 | Platform impact metrics (Plan 24) | stories | 2026-02-07 |
+| DLG-STORY-005 | Admin stories/testimonials management (Plan 24) | stories | 2026-02-07 |
