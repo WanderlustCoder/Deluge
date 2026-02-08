@@ -2,7 +2,8 @@ import { test, expect } from "@playwright/test";
 import { login, TEST_USER } from "../fixtures/auth";
 
 test.describe("Core Loop: Watch → Fund", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
+    await context.clearCookies();
     await login(page, TEST_USER.email, TEST_USER.password);
   });
 
@@ -81,7 +82,7 @@ test.describe("Core Loop: Watch → Fund", () => {
     await page.click('[data-testid="project-card"]:first-child');
 
     // Enter minimum amount
-    await page.fill('input[name="amount"]', "0.25");
+    await page.fill("#amount", "0.25");
 
     // Click fund button
     await page.click('[data-testid="fund-button"]');
@@ -111,7 +112,8 @@ test.describe("Core Loop: Watch → Fund", () => {
 });
 
 test.describe("Navigation", () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
+    await context.clearCookies();
     await login(page, TEST_USER.email, TEST_USER.password);
   });
 

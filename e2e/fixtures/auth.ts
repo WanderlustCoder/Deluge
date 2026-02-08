@@ -1,4 +1,6 @@
-import { test as base, Page } from "@playwright/test";
+import { test as base, Page, expect as baseExpect } from "@playwright/test";
+
+const expect = baseExpect;
 
 // Test user credentials (from seed data)
 export const TEST_USER = {
@@ -16,12 +18,17 @@ export const TEST_ADMIN = {
 // Login helper function
 export async function login(page: Page, email: string, password: string) {
   await page.goto("/login");
-  await page.fill('input[name="email"]', email);
-  await page.fill('input[name="password"]', password);
-  await page.click('button[type="submit"]');
+  await page.waitForSelector("#email");
+  await page.fill("#email", email);
+  await page.fill("#password", password);
 
-  // Wait for redirect to complete
-  await page.waitForURL(/\/(dashboard|admin)/);
+  // Wait for button to be enabled (not in loading state)
+  const submitButton = page.locator('button[type="submit"]');
+  await expect(submitButton).toBeEnabled({ timeout: 5000 });
+
+  // Click and wait for navigation
+  await submitButton.click();
+  await page.waitForURL(/\/(dashboard|admin)/, { timeout: 15000 });
 }
 
 // Logout helper

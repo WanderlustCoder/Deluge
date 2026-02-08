@@ -12,6 +12,8 @@ export default defineConfig({
     baseURL: "http://localhost:3000",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
+    // Fresh context for each test to prevent session pollution
+    storageState: undefined,
   },
 
   projects: [
