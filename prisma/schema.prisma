@@ -101,6 +101,10 @@ model User {
   interestProfile           UserInterestProfile?
   digestPreferences         DigestPreferences?
   discoveryChallenges       DiscoveryChallenge[]
+  // Plan 21: Learning Resources
+  givingPlan                GivingPlan?
+  reflections               ReflectionEntry[]
+  certificates              LearningCertificate[]
 }
 
 model Watershed {
@@ -3056,5 +3060,135 @@ model RecommendationMetrics {
 
   @@unique([date, algorithm, entityType])
   @@index([date])
+}
+
+// ============================================================================
+// Plan 21: Learning Resources & Financial Literacy
+// ============================================================================
+
+model LearningResource {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  description      String
+  content          String   // JSON rich content blocks
+  category         String   // giving, financial, impact, community
+  format           String   // article, video, guide, tool, worksheet
+  estimatedMinutes Int?
+  imageUrl         String?
+  isPublished      Boolean  @default(false)
+  order            Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  discussions LearningDiscussion[]
+
+  @@index([category, isPublished])
+}
+
+model GivingPlan {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  monthlyTarget Float?
+  yearlyTarget  Float?
+  method        String   @default("flexible") // percentage, fixed, flexible
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ReflectionEntry {
+  id        String   @id @default(cuid())
+  userId    String
+  prompt    String
+  response  String
+  isPrivate Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+model GivingScenario {
+  id             String   @id @default(cuid())
+  title          String
+  scenario       String   // The situation to consider
+  options        String   // JSON - possible approaches
+  considerations String   // JSON - things to think about
+  category       String
+  createdAt      DateTime @default(now())
+
+  @@index([category])
+}
+
+model LearningDiscussion {
+  id         String   @id @default(cuid())
+  resourceId String?
+  topic      String
+  content    String
+  authorId   String
+  isPinned   Boolean  @default(false)
+  replyCount Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  resource LearningResource?  @relation(fields: [resourceId], references: [id], onDelete: SetNull)
+  replies  LearningReply[]
+
+  @@index([resourceId, createdAt])
+}
+
+model LearningReply {
+  id           String   @id @default(cuid())
+  discussionId String
+  content      String
+  authorId     String
+  createdAt    DateTime @default(now())
+
+  discussion LearningDiscussion @relation(fields: [discussionId], references: [id], onDelete: Cascade)
+
+  @@index([discussionId, createdAt])
+}
+
+model StudyCircle {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  topic         String?
+  facilitatorId String
+  isPrivate     Boolean  @default(false)
+  maxMembers    Int      @default(12)
+  createdAt     DateTime @default(now())
+
+  members StudyCircleMember[]
+
+  @@index([topic])
+}
+
+model StudyCircleMember {
+  id       String   @id @default(cuid())
+  circleId String
+  userId   String
+  joinedAt DateTime @default(now())
+
+  circle StudyCircle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+
+  @@unique([circleId, userId])
+}
+
+model LearningCertificate {
+  id             String   @id @default(cuid())
+  userId         String
+  topic          String   // "Effective Giving Fundamentals"
+  issuedAt       DateTime @default(now())
+  certificateUrl String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
