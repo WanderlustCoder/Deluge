@@ -107,6 +107,9 @@ model User {
   certificates              LearningCertificate[]
   // Plan 22: Institutional Partnerships
   institutionAdmins         InstitutionAdmin[]
+  // Plan 23: Mentorship & Community Support
+  mentorProfile             Mentor?
+  menteeProfile             Mentee?
 }
 
 model Watershed {
@@ -3351,5 +3354,242 @@ model FoundationSettings {
   reviewProcess       String   @default("committee") // staff, committee, board
 
   institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+}
+
+// ============================================================================
+// Plan 23: Mentorship & Community Support
+// ============================================================================
+
+model Mentor {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  bio             String
+  expertise       String   // JSON array: giving, loans, community, financial
+  availability    String   // hours per month
+  maxMentees      Int      @default(3)
+  currentMentees  Int      @default(0)
+  preferredStyle  String   // async, scheduled, casual
+  languages       String   @default("[\"en\"]") // JSON array
+  timezone        String?
+  isAccepting     Boolean  @default(true)
+  applicationDate DateTime
+  approvedDate    DateTime?
+  approvedBy      String?
+  status          String   @default("pending") // pending, active, paused, retired
+  totalMentees    Int      @default(0)
+  avgRating       Float?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mentorships Mentorship[]
+  sessions    MentorSession[]
+  reviews     MentorReview[]
+
+  @@index([status, isAccepting])
+}
+
+model Mentee {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  goals           String   // JSON array: learn_giving, build_budget, understand_loans
+  challenges      String?
+  preferredStyle  String   @default("any")
+  timezone        String?
+  status          String   @default("seeking") // seeking, matched, completed
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mentorships Mentorship[]
+
+  @@index([status])
+}
+
+model Mentorship {
+  id              String   @id @default(cuid())
+  mentorId        String
+  menteeId        String
+  status          String   @default("pending") // pending, active, paused, completed, ended
+  goals           String   // JSON array
+  startDate       DateTime @default(now())
+  endDate         DateTime?
+  nextCheckIn     DateTime?
+  notes           String?
+  completionNotes String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  mentor       Mentor          @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+  mentee       Mentee          @relation(fields: [menteeId], references: [id], onDelete: Cascade)
+  sessions     MentorSession[]
+  messages     MentorMessage[]
+  menteeGoals  MenteeGoal[]
+
+  @@unique([mentorId, menteeId])
+  @@index([mentorId, status])
+  @@index([menteeId, status])
+}
+
+model MentorMessage {
+  id           String    @id @default(cuid())
+  mentorshipId String
+  senderId     String
+  content      String
+  attachments  String?   // JSON array of attachment URLs
+  readAt       DateTime?
+  createdAt    DateTime  @default(now())
+
+  mentorship Mentorship @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
+
+  @@index([mentorshipId, createdAt])
+}
+
+model MentorSession {
+  id           String   @id @default(cuid())
+  mentorshipId String?
+  mentorId     String
+  title        String
+  description  String?
+  scheduledAt  DateTime
+  duration     Int      // minutes
+  type         String   // one_on_one, group, workshop
+  meetingLink  String?
+  status       String   @default("scheduled") // scheduled, completed, cancelled, no_show
+  notes        String?
+  feedback     String?
+  createdAt    DateTime @default(now())
+
+  mentorship Mentorship? @relation(fields: [mentorshipId], references: [id])
+  mentor     Mentor      @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+
+  @@index([mentorId, scheduledAt])
+  @@index([mentorshipId])
+}
+
+model MentorReview {
+  id           String   @id @default(cuid())
+  mentorId     String
+  mentorshipId String?
+  reviewerId   String
+  rating       Float    // 1-5
+  content      String?
+  isPublic     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  mentor Mentor @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+
+  @@index([mentorId])
+}
+
+model MenteeGoal {
+  id           String    @id @default(cuid())
+  mentorshipId String
+  title        String
+  description  String?
+  targetDate   DateTime?
+  status       String    @default("active") // active, completed, abandoned
+  progress     Float     @default(0) // 0-100
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  mentorship Mentorship        @relation(fields: [mentorshipId], references: [id], onDelete: Cascade)
+  milestones MenteeMilestone[]
+
+  @@index([mentorshipId, status])
+}
+
+model MenteeMilestone {
+  id          String    @id @default(cuid())
+  goalId      String
+  title       String
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  notes       String?
+  createdAt   DateTime  @default(now())
+
+  goal MenteeGoal @relation(fields: [goalId], references: [id], onDelete: Cascade)
+
+  @@index([goalId])
+}
+
+model SupportGroup {
+  id              String   @id @default(cuid())
+  name            String
+  description     String
+  type            String   // new_givers, loan_funders, community_leaders
+  facilitatorId   String?
+  maxMembers      Int      @default(12)
+  isPrivate       Boolean  @default(false)
+  meetingSchedule String?  // "weekly_wednesday_7pm"
+  timezone        String?
+  status          String   @default("active") // forming, active, full, archived
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  members  SupportGroupMember[]
+  meetings SupportGroupMeeting[]
+  posts    SupportGroupPost[]
+
+  @@index([type, status])
+}
+
+model SupportGroupMember {
+  id       String   @id @default(cuid())
+  groupId  String
+  userId   String
+  role     String   @default("member") // facilitator, member
+  joinedAt DateTime @default(now())
+  status   String   @default("active")
+
+  group SupportGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+  @@index([userId])
+}
+
+model SupportGroupMeeting {
+  id            String   @id @default(cuid())
+  groupId       String
+  title         String?
+  scheduledAt   DateTime
+  duration      Int      @default(60)
+  topic         String?
+  notes         String?
+  recordingUrl  String?
+  attendeeCount Int?
+  createdAt     DateTime @default(now())
+
+  group SupportGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@index([groupId, scheduledAt])
+}
+
+model SupportGroupPost {
+  id        String   @id @default(cuid())
+  groupId   String
+  authorId  String
+  content   String
+  isPinned  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  group   SupportGroup        @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  replies SupportGroupReply[]
+
+  @@index([groupId, createdAt])
+}
+
+model SupportGroupReply {
+  id        String   @id @default(cuid())
+  postId    String
+  authorId  String
+  content   String
+  createdAt DateTime @default(now())
+
+  post SupportGroupPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId])
 }
 
