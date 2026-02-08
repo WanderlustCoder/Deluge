@@ -117,6 +117,44 @@ model User {
   grantApplications         GrantApplication[]
   // Plan 27: Blockchain Transparency
   impactCertificates        ImpactCertificate[]
+  // Plan 29: Community Marketplace
+  sellerListings            MarketplaceListing[]  @relation("SellerListings")
+  buyerTransactions         MarketplaceTransaction[] @relation("BuyerTransactions")
+  sellerTransactions        MarketplaceTransaction[] @relation("SellerTransactions")
+  // Plan 30: Fundraising Events
+  auctionBids               AuctionBid[]
+  // Plan 31: Pledge Campaigns
+  campaignsCreated          PledgeCampaign[] @relation("CampaignsCreated")
+  pledges                   Pledge[]         @relation("Pledges")
+  campaignComments          CampaignComment[] @relation("CampaignComments")
+  // Plan 32: Gift Cards & Store Credit
+  purchasedGiftCards        GiftCard[]       @relation("PurchasedGiftCards")
+  redeemedGiftCards         GiftCard[]       @relation("RedeemedGiftCards")
+  storeCredit               StoreCredit?
+  // Plan 33: Nonprofit Partner Portal
+  organizationMemberships   OrganizationMember[]
+  // Plan 35: Multi-Currency & Global
+  currencyPreference        UserCurrencyPreference?
+  userRegion                UserRegion?
+  paymentMethods            UserPaymentMethod[]
+  // Plan 36: Notification Center
+  notificationChannels      NotificationChannel[]
+  notificationDigests       NotificationDigest[]
+  // Plan 37: Social Integrations
+  socialAccounts            SocialAccount[]
+  socialPosts               SocialPost[]
+  importedContacts          ImportedContact[]
+  // Plan 38: Community Celebrations
+  reflectionCards           ReflectionCard[]
+  journeyMemberships        JourneyMember[]
+  // Plan 39: Privacy & Security
+  consents                  UserConsent[]
+  privacySettings           PrivacySettings?
+  dataRequests              DataRequest[]
+  securityEvents            SecurityEvent[]
+  securitySessions          SecuritySession[]
+  twoFactorAuth             TwoFactorAuth?
+  recoveryRequests          AccountRecovery[]
 }
 
 model Watershed {
@@ -196,6 +234,8 @@ model Project {
   // Plan 24: Impact Storytelling
   impactStories          ImpactStory[]
   beforeAfters           BeforeAfter[]
+  // Plan 31: Pledge Campaigns
+  pledgeCampaigns        PledgeCampaign[]
 }
 
 model Allocation {
@@ -517,6 +557,10 @@ model Community {
   subscriptions      CommunitySubscription[]
   // Plan 24: Impact Storytelling
   impactStories      ImpactStory[]
+  // Plan 29: Community Marketplace
+  marketplaceListings MarketplaceListing[]
+  // Plan 30: Fundraising Events
+  fundraisingEvents FundraisingEvent[]
 
   @@index([parentId])
   @@index([level])
@@ -4239,5 +4283,2063 @@ model TrendAnalysis {
 
   @@unique([trendType, identifier, period, periodStart])
   @@index([trendType, period])
+}
+
+// =============================================================================
+// PLAN 29: COMMUNITY MARKETPLACE
+// =============================================================================
+
+model MarketplaceListing {
+  id             String    @id @default(cuid())
+  sellerId       String
+  communityId    String
+  title          String
+  description    String
+  type           String    // product, service, skill, rental, free
+  category       String
+  subcategory    String?
+  price          Float?    // null for free items
+  pricingType    String    @default("fixed") // fixed, negotiable, hourly, daily
+  images         String    @default("[]") // JSON array of image URLs
+  condition      String?   // new, like_new, good, fair (for products)
+  availability   String?   // JSON for services/rentals
+  location       String?
+  isDeliverable  Boolean   @default(false)
+  deliveryRadius Float?    // Miles
+  quantity       Int       @default(1)
+  tags           String    @default("[]") // JSON array
+  status         String    @default("active") // draft, active, sold, expired, removed
+  viewCount      Int       @default(0)
+  donatePercent  Float     @default(0) // % to donate to community
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  seller       User      @relation("SellerListings", fields: [sellerId], references: [id], onDelete: Cascade)
+  community    Community @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  inquiries    ListingInquiry[]
+  offers       ListingOffer[]
+  reviews      MarketplaceReview[]
+  transactions MarketplaceTransaction[]
+
+  @@index([communityId, category, status])
+  @@index([sellerId, status])
+  @@index([type, status])
+}
+
+model ListingCategory {
+  id       String  @id @default(cuid())
+  name     String  @unique
+  slug     String  @unique
+  icon     String?
+  parent   String? // For subcategories
+  order    Int     @default(0)
+  isActive Boolean @default(true)
+
+  @@index([parent])
+}
+
+model ListingInquiry {
+  id        String   @id @default(cuid())
+  listingId String
+  senderId  String
+  message   String
+  status    String   @default("pending") // pending, replied, closed
+  createdAt DateTime @default(now())
+
+  listing  MarketplaceListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  messages InquiryMessage[]
+
+  @@index([listingId, status])
+  @@index([senderId])
+}
+
+model InquiryMessage {
+  id        String   @id @default(cuid())
+  inquiryId String
+  senderId  String
+  content   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  inquiry ListingInquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+
+  @@index([inquiryId, createdAt])
+}
+
+model ListingOffer {
+  id            String    @id @default(cuid())
+  listingId     String
+  buyerId       String
+  amount        Float
+  counterAmount Float?    // Seller's counter-offer amount
+  message       String?
+  status        String    @default("pending") // pending, accepted, rejected, countered, expired, withdrawn
+  expiresAt     DateTime
+  respondedAt   DateTime?
+  createdAt     DateTime  @default(now())
+
+  listing MarketplaceListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([listingId, status])
+  @@index([buyerId, status])
+}
+
+model MarketplaceTransaction {
+  id                String    @id @default(cuid())
+  listingId         String
+  buyerId           String
+  sellerId          String
+  communityId       String
+  amount            Float
+  platformFee       Float     @default(0)
+  communityDonation Float     @default(0)
+  status            String    @default("pending") // pending, in_progress, completed, cancelled, disputed
+  paymentMethod     String?   // platform, cash, external
+  paymentRef        String?
+  completedAt       DateTime?
+  createdAt         DateTime  @default(now())
+
+  listing MarketplaceListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  buyer   User               @relation("BuyerTransactions", fields: [buyerId], references: [id])
+  seller  User               @relation("SellerTransactions", fields: [sellerId], references: [id])
+  review  MarketplaceReview?
+  dispute MarketplaceDispute?
+
+  @@index([sellerId, status])
+  @@index([buyerId, status])
+  @@index([communityId, createdAt])
+  @@index([listingId])
+}
+
+model MarketplaceReview {
+  id            String   @id @default(cuid())
+  transactionId String   @unique
+  listingId     String
+  reviewerId    String
+  revieweeId    String
+  rating        Int      // 1-5
+  content       String?
+  isVerified    Boolean  @default(true) // From completed transaction
+  createdAt     DateTime @default(now())
+
+  transaction MarketplaceTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  listing     MarketplaceListing     @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([revieweeId, createdAt])
+  @@index([listingId])
+}
+
+model MarketplaceDispute {
+  id            String    @id @default(cuid())
+  transactionId String    @unique
+  reporterId    String
+  reason        String
+  description   String
+  evidence      String    @default("[]") // JSON array of URLs
+  status        String    @default("open") // open, investigating, resolved, closed
+  resolution    String?
+  resolvedBy    String?
+  resolvedAt    DateTime?
+  createdAt     DateTime  @default(now())
+
+  transaction MarketplaceTransaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+}
+
+model CommunityWish {
+  id          String    @id @default(cuid())
+  communityId String
+  requesterId String
+  title       String
+  description String?
+  category    String?
+  urgency     String    @default("normal") // low, normal, high
+  status      String    @default("open") // open, fulfilled, closed
+  fulfilledBy String?
+  fulfilledAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([communityId, status])
+}
+
+// =============================================================================
+// Plan 30: Fundraising Events & Ticketing
+// =============================================================================
+
+model FundraisingEvent {
+  id                   String    @id @default(cuid())
+  communityId          String
+  projectId            String?   // Optional linked project
+  organizerId          String
+  title                String
+  slug                 String    @unique
+  description          String
+  type                 String    // gala, auction, 5k, concert, dinner, festival, virtual
+  format               String    @default("in_person") // in_person, virtual, hybrid
+  startDate            DateTime
+  endDate              DateTime
+  timezone             String    @default("America/Los_Angeles")
+  venue                String?
+  address              String?
+  virtualUrl           String?   // For virtual/hybrid events
+  imageUrl             String?
+  coverImageUrl        String?
+  goalAmount           Float?
+  raisedAmount         Float     @default(0)
+  ticketingEnabled     Boolean   @default(true)
+  donationsEnabled     Boolean   @default(true)
+  registrationRequired Boolean   @default(true)
+  capacity             Int?
+  attendeeCount        Int       @default(0)
+  status               String    @default("draft") // draft, published, live, completed, cancelled
+  publishedAt          DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+
+  community     Community           @relation(fields: [communityId], references: [id], onDelete: Cascade)
+  tickets       EventTicketType[]
+  registrations EventRegistration[]
+  donations     EventDonation[]
+  matches       EventMatch[]
+  auctions      AuctionItem[]
+  sponsors      EventSponsor[]
+  volunteers    EventVolunteer[]
+  updates       EventUpdate[]
+  participants  EventParticipant[]
+  groups        EventGroup[]
+
+  @@index([communityId, status])
+  @@index([startDate])
+  @@index([type, status])
+}
+
+model EventTicketType {
+  id            String    @id @default(cuid())
+  eventId       String
+  name          String    // "General Admission", "VIP", "Table of 10"
+  description   String?
+  price         Float
+  quantity      Int?      // null for unlimited
+  sold          Int       @default(0)
+  reserved      Int       @default(0)
+  maxPerOrder   Int       @default(10)
+  salesStart    DateTime?
+  salesEnd      DateTime?
+  isVisible     Boolean   @default(true)
+  includedItems String    @default("[]") // JSON array
+  order         Int       @default(0)
+  createdAt     DateTime  @default(now())
+
+  event   FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  tickets EventTicket[]
+
+  @@index([eventId])
+}
+
+model EventTicket {
+  id             String    @id @default(cuid())
+  ticketTypeId   String
+  registrationId String
+  ticketNumber   String    @unique
+  qrCode         String?
+  attendeeName   String?
+  attendeeEmail  String?
+  status         String    @default("valid") // valid, used, cancelled, refunded
+  checkedInAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  ticketType   EventTicketType   @relation(fields: [ticketTypeId], references: [id], onDelete: Cascade)
+  registration EventRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@index([registrationId])
+  @@index([ticketNumber])
+}
+
+model EventRegistration {
+  id               String   @id @default(cuid())
+  eventId          String
+  userId           String?  // null for guest
+  email            String
+  firstName        String
+  lastName         String
+  phone            String?
+  totalAmount      Float
+  donationAmount   Float    @default(0)
+  paymentStatus    String   @default("pending") // pending, completed, failed, refunded
+  paymentRef       String?
+  registrationCode String   @unique
+  status           String   @default("confirmed") // confirmed, cancelled
+  createdAt        DateTime @default(now())
+
+  event   FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  tickets EventTicket[]
+
+  @@index([eventId, status])
+  @@index([userId])
+  @@index([email])
+}
+
+model EventDonation {
+  id            String   @id @default(cuid())
+  eventId       String
+  userId        String?
+  donorName     String?
+  donorEmail    String?
+  amount        Float
+  isAnonymous   Boolean  @default(false)
+  honoree       String?  // "In honor of..."
+  message       String?
+  paymentStatus String   @default("pending")
+  paymentRef    String?
+  matchedAmount Float    @default(0)
+  createdAt     DateTime @default(now())
+
+  event FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId, createdAt])
+}
+
+model EventMatch {
+  id            String   @id @default(cuid())
+  eventId       String
+  matcherName   String
+  maxAmount     Float
+  matchedAmount Float    @default(0)
+  ratio         Float    @default(1) // 1:1, 2:1, etc.
+  message       String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+
+  event FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId, isActive])
+}
+
+model AuctionItem {
+  id             String   @id @default(cuid())
+  eventId        String
+  title          String
+  description    String
+  images         String   @default("[]") // JSON array
+  category       String?
+  startingBid    Float
+  bidIncrement   Float    @default(5)
+  currentBid     Float?
+  reservePrice   Float?
+  buyNowPrice    Float?
+  donorName      String?
+  estimatedValue Float?
+  biddingStart   DateTime
+  biddingEnd     DateTime
+  status         String   @default("pending") // pending, active, sold, unsold
+  winnerId       String?
+  order          Int      @default(0)
+  createdAt      DateTime @default(now())
+
+  event FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  bids  AuctionBid[]
+
+  @@index([eventId, status])
+}
+
+model AuctionBid {
+  id        String   @id @default(cuid())
+  itemId    String
+  bidderId  String
+  amount    Float
+  isWinning Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  item   AuctionItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  bidder User        @relation(fields: [bidderId], references: [id])
+
+  @@index([itemId, amount])
+  @@index([bidderId])
+}
+
+model EventParticipant {
+  id              String   @id @default(cuid())
+  eventId         String
+  userId          String
+  personalMessage String?  // Why this event matters to them
+  shareCount      Int      @default(0) // For their own info, not public
+  createdAt       DateTime @default(now())
+
+  event FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+  @@index([eventId])
+}
+
+model EventGroup {
+  id          String   @id @default(cuid())
+  eventId     String
+  name        String   // "The Smith Family", "Boise Rotary"
+  description String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+
+  event   FundraisingEvent   @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  members EventGroupMember[]
+
+  @@unique([eventId, name])
+  @@index([eventId])
+}
+
+model EventGroupMember {
+  id       String   @id @default(cuid())
+  groupId  String
+  userId   String
+  joinedAt DateTime @default(now())
+
+  group EventGroup @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([groupId, userId])
+}
+
+model EventVolunteer {
+  id        String   @id @default(cuid())
+  eventId   String
+  userId    String
+  role      String?  // greeter, check-in, auction, setup
+  shift     String?
+  status    String   @default("confirmed") // applied, confirmed, declined
+  notes     String?
+  createdAt DateTime @default(now())
+
+  event FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, userId])
+}
+
+model EventSponsor {
+  id               String   @id @default(cuid())
+  eventId          String
+  organizationName String
+  contactName      String?
+  contactEmail     String?
+  tier             String   // presenting, gold, silver, bronze, friend
+  amount           Float
+  logoUrl          String?
+  websiteUrl       String?
+  benefits         String   @default("[]") // JSON array
+  status           String   @default("confirmed") // pending, confirmed, cancelled
+  createdAt        DateTime @default(now())
+
+  event FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId, tier])
+}
+
+model EventUpdate {
+  id        String   @id @default(cuid())
+  eventId   String
+  authorId  String
+  title     String?
+  content   String
+  imageUrl  String?
+  createdAt DateTime @default(now())
+
+  event FundraisingEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId, createdAt])
+}
+
+// ==========================================
+// PLAN 31: PLEDGE & CROWDFUNDING CAMPAIGNS
+// ==========================================
+
+model PledgeCampaign {
+  id              String    @id @default(cuid())
+  projectId       String
+  creatorId       String
+  title           String
+  slug            String    @unique
+  description     String
+  story           String?   // Rich campaign story (JSON stringified)
+  videoUrl        String?
+  coverImageUrl   String?
+  goalAmount      Float
+  minimumAmount   Float?    // Minimum to consider success (for flexible funding)
+  pledgedAmount   Float     @default(0)
+  backerCount     Int       @default(0)
+  fundingType     String    @default("all_or_nothing") // all_or_nothing, flexible, milestone
+  startDate       DateTime
+  endDate         DateTime
+  timezone        String    @default("America/Los_Angeles")
+  status          String    @default("draft") // draft, active, successful, failed, cancelled
+  fundedAt        DateTime?
+  settledAt       DateTime? // When pledges were collected
+  stretchGoals    String?   // JSON: [{ amount, title, description, unlocked }]
+  faqs            String?   // JSON: [{ question, answer }]
+  updateCount     Int       @default(0)
+  shareCount      Int       @default(0)
+  viewCount       Int       @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  project  Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  creator  User              @relation("CampaignsCreated", fields: [creatorId], references: [id])
+  pledges  Pledge[]
+  rewards  CampaignReward[]
+  updates  CampaignUpdate[]
+  comments CampaignComment[]
+
+  @@index([status, endDate])
+  @@index([projectId])
+  @@index([creatorId])
+}
+
+model Pledge {
+  id              String    @id @default(cuid())
+  campaignId      String
+  userId          String
+  rewardId        String?
+  amount          Float
+  tipAmount       Float     @default(0) // Optional platform tip
+  status          String    @default("active") // active, cancelled, collected, failed, refunded
+  paymentMethodId String?   // Stored payment method
+  paymentIntentId String?   // For collection
+  collectedAt     DateTime?
+  cancelledAt     DateTime?
+  refundedAt      DateTime?
+  isAnonymous     Boolean   @default(false)
+  message         String?   // Public backer message
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  campaign    PledgeCampaign    @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user        User              @relation("Pledges", fields: [userId], references: [id])
+  reward      CampaignReward?   @relation(fields: [rewardId], references: [id])
+  fulfillment RewardFulfillment?
+
+  @@index([campaignId, status])
+  @@index([userId, status])
+}
+
+model CampaignReward {
+  id                String    @id @default(cuid())
+  campaignId        String
+  title             String
+  description       String
+  amount            Float     // Minimum pledge for reward
+  quantity          Int?      // null for unlimited
+  claimed           Int       @default(0)
+  estimatedDelivery DateTime?
+  deliveryType      String    @default("digital") // digital, physical, experience
+  shippingRequired  Boolean   @default(false)
+  shippingCost      Float?
+  imageUrl          String?
+  items             String?   // JSON: [{ name, quantity }]
+  order             Int       @default(0)
+  isVisible         Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+
+  campaign PledgeCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  pledges  Pledge[]
+
+  @@index([campaignId, amount])
+}
+
+model RewardFulfillment {
+  id              String    @id @default(cuid())
+  pledgeId        String    @unique
+  rewardId        String
+  status          String    @default("pending") // pending, processing, shipped, delivered
+  shippingAddress String?   // JSON: { name, line1, line2, city, state, zip, country }
+  trackingNumber  String?
+  trackingUrl     String?
+  notes           String?
+  fulfilledAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  pledge Pledge @relation(fields: [pledgeId], references: [id], onDelete: Cascade)
+
+  @@index([rewardId, status])
+}
+
+model CampaignUpdate {
+  id            String   @id @default(cuid())
+  campaignId    String
+  authorId      String
+  title         String
+  content       String   // Rich content (JSON stringified or markdown)
+  isBackersOnly Boolean  @default(false)
+  attachments   String?  // JSON array of URLs
+  commentCount  Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  campaign PledgeCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId, createdAt])
+}
+
+model CampaignComment {
+  id         String   @id @default(cuid())
+  campaignId String
+  userId     String
+  parentId   String?  // For replies
+  content    String
+  isCreator  Boolean  @default(false) // Whether the commenter is the campaign creator
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  campaign PledgeCampaign    @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user     User              @relation("CampaignComments", fields: [userId], references: [id])
+  parent   CampaignComment?  @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies  CampaignComment[] @relation("CommentReplies")
+
+  @@index([campaignId, createdAt])
+  @@index([parentId])
+}
+
+// ==========================================
+// PLAN 32: GIFT CARDS & STORE CREDIT
+// ==========================================
+
+model GiftCard {
+  id              String    @id @default(cuid())
+  code            String    @unique
+  purchaserId     String?   // null for platform-issued
+  recipientEmail  String?
+  recipientName   String?
+  amount          Float
+  balance         Float
+  currency        String    @default("USD")
+  type            String    @default("standard") // standard, promotional, reward, refund
+  status          String    @default("active") // pending, active, redeemed, expired, cancelled
+  designId        String?
+  personalMessage String?
+  deliveryMethod  String    @default("email") // email, print, physical
+  deliveryDate    DateTime?
+  deliveredAt     DateTime?
+  redeemedBy      String?
+  redeemedAt      DateTime?
+  expiresAt       DateTime?
+  orderId         String?   // For bulk orders
+  purchasedAt     DateTime  @default(now())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  purchaser    User?                 @relation("PurchasedGiftCards", fields: [purchaserId], references: [id])
+  redeemer     User?                 @relation("RedeemedGiftCards", fields: [redeemedBy], references: [id])
+  design       GiftCardDesign?       @relation(fields: [designId], references: [id])
+  order        GiftCardOrder?        @relation(fields: [orderId], references: [id])
+  transactions GiftCardTransaction[]
+
+  @@index([code])
+  @@index([recipientEmail])
+  @@index([purchaserId])
+  @@index([status])
+}
+
+model GiftCardDesign {
+  id           String   @id @default(cuid())
+  name         String
+  category     String   // birthday, holiday, thank_you, general, seasonal
+  imageUrl     String
+  thumbnailUrl String?
+  isActive     Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  giftCards GiftCard[]
+
+  @@index([category, isActive])
+}
+
+model GiftCardTransaction {
+  id            String   @id @default(cuid())
+  giftCardId    String
+  userId        String
+  type          String   // redemption, usage, refund
+  amount        Float
+  balanceBefore Float
+  balanceAfter  Float
+  reference     String?  // Related transaction ID
+  description   String?
+  createdAt     DateTime @default(now())
+
+  giftCard GiftCard @relation(fields: [giftCardId], references: [id], onDelete: Cascade)
+
+  @@index([giftCardId, createdAt])
+  @@index([userId])
+}
+
+model GiftCardOrder {
+  id               String    @id @default(cuid())
+  purchaserId      String
+  organizationName String?
+  quantity         Int
+  denomination     Float
+  totalAmount      Float
+  discountPercent  Float?
+  discountAmount   Float?
+  paymentStatus    String    @default("pending")
+  paymentRef       String?
+  status           String    @default("pending") // pending, processing, completed, cancelled
+  deliveryType     String    @default("codes") // codes, physical, email
+  notes            String?
+  createdAt        DateTime  @default(now())
+  completedAt      DateTime?
+
+  giftCards     GiftCard[]
+  physicalOrder PhysicalCardOrder?
+
+  @@index([purchaserId])
+  @@index([status])
+}
+
+model PhysicalCardOrder {
+  id              String    @id @default(cuid())
+  orderId         String    @unique
+  shippingAddress String    // JSON: { name, line1, line2, city, state, zip, country }
+  shippingMethod  String    // standard, express, overnight
+  shippingCost    Float
+  trackingNumber  String?
+  carrier         String?
+  status          String    @default("pending") // pending, printing, shipped, delivered
+  printedAt       DateTime?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  createdAt       DateTime  @default(now())
+
+  order GiftCardOrder @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model StoreCredit {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  balance        Float    @default(0)
+  lifetimeEarned Float    @default(0)
+  lifetimeSpent  Float    @default(0)
+  updatedAt      DateTime @updatedAt
+
+  user         User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions StoreCreditTransaction[]
+}
+
+model StoreCreditTransaction {
+  id            String    @id @default(cuid())
+  creditId      String
+  type          String    // earned, spent, expired, adjusted
+  source        String    // refund, reward, promotion, referral, adjustment
+  amount        Float
+  balanceBefore Float
+  balanceAfter  Float
+  reference     String?   // Related entity ID
+  description   String?
+  expiresAt     DateTime?
+  createdAt     DateTime  @default(now())
+
+  credit StoreCredit @relation(fields: [creditId], references: [id], onDelete: Cascade)
+
+  @@index([creditId, createdAt])
+}
+
+model PromoCode {
+  id           String   @id @default(cuid())
+  code         String   @unique
+  type         String   // discount, bonus_credit, free_card
+  value        Float    // Percentage or fixed amount
+  valueType    String   @default("fixed") // fixed, percentage
+  minPurchase  Float?
+  maxDiscount  Float?
+  usageLimit   Int?     // Total uses allowed
+  usageCount   Int      @default(0)
+  userLimit    Int?     // Uses per user
+  validFrom    DateTime
+  validUntil   DateTime
+  isActive     Boolean  @default(true)
+  applicableTo String?  // JSON array of product types
+  createdBy    String
+  createdAt    DateTime @default(now())
+
+  usages PromoCodeUsage[]
+
+  @@index([code, isActive])
+}
+
+model PromoCodeUsage {
+  id          String   @id @default(cuid())
+  promoCodeId String
+  userId      String
+  orderId     String?
+  discount    Float
+  createdAt   DateTime @default(now())
+
+  promoCode PromoCode @relation(fields: [promoCodeId], references: [id], onDelete: Cascade)
+
+  @@unique([promoCodeId, userId, orderId])
+}
+
+// ============================================================================
+// Plan 33: Nonprofit Partner Portal
+// ============================================================================
+
+model NonprofitOrganization {
+  id                 String   @id @default(cuid())
+  name               String
+  slug               String   @unique
+  legalName          String?
+  ein                String?  // Tax ID
+  type               String   // 501c3, 501c4, fiscal_sponsor, other
+  mission            String
+  description        String?
+  website            String?
+  email              String
+  phone              String?
+  logoUrl            String?
+  coverImageUrl      String?
+  address            String?  // JSON: { street, city, state, zip, country }
+  focusAreas         String?  // JSON array
+  geographicScope    String   @default("local") // local, regional, national, international
+  foundedYear        Int?
+  annualBudget       String?  // Range: <100k, 100k-500k, 500k-1m, 1m-5m, 5m+
+  employeeCount      String?  // Range
+  verificationStatus String   @default("pending") // pending, verified, rejected
+  verifiedAt         DateTime?
+  verifiedBy         String?
+  isActive           Boolean  @default(true)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  members    OrganizationMember[]
+  documents  OrganizationDocument[]
+  donations  OrganizationDonation[]
+  donors     DonorRelationship[]
+  reports    OrganizationReport[]
+  activities OrganizationActivity[]
+  integrations OrganizationIntegration[]
+  // Plan 35: Multi-Currency & Global
+  payoutAccounts PayoutAccount[]
+  taxStatuses    OrganizationTaxStatus[]
+
+  @@index([type, verificationStatus])
+  @@index([slug])
+}
+
+model OrganizationMember {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String
+  role           String   @default("member") // owner, admin, member, viewer
+  title          String?  // Job title
+  permissions    String?  // JSON array of specific permissions
+  invitedBy      String?
+  invitedAt      DateTime?
+  joinedAt       DateTime @default(now())
+  status         String   @default("active") // invited, active, inactive
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([userId])
+}
+
+model OrganizationDocument {
+  id             String   @id @default(cuid())
+  organizationId String
+  type           String   // ein_letter, 501c3_determination, bylaws, annual_report, audit
+  name           String
+  fileUrl        String
+  fileSize       Int
+  mimeType       String
+  status         String   @default("pending") // pending, approved, rejected
+  reviewedBy     String?
+  reviewedAt     DateTime?
+  reviewNotes    String?
+  expiresAt      DateTime?
+  uploadedBy     String
+  uploadedAt     DateTime @default(now())
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, type])
+}
+
+model OrganizationDonation {
+  id             String   @id @default(cuid())
+  organizationId String
+  projectId      String?
+  donorId        String?
+  donorName      String?
+  donorEmail     String?
+  amount         Float
+  isAnonymous    Boolean  @default(false)
+  source         String   // platform, direct, external
+  status         String   @default("completed")
+  acknowledgedAt DateTime?
+  createdAt      DateTime @default(now())
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, createdAt])
+  @@index([projectId])
+}
+
+model DonorRelationship {
+  id              String   @id @default(cuid())
+  organizationId  String
+  userId          String?  // Null for external donors
+  externalId      String?  // External CRM ID
+  email           String
+  firstName       String?
+  lastName        String?
+  totalDonated    Float    @default(0)
+  donationCount   Int      @default(0)
+  firstDonation   DateTime?
+  lastDonation    DateTime?
+  averageDonation Float?
+  segment         String?  // major_donor, recurring, lapsed, new
+  notes           String?
+  tags            String?  // JSON array
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, email])
+  @@index([organizationId, segment])
+}
+
+model OrganizationReport {
+  id             String   @id @default(cuid())
+  organizationId String
+  type           String   // annual, quarterly, impact, tax
+  year           Int
+  quarter        Int?
+  data           String?  // JSON
+  fileUrl        String?
+  status         String   @default("draft") // draft, published
+  publishedAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, type, year, quarter])
+}
+
+model OrganizationActivity {
+  id             String   @id @default(cuid())
+  organizationId String
+  userId         String
+  action         String   // project_created, donation_acknowledged, report_published
+  entityType     String?
+  entityId       String?
+  metadata       String?  // JSON
+  createdAt      DateTime @default(now())
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId, createdAt])
+}
+
+model OrganizationIntegration {
+  id             String   @id @default(cuid())
+  organizationId String
+  provider       String   // salesforce, hubspot, bloomerang, neon, quickbooks, xero
+  status         String   @default("active")
+  config         String?  // JSON: Encrypted credentials
+  lastSyncAt     DateTime?
+  syncStatus     String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, provider])
+}
+
+// ============================================================================
+// Plan 34: Advanced Analytics & Business Intelligence
+// ============================================================================
+
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  eventType  String   // page_view, action, conversion, error
+  eventName  String   // fund_project, watch_ad, create_loan
+  userId     String?
+  sessionId  String?
+  properties String?  // JSON: Event-specific data
+  context    String?  // JSON: Device, browser, location
+  timestamp  DateTime @default(now())
+
+  @@index([eventType, eventName, timestamp])
+  @@index([userId, timestamp])
+  @@index([sessionId])
+}
+
+model UserSession {
+  id          String   @id @default(cuid())
+  userId      String?
+  deviceId    String
+  startedAt   DateTime @default(now())
+  lastSeenAt  DateTime @default(now())
+  duration    Int?     // Seconds
+  pageViews   Int      @default(0)
+  device      String?  // JSON: Device info
+  referrer    String?
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+
+  @@index([userId, startedAt])
+  @@index([deviceId])
+}
+
+model MetricSnapshot {
+  id          String   @id @default(cuid())
+  metricType  String   // daily_active_users, revenue, projects_funded
+  period      String   // hourly, daily, weekly, monthly
+  periodStart DateTime
+  periodEnd   DateTime
+  value       Float
+  dimensions  String?  // JSON: { community: "boise", category: "education" }
+  computedAt  DateTime @default(now())
+
+  @@unique([metricType, period, periodStart])
+  @@index([metricType, period, periodStart])
+}
+
+model Dashboard {
+  id          String   @id @default(cuid())
+  ownerId     String
+  ownerType   String   @default("user") // user, organization, admin
+  name        String
+  description String?
+  isPublic    Boolean  @default(false)
+  layout      String?  // JSON: Widget positions and sizes
+  filters     String?  // JSON: Default filters
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  widgets DashboardWidget[]
+  shares  DashboardShare[]
+
+  @@index([ownerId, ownerType])
+}
+
+model DashboardWidget {
+  id          String   @id @default(cuid())
+  dashboardId String
+  type        String   // chart, metric, table, map
+  title       String
+  config      String?  // JSON: Widget configuration
+  dataSource  String   // Query or metric name
+  position    String?  // JSON: { x, y, width, height }
+  refreshRate Int?     // Seconds
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  dashboard Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
+
+  @@index([dashboardId])
+}
+
+model DashboardShare {
+  id          String   @id @default(cuid())
+  dashboardId String
+  sharedWith  String   // User ID or email
+  permission  String   @default("view") // view, edit
+  createdAt   DateTime @default(now())
+
+  dashboard Dashboard @relation(fields: [dashboardId], references: [id], onDelete: Cascade)
+
+  @@unique([dashboardId, sharedWith])
+}
+
+model AnalyticsFunnel {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  steps       String   // JSON: [{ name, eventName, filters }]
+  ownerId     String
+  isPublic    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([ownerId])
+}
+
+model SavedQuery {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  query       String   // JSON: Query definition
+  ownerId     String
+  isPublic    Boolean  @default(false)
+  lastRunAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([ownerId])
+}
+
+model Anomaly {
+  id          String   @id @default(cuid())
+  metricType  String
+  detectedAt  DateTime
+  severity    String   // low, medium, high, critical
+  expected    Float
+  actual      Float
+  deviation   Float
+  description String?
+  status      String   @default("open") // open, acknowledged, resolved
+  resolvedBy  String?
+  resolvedAt  DateTime?
+  createdAt   DateTime @default(now())
+
+  @@index([metricType, detectedAt])
+  @@index([status, severity])
+}
+
+// =============================================================================
+// Plan 35: Multi-Currency & Global Expansion
+// =============================================================================
+
+model Currency {
+  id        String   @id @default(cuid())
+  code      String   @unique // USD, EUR, GBP, CAD
+  name      String   // US Dollar, Euro, British Pound
+  symbol    String   // $, €, £
+  decimals  Int      @default(2)
+  isActive  Boolean  @default(true)
+  isDefault Boolean  @default(false)
+  order     Int      @default(0)
+}
+
+model ExchangeRate {
+  id           String    @id @default(cuid())
+  fromCurrency String
+  toCurrency   String
+  rate         Float
+  source       String    // api_provider, manual
+  validFrom    DateTime
+  validUntil   DateTime?
+  createdAt    DateTime  @default(now())
+
+  @@unique([fromCurrency, toCurrency, validFrom])
+  @@index([fromCurrency, toCurrency, validFrom])
+}
+
+model UserCurrencyPreference {
+  id              String  @id @default(cuid())
+  userId          String  @unique
+  displayCurrency String  @default("USD")
+  paymentCurrency String  @default("USD")
+  autoConvert     Boolean @default(true)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TransactionCurrency {
+  id                String   @id @default(cuid())
+  transactionId     String
+  transactionType   String   // allocation, loan_share, donation
+  originalAmount    Float
+  originalCurrency  String
+  convertedAmount   Float
+  convertedCurrency String
+  exchangeRate      Float
+  rateTimestamp     DateTime
+  createdAt         DateTime @default(now())
+
+  @@unique([transactionId, transactionType])
+}
+
+model Region {
+  id           String    @id @default(cuid())
+  code         String    @unique // US, CA, GB, EU
+  name         String
+  currency     String    // Default currency
+  timezone     String
+  dateFormat   String    @default("MM/DD/YYYY")
+  numberFormat String    // 1,000.00 vs 1.000,00
+  taxIdLabel   String?   // EIN, CRN, ABN
+  taxIdFormat  String?   // Validation regex
+  isActive     Boolean   @default(true)
+  launchDate   DateTime?
+  config       String?   // JSON: Region-specific config
+
+  @@index([isActive])
+}
+
+model UserRegion {
+  id             String    @id @default(cuid())
+  userId         String    @unique
+  regionCode     String
+  detectedAt     DateTime  @default(now())
+  confirmedAt    DateTime?
+  overrideRegion String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PaymentMethod {
+  id         String   @id @default(cuid())
+  code       String   @unique // card, bank_transfer, paypal, ideal, sepa
+  name       String
+  type       String   // card, bank, wallet, local
+  regions    String   // JSON: Supported regions
+  currencies String   // JSON: Supported currencies
+  minAmount  Float?
+  maxAmount  Float?
+  isActive   Boolean  @default(true)
+  config     String?  // JSON: Additional config
+
+  @@index([type, isActive])
+}
+
+model UserPaymentMethod {
+  id         String    @id @default(cuid())
+  userId     String
+  methodCode String
+  isDefault  Boolean   @default(false)
+  metadata   String?   // JSON: Provider-specific data
+  lastUsedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PayoutAccount {
+  id             String    @id @default(cuid())
+  organizationId String
+  country        String
+  currency       String
+  accountType    String    // bank, paypal, wise
+  accountDetails String    // JSON: Encrypted bank details
+  isVerified     Boolean   @default(false)
+  verifiedAt     DateTime?
+  isDefault      Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+}
+
+model TaxJurisdiction {
+  id              String  @id @default(cuid())
+  code            String  @unique
+  name            String
+  country         String
+  taxType         String  // vat, gst, sales_tax, none
+  rate            Float?
+  threshold       Float?  // Registration threshold
+  registrationReq Boolean @default(false)
+  rules           String? // JSON: Complex rules
+  isActive        Boolean @default(true)
+
+  statuses OrganizationTaxStatus[]
+}
+
+model OrganizationTaxStatus {
+  id             String    @id @default(cuid())
+  organizationId String
+  jurisdictionId String
+  taxExempt      Boolean   @default(false)
+  taxId          String?
+  exemptionDoc   String?
+  verifiedAt     DateTime?
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
+
+  organization NonprofitOrganization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  jurisdiction TaxJurisdiction       @relation(fields: [jurisdictionId], references: [id])
+
+  @@unique([organizationId, jurisdictionId])
+}
+
+model RegionLaunch {
+  id         String    @id @default(cuid())
+  regionCode String    @unique
+  status     String    @default("planning") // planning, beta, soft_launch, launched
+  betaUsers  String    // JSON: Beta tester IDs
+  launchDate DateTime?
+  checklist  String?   // JSON: Launch checklist items
+  notes      String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+// =============================================================================
+// Plan 36: Notification & Communication Center
+// =============================================================================
+
+model NotificationDelivery {
+  id                String    @id @default(cuid())
+  notificationId    String
+  channel           String    // email, push, sms
+  status            String    @default("pending") // pending, sent, delivered, failed, bounced
+  provider          String?   // sendgrid, twilio, firebase
+  providerMessageId String?
+  sentAt            DateTime?
+  deliveredAt       DateTime?
+  failedAt          DateTime?
+  errorMessage      String?
+  retryCount        Int       @default(0)
+  createdAt         DateTime  @default(now())
+
+  @@index([notificationId])
+  @@index([channel, status])
+}
+
+model NotificationChannel {
+  id         String    @id @default(cuid())
+  userId     String
+  channel    String    // push, sms
+  identifier String    // device token, phone number
+  name       String?   // "iPhone", "Work Phone"
+  isVerified Boolean   @default(false)
+  isActive   Boolean   @default(true)
+  lastUsedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, channel, identifier])
+  @@index([userId, channel])
+}
+
+model NotificationDigest {
+  id              String   @id @default(cuid())
+  userId          String
+  frequency       String   // daily, weekly
+  periodStart     DateTime
+  periodEnd       DateTime
+  notificationIds String   // JSON: array of notification IDs
+  status          String   @default("pending") // pending, sent
+  sentAt          DateTime?
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, frequency, periodStart])
+  @@index([status])
+}
+
+model NotificationTemplate {
+  id               String   @id @default(cuid())
+  name             String   @unique
+  type             String
+  subject          String?  // For email
+  titleTemplate    String
+  bodyTemplate     String
+  richBodyTemplate String?  // JSON
+  emailTemplate    String?  // HTML template ID
+  pushTemplate     String?  // JSON
+  smsTemplate      String?
+  variables        String   // JSON: Required variables
+  isActive         Boolean  @default(true)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model NotificationTrigger {
+  id         String   @id @default(cuid())
+  name       String   @unique
+  eventType  String   // project_funded, loan_repaid, etc.
+  conditions String?  // JSON: Trigger conditions
+  templateId String
+  channels   String   // JSON: array of channels
+  delay      Int?     // Delay in seconds
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model NotificationMetric {
+  id           String   @id @default(cuid())
+  date         DateTime
+  type         String
+  channel      String
+  sent         Int      @default(0)
+  delivered    Int      @default(0)
+  opened       Int      @default(0)
+  clicked      Int      @default(0)
+  failed       Int      @default(0)
+  unsubscribed Int      @default(0)
+
+  @@unique([date, type, channel])
+}
+
+// =============================================================================
+// Plan 37: Social Media Integration
+// =============================================================================
+
+model SocialAccount {
+  id           String    @id @default(cuid())
+  userId       String
+  provider     String    // google, facebook, twitter, linkedin, apple
+  providerId   String    // Provider's user ID
+  email        String?
+  name         String?
+  profileUrl   String?
+  avatarUrl    String?
+  accessToken  String?   // Encrypted
+  refreshToken String?   // Encrypted
+  tokenExpiry  DateTime?
+  scope        String?   // JSON: Authorized scopes
+  isConnected  Boolean   @default(true)
+  lastSyncAt   DateTime?
+  connectedAt  DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerId])
+  @@index([userId])
+}
+
+model SocialShare {
+  id          String   @id @default(cuid())
+  userId      String?
+  entityType  String   // project, campaign, community, story
+  entityId    String
+  platform    String   // twitter, facebook, linkedin, whatsapp, email
+  shareType   String   // link, card, story
+  shareUrl    String?
+  postId      String?  // Platform's post ID if available
+  impressions Int?
+  clicks      Int?
+  conversions Int?
+  metadata    String?  // JSON
+  createdAt   DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([userId, platform])
+  @@index([createdAt])
+}
+
+model SocialPost {
+  id           String    @id @default(cuid())
+  userId       String
+  accountId    String    // SocialAccount ID
+  platform     String
+  content      String
+  mediaUrls    String?   // JSON: array of media URLs
+  linkUrl      String?
+  scheduledFor DateTime?
+  postedAt     DateTime?
+  postId       String?   // Platform's post ID
+  status       String    @default("draft") // draft, scheduled, posted, failed
+  errorMessage String?
+  metrics      String?   // JSON: likes, shares, comments
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([scheduledFor, status])
+}
+
+model ImportedContact {
+  id            String    @id @default(cuid())
+  userId        String
+  source        String    // google, facebook, phone
+  email         String?
+  phone         String?
+  name          String?
+  matchedUserId String?   // If found on Deluge
+  invitedAt     DateTime?
+  status        String    @default("pending") // pending, matched, invited, joined
+  importedAt    DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, source, email])
+  @@index([userId, status])
+  @@index([matchedUserId])
+}
+
+model SocialChallenge {
+  id               String   @id @default(cuid())
+  creatorId        String
+  projectId        String?
+  name             String
+  hashtag          String   @unique
+  description      String
+  instructions     String
+  mediaExample     String?
+  goalType         String   // participants, raised, shares
+  goalValue        Float
+  currentValue     Float    @default(0)
+  startDate        DateTime
+  endDate          DateTime
+  status           String   @default("active")
+  participantCount Int      @default(0)
+  createdAt        DateTime @default(now())
+
+  participants SocialChallengeParticipant[]
+
+  @@index([hashtag])
+  @@index([status, endDate])
+}
+
+model SocialChallengeParticipant {
+  id           String   @id @default(cuid())
+  challengeId  String
+  userId       String
+  postUrl      String?
+  platform     String?
+  amountRaised Float    @default(0)
+  joinedAt     DateTime @default(now())
+
+  challenge SocialChallenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  @@unique([challengeId, userId])
+}
+
+// =============================================================================
+// Plan 38: Community Celebrations & Milestones
+// =============================================================================
+
+model Milestone {
+  id            String    @id @default(cuid())
+  entityType    String    // user, community, family, platform
+  entityId      String
+  milestoneType String    // first_project, projects_10, funding_1k, etc.
+  title         String
+  description   String
+  reachedAt     DateTime  @default(now())
+  celebratedAt  DateTime? // When user saw celebration
+  sharedAt      DateTime? // If they chose to share
+  metadata      String?   // JSON: Context about the milestone
+
+  @@unique([entityType, entityId, milestoneType])
+  @@index([entityType, entityId])
+  @@index([reachedAt])
+}
+
+model ReflectionCard {
+  id        String   @id @default(cuid())
+  userId    String
+  cardType  String   // monthly, yearly, milestone
+  period    String?  // "2026-01" or "2026"
+  stats     String   // JSON: Impact statistics
+  imageUrl  String?  // Generated card image
+  isPublic  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, cardType])
+}
+
+model SharedJourney {
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  purpose      String   // What we're working toward together
+  creatorId    String
+  imageUrl     String?
+  targetType   String?  // Optional: projects_funded, amount_raised
+  targetValue  Float?
+  currentValue Float    @default(0)
+  startDate    DateTime @default(now())
+  visibility   String   @default("members") // members, community, public
+  status       String   @default("active")  // active, completed, paused
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  members JourneyMember[]
+  moments JourneyMoment[]
+
+  @@index([status])
+}
+
+model JourneyMember {
+  id           String   @id @default(cuid())
+  journeyId    String
+  userId       String
+  role         String   @default("member") // creator, member
+  contribution Float    @default(0) // Not displayed publicly
+  joinedAt     DateTime @default(now())
+
+  journey SharedJourney @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([journeyId, userId])
+}
+
+model JourneyMoment {
+  id        String   @id @default(cuid())
+  journeyId String
+  type      String   // member_joined, milestone_reached, project_funded
+  message   String
+  metadata  String?  // JSON
+  createdAt DateTime @default(now())
+
+  journey SharedJourney @relation(fields: [journeyId], references: [id], onDelete: Cascade)
+
+  @@index([journeyId, createdAt])
+}
+
+model ReflectionPeriod {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String
+  theme       String   // giving_tuesday, year_end, spring_renewal
+  startDate   DateTime
+  endDate     DateTime
+  isActive    Boolean  @default(true)
+  content     String?  // JSON: Reflection prompts, suggested actions
+  createdAt   DateTime @default(now())
+
+  @@index([isActive, startDate])
+}
+
+model ThankYouNote {
+  id          String    @id @default(cuid())
+  recipientId String    // The giver
+  projectId   String
+  message     String
+  fromName    String?   // Beneficiary name (optional)
+  isAnonymous Boolean   @default(true)
+  mediaUrl    String?
+  readAt      DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([recipientId, readAt])
+}
+
+// =============================================================================
+// Plan 39: Privacy & Security
+// =============================================================================
+
+model UserConsent {
+  id          String    @id @default(cuid())
+  userId      String
+  consentType String    // marketing, analytics, third_party, data_sharing
+  granted     Boolean
+  version     String    // Policy version
+  ipAddress   String?
+  userAgent   String?
+  grantedAt   DateTime?
+  revokedAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, consentType])
+  @@index([userId])
+  @@index([consentType, granted])
+}
+
+model ConsentPolicy {
+  id            String   @id @default(cuid())
+  type          String   @unique
+  version       String
+  title         String
+  description   String
+  content       String
+  isActive      Boolean  @default(true)
+  effectiveDate DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([type, isActive])
+}
+
+model PrivacySettings {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  profileVisibility  String   @default("public") // public, community, private
+  showGivingHistory  Boolean  @default(false)
+  showBadges         Boolean  @default(true)
+  showCommunities    Boolean  @default(true)
+  allowTagging       Boolean  @default(true)
+  allowMessages      String   @default("followers") // anyone, followers, none
+  showOnLeaderboards Boolean  @default(true)
+  dataRetention      String   @default("indefinite") // 1y, 3y, 5y, indefinite
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DataCategory {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  retention   String   // Duration or "indefinite"
+  legalBasis  String   // consent, contract, legal, legitimate_interest
+  purposes    String   // JSON array of purposes
+  recipients  String   // JSON array of third parties
+  isRequired  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model DataRequest {
+  id          String    @id @default(cuid())
+  userId      String
+  type        String    // access, export, deletion, rectification, portability
+  status      String    @default("pending") // pending, processing, completed, failed
+  requestedAt DateTime  @default(now())
+  processedAt DateTime?
+  processedBy String?
+  resultUrl   String?   // Download link
+  expiresAt   DateTime?
+  notes       String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type])
+  @@index([status])
+}
+
+model SecurityEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  eventType String   // login, logout, password_change, 2fa_enabled
+  severity  String   @default("info") // info, warning, critical
+  ipAddress String?
+  userAgent String?
+  location  String?  // JSON geo data
+  metadata  String?  // JSON
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, eventType])
+  @@index([createdAt])
+  @@index([severity])
+}
+
+model SecuritySession {
+  id           String   @id @default(cuid())
+  userId       String
+  token        String   @unique
+  deviceName   String?
+  deviceType   String?  // desktop, mobile, tablet
+  ipAddress    String?
+  location     String?
+  lastActiveAt DateTime @default(now())
+  expiresAt    DateTime
+  isRevoked    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRevoked])
+  @@index([token])
+}
+
+model TwoFactorAuth {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  method      String    // totp, sms, email
+  secret      String?   // Encrypted TOTP secret
+  phone       String?
+  backupCodes String    // JSON array of hashed backup codes
+  isEnabled   Boolean   @default(false)
+  verifiedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SecurityAuditLog {
+  id            String   @id @default(cuid())
+  userId        String?
+  action        String   // create, read, update, delete
+  entityType    String
+  entityId      String
+  previousState String?  // JSON
+  newState      String?  // JSON
+  ipAddress     String?
+  userAgent     String?
+  metadata      String?  // JSON
+  createdAt     DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
+}
+
+model RateLimit {
+  id           String    @id @default(cuid())
+  identifier   String    // IP, user ID, or API key
+  endpoint     String
+  count        Int       @default(0)
+  windowStart  DateTime
+  windowEnd    DateTime
+  isBlocked    Boolean   @default(false)
+  blockedUntil DateTime?
+
+  @@unique([identifier, endpoint, windowStart])
+  @@index([identifier, isBlocked])
+}
+
+model SuspiciousActivity {
+  id          String    @id @default(cuid())
+  userId      String?
+  type        String    // velocity, location, device, pattern
+  severity    String    // low, medium, high, critical
+  description String
+  indicators  String    // JSON
+  status      String    @default("pending") // pending, reviewed, false_positive, confirmed
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([userId, status])
+  @@index([severity, status])
+}
+
+model AccountRecovery {
+  id        String    @id @default(cuid())
+  userId    String
+  type      String    // email, phone, backup_code
+  token     String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  ipAddress String?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+}
+
+// =============================================================================
+// Plan 40: Admin Automation & Workflows
+// =============================================================================
+
+model Automation {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  trigger     String    // JSON: Event or schedule trigger
+  conditions  String?   // JSON: When to run
+  actions     String    // JSON: What to do
+  isActive    Boolean   @default(true)
+  runCount    Int       @default(0)
+  lastRunAt   DateTime?
+  lastStatus  String?
+  createdBy   String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  runs AutomationRun[]
+
+  @@index([isActive])
+}
+
+model AutomationRun {
+  id           String    @id @default(cuid())
+  automationId String
+  triggeredBy  String    // event, schedule, manual
+  triggerData  String?   // JSON
+  status       String    @default("pending") // pending, running, completed, failed
+  result       String?   // JSON
+  error        String?
+  startedAt    DateTime  @default(now())
+  completedAt  DateTime?
+  duration     Int?      // milliseconds
+
+  automation Automation @relation(fields: [automationId], references: [id], onDelete: Cascade)
+
+  @@index([automationId, status])
+  @@index([startedAt])
+}
+
+model AdminWorkflow {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  entityType  String   // project, loan, proposal, grant
+  trigger     String   // on_create, on_update, manual
+  steps       String   // JSON: [{ order, type, config, approvers }]
+  isActive    Boolean  @default(true)
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  instances WorkflowInstance[]
+
+  @@index([entityType, isActive])
+}
+
+model WorkflowInstance {
+  id          String    @id @default(cuid())
+  workflowId  String
+  entityType  String
+  entityId    String
+  currentStep Int       @default(0)
+  status      String    @default("active") // active, completed, cancelled, failed
+  stepHistory String    // JSON: History of step completions
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  metadata    String?   // JSON
+
+  workflow  AdminWorkflow      @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  approvals WorkflowApproval[]
+
+  @@index([entityType, entityId])
+  @@index([workflowId, status])
+}
+
+model WorkflowApproval {
+  id         String   @id @default(cuid())
+  instanceId String
+  stepNumber Int
+  approverId String
+  decision   String   // approved, rejected, escalated
+  comment    String?
+  decidedAt  DateTime @default(now())
+
+  instance WorkflowInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+
+  @@index([instanceId, stepNumber])
+  @@index([approverId])
+}
+
+model ScheduledTask {
+  id           String    @id @default(cuid())
+  name         String
+  description  String?
+  taskType     String    // report, cleanup, sync, notification
+  schedule     String    // Cron expression
+  timezone     String    @default("America/Los_Angeles")
+  config       String?   // JSON: Task-specific config
+  isActive     Boolean   @default(true)
+  lastRunAt    DateTime?
+  lastStatus   String?
+  nextRunAt    DateTime?
+  failureCount Int       @default(0)
+  createdBy    String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  runs TaskRun[]
+
+  @@index([isActive, nextRunAt])
+}
+
+model TaskRun {
+  id          String    @id @default(cuid())
+  taskId      String
+  status      String    @default("running") // running, completed, failed
+  output      String?   // JSON
+  error       String?
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  duration    Int?
+
+  task ScheduledTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@index([taskId, startedAt])
+}
+
+model BusinessRule {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  category    String   // validation, pricing, eligibility, routing
+  entityType  String?  // Entity this rule applies to
+  conditions  String   // JSON: Rule conditions
+  actions     String   // JSON: Actions when matched
+  priority    Int      @default(0) // Higher = evaluated first
+  isActive    Boolean  @default(true)
+  testMode    Boolean  @default(false) // Log but don't execute
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  evaluations RuleEvaluation[]
+
+  @@index([category, isActive])
+  @@index([entityType, isActive])
+}
+
+model RuleEvaluation {
+  id          String   @id @default(cuid())
+  ruleId      String
+  entityType  String
+  entityId    String
+  matched     Boolean
+  result      String?  // JSON
+  evaluatedAt DateTime @default(now())
+
+  rule BusinessRule @relation(fields: [ruleId], references: [id], onDelete: Cascade)
+
+  @@index([ruleId, evaluatedAt])
+  @@index([entityType, entityId])
+}
+
+model BulkOperation {
+  id             String    @id @default(cuid())
+  type           String    // update, delete, export, import
+  entityType     String
+  criteria       String?   // JSON: Selection criteria
+  entityIds      String    // JSON array of IDs
+  action         String    // JSON: What to do
+  totalCount     Int
+  processedCount Int       @default(0)
+  successCount   Int       @default(0)
+  failureCount   Int       @default(0)
+  status         String    @default("pending") // pending, running, completed, failed, cancelled
+  errors         String?   // JSON
+  createdBy      String
+  startedAt      DateTime?
+  completedAt    DateTime?
+  createdAt      DateTime  @default(now())
+
+  @@index([status])
+  @@index([createdBy])
+}
+
+model WorkQueue {
+  id             String   @id @default(cuid())
+  name           String   @unique
+  description    String?
+  entityType     String   // What items are queued
+  assignmentType String   @default("manual") // manual, round_robin, load_balanced
+  assignees      String   // JSON array of user IDs
+  priority       Int      @default(0)
+  slaMinutes     Int?     // Time to process
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  items QueueItem[]
+
+  @@index([isActive])
+}
+
+model QueueItem {
+  id          String    @id @default(cuid())
+  queueId     String
+  entityType  String
+  entityId    String
+  priority    Int       @default(0)
+  assignedTo  String?
+  status      String    @default("pending") // pending, assigned, in_progress, completed
+  dueAt       DateTime?
+  assignedAt  DateTime?
+  startedAt   DateTime?
+  completedAt DateTime?
+  metadata    String?   // JSON
+  createdAt   DateTime  @default(now())
+
+  queue WorkQueue @relation(fields: [queueId], references: [id], onDelete: Cascade)
+
+  @@index([queueId, status, priority])
+  @@index([assignedTo, status])
 }
 

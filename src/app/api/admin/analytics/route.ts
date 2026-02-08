@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getPendingRevenueSummary } from "@/lib/settlement";
+import { getPlatformOverview, getMetricHistory } from "@/lib/analytics/metrics";
 
 export async function GET(request: Request) {
   const session = await auth();
@@ -145,6 +146,10 @@ export async function GET(request: Request) {
   // Pending vs cleared revenue breakdown
   const revenueBreakdown = await getPendingRevenueSummary();
 
+  // Platform overview for analytics dashboard
+  const overview = await getPlatformOverview();
+  const activeUserHistory = await getMetricHistory('daily_active_users', 'daily', 30);
+
   return NextResponse.json({
     totalRevenue,
     totalWatershedCredits,
@@ -159,5 +164,7 @@ export async function GET(request: Request) {
     avgCompletionRate,
     totalContributions,
     revenueBreakdown,
+    overview,
+    activeUserHistory,
   });
 }
