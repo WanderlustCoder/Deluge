@@ -4,12 +4,32 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrency, formatNumber } from "@/lib/utils";
-import type { LucideIcon } from "lucide-react";
+import {
+  Droplets,
+  Tv,
+  Heart,
+  Users,
+  FolderOpen,
+  TrendingUp,
+  Banknote,
+  type LucideIcon,
+} from "lucide-react";
+
+// Map icon names to actual icon components
+const iconMap: Record<string, LucideIcon> = {
+  Droplets,
+  Tv,
+  Heart,
+  Users,
+  FolderOpen,
+  TrendingUp,
+  Banknote,
+};
 
 interface Stat {
   label: string;
   value: string;
-  icon: LucideIcon;
+  icon: string;
   color: string;
   bg: string;
 }
@@ -65,7 +85,7 @@ export function ImpactTabs({
           className="grid grid-cols-2 md:grid-cols-3 gap-4"
         >
           {personalStats.map((stat) => {
-            const Icon = stat.icon;
+            const Icon = iconMap[stat.icon] || Tv;
             return (
               <Card key={stat.label}>
                 <CardContent className="pt-5">
@@ -109,7 +129,7 @@ export function ImpactTabs({
           {/* Platform Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {platformStats.map((stat) => {
-              const Icon = stat.icon;
+              const Icon = iconMap[stat.icon] || Tv;
               return (
                 <Card key={stat.label}>
                   <CardContent className="pt-5">

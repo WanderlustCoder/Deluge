@@ -3,16 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatCurrency, formatCurrencyPrecise, formatNumber } from "@/lib/utils";
-import {
-  Droplets,
-  Tv,
-  Heart,
-  Users,
-  FolderOpen,
-  TrendingUp,
-  Calendar,
-  Banknote,
-} from "lucide-react";
+import { Calendar } from "lucide-react";
 import { ImpactTabs } from "@/components/impact/impact-tabs";
 import { ImpactTimeline } from "@/components/impact/impact-timeline";
 import type { Metadata } from "next";
@@ -113,42 +104,42 @@ export default async function ImpactPage() {
     {
       label: "Ads Watched",
       value: formatNumber(personalAdViews),
-      icon: Tv,
+      icon: "Tv",
       color: "text-sky",
       bg: "bg-sky/10",
     },
     {
       label: "Ad Revenue Earned",
       value: formatCurrencyPrecise(myAdRevenue),
-      icon: TrendingUp,
+      icon: "TrendingUp",
       color: "text-teal",
       bg: "bg-teal/10",
     },
     {
       label: "Cash Contributed",
       value: formatCurrencyPrecise(myCashContributions),
-      icon: Droplets,
+      icon: "Droplets",
       color: "text-ocean",
       bg: "bg-ocean/10",
     },
     {
       label: "Projects Backed",
       value: formatNumber(myProjectsCount),
-      icon: FolderOpen,
+      icon: "FolderOpen",
       color: "text-gold",
       bg: "bg-gold/10",
     },
     {
       label: "Successful Projects",
       value: formatNumber(myCompletedProjects),
-      icon: Heart,
+      icon: "Heart",
       color: "text-teal",
       bg: "bg-teal/10",
     },
     {
       label: "Loans Funded",
       value: formatNumber(personalLoansShares),
-      icon: Banknote,
+      icon: "Banknote",
       color: "text-sky",
       bg: "bg-sky/10",
     },
@@ -158,56 +149,56 @@ export default async function ImpactPage() {
     {
       label: "Total Users",
       value: formatNumber(totalUsers),
-      icon: Users,
+      icon: "Users",
       color: "text-ocean",
       bg: "bg-ocean/10",
     },
     {
       label: "Projects",
       value: formatNumber(totalProjects),
-      icon: FolderOpen,
+      icon: "FolderOpen",
       color: "text-teal",
       bg: "bg-teal/10",
     },
     {
       label: "Projects Funded",
       value: formatNumber(totalFundedProjects),
-      icon: Heart,
+      icon: "Heart",
       color: "text-gold",
       bg: "bg-gold/10",
     },
     {
       label: "Total Ads Watched",
       value: formatNumber(totalAdViews),
-      icon: Tv,
+      icon: "Tv",
       color: "text-sky",
       bg: "bg-sky/10",
     },
     {
       label: "Ad Revenue Earned",
       value: formatCurrencyPrecise(platformAdRevenue._sum.watershedCredit ?? 0),
-      icon: TrendingUp,
+      icon: "TrendingUp",
       color: "text-teal",
       bg: "bg-teal/10",
     },
     {
       label: "Cash Contributed",
       value: formatCurrencyPrecise(platformContributions._sum.watershedCredit ?? 0),
-      icon: Droplets,
+      icon: "Droplets",
       color: "text-ocean",
       bg: "bg-ocean/10",
     },
     {
       label: "Total Allocations",
       value: formatNumber(totalAllocations),
-      icon: Heart,
+      icon: "Heart",
       color: "text-gold",
       bg: "bg-gold/10",
     },
     {
       label: "Total Funded",
       value: formatCurrency(platformTotal),
-      icon: TrendingUp,
+      icon: "TrendingUp",
       color: "text-teal",
       bg: "bg-teal/10",
     },
