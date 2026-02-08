@@ -43,7 +43,7 @@ function FundPageContent() {
     ]);
     if (projRes.ok) {
       const data = await projRes.json();
-      const activeProjects = data.filter(
+      const activeProjects = (data.projects || []).filter(
         (p: Project) => p.status === "active"
       );
       setProjects(activeProjects);
