@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { CommunityCard } from "@/components/communities/community-card";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/ui/empty-state";
 import { Search, Plus, Map, Users, ChevronDown, ChevronRight, MapPin, Building2, Home } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -237,26 +238,26 @@ export default function CommunitiesPage() {
             <CommunityCard key={community.id} community={community} />
           ))}
         </div>
+      ) : filterType === "joined" ? (
+        <EmptyState
+          icon={Users}
+          title="No communities yet"
+          message="You haven't joined any communities. Explore communities around your neighborhood or causes you care about."
+          action={{ label: "Browse All Communities", href: "#" }}
+        />
+      ) : search ? (
+        <EmptyState
+          icon={Search}
+          title="No communities found"
+          message="Try adjusting your search terms or explore different filters."
+        />
       ) : (
-        <div className="text-center py-12">
-          <p className="text-storm-light">
-            {filterType === "joined"
-              ? "You haven't joined any communities yet."
-              : search
-              ? "No communities found."
-              : "No communities yet. Create the first one!"}
-          </p>
-          {filterType === "joined" && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-4"
-              onClick={() => setFilterType("all")}
-            >
-              Browse All Communities
-            </Button>
-          )}
-        </div>
+        <EmptyState
+          icon={Users}
+          title="No communities yet"
+          message="Be the first to create a community and bring people together around shared interests or locations."
+          action={{ label: "Create a Community", href: "/communities/new" }}
+        />
       )}
     </div>
   );

@@ -190,6 +190,9 @@ function FundPageContent() {
                 <h3 className="font-heading font-semibold text-storm mb-4">
                   Fund {selectedProject.title}
                 </h3>
+                <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-2">
+                  Available: <span className="font-medium text-ocean dark:text-ocean-light">{formatCurrencyPrecise(balance)}</span>
+                </p>
                 <Input
                   id="amount"
                   label="Amount ($0.25 minimum)"
@@ -202,6 +205,11 @@ function FundPageContent() {
                   onChange={(e) => setAmount(e.target.value)}
                   error={error}
                 />
+                {amount && parseFloat(amount) > balance && (
+                  <p className="text-sm text-red-500 mt-1">
+                    Amount exceeds your available balance
+                  </p>
+                )}
                 <div className="flex gap-2 mt-3">
                   {[1, 5, 10].map((preset) => (
                     <button
@@ -209,14 +217,24 @@ function FundPageContent() {
                       onClick={() =>
                         setAmount(Math.min(preset, balance).toString())
                       }
-                      className="px-3 py-1 text-sm bg-gray-100 rounded-lg hover:bg-gray-200 text-storm transition-colors"
+                      disabled={preset > balance}
+                      className={`px-3 py-1 text-sm rounded-lg transition-colors ${
+                        preset > balance
+                          ? "bg-gray-100 text-storm-light opacity-50 cursor-not-allowed dark:bg-dark-border"
+                          : "bg-gray-100 hover:bg-gray-200 text-storm dark:bg-dark-border dark:hover:bg-dark-border/80 dark:text-dark-text"
+                      }`}
                     >
                       ${preset}
                     </button>
                   ))}
                   <button
                     onClick={() => setAmount(balance.toFixed(3))}
-                    className="px-3 py-1 text-sm bg-ocean/10 text-ocean rounded-lg hover:bg-ocean/20 transition-colors"
+                    disabled={balance < 0.25}
+                    className={`px-3 py-1 text-sm rounded-lg transition-colors ${
+                      balance < 0.25
+                        ? "bg-ocean/10 text-ocean opacity-50 cursor-not-allowed"
+                        : "bg-ocean/10 text-ocean hover:bg-ocean/20 dark:bg-ocean/20 dark:hover:bg-ocean/30"
+                    }`}
                   >
                     All ({formatCurrencyPrecise(balance)})
                   </button>

@@ -5,7 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ProgressBar } from "@/components/ui/progress-bar";
+import { EmptyState } from "@/components/ui/empty-state";
 import { formatCurrency } from "@/lib/utils";
+import { FolderOpen } from "lucide-react";
 import type { Project } from "@prisma/client";
 
 interface ProjectGridProps {
@@ -75,11 +77,11 @@ export function ProjectGrid({ projects }: ProjectGridProps) {
       </AnimatePresence>
 
       {projects.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-storm-light">
-            No projects found.
-          </p>
-        </div>
+        <EmptyState
+          icon={FolderOpen}
+          title="No projects found"
+          message="Try adjusting your search or filters to find projects that match your interests."
+        />
       )}
     </div>
   );

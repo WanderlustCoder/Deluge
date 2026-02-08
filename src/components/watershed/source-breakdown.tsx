@@ -18,8 +18,8 @@ export function SourceBreakdown({
   const cashPercent = total > 0 ? (cashContributions / total) * 100 : 0;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 p-6">
-      <h3 className="font-heading font-semibold text-storm mb-4">
+    <div className="bg-white dark:bg-dark-card rounded-xl border border-gray-200 dark:border-dark-border p-6">
+      <h3 className="font-heading font-semibold text-storm dark:text-dark-text mb-4">
         Contribution Sources
       </h3>
 
@@ -28,13 +28,13 @@ export function SourceBreakdown({
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
               <Tv className="h-4 w-4 text-teal" />
-              <span className="text-sm text-storm">Ad Credits</span>
+              <span className="text-sm text-storm dark:text-dark-text">Ad Credits</span>
             </div>
-            <span className="text-sm font-medium text-storm">
+            <span className="text-sm font-medium text-storm dark:text-dark-text">
               {formatCurrencyPrecise(adCredits)}
             </span>
           </div>
-          <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-gray-100 dark:bg-dark-border rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-teal rounded-full"
               initial={{ width: 0 }}
@@ -48,13 +48,13 @@ export function SourceBreakdown({
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
               <Banknote className="h-4 w-4 text-ocean" />
-              <span className="text-sm text-storm">Cash Contributions</span>
+              <span className="text-sm text-storm dark:text-dark-text">Cash Contributions</span>
             </div>
-            <span className="text-sm font-medium text-storm">
+            <span className="text-sm font-medium text-storm dark:text-dark-text">
               {formatCurrencyPrecise(cashContributions)}
             </span>
           </div>
-          <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div className="w-full h-2 bg-gray-100 dark:bg-dark-border rounded-full overflow-hidden">
             <motion.div
               className="h-full bg-ocean rounded-full"
               initial={{ width: 0 }}
@@ -66,7 +66,7 @@ export function SourceBreakdown({
       </div>
 
       {total === 0 && (
-        <p className="text-sm text-storm-light mt-4 text-center">
+        <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-4 text-center">
           No contributions yet. Watch ads or contribute to get started.
         </p>
       )}
