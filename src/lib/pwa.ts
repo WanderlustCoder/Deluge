@@ -120,13 +120,16 @@ export function useInstallPrompt() {
 
 /**
  * Hook for online/offline status
+ * Always starts as online to prevent hydration mismatch, then syncs with actual status
  */
 export function useOnlineStatus() {
-  const [isOnline, setIsOnline] = useState(
-    typeof navigator !== "undefined" ? navigator.onLine : true
-  );
+  // Always start as online to match server rendering
+  const [isOnline, setIsOnline] = useState(true);
 
   useEffect(() => {
+    // Sync with actual status after mount
+    setIsOnline(navigator.onLine);
+
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
