@@ -13,7 +13,7 @@ export default function ProjectsPage() {
   useEffect(() => {
     fetch("/api/projects")
       .then((res) => res.json())
-      .then((data) => setProjects(data));
+      .then((data) => setProjects(data.projects || []));
   }, []);
 
   const handleSearchChange = useCallback((query: string) => {

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { AlertTriangle, CheckCircle, Search, Eye, X, Clock } from 'lucide-react';
-import { AdminSidebar } from '@/components/admin/admin-sidebar';
 import { useToast } from '@/components/ui/toast';
 import {
   FLAG_TYPE_LABELS,
@@ -137,20 +136,15 @@ export default function AdminFlagsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
-        <AdminSidebar />
-        <div className="flex-1 lg:ml-60 p-8 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-600" />
-        </div>
+      <div className="flex items-center justify-center py-12">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-600" />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
-      <AdminSidebar />
-      <div className="flex-1 lg:ml-60 p-8">
-        <div className="max-w-6xl mx-auto">
+    <div>
+      <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -274,7 +268,6 @@ export default function AdminFlagsPage() {
               </div>
             )}
           </div>
-        </div>
       </div>
 
       {/* Detail Modal */}
