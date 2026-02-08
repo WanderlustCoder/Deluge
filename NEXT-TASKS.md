@@ -310,16 +310,10 @@ See full plan: `docs/plans/plan-25-accessibility-i18n.md`
 
 #### Epic 26: Grants & Large Funding Programs
 
-Formal grant application and management for larger funding amounts ($5K+).
+**Status: Complete** — See Plan 26 in `docs/plans/plan-26-grants-programs.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-GRANT-001 | Grant program foundation | grants | GrantProgram, GrantReviewer models |
-| DLG-GRANT-002 | Application system | grants | GrantApplication, GrantQuestion models |
-| DLG-GRANT-003 | Review process | grants | GrantReview, GrantRubric models |
-| DLG-GRANT-004 | Awards & disbursement | grants | GrantAward, GrantDisbursement models |
-| DLG-GRANT-005 | Reporting & compliance | grants | GrantReport, GrantReportTemplate models |
-| DLG-GRANT-006 | Funder dashboard | grants | Portfolio management, analytics |
+Grant programs with applications, reviews, awards, and disbursements. All core schema and functionality implemented.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-26-grants-programs.md`
 
@@ -655,3 +649,7 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 | DLG-I18N-001 | i18n infrastructure (Plan 25) | i18n | 2026-02-07 |
 | DLG-I18N-002 | Locale detection and formatting (Plan 25) | i18n | 2026-02-07 |
 | DLG-I18N-003 | Translation system (Plan 25) | i18n | 2026-02-07 |
+| DLG-GRANT-001 | Grant program foundation (Plan 26) | grants | 2026-02-07 |
+| DLG-GRANT-002 | Application system (Plan 26) | grants | 2026-02-07 |
+| DLG-GRANT-003 | Review system (Plan 26) | grants | 2026-02-07 |
+| DLG-GRANT-004 | Awards & disbursements (Plan 26) | grants | 2026-02-07 |
