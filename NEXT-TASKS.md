@@ -328,17 +328,10 @@ See full plan: `docs/plans/plan-27-blockchain-transparency.md`
 
 #### Epic 28: AI-Powered Platform Features
 
-AI assistance for recommendations, moderation, and insights.
+**Status: Complete** — See Plan 28 in `docs/plans/plan-28-ai-features.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-AI-001 | Smart project matching | ai | Interest profiling, recommendations |
-| DLG-AI-002 | Content assistance | ai | Description, grant, and story helpers |
-| DLG-AI-003 | Intelligent moderation | ai | Content screening, fraud detection |
-| DLG-AI-004 | Intelligent search | ai | Semantic search, Q&A |
-| DLG-AI-005 | Predictive analytics | ai | Success prediction, churn, trends |
-| DLG-AI-006 | Automated insights | ai | Impact reports, community insights |
-| DLG-AI-007 | Admin AI tools | ai | Natural language queries, drafting |
+ContentFlag, SearchEmbedding, ProjectPrediction, AIAssistanceLog, AIConversation, TrendAnalysis schema. Content moderation with pattern detection, recommendations engine (personalized, similar, trending), content assistance for descriptions/grants, project success predictions, admin moderation dashboard.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-28-ai-features.md`
 

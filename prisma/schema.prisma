@@ -4144,3 +4144,100 @@ model LedgerEntry {
   @@index([ledgerId, createdAt])
 }
 
+// =============================================================================
+// PLAN 28: AI-POWERED PLATFORM FEATURES
+// =============================================================================
+
+model ContentFlag {
+  id          String    @id @default(cuid())
+  contentType String    // project, comment, story, loan, discussion
+  contentId   String
+  flagType    String    // spam, inappropriate, fraud_risk, off_topic, duplicate
+  confidence  Float     // 0-1 AI confidence score
+  reason      String?
+  details     String    @default("{}") // JSON - detailed analysis
+  status      String    @default("pending") // pending, reviewed, dismissed, actioned
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  action      String?   // hide, delete, warn, none
+  createdAt   DateTime  @default(now())
+
+  @@index([contentType, contentId])
+  @@index([status, flagType])
+  @@index([createdAt])
+}
+
+model SearchEmbedding {
+  id         String   @id @default(cuid())
+  entityType String   // project, community, story, resource
+  entityId   String
+  embedding  Bytes    // Vector embedding (serialized float array)
+  text       String   // Original text that was embedded
+  model      String   @default("text-embedding-3-small") // Model used
+  dimensions Int      @default(1536)
+  updatedAt  DateTime @default(now())
+
+  @@unique([entityType, entityId])
+  @@index([entityType])
+}
+
+model ProjectPrediction {
+  id              String   @id @default(cuid())
+  projectId       String   @unique
+  successProb     Float    // 0-1 probability of reaching funding goal
+  predictedDays   Int?     // Estimated days to full funding
+  riskFactors     String   @default("[]") // JSON array of risk factors
+  strengthFactors String   @default("[]") // JSON array of strength factors
+  confidence      Float    @default(0.5) // Model confidence in prediction
+  computedAt      DateTime @default(now())
+
+  @@index([successProb])
+}
+
+model AIAssistanceLog {
+  id           String   @id @default(cuid())
+  userId       String
+  assistType   String   // description, grant, story, moderation, search
+  inputLength  Int      // Characters of input
+  outputLength Int      // Characters of output
+  model        String   // AI model used
+  latencyMs    Int      // Response time
+  tokensUsed   Int      // Total tokens consumed
+  costUsd      Float?   // Estimated cost
+  feedback     String?  // user_helpful, user_not_helpful
+  createdAt    DateTime @default(now())
+
+  @@index([userId, assistType])
+  @@index([createdAt])
+}
+
+model AIConversation {
+  id          String    @id @default(cuid())
+  userId      String
+  context     String    // help, grant_assistant, description_helper
+  messages    String    @default("[]") // JSON array of messages
+  status      String    @default("active") // active, resolved, abandoned
+  resolvedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId, status])
+  @@index([context])
+}
+
+model TrendAnalysis {
+  id            String   @id @default(cuid())
+  trendType     String   // category, community, topic, keyword
+  identifier    String   // The specific category/community/topic
+  period        String   // daily, weekly, monthly
+  periodStart   DateTime
+  periodEnd     DateTime
+  metrics       String   @default("{}") // JSON - various metrics
+  changePercent Float?   // Change from previous period
+  momentum      Float    @default(0) // Trend momentum score
+  createdAt     DateTime @default(now())
+
+  @@unique([trendType, identifier, period, periodStart])
+  @@index([trendType, period])
+}
+
