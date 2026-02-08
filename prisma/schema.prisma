@@ -97,6 +97,10 @@ model User {
   webhooks                  Webhook[]
   oauthApps                 OAuthApp[]
   oauthAuthorizations       OAuthAuthorization[]
+  // Plan 20: Smart Discovery
+  interestProfile           UserInterestProfile?
+  digestPreferences         DigestPreferences?
+  discoveryChallenges       DiscoveryChallenge[]
 }
 
 model Watershed {
@@ -2910,5 +2914,147 @@ model OAuthAuthorization {
   @@index([accessToken])
   @@index([authCode])
   @@index([userId, appId])
+}
+
+// ============================================================================
+// Plan 20: Smart Discovery & Recommendations
+// ============================================================================
+
+model UserInterestProfile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  categories    String   @default("{}") // JSON: { "education": 0.8, "environment": 0.6 }
+  communities   String   @default("{}") // JSON: { "community_id": weight }
+  projectTypes  String   @default("{}") // JSON: { "infrastructure": 0.7 }
+  givingPatterns String  @default("{}") // JSON: { "avg_amount": 25, "frequency": "weekly" }
+  locationPrefs String   @default("{}") // JSON: { "radius_miles": 50, "include_remote": true }
+  timePrefs     String   @default("{}") // JSON: { "prefer_urgent": true }
+  lastUpdated   DateTime @default(now())
+  createdAt     DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserInteraction {
+  id         String   @id @default(cuid())
+  userId     String
+  entityType String   // project, community, loan, business
+  entityId   String
+  action     String   // view, fund, follow, share, save, dismiss
+  weight     Float    @default(1) // Interaction strength
+  context    String?  // JSON: { "source": "feed", "duration_sec": 45 }
+  createdAt  DateTime @default(now())
+
+  @@index([userId, entityType, createdAt])
+  @@index([entityId, action])
+}
+
+model UserSimilarity {
+  id            String   @id @default(cuid())
+  userId        String
+  similarUserId String
+  score         Float    // 0-1 similarity score
+  basis         String   // funding, following, category
+  calculatedAt  DateTime @default(now())
+
+  @@unique([userId, similarUserId, basis])
+  @@index([userId, score])
+}
+
+model ProjectSimilarity {
+  id               String   @id @default(cuid())
+  projectId        String
+  similarProjectId String
+  score            Float
+  basis            String   // category, community, backers
+  calculatedAt     DateTime @default(now())
+
+  @@unique([projectId, similarProjectId])
+  @@index([projectId, score])
+}
+
+model Recommendation {
+  id         String    @id @default(cuid())
+  userId     String
+  entityType String    // project, community, loan
+  entityId   String
+  score      Float
+  reason     String    // "similar_to_funded", "trending_in_area", etc.
+  signals    String    // JSON: Contributing signals and weights
+  shown      Boolean   @default(false)
+  shownAt    DateTime?
+  clicked    Boolean   @default(false)
+  clickedAt  DateTime?
+  converted  Boolean   @default(false) // Funded/joined
+  expiresAt  DateTime
+  createdAt  DateTime  @default(now())
+
+  @@unique([userId, entityType, entityId])
+  @@index([userId, entityType, score])
+  @@index([expiresAt])
+}
+
+model MatchScore {
+  id           String   @id @default(cuid())
+  userId       String
+  projectId    String
+  score        Float    // 0-1 match quality
+  breakdown    String   // JSON: { "category": 0.8, "location": 0.7, "history": 0.9 }
+  calculatedAt DateTime @default(now())
+  expiresAt    DateTime
+
+  @@unique([userId, projectId])
+  @@index([userId, score])
+  @@index([projectId, score])
+}
+
+model DigestPreferences {
+  id               String    @id @default(cuid())
+  userId           String    @unique
+  frequency        String    @default("weekly") // never, weekly, monthly
+  dayOfWeek        Int?      // 0-6 for weekly
+  categories       String    @default("[]") // JSON array of focus categories
+  includeLoans     Boolean   @default(true)
+  includeVolunteer Boolean   @default(true)
+  lastSent         DateTime?
+  nextSend         DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DiscoveryChallenge {
+  id           String    @id @default(cuid())
+  userId       String
+  type         String    // explore_categories, fund_new_community, etc.
+  target       Int
+  progress     Int       @default(0)
+  reward       String    // badge, watershed_credit
+  rewardAmount Float?
+  status       String    @default("active") // active, completed, expired
+  expiresAt    DateTime
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}
+
+model RecommendationMetrics {
+  id          String   @id @default(cuid())
+  date        DateTime
+  algorithm   String   // collaborative, content, hybrid
+  entityType  String
+  impressions Int      @default(0)
+  clicks      Int      @default(0)
+  conversions Int      @default(0)
+  avgPosition Float?
+  avgScore    Float?
+  createdAt   DateTime @default(now())
+
+  @@unique([date, algorithm, entityType])
+  @@index([date])
 }
 
