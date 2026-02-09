@@ -53,6 +53,7 @@ export function getCascadeStage(fundingRaised: number, fundingGoal: number) {
 // Project categories
 export const PROJECT_CATEGORIES = [
   "Education",
+  "Energy",
   "Environment",
   "Health",
   "Technology",

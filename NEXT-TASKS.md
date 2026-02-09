@@ -473,6 +473,22 @@ See full plan: `docs/plans/plan-41-watershed-loans.md`
 
 ---
 
+### Phase 6 — Flagship Mission
+
+#### Epic 42: Home Efficiency Program
+
+Deluge's flagship initiative: upgrading homes to be energy-efficient and capable of localized electricity generation.
+
+**Status: Design Complete** — See Plan 42 in `docs/plans/plan-42-home-efficiency.md`
+
+Design document covers: 9 upgrade categories (insulation, air sealing, doors, windows, HVAC, water heating, electrical panel, roof reinforcement, solar), 3 entry tracks (individual application, community nomination, neighborhood cascade), 3 funding tracks (fully funded, loan-assisted, co-pay), phased upgrades (envelope → openings → systems → electrical → generation), gap funding, impact metrics, aquifer integration.
+
+New project category: "Energy" added to `PROJECT_CATEGORIES`.
+
+See full plan: `docs/plans/plan-42-home-efficiency.md`
+
+---
+
 ## Done
 
 | ID | Title | Epic | Completed |
