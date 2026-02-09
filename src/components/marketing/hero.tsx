@@ -2,72 +2,122 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Droplets } from "lucide-react";
+import { Droplets, Users, DollarSign, HandCoins } from "lucide-react";
+import { AnimatedNumber } from "./animated-number";
+import { prefersReducedMotion } from "@/lib/a11y/motion";
 
-export function Hero() {
+interface HeroProps {
+  stats: {
+    totalFunded: number;
+    totalLoansIssued: number;
+    activeUsers: number;
+  };
+}
+
+// Sparse, elegant raindrop configuration — few large, slow drops with trails
+const raindrops = [
+  { left: "12%", delay: 0, duration: 4.5, size: 3, opacity: 0.35 },
+  { left: "28%", delay: 1.8, duration: 5.2, size: 4, opacity: 0.25 },
+  { left: "45%", delay: 3.2, duration: 4.8, size: 3, opacity: 0.3 },
+  { left: "62%", delay: 0.6, duration: 5.5, size: 5, opacity: 0.2 },
+  { left: "78%", delay: 2.4, duration: 4.2, size: 3, opacity: 0.35 },
+  { left: "88%", delay: 4.0, duration: 5.0, size: 4, opacity: 0.22 },
+  { left: "35%", delay: 5.1, duration: 4.6, size: 3, opacity: 0.28 },
+  { left: "55%", delay: 3.8, duration: 5.8, size: 4, opacity: 0.18 },
+];
+
+export function Hero({ stats }: HeroProps) {
+  const reduced = typeof window !== "undefined" && prefersReducedMotion();
+
+  const stagger = (delay: number) =>
+    reduced
+      ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
+      : {
+          initial: { opacity: 0, y: 24 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.7, delay, ease: [0.25, 0.46, 0.45, 0.94] },
+        };
+
   return (
-    <section className="relative bg-water-gradient text-white py-28 px-4 overflow-hidden">
-      {/* Animated background drops */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(6)].map((_, i) => (
+    <section className="relative min-h-[85vh] flex items-center justify-center text-white py-28 px-4 overflow-hidden bg-[#0a3d8f]">
+      {/* Layered radial gradient background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,rgba(66,165,245,0.3),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_60%,rgba(0,137,123,0.2),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
+      </div>
+
+      {/* Sparse elegant raindrops */}
+      <div
+        className="absolute inset-0 overflow-hidden pointer-events-none motion-safe:block motion-reduce:hidden"
+        aria-hidden="true"
+      >
+        {raindrops.map((drop, i) => (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full"
-            style={{
-              left: `${15 + i * 15}%`,
-              top: `-5%`,
-            }}
-            animate={{
-              y: ["0vh", "110vh"],
-              opacity: [0, 0.6, 0.6, 0],
-            }}
+            className="absolute"
+            style={{ left: drop.left, top: "-5%" }}
+            animate={{ y: ["0vh", "110vh"] }}
             transition={{
-              duration: 4 + i * 0.8,
+              duration: drop.duration,
               repeat: Infinity,
-              delay: i * 0.7,
+              delay: drop.delay,
               ease: "linear",
             }}
-          />
+          >
+            {/* Drop head */}
+            <div
+              className="rounded-full bg-white"
+              style={{
+                width: drop.size,
+                height: drop.size * 1.6,
+                opacity: drop.opacity,
+                borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+              }}
+            />
+            {/* Trail */}
+            <div
+              className="absolute left-1/2 -translate-x-1/2 bottom-full"
+              style={{
+                width: 1,
+                height: drop.size * 16,
+                background: `linear-gradient(to top, rgba(255,255,255,${drop.opacity}), transparent)`,
+              }}
+            />
+          </motion.div>
         ))}
       </div>
 
+      {/* Content */}
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.div
           className="flex items-center justify-center gap-3 mb-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...stagger(0)}
         >
-          <Droplets className="h-12 w-12" />
-          <h1 className="font-heading font-bold text-5xl sm:text-6xl tracking-wide">
+          <Droplets className="h-12 w-12 opacity-90" />
+          <h1 className="font-heading font-bold text-5xl sm:text-7xl tracking-wide">
             DELUGE
           </h1>
         </motion.div>
 
         <motion.p
           className="text-2xl sm:text-3xl font-heading font-light mb-4 opacity-90"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          {...stagger(0.15)}
         >
           One by One, All at Once.
         </motion.p>
 
         <motion.p
-          className="text-lg opacity-80 max-w-2xl mx-auto mb-10"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-lg opacity-75 max-w-2xl mx-auto mb-10"
+          {...stagger(0.3)}
         >
           Watch. Give. Fund what matters. Your attention becomes action,
           flowing into community projects that change lives.
         </motion.p>
 
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+          {...stagger(0.45)}
         >
           <Link
             href="/register"
@@ -77,10 +127,50 @@ export function Hero() {
           </Link>
           <Link
             href="/login"
-            className="inline-flex items-center justify-center px-8 py-3.5 border-2 border-white text-white font-heading font-semibold rounded-lg hover:bg-white/10 transition-colors text-lg"
+            className="inline-flex items-center justify-center px-8 py-3.5 border-2 border-white/60 text-white font-heading font-semibold rounded-lg hover:bg-white/10 transition-colors text-lg"
           >
             Sign In
           </Link>
+        </motion.div>
+
+        {/* Stats row */}
+        <motion.div
+          className="grid grid-cols-3 gap-6 max-w-xl mx-auto"
+          {...stagger(0.6)}
+        >
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-1.5 mb-1">
+              <DollarSign className="h-4 w-4 opacity-70" />
+              <span className="text-2xl sm:text-3xl font-heading font-bold">
+                <AnimatedNumber value={stats.totalFunded} prefix="$" decimals={0} />
+              </span>
+            </div>
+            <span className="text-xs sm:text-sm uppercase tracking-wider opacity-60">
+              Funded
+            </span>
+          </div>
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-1.5 mb-1">
+              <HandCoins className="h-4 w-4 opacity-70" />
+              <span className="text-2xl sm:text-3xl font-heading font-bold">
+                <AnimatedNumber value={stats.totalLoansIssued} prefix="$" decimals={0} />
+              </span>
+            </div>
+            <span className="text-xs sm:text-sm uppercase tracking-wider opacity-60">
+              Loans Issued
+            </span>
+          </div>
+          <div className="text-center">
+            <div className="flex items-center justify-center gap-1.5 mb-1">
+              <Users className="h-4 w-4 opacity-70" />
+              <span className="text-2xl sm:text-3xl font-heading font-bold">
+                <AnimatedNumber value={stats.activeUsers} decimals={0} />
+              </span>
+            </div>
+            <span className="text-xs sm:text-sm uppercase tracking-wider opacity-60">
+              Active Users
+            </span>
+          </div>
         </motion.div>
       </div>
     </section>

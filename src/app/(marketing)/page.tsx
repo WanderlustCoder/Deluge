@@ -3,15 +3,24 @@ import { HowItWorks } from "@/components/marketing/how-it-works";
 import { Categories } from "@/components/marketing/categories";
 import { Manifesto } from "@/components/marketing/manifesto";
 import { CTA } from "@/components/marketing/cta";
+import { getPublicTransparencyMetrics } from "@/lib/revenue-tracking";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const metrics = await getPublicTransparencyMetrics();
+
+  const stats = {
+    totalFunded: metrics.totalFunded,
+    totalLoansIssued: metrics.totalLoansIssued,
+    activeUsers: metrics.activeUsers,
+  };
+
   return (
     <div>
-      <Hero />
+      <Hero stats={stats} />
       <HowItWorks />
       <Categories />
       <Manifesto />
-      <CTA />
+      <CTA stats={stats} />
     </div>
   );
 }

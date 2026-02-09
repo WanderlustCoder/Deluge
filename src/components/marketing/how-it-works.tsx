@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Tv, Droplets, Heart } from "lucide-react";
 
 const steps = [
@@ -27,6 +28,52 @@ const steps = [
   },
 ];
 
+function StepCard({
+  item,
+  index,
+}: {
+  item: (typeof steps)[number];
+  index: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [40 + index * 10, -20 - index * 10]);
+  const iconY = useTransform(scrollYProgress, [0, 1], [50 + index * 15, -30 - index * 10]);
+
+  const Icon = item.icon;
+
+  return (
+    <motion.div
+      ref={ref}
+      className="text-center"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+    >
+      <motion.div
+        className="w-16 h-16 rounded-2xl bg-ocean/10 dark:bg-sky/20 text-ocean dark:text-sky-light flex items-center justify-center mx-auto mb-5"
+        style={{ y: iconY }}
+      >
+        <Icon className="h-7 w-7" />
+      </motion.div>
+      <motion.div style={{ y }}>
+        <div className="text-sm font-heading font-semibold text-ocean/60 dark:text-sky-light mb-1">
+          Step {item.step}
+        </div>
+        <h3 className="font-heading font-semibold text-xl text-storm mb-3">
+          {item.title}
+        </h3>
+        <p className="text-storm-light leading-relaxed">{item.description}</p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export function HowItWorks() {
   return (
     <section className="py-20 px-4">
@@ -47,32 +94,9 @@ export function HowItWorks() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-10">
-          {steps.map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <motion.div
-                key={item.step}
-                className="text-center"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
-              >
-                <div className="w-16 h-16 rounded-2xl bg-ocean/10 dark:bg-sky/20 text-ocean dark:text-sky-light flex items-center justify-center mx-auto mb-5">
-                  <Icon className="h-7 w-7" />
-                </div>
-                <div className="text-sm font-heading font-semibold text-ocean/60 dark:text-sky-light mb-1">
-                  Step {item.step}
-                </div>
-                <h3 className="font-heading font-semibold text-xl text-storm mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-storm-light leading-relaxed">
-                  {item.description}
-                </p>
-              </motion.div>
-            );
-          })}
+          {steps.map((item, i) => (
+            <StepCard key={item.step} item={item} index={i} />
+          ))}
         </div>
       </div>
     </section>
