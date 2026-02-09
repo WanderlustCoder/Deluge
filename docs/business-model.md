@@ -6,7 +6,7 @@ Deluge is a platform where communities fund what matters. Users contribute cash 
 
 ### Who Deluge Serves
 
-The target user is the person who donates to every fundraiser in their feed and shares every campaign they see. The person who wants to help but doesn't know where their money goes after they give it. Deluge exists alongside other giving options, offering transparency and collective impact as an alternative approach to the fragmented, opaque world of informal community giving.
+The target user is the person who donates to every fundraiser in their feed and shares every campaign they see. The person who wants to help and wants to see the results. Deluge exists alongside other giving options, offering transparency, collective impact, and real-time visibility into where every dollar lands.
 
 ### How It Works
 
@@ -105,7 +105,7 @@ Users can watch video ads to grow their watershed balance. Ad revenue enters the
 | Deluge keeps (platform margin) | 40% ($0.0032) | 40% ($0.006) | 40% ($0.01) |
 | Credited to watershed | 60% ($0.0048) | 60% ($0.009) | 60% ($0.015) |
 
-**Transparency note:** Deluge must clearly disclose how the ad revenue is split. "$0.009 from this ad was added to your watershed. Deluge kept $0.006 to run the platform." This is the opposite of exploitative models that obscure their economics.
+**Transparency note:** Deluge clearly discloses how ad revenue is split. "$0.009 from this ad was added to your watershed. Deluge kept $0.006 to run the platform." Full visibility into platform economics is a core commitment.
 
 **Caps and controls:**
 

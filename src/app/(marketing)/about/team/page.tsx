@@ -35,7 +35,7 @@ const principles = [
   {
     title: "Small team, big focus",
     description:
-      "We\u2019re intentionally small. Fewer people means less overhead, faster decisions, and more of every dollar going to the platform instead of salaries.",
+      "We\u2019re intentionally small. A focused team means faster decisions and more resources dedicated to building the platform.",
   },
   {
     title: "Build in public",

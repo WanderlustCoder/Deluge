@@ -110,7 +110,7 @@ Deluge draws inspiration from models that have already proven people want to giv
 ## Why Now
 
 - **Post-COVID values shift** -- people want purpose and community connection
-- **Trust gap** -- exploitative models and opaque charities have created demand for legitimate, transparent alternatives
+- **Trust gap** -- growing demand for transparent, accountable platforms where givers can see exactly where their money goes
 - **Attention economy maturity** -- ad-funded models are well-understood and technically feasible. Turning attention into community impact is a new application.
 - **Local-first movement** -- growing interest in supporting local businesses, local projects, local communities
 - **Creator/proposer culture** -- existing giving and crowdfunding platforms have normalized proposing and backing projects. Deluge applies this familiar pattern to community impact.

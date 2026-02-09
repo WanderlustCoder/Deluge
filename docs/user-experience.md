@@ -57,7 +57,7 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Goals:** Give according to her values (environment, education). See where her money goes. Be part of something bigger than individual charity. Full transparency into outcomes.
 
-**Pain points:** Doesn't trust where charity money goes. Traditional giving feels disconnected from results. Wants transparency and community connection.
+**Pain points:** Wants to see where her money goes. Values transparency and real outcomes over abstract totals. Craves community connection around giving.
 
 **How Deluge helps:** Start with $25/month. She directs her contributions to causes she cares about and sees exactly which projects her money funds. She joins the Denver education community, rallies behind a local STEM lab, watches it cascade to full funding, and gets impact reports showing 312 students served. The giving feels real. The transparency is built in.
 
@@ -74,7 +74,7 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Goals:** Use tech for good. Support innovation and education. Gamified, engaging experience. Real-time impact tracking.
 
-**Pain points:** Charity feels disconnected from results. Wants to see metrics. Craves community connection.
+**Pain points:** Wants to see real metrics from his giving. Craves community connection and tangible outcomes.
 
 **How Deluge helps:** Badges, streaks, and real-time impact dashboards. Tech/innovation category speaks to him. Community progress tracking. Sponsors a borrower, tracks their progress, watches the loan get repaid, and redeploys his watershed capital. The cycle makes him feel like his money is alive.
 
@@ -106,11 +106,11 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 | Income | $55K/year (business revenue: $180K) |
 | Location | Urban (Denver, CO) |
 
-**Who she is:** Rosa has run her bakery for 6 years. She's a fixture in the neighborhood but can't afford traditional advertising. She cares about the community -- she donates leftover bread to the shelter and sponsors the little league team -- but these efforts are invisible to anyone outside her block.
+**Who she is:** Rosa has run her bakery for 6 years. She's a fixture in the neighborhood but can't afford traditional advertising. She cares about the community -- she donates leftover bread to the shelter and sponsors the little league team -- but she has no way to share that story beyond her block.
 
 **Goals:** Get more neighborhood visibility without a marketing budget. Be recognized as a community-oriented business. Connect her business to the neighborhood's wellbeing. Propose improvements to the block (better signage, a public bench, flower planters).
 
-**Pain points:** Can't afford Facebook or Google ads. Yelp feels transactional. Her community contributions are invisible. She'd propose a project for her block but doesn't know where to start.
+**Pain points:** Limited marketing budget. Wants neighborhood visibility and recognition for her community contributions. She'd propose a project for her block but doesn't know where to start.
 
 **How Deluge helps:** Rosa creates a free business card listing in 10 minutes. Neighborhood users discover her bakery while browsing -- and every view funds community projects. Her listing shows "Rosa's Bakery has contributed $47 to local projects this month" just by existing. She proposes a project to install flower planters on her block. Contributors fund the $80 budget. Rosa's block looks better, and 12 contributors funded something real for under $7 each.
 
@@ -148,11 +148,11 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 
 **Goals:** Deploy significant capital into community projects with full transparency. See verified impact outcomes. Support borrowers directly through microloans. Be part of a giving community, not just a checkbook.
 
-**Pain points:** Traditional philanthropy is opaque -- she writes checks and gets annual reports full of overhead ratios. Donor-advised funds feel like parking money in a tax shelter. She wants more connection and transparency than traditional giving provides.
+**Pain points:** Wants deeper connection to the communities she supports. Values real-time visibility into outcomes over periodic reports. Looking for a giving experience that feels personal and direct.
 
-**How Deluge helps:** Catherine deploys capital into projects and microloans with full transparency -- all features are free. She backs 15 projects in her first month, sponsors 3 borrowers, and watches real-time impact reports flow back. Her watershed regenerates as microloans get repaid, and she redeploys into new projects. She sees exactly where every dollar goes. The community mechanics (cascading, collective funding, impact reports) give her something donor-advised funds never could: connection to the people her money helps.
+**How Deluge helps:** Catherine deploys capital into projects and microloans with full transparency -- all features are free. She backs 15 projects in her first month, sponsors 3 borrowers, and watches real-time impact reports flow back. Her watershed regenerates as microloans get repaid, and she redeploys into new projects. She sees exactly where every dollar goes. The community mechanics (cascading, collective funding, impact reports) give her what she's looking for: direct connection to the people her money helps.
 
-**Key insight:** Catherine represents experienced philanthropists who want more connection and transparency than traditional giving provides. Full-featured free access and detailed impact reporting serve this audience.
+**Key insight:** Catherine represents experienced philanthropists who value direct connection and real-time transparency. Full-featured free access and detailed impact reporting serve this audience.
 
 ---
 

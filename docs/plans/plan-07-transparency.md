@@ -9,7 +9,7 @@
 
 ## Overview
 
-Create radical transparency about how Deluge makes money and how user funds are managed, differentiating from opaque competitors.
+Create radical transparency about how Deluge makes money and how user funds are managed. Full visibility into platform economics is a core commitment.
 
 ---
 

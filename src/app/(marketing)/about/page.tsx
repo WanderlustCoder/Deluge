@@ -213,7 +213,7 @@ export default function AboutPage() {
             <ul className="space-y-3 text-storm-light">
               {[
                 ["Not an investment platform.", "We don't manage portfolios, sell securities, or promise returns. This is giving, not investing."],
-                ["Not a traditional charity.", "We don't collect donations and decide where they go. You decide. Every cent you contribute stays in your control until you deploy it."],
+                ["You decide where it goes.", "Every cent you contribute stays in your control until you deploy it to a project or loan you believe in."],
                 ["Not free to run.", "We make money from ads, business listings, loan servicing, and float — not from hidden fees on your giving. Our revenue model is published openly."],
               ].map(([bold, rest]) => (
                 <li key={bold} className="flex items-start gap-3">
