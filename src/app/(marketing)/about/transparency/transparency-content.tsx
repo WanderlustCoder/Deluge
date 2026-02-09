@@ -221,7 +221,7 @@ export function TransparencyContent({ metrics }: TransparencyContentProps) {
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="h-6 w-6 text-teal" />
               <h2 className="font-heading font-bold text-2xl text-storm">
-                What We Don&rsquo;t Do
+                Our Financial Commitments
               </h2>
             </div>
             <div className="bg-white dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700">

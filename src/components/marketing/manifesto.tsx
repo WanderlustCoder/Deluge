@@ -14,7 +14,7 @@ const lines = [
     bold: true,
   },
   {
-    text: "Deluge doesn\u2019t let your money disappear. Every cent is tracked, every project is verified, every outcome is reported back to you.",
+    text: "On Deluge, nothing disappears. You see where every cent lands, what it built, and who it helped.",
     delay: 0.2,
   },
   {
@@ -27,12 +27,12 @@ const lines = [
     highlight: true,
   },
   {
-    text: "$985,500 a year. From attention alone. No credit card required.",
+    text: "$985,500 a year. From attention alone.",
     delay: 0.5,
     bold: true,
   },
   {
-    text: "That\u2019s new playground equipment. That\u2019s a family keeping their lights on. That\u2019s a kid\u2019s first laptop for school.",
+    text: "New playground equipment. A family keeping their lights on. A kid\u2019s first laptop for school.",
     delay: 0.6,
     italic: true,
   },

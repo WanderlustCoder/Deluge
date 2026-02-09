@@ -28,9 +28,9 @@ const values = [
   },
   {
     icon: ShieldCheck,
-    title: "Free for Everyone",
+    title: "Start With Nothing",
     description:
-      "No subscription fees. No per-transaction fees. If you have no money, you can still contribute through attention — watching ads, browsing local businesses, referring friends. The platform is free for individuals, always.",
+      "You don't need a bank account to participate. Your attention — watching an ad, browsing a local business, inviting a friend — generates real funding for your community. Everyone has something to give.",
   },
   {
     icon: TrendingUp,
@@ -134,20 +134,14 @@ export default function AboutPage() {
             <div className="space-y-4 text-storm-light text-lg leading-relaxed">
               <p>
                 Deluge concentrates small contributions from many people into visible,
-                verifiable outcomes. You contribute cash or attention — watching a
-                15-second ad, browsing a local business, referring a friend — and every
-                cent flows into your personal watershed.
+                verifiable outcomes. Instead of scattering your generosity across dozens
+                of causes, you build a personal watershed — a single impact fund you
+                control completely.
               </p>
               <p>
-                From your watershed, you deploy funds to community projects you believe in.
-                When a project hits 100% funding, it cascades — executed, verified, and
-                reported back to every person who contributed. You see exactly what your
-                giving accomplished.
-              </p>
-              <p className="font-medium text-storm">
-                One person watching all 30 daily ads earns roughly $0.27 for their
-                watershed. 10,000 people doing the same contribute $985,500 a year —
-                from attention alone.
+                When a community project reaches full funding, it cascades: executed,
+                verified, and reported back to every person who helped make it happen.
+                You see exactly what your giving accomplished.
               </p>
             </div>
           </motion.div>
@@ -267,10 +261,10 @@ export default function AboutPage() {
       <section className="py-20 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-heading font-bold text-3xl text-storm mb-4">
-            Ready to Start?
+            Your Watershed Is Waiting
           </h2>
           <p className="text-storm-light text-lg mb-8">
-            It costs nothing to join. Watch your first ad and you&rsquo;re already making an impact.
+            Pick a project you care about and watch what happens when a community shows up together.
           </p>
           <Link
             href="/register"

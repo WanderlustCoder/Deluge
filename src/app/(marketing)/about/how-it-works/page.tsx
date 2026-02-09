@@ -8,7 +8,6 @@ import {
   Heart,
   ArrowDown,
   RefreshCw,
-  ShieldCheck,
   Zap,
   Store,
   UserPlus,
@@ -161,14 +160,13 @@ export default function HowItWorksPage() {
                 Everything you earn flows here — ad revenue, referral credits, direct contributions.
               </p>
               <p>
-                Your watershed balance is always yours. You can deploy it to projects whenever
-                you&rsquo;re ready, or let it accumulate. There are no fees on your balance and
-                no expiration date.
-              </p>
-              <p>
-                While your funds sit in the watershed, Deluge earns interest on the aggregate
-                pool. Your principal is always protected and available.
-                We disclose this openly because transparency is the whole point.
+                Deploy to projects whenever you&rsquo;re ready, or let it accumulate.
+                No fees on your balance, no expiration date, and your principal is always
+                available. See our{" "}
+                <Link href="/about/transparency" className="text-ocean dark:text-sky underline">
+                  transparency page
+                </Link>{" "}
+                for the full financial picture.
               </p>
             </div>
           </motion.div>
@@ -270,36 +268,6 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      {/* Safety */}
-      <section className="py-20 px-4">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <ShieldCheck className="h-6 w-6 text-ocean dark:text-sky" />
-              <h2 className="font-heading font-bold text-2xl text-storm">
-                Your Money Is Safe
-              </h2>
-            </div>
-            <div className="text-storm-light text-lg space-y-4">
-              <p>
-                Watershed balances are held in FDIC-insured accounts with sweep arrangements
-                across multiple banks. Your principal is never at risk and is always available
-                for you to deploy or withdraw.
-              </p>
-              <p>
-                There are no hidden fees. No per-transaction charges. No subscription costs.
-                Every dollar you put in is a dollar you can deploy.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* The Math */}
       <section className="py-20 px-4 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-3xl mx-auto text-center">
@@ -311,12 +279,13 @@ export default function HowItWorksPage() {
           >
             <Zap className="h-8 w-8 text-gold mx-auto mb-4" />
             <h2 className="font-heading font-bold text-2xl text-storm mb-4">
-              The Math
+              Your Year on Deluge
             </h2>
             <div className="text-storm-light text-lg space-y-2 max-w-xl mx-auto">
-              <p>1 person &times; 30 ads/day &times; 365 days = ~<strong className="text-storm">$98/year</strong> to their watershed</p>
-              <p>10,000 people doing the same = <strong className="text-storm">$985,500/year</strong></p>
-              <p className="text-ocean dark:text-sky font-medium pt-2">From attention alone. No credit card required.</p>
+              <p>30 ads/day &times; ~$0.009/ad &times; 365 days = ~<strong className="text-storm">$98/year</strong> to your watershed</p>
+              <p>Add a $5/month direct contribution = <strong className="text-storm">$158/year</strong></p>
+              <p>Refer 5 friends who take action = <strong className="text-storm">+$7.50</strong></p>
+              <p className="text-ocean dark:text-sky font-medium pt-2">One person. Real money. Real projects.</p>
             </div>
           </motion.div>
         </div>
@@ -326,10 +295,10 @@ export default function HowItWorksPage() {
       <section className="py-20 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="font-heading font-bold text-3xl text-storm mb-4">
-            Start With Zero
+            See It In Action
           </h2>
           <p className="text-storm-light text-lg mb-8">
-            Watch your first ad and start building your watershed today.
+            Create an account, watch your watershed fill up, and fund your first project.
           </p>
           <Link
             href="/register"

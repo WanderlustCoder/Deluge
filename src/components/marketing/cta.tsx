@@ -85,7 +85,7 @@ export function CTA({ stats }: CTAProps) {
           </Link>
 
           <p className="text-sm text-storm-light mt-4">
-            No credit card required. No minimum contribution.
+            Free to join. Free to give.
           </p>
         </motion.div>
       </div>
