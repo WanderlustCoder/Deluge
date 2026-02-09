@@ -67,7 +67,7 @@ export function CTA({ stats }: CTAProps) {
           </p>
 
           {/* Stats reminder */}
-          <p className="text-sm text-ocean font-medium mb-8">
+          <p className="text-sm text-ocean dark:text-sky font-medium mb-8">
             Join{" "}
             <AnimatedNumber value={stats.activeUsers} decimals={0} />{" "}
             users who&rsquo;ve funded{" "}

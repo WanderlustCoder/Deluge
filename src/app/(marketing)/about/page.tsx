@@ -180,7 +180,7 @@ export default function AboutPage() {
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                 >
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-lg bg-ocean/10 text-ocean flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-lg bg-ocean/10 dark:bg-sky/20 text-ocean dark:text-sky flex items-center justify-center">
                       <Icon className="h-5 w-5" />
                     </div>
                     <h3 className="font-heading font-semibold text-lg text-storm">
@@ -224,7 +224,7 @@ export default function AboutPage() {
                 ["Not free to run.", "We make money from ads, business listings, loan servicing, and float — not from hidden fees on your giving. Our revenue model is published openly."],
               ].map(([bold, rest]) => (
                 <li key={bold} className="flex items-start gap-3">
-                  <Heart className="h-4 w-4 text-ocean mt-1.5 flex-shrink-0" />
+                  <Heart className="h-4 w-4 text-ocean dark:text-sky mt-1.5 flex-shrink-0" />
                   <span>
                     <strong className="text-storm">{bold}</strong> {rest}
                   </span>
@@ -250,7 +250,7 @@ export default function AboutPage() {
                   href={link.href}
                   className="group block bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
                 >
-                  <Icon className="h-6 w-6 text-ocean mb-3" />
+                  <Icon className="h-6 w-6 text-ocean dark:text-sky mb-3" />
                   <h3 className="font-heading font-semibold text-storm mb-1 flex items-center gap-1">
                     {link.title}
                     <ArrowRight className="h-3.5 w-3.5 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />

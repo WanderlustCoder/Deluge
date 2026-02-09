@@ -63,7 +63,7 @@ function ManifestoLine({
       ref={ref}
       className={`text-xl leading-relaxed ${
         line.highlight
-          ? "text-2xl sm:text-3xl font-heading font-semibold text-ocean"
+          ? "text-2xl sm:text-3xl font-heading font-semibold text-ocean dark:text-sky"
           : line.bold
           ? "font-medium text-storm"
           : line.italic

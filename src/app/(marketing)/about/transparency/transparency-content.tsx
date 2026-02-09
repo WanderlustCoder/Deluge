@@ -124,7 +124,7 @@ export function TransparencyContent({ metrics }: TransparencyContentProps) {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
                 >
-                  <Icon className="h-5 w-5 text-ocean mx-auto mb-2" />
+                  <Icon className="h-5 w-5 text-ocean dark:text-sky mx-auto mb-2" />
                   <div className="text-2xl font-heading font-bold text-storm">
                     <AnimatedNumber value={stat.value} prefix={stat.prefix} decimals={stat.value >= 1000 ? 0 : 2} />
                   </div>
@@ -148,7 +148,7 @@ export function TransparencyContent({ metrics }: TransparencyContentProps) {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <PieChart className="h-6 w-6 text-ocean" />
+              <PieChart className="h-6 w-6 text-ocean dark:text-sky" />
               <h2 className="font-heading font-bold text-2xl text-storm">
                 The {metrics.platformTake} Split
               </h2>
@@ -198,7 +198,7 @@ export function TransparencyContent({ metrics }: TransparencyContentProps) {
               >
                 <div className="flex items-baseline justify-between mb-2">
                   <h3 className="font-heading font-semibold text-storm">{stream.source}</h3>
-                  <span className="text-xs font-medium text-ocean bg-ocean/5 px-2 py-0.5 rounded-full">
+                  <span className="text-xs font-medium text-ocean dark:text-sky bg-ocean/5 dark:bg-sky/10 px-2 py-0.5 rounded-full">
                     {stream.split}
                   </span>
                 </div>

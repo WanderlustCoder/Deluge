@@ -97,7 +97,7 @@ export default function TeamPage() {
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-full bg-ocean/10 text-ocean flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-full bg-ocean/10 dark:bg-sky/20 text-ocean dark:text-sky flex items-center justify-center">
                       <Icon className="h-6 w-6" />
                     </div>
                     <div>

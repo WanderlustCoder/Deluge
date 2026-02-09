@@ -94,11 +94,11 @@ export default function HowItWorksPage() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-2xl bg-ocean/10 text-ocean flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl bg-ocean/10 dark:bg-sky/20 text-ocean dark:text-sky flex items-center justify-center">
                 <Tv className="h-6 w-6" />
               </div>
               <div>
-                <div className="text-sm font-heading font-semibold text-ocean/60">Step 1</div>
+                <div className="text-sm font-heading font-semibold text-ocean/60 dark:text-sky-light">Step 1</div>
                 <h2 className="font-heading font-bold text-2xl text-storm">Watch & Earn</h2>
               </div>
             </div>
@@ -121,11 +121,11 @@ export default function HowItWorksPage() {
                     transition={{ duration: 0.4, delay: i * 0.08 }}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <Icon className="h-5 w-5 text-ocean" />
+                      <Icon className="h-5 w-5 text-ocean dark:text-sky" />
                       <h3 className="font-heading font-semibold text-storm">{method.title}</h3>
                     </div>
                     <p className="text-sm text-storm-light mb-2">{method.description}</p>
-                    <p className="text-xs text-ocean/80 font-medium">{method.detail}</p>
+                    <p className="text-xs text-ocean/80 dark:text-sky-light font-medium">{method.detail}</p>
                   </motion.div>
                 );
               })}
@@ -134,7 +134,7 @@ export default function HowItWorksPage() {
 
           {/* Arrow */}
           <div className="flex justify-center mb-16">
-            <ArrowDown className="h-8 w-8 text-ocean/30" />
+            <ArrowDown className="h-8 w-8 text-ocean/30 dark:text-sky/30" />
           </div>
 
           {/* Step 2: Grow */}
@@ -175,7 +175,7 @@ export default function HowItWorksPage() {
 
           {/* Arrow */}
           <div className="flex justify-center mb-16">
-            <ArrowDown className="h-8 w-8 text-ocean/30" />
+            <ArrowDown className="h-8 w-8 text-ocean/30 dark:text-sky/30" />
           </div>
 
           {/* Step 3: Fund */}
@@ -220,13 +220,13 @@ export default function HowItWorksPage() {
                   transition={{ duration: 0.3, delay: i * 0.08 }}
                 >
                   <div className="w-20 text-right">
-                    <span className="font-heading font-bold text-ocean text-sm">{stage.percent}</span>
+                    <span className="font-heading font-bold text-ocean dark:text-sky text-sm">{stage.percent}</span>
                   </div>
                   <div
                     className="h-2 rounded-full bg-ocean/20 relative overflow-hidden"
                     style={{ width: `${Math.max(parseInt(stage.percent) || 5, 5)}%`, maxWidth: "100%", minWidth: 20 }}
                   >
-                    <div className="absolute inset-0 bg-ocean rounded-full" />
+                    <div className="absolute inset-0 bg-ocean dark:bg-sky rounded-full" />
                   </div>
                   <div className="flex-1">
                     <span className="font-heading font-semibold text-storm text-sm">{stage.name}</span>
@@ -280,7 +280,7 @@ export default function HowItWorksPage() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <ShieldCheck className="h-6 w-6 text-ocean" />
+              <ShieldCheck className="h-6 w-6 text-ocean dark:text-sky" />
               <h2 className="font-heading font-bold text-2xl text-storm">
                 Your Money Is Safe
               </h2>
@@ -316,7 +316,7 @@ export default function HowItWorksPage() {
             <div className="text-storm-light text-lg space-y-2 max-w-xl mx-auto">
               <p>1 person &times; 30 ads/day &times; 365 days = ~<strong className="text-storm">$98/year</strong> to their watershed</p>
               <p>10,000 people doing the same = <strong className="text-storm">$985,500/year</strong></p>
-              <p className="text-ocean font-medium pt-2">From attention alone. No credit card required.</p>
+              <p className="text-ocean dark:text-sky font-medium pt-2">From attention alone. No credit card required.</p>
             </div>
           </motion.div>
         </div>
