@@ -6,7 +6,7 @@ Deluge is a platform where communities fund what matters. Users contribute cash 
 
 ### Who Deluge Serves
 
-The target user is the person who donates to every GoFundMe in their feed and shares every fundraiser they see. The person who wants to help but doesn't know where their money goes after they give it. Deluge doesn't compete with investment platforms -- it competes with the fragmented, opaque world of informal community giving.
+The target user is the person who donates to every fundraiser in their feed and shares every campaign they see. The person who wants to help but doesn't know where their money goes after they give it. Deluge exists alongside other giving options, offering transparency and collective impact as an alternative approach to the fragmented, opaque world of informal community giving.
 
 ### How It Works
 
@@ -18,9 +18,9 @@ The target user is the person who donates to every GoFundMe in their feed and sh
 
 ### Why This Model Works
 
-Individual giving is diffuse and invisible. $10 to a GoFundMe disappears into a total and the giver never knows what happened. Deluge concentrates small contributions from many people into visible, verifiable outcomes. One person watching all 30 daily ads earns roughly $0.27 for their watershed -- enough to fund a project on day one. 10,000 people doing the same thing contribute $985,500/year -- from attention alone.
+Individual giving is diffuse and invisible. $10 to an online fundraiser disappears into a total and the giver never knows what happened. Deluge concentrates small contributions from many people into visible, verifiable outcomes. One person watching all 30 daily ads earns roughly $0.27 for their watershed -- enough to fund a project on day one. 10,000 people doing the same thing contribute $985,500/year -- from attention alone.
 
-This is the raindrop-to-river thesis: individual contributions are small, but collective and persistent giving creates measurable community impact. The platform's job is to make the collective visible and to make giving easy enough that people do it daily, not just when a GoFundMe shows up in their feed.
+This is the raindrop-to-river thesis: individual contributions are small, but collective and persistent giving creates measurable community impact. The platform's job is to make the collective visible and to make giving easy enough that people do it daily, not just when a fundraiser shows up in their feed.
 
 ### What Deluge Does Not Do
 
@@ -70,7 +70,7 @@ Every dollar in a user's watershed sits in Deluge's custody until the user deplo
 | $2.6M (Year 3) | $118K | $52K | $13K |
 | $11.25M (Year 5) | $506K | $225K | $56K |
 
-**The transparency commitment:** Unlike PayPal and Venmo (who bury this in fine print), Deluge discloses custodial float income prominently -- on the platform dashboard, in the annual transparency report, and in plain language: *"Your watershed balance funds projects when you deploy it, and keeps the platform free while it sits. Every dollar works twice."*
+**The transparency commitment:** Deluge discloses custodial float income prominently -- on the platform dashboard, in the annual transparency report, and in plain language: *"Your watershed balance funds projects when you deploy it, and keeps the platform free while it sits. Every dollar works twice."*
 
 **Interest rate risk:** At current rates (~4.5%), this is a meaningful stream. In a low-rate environment (0.1-0.5%), it's nearly zero. Model conservatively and treat high-rate periods as upside.
 
@@ -886,7 +886,7 @@ These tags exist from day one as organizing buckets. The community can propose n
 
 ## Community Dynamics & Network Effects
 
-Deluge's long-term defensibility depends on community network effects -- the compounding value that makes the platform harder to replicate as it grows. This section analyzes how community dynamics drive business metrics and where the moat builds.
+Deluge's long-term distinctiveness depends on community network effects -- the compounding value that deepens the platform's unique strengths as it grows. This section analyzes how community dynamics drive business metrics and where those distinctive strengths compound.
 
 ### How Community Size Affects Cascade Rate
 
@@ -911,7 +911,7 @@ A cascade (project fully funded) is the core emotional event on the platform. Ca
 | **Data network effect** | More users → better project recommendations, better impact data, better ad targeting | Weak initially, strong at scale | 50K+ users |
 | **Social / referral** | Users invite friends → friends join same communities → community grows → more value for everyone | Strong | From Day 1 |
 
-### Community as a Retention Moat
+### Community as a Retention Driver
 
 Users who join a community and see a cascade are significantly harder to churn than solo users.
 
@@ -936,29 +936,29 @@ These metrics predict whether a community will thrive or stall.
 | Discussion activity | Daily posts/comments | Weekly | Monthly or less -- community is a ghost town |
 | New member growth | 5%+ monthly | 1-5% | Negative -- community is shrinking |
 
-### Competitive Moat Assessment
+### What Makes Deluge's Approach Distinctive
 
-| Moat Component | Replicability | Time to Build | Strength |
-|----------------|--------------|---------------|----------|
-| Technology (app, payment processing) | Easy -- any funded startup can build this | 3-6 months | Weak |
-| Community relationships | Hard -- trust and social ties take time | 2-3 years | Strong |
-| Project history + impact data | Hard -- verified outcomes compound over time | 2-4 years | Strong |
-| Local business directory | Moderate -- requires market-by-market effort | 1-2 years per market | Moderate |
-| Borrower credit history + sponsorship networks | Very hard -- reputation systems can't be copied | 3-5 years | Very strong |
-| Brand association with sustainable giving | Moderate -- first-mover advantage matters | 1-2 years | Moderate |
+| Asset | Why It Matters | Time to Develop |
+|-------|---------------|-----------------|
+| Technology (app, payment processing) | Table stakes -- any well-resourced team can build giving infrastructure | 3-6 months |
+| Community relationships | Trust and social ties take time and can't be shortcut | 2-3 years |
+| Project history + impact data | Verified outcomes compound over time, creating a living record of community impact | 2-4 years |
+| Local business directory | Requires market-by-market relationships and density | 1-2 years per market |
+| Borrower credit history + sponsorship networks | Reputation systems are built through years of real interactions | 3-5 years |
+| Brand association with sustainable giving | Earned through consistent delivery on the transparency promise | 1-2 years |
 
-**The real moat is the community graph + impact history.** A competitor can clone the app in 12 months, but they can't replicate 3 years of funded projects, verified outcomes, community relationships, borrower credit histories, and sponsor reputation scores. Every cascade, every repaid loan adds to a data and trust asset that compounds.
+**Deluge's distinctive asset is the community graph + impact history.** Technology is commodity, but the accumulated record of funded projects, verified outcomes, community relationships, borrower credit histories, and sponsor reputation scores is unique. Every cascade, every repaid loan adds to a data and trust asset that compounds over time.
 
-### What Happens If a Major Competitor Enters
+### How Deluge Complements Other Giving Platforms
 
-If GoFundMe, a major tech platform, or a well-funded startup launches a competing community giving feature:
+More options for givers is good for the ecosystem. If a major platform, a well-funded startup, or an established giving service adds community giving features, that expands the overall space for collective giving -- and Deluge welcomes it. Here's how Deluge's depth in community-driven giving remains distinctive:
 
-| Scenario | Deluge's Defense |
-|----------|-----------------|
-| Competitor adds "community giving" to existing app | Deluge's community-driven model is philosophically different from tacked-on charity features. A "donate" button doesn't compete with a giving-first platform with watershed mechanics, cascades, and microloans. The community, project history, and cascade dynamics don't transfer. |
-| Competitor launches community-funded projects | Takes 12+ months to build community density. Deluge's head start in specific markets (500+ member communities, funded projects, impact data) creates a switching cost for users with community ties. |
-| Competitor offers free-tier giving through ads | Deluge's multi-pathway model (ads + business cards + referrals) is broader. The combined free-tier on-ramp is harder to replicate than any single mechanism. |
-| Well-funded clone launches | The biggest risk. Mitigate by building community density fast in initial markets, creating strong brand identity, and making community switching costs high (project history, achievements, sponsorship reputation). |
+| Scenario | How Deluge Complements |
+|----------|----------------------|
+| Another platform adds "community giving" features | Deluge's model goes deeper than a giving feature -- watershed mechanics, cascades, microloans, and impact tracking are built into the core, not layered on. Users who want depth in community giving will find it here. |
+| Another platform launches community-funded projects | More community-funded projects in the world is a good thing. Deluge's strength is in specific communities with deep ties -- 500+ member communities, funded project histories, and impact data that users have built together. |
+| Another platform offers ad-funded giving | Deluge's multi-pathway model (ads + business cards + referrals) provides a broader on-ramp. The combined free-tier pathways create distinctive flexibility for users with no cash to spare. |
+| A dedicated giving platform launches | The giving ecosystem benefits from more participants. Deluge's focus is community density in specific markets, strong brand identity around transparency, and deep community ties (project history, achievements, sponsorship reputation) that users build over time. |
 
 ---
 

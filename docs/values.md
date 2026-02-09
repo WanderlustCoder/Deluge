@@ -4,7 +4,7 @@
 
 Generous people give until it hurts. Deluge makes giving sustainable -- multiple pathways to contribute (cash, ads, business browsing, referrals), transparent tracking of where every cent goes, and a watershed model that recycles capital through microloans. The giving is the product. Sustainability is the design principle.
 
-**Who it's for:** The person who donates to every GoFundMe and never knows where the money went. The person who gives 20 hours a week and wishes they could do more. Deluge competes with the fragmented, opaque world of informal community giving, not with GoFundMe or DonorsChoose.
+**Who it's for:** The person who gives to every cause they see and never knows where the money went. The person who gives 20 hours a week and wishes they could do more. Deluge exists to bring transparency and collective action to community giving.
 
 **The on-ramp:** Not everyone has cash to give. That's why Deluge has zero-dollar pathways: watching ads, browsing local businesses, and referring friends all generate real project funding. Every pathway is equally valid. Deluge works for people with money and people without it.
 
@@ -84,7 +84,7 @@ Every gamification mechanic must pass one test: does this reward behavior that's
 **We never reward:**
 
 - Dollar amounts contributed (no "$1K Club" or spending-based rankings)
-- Competitive spending (no "contribute more than your friend" challenges)
+- Spending competitions (no "contribute more than your friend" challenges)
 - Individual hero moments that create FOMO or racing behavior
 - Breadth of spending for completionism's sake
 - Individual rankings or leaderboards of any kind

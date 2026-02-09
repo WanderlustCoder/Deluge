@@ -13,7 +13,7 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 | Income | $48K/year |
 | Location | Urban (Denver, CO) |
 
-**Who she is:** Angela donates to every GoFundMe in her feed and organized a neighborhood cleanup last month. Her generosity is genuine and constant -- but she spreads it thin across too many causes and never sees the result. She wants to know that her giving actually makes a difference.
+**Who she is:** Angela donates to every fundraiser in her feed and organized a neighborhood cleanup last month. Her generosity is genuine and constant -- but she spreads it thin across too many causes and never sees the result. She wants to know that her giving actually makes a difference.
 
 **Goals:** Give back to her community. Feel like her contributions matter. Find projects that need help in her neighborhood. See exactly where her money goes and what it accomplishes.
 
@@ -127,7 +127,7 @@ Deluge is a community-driven giving platform. The personas below are ordered by 
 | Income | Company budget |
 | Location | Corporate HQ |
 
-**Goals:** Meet ESG commitments. Engage employees meaningfully. Report impact metrics to the board. Differentiate from competitors.
+**Goals:** Meet ESG commitments. Engage employees meaningfully. Report impact metrics to the board. Stand out in ESG reporting.
 
 **Pain points:** Current ESG programs feel like checkbox exercises. Low employee engagement. Hard to measure real impact. Expensive consultants.
 
@@ -432,7 +432,7 @@ Gamification in a giving platform carries real responsibility. Every mechanic mu
 
 **We never reward:**
 - Dollar amounts contributed (no "$1K Club" or spending-based leaderboards)
-- Competitive spending (no "give more than your friend" challenges)
+- Spending competitions (no "give more than your friend" challenges)
 - Individual hero moments that create FOMO or racing behavior
 - Breadth of spending for completionism's sake
 

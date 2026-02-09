@@ -30,7 +30,7 @@
 | Real projects, real updates | Photos, videos, data from funded projects |
 | Verified impact metrics | Third-party audited outcomes |
 | No black boxes | Clear breakdown of every dollar |
-| Know exactly which school | Unlike vague "charity overhead mystery" |
+| Know exactly which school | Clear, specific outcomes — not vague overhead percentages |
 
 ### Pillar 3: Sustainable Giving -- "Give without wrecking yourself"
 

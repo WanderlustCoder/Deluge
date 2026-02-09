@@ -167,7 +167,7 @@ export default function HowItWorksPage() {
               </p>
               <p>
                 While your funds sit in the watershed, Deluge earns interest on the aggregate
-                pool (like PayPal and Venmo do). Your principal is always protected and available.
+                pool. Your principal is always protected and available.
                 We disclose this openly because transparency is the whole point.
               </p>
             </div>

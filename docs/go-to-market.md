@@ -57,7 +57,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 
 **Target audience:**
 - Age: 25-45
-- Interests: community giving, sustainability, social entrepreneurship, DonorsChoose, Kiva, GoFundMe
+- Interests: community giving, sustainability, social entrepreneurship, crowdfunding platforms, charitable giving
 - Locations: US (urban/suburban focus)
 
 **Ad creative (A/B test):**
@@ -343,7 +343,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 | Path | Description |
 |------|-------------|
 | Continue as independent PBC | Stay bootstrapped, mission-focused |
-| Acquisition | Larger platform acquires (GoFundMe, PayPal, Block) |
+| Acquisition | Partnership or acquisition by aligned platform that shares Deluge's mission |
 | Strategic partnership | Deep integration with major platform |
 | IPO | Long-term, if scale justifies |
 
@@ -366,7 +366,7 @@ Tools: Typeform or Google Forms. Budget: $0-25.
 - [ ] **Secure domains:** Purchase deluge.fund (priority), deluge.io, joindeluge.com
 - [ ] **Secure social handles:** @delugefund on Instagram, Twitter/X, TikTok, LinkedIn; create r/delugefund on Reddit
 - [ ] **Trademark search:** Search USPTO for "Deluge" in financial services and software/apps -- document findings (don't file yet)
-- [ ] **Create mood board:** Collect water imagery, color palette inspiration, typography examples, competitor screenshots
+- [ ] **Create mood board:** Collect water imagery, color palette inspiration, typography examples, industry inspiration screenshots
 
 ### Next 30 Days (High Priority)
 
@@ -500,7 +500,7 @@ If validation is **weak** at any gate:
 
 | Risk | Mitigation |
 |------|------------|
-| Major competitor launches similar feature | First-mover advantage; community loyalty; focus on transparency; PBC mission lock |
+| Another platform adds similar giving features | More options for givers is a net positive; Deluge's depth in community-driven giving with full transparency is its distinctive value; PBC mission lock ensures long-term alignment |
 | Economic downturn reduces giving appetite | Free-tier pathways (ads, browsing) unaffected; community engagement maintains participation; free-tier model means zero barrier to continued participation |
 
 ### Operational Risks
@@ -519,34 +519,31 @@ If validation is **weak** at any gate:
 
 ---
 
-## Competitive Landscape
+## The Giving Ecosystem
 
-### Direct Competitors
+### How Deluge Complements Existing Platforms
 
-| Platform | Model | Weakness vs Deluge |
-|----------|-------|-------------------|
-| GoFundMe | Individual crowdfunding campaigns (150M+ donors) | No community aggregation; one-time donations; no recurring engagement |
-| DonorsChoose | Fund specific classroom projects (5M donors) | Education only; no free-tier pathway; no microloans; no gamification |
-| Kiva | Microloan platform ($25 min) | No grant funding; no ad-funded pathway; limited engagement; no watershed model |
-| Charity Navigator | Charity vetting and discovery | Directory only; no funding mechanism; no community features |
+The giving ecosystem is rich with platforms that serve givers in different ways. Deluge does not replace any of them -- it adds a new option focused on collective, community-driven giving with full transparency.
 
-### Adjacent Competitors
+| Platform | What They Do Well | How Deluge Complements |
+|----------|-------------------|----------------------|
+| GoFundMe | Empowers individuals to rally support for personal and community needs at massive scale | Deluge adds ongoing collective giving with community aggregation, recurring engagement, and progress tracking |
+| DonorsChoose | Connects donors directly to classroom projects with clear accountability | Deluge extends the direct-to-project model across all impact categories with free-tier pathways and microloans |
+| Kiva | Pioneered accessible microloans that recycle capital for continuous impact | Deluge combines microloan recycling with grant funding, ad-funded giving, and community watershed tracking |
+| Charity Navigator | Helps donors make informed decisions about where to give | Deluge builds on the transparency standard with real-time project tracking and community-level impact metrics |
+| Patreon | Enables sustainable recurring support for creators | Deluge applies recurring support to community projects with collective impact measurement |
+| GiveDirectly | Delivers direct cash transfers with rigorous evidence | Deluge offers community-chosen project variety alongside direct giving pathways |
+| Change.org | Mobilizes communities around shared causes | Deluge channels community momentum into funded action with measurable outcomes |
 
-| Platform | Model | Weakness vs Deluge |
-|----------|-------|-------------------|
-| Patreon | Creator-focused recurring giving | Individual creators, not community projects; no impact measurement |
-| GiveDirectly | Direct cash transfers to extreme poverty | Narrow focus; no community choice; no project variety |
-| Change.org | Petition-based activism | No funding mechanism; awareness only |
+### What Deluge Adds to the Ecosystem
 
-### Why Deluge Wins
-
-Deluge uniquely combines:
-1. **Zero-barrier entry** (like GoFundMe) -- fund projects with $0 through ads and browsing
-2. **Transparent impact** (like DonorsChoose) -- specific projects, real updates
+Deluge brings a distinctive combination to the giving landscape:
+1. **Zero-barrier entry** -- fund projects with $0 through ads and browsing
+2. **Transparent impact** -- specific projects, real updates, full visibility into fund flow
 3. **Engaging progress tracking** -- badges, community milestones, collective impact
-4. **Recycled capital** (like Kiva) -- microloans that come back and get redeployed
+4. **Recycled capital** -- microloans that come back and get redeployed
 
-No existing platform combines all four.
+These elements work together to offer givers another meaningful way to participate in their communities.
 
 ---
 

@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const lines = [
   {
-    text: "You gave $10 to a GoFundMe last month. You don\u2019t know what happened to it.",
+    text: "You gave $10 to a cause last month. You don\u2019t know what happened to it.",
     delay: 0,
   },
   {

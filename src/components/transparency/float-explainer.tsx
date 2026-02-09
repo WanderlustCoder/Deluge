@@ -62,9 +62,8 @@ export function FloatExplainer() {
 
         <div className="mt-6 p-4 bg-teal/10 rounded-lg">
           <p className="text-sm text-teal italic">
-            The interest belongs to Deluge — this is standard practice (PayPal,
-            Venmo, and Stripe all do the same). The difference is we tell you
-            about it.
+            The interest belongs to Deluge — this is standard practice for
+            custodial platforms. We believe in telling you about it openly.
           </p>
         </div>
       </CardContent>

@@ -109,7 +109,7 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-4 text-storm-light text-lg leading-relaxed">
               <p>
-                Individual giving is diffuse and invisible. You donate $10 to a GoFundMe —
+                Individual giving is diffuse and invisible. You donate $10 online —
                 it disappears into a total and you never know what happened. You share every
                 fundraiser in your feed, spread your generosity across dozens of causes, and
                 never see a single result.

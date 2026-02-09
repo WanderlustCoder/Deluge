@@ -1240,7 +1240,7 @@ AML monitoring runs as a background job (daily batch). Flagged transactions are 
 | Aspect | Policy |
 |--------|--------|
 | **Acceptable categories** | Consumer brands, financial services (non-predatory), education, health/wellness, family-friendly entertainment, social impact brands |
-| **Prohibited categories** | Gambling/sports betting, crypto speculation, scams/MLM, adult content, competitors, predatory lending, political ads, tobacco/vaping |
+| **Prohibited categories** | Gambling/sports betting, crypto speculation, scams/MLM, adult content, predatory lending, political ads, tobacco/vaping |
 | **User controls** | "Report this ad" button on every ad view; reported ads blocked immediately for the reporting user |
 | **Auto-moderation** | Ads receiving 3+ user reports are auto-paused pending manual review |
 | **Platform review** | Pre-approved ad categories via mediation platform; quarterly audit of ad quality and report trends; maintained blocklist of advertisers and creatives |

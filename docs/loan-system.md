@@ -22,6 +22,7 @@ Funders deploy capital from their watershed balance. Watersheds grow from all co
 
 | Element | Detail |
 |---------|--------|
+| Minimum loan amount | $100. No loans below this threshold -- they cost the platform more to administer than they deliver in impact. |
 | Loan amounts | $100 (Tier 1) up to $5,000 (Tier 5), based on borrower's credit progression |
 | Repayment period | Set by borrower at application within tier limits: T1=6mo, T2=12mo, T3=18mo, T4-5=24mo max |
 | Servicing fee | 2% of each scheduled payment, locked at origination, never changes |

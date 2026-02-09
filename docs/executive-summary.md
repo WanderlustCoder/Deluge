@@ -4,7 +4,7 @@
 
 People naturally want to collaborate and contribute, but they face connected problems:
 
-- **No way to find what needs doing** -- coordination is fragmented. If you care about education in your city, your options are: donate to a big nonprofit (no idea where it goes), find a random GoFundMe (no vetting), or do nothing (most common outcome).
+- **No way to find what needs doing** -- coordination is fragmented. If you care about education in your city, your options are: donate to a big nonprofit (no idea where it goes), find an individual fundraiser online (limited vetting), or do nothing (most common outcome).
 - **No mechanism for collective action** -- people care about the same things but can't find each other. A thousand people in Denver who care about youth education have no way to pool their energy and resources into something real.
 - **High barriers to giving** -- charity platforms take money but offer no transparency. People who can't give cash are locked out entirely. No platform lets you contribute meaningfully with $0.
 - **Exploitative models** -- some platforms take real money while delivering negligible value under deceptive framing. Others pressure users to give more than they can afford.
@@ -63,7 +63,7 @@ This is what happens when you give people a transparent way to give and a commun
 | Metric | Value |
 |--------|-------|
 | Annual US charitable giving | $500+ billion |
-| GoFundMe campaigns created annually | 100M+ |
+| Crowdfunding campaigns created annually across the giving ecosystem | 100M+ |
 | DonorsChoose donors (proving people want specific impact) | 5M+ |
 | Strava users (proving gamification drives retention) | 100M+ |
 | Millennials/Gen Z who want to give but don't know where | ~60% |
@@ -73,43 +73,36 @@ This is what happens when you give people a transparent way to give and a commun
 
 ---
 
-## Competitive Advantage
+## What Deluge Adds to the Ecosystem
 
-### vs. Charity Platforms (DonorsChoose, Kiva, GoFundMe)
+The giving ecosystem is rich and growing. Charity platforms connect donors with causes. Crowdfunding platforms let people back ideas they believe in. Community platforms bring neighbors together. These are all valuable -- and Deluge is not trying to replace any of them. Instead, Deluge fills a niche that currently does not exist: a platform where community-driven giving, free-tier participation, and transparent impact reporting come together in one place.
 
-- Multiple participation pathways -- cash, ads, browsing (not just cash)
-- Community-driven discovery (the crowd decides, not the platform)
-- Broader scope (7 categories vs narrow focus)
-- Free-tier users can participate meaningfully without spending a dollar
-- Gamified engagement drives repeat participation, not one-time donations
-- Local business directory creates a unique giving-while-browsing experience
+### The Gap Deluge Fills
 
-### vs. Crowdfunding (Kickstarter, Indiegogo)
+The giving ecosystem today is mostly oriented around people who already have money to give. If you have $50 and want to help, there are many great options. But if you have $0 and want to contribute, or if you want to see exactly what your contribution accomplished, or if you want your community -- not an algorithm -- to decide what gets funded, the options are limited. That is the space Deluge occupies.
 
-- Impact-focused, not product-focused
-- Ongoing community engagement, not one-time campaigns
-- Free-tier participation (no cash required)
-- Verified impact reporting (not just "we shipped the product")
+### Distinctive Elements
 
-### vs. Community Platforms (Nextdoor, Facebook Groups)
+- **Free-tier entry** -- users can participate meaningfully without spending a dollar, through ad views and local business browsing. No other giving platform offers a $0 contribution pathway at this scale.
+- **Community-driven discovery** -- the community decides what gets funded, not the platform. Projects gain momentum organically through member engagement and sharing.
+- **Collective impact and cascade mechanics** -- small individual contributions compound into transformative community outcomes. Gamified milestones (badges, cascade stages, community progress) sustain engagement over time.
+- **Full transparency** -- every dollar and every ad view is tracked from contribution to outcome. Funded projects report real-world results back to the community.
+- **Multiple contribution pathways** -- cash, attention (ads), browsing (local business directory), and referrals all flow into the same watershed. Users give in the way that works for them.
+- **Microloans** -- community-backed microloans let members access small amounts of capital and build toward larger opportunities. This is a mechanism most giving platforms do not offer.
+- **Local business integration** -- a business directory where every view generates community project funding, connecting local commerce with local giving.
 
-- Built-in funding mechanism -- discussion leads to action, not just conversation
-- Project verification and impact tracking
-- Multiple contribution pathways including attention-funded giving
-- Gamification and cascade mechanics drive sustained engagement
+### Addressing Inaction
 
-### vs. Doing Nothing (The Real Competition)
+The biggest challenge in the giving space is not a lack of platforms -- it is a lack of participation. Most people who want to help their community end up doing nothing because the options feel overwhelming, opaque, or require more money than they have. Deluge's core value proposition addresses this directly: "Find what needs doing. Fund it with whatever you have -- even $0. See exactly what happened."
 
-Most people who want to help their community end up doing nothing because the options are overwhelming, opaque, or require more money than they have. Deluge's real competition is inaction. The value proposition: "Find what needs doing. Fund it with whatever you have -- even $0. See exactly what happened."
+### Building on Proven Models
 
-### The Unique Combination
+Deluge draws inspiration from models that have already proven people want to give this way:
 
-Deluge brings together four proven models that no one else has unified:
-
-- **Transparent impact** (like DonorsChoose) -- see exactly where your money goes
-- **Community-driven funding** (like Kickstarter) -- the crowd decides what gets funded, not the platform
-- **Engaging progress tracking** -- badges, community milestones, collective impact
-- **Attention-funded giving** (novel) -- watch ads, browse businesses -- contribute with $0
+- **Transparent impact** -- the success of platforms focused on specific, trackable outcomes proves donors want to see where their money goes
+- **Community-driven funding** -- the crowdfunding movement has shown that communities can identify and rally behind the projects that matter to them
+- **Engaging progress tracking** -- badges, community milestones, and collective impact metrics sustain participation over time
+- **Attention-funded giving** (novel to Deluge) -- watch ads, browse businesses -- contribute with $0
 - **Local business discovery** -- browse community businesses, fund projects with every view
 
 ---
@@ -120,7 +113,7 @@ Deluge brings together four proven models that no one else has unified:
 - **Trust gap** -- exploitative models and opaque charities have created demand for legitimate, transparent alternatives
 - **Attention economy maturity** -- ad-funded models are well-understood and technically feasible. Turning attention into community impact is a new application.
 - **Local-first movement** -- growing interest in supporting local businesses, local projects, local communities
-- **Creator/proposer culture** -- people are accustomed to proposing and backing things (Kickstarter, GoFundMe, Patreon). Deluge applies this to community impact.
+- **Creator/proposer culture** -- existing giving and crowdfunding platforms have normalized proposing and backing projects. Deluge applies this familiar pattern to community impact.
 
 ## Hardest Challenges (Honest Assessment)
 
