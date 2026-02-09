@@ -18,7 +18,7 @@ The target user is the person who donates to every fundraiser in their feed and 
 
 ### Why This Model Works
 
-Individual giving is diffuse and invisible. $10 to an online fundraiser disappears into a total and the giver never knows what happened. Deluge concentrates small contributions from many people into visible, verifiable outcomes. One person watching all 30 daily ads earns roughly $0.27 for their watershed -- enough to fund a project on day one. 10,000 people doing the same thing contribute $985,500/year -- from attention alone.
+Deluge concentrates small contributions from many people into visible, verifiable outcomes. Every cent is tracked from source to project completion, so givers always see what their generosity built. One person watching all 30 daily ads earns roughly $0.27 for their watershed -- enough to fund a project on day one. 10,000 people doing the same thing contribute $985,500/year -- from attention alone.
 
 This is the raindrop-to-river thesis: individual contributions are small, but collective and persistent giving creates measurable community impact. The platform's job is to make the collective visible and to make giving easy enough that people do it daily, not just when a fundraiser shows up in their feed.
 

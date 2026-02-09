@@ -105,18 +105,17 @@ export default function AboutPage() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="font-heading font-bold text-3xl text-storm mb-6">
-              The Problem
+              What If Giving Were Visible?
             </h2>
             <div className="space-y-4 text-storm-light text-lg leading-relaxed">
               <p>
-                Individual giving is diffuse and invisible. You donate $10 online —
-                it disappears into a total and you never know what happened. You share every
-                fundraiser in your feed, spread your generosity across dozens of causes, and
-                never see a single result.
+                Imagine every dollar you give tracked from your hands to a finished project.
+                You see exactly what it built, who it helped, and how your community changed
+                because you showed up.
               </p>
               <p>
-                Meanwhile, the people who want to help the most — the ones who give to
-                every cause they see — have no way to know if their giving actually matters.
+                That&rsquo;s what Deluge makes possible. Generous people deserve to see
+                their impact &mdash; and communities deserve to see who&rsquo;s building alongside them.
               </p>
             </div>
           </motion.div>
