@@ -79,8 +79,8 @@ export default function JoinCorporatePage({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm flex items-center justify-center">
-        <div className="flex items-center gap-3 text-storm/60 dark:text-foam/60">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="flex items-center gap-3 text-storm-light dark:text-dark-text-secondary">
           <Loader2 className="w-5 h-5 animate-spin" />
           Validating invite...
         </div>
@@ -90,11 +90,11 @@ export default function JoinCorporatePage({
 
   if (success) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white dark:bg-storm/50 rounded-2xl p-8 max-w-md w-full text-center shadow-lg"
+          className="bg-white dark:bg-dark-elevated rounded-2xl p-8 max-w-md w-full text-center shadow-lg"
         >
           <div className="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-teal" />
@@ -102,10 +102,10 @@ export default function JoinCorporatePage({
           <h1 className="text-2xl font-bold text-ocean dark:text-sky mb-2">
             Welcome!
           </h1>
-          <p className="text-storm/60 dark:text-foam/60 mb-4">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-4">
             You've successfully joined {invite?.account.name}'s giving program.
           </p>
-          <p className="text-sm text-storm/50 dark:text-foam/50">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
             Redirecting to dashboard...
           </p>
         </motion.div>
@@ -115,19 +115,19 @@ export default function JoinCorporatePage({
 
   if (error && !invite) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white dark:bg-storm/50 rounded-2xl p-8 max-w-md w-full text-center shadow-lg"
+          className="bg-white dark:bg-dark-elevated rounded-2xl p-8 max-w-md w-full text-center shadow-lg"
         >
           <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
             <XCircle className="w-8 h-8 text-red-500" />
           </div>
-          <h1 className="text-2xl font-bold text-storm dark:text-foam mb-2">
+          <h1 className="text-2xl font-bold text-storm dark:text-dark-text mb-2">
             Invalid Invite
           </h1>
-          <p className="text-storm/60 dark:text-foam/60 mb-6">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-6">
             {error}
           </p>
           <Link
@@ -142,11 +142,11 @@ export default function JoinCorporatePage({
   }
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-storm/50 rounded-2xl p-8 max-w-md w-full shadow-lg"
+        className="bg-white dark:bg-dark-elevated rounded-2xl p-8 max-w-md w-full shadow-lg"
       >
         {/* Company Logo */}
         <div className="flex justify-center mb-6">
@@ -169,16 +169,16 @@ export default function JoinCorporatePage({
         <h1 className="text-2xl font-bold text-ocean dark:text-sky text-center mb-2">
           You're Invited!
         </h1>
-        <p className="text-storm/60 dark:text-foam/60 text-center mb-6">
-          <span className="font-medium text-storm dark:text-foam">
+        <p className="text-storm-light dark:text-dark-text-secondary text-center mb-6">
+          <span className="font-medium text-storm dark:text-dark-text">
             {invite?.account.name}
           </span>{' '}
           has invited you to join their employee giving program.
         </p>
 
         {invite?.department && (
-          <div className="bg-storm/5 dark:bg-foam/5 rounded-lg p-3 mb-6 text-center">
-            <p className="text-sm text-storm/60 dark:text-foam/60">
+          <div className="bg-gray-50 dark:bg-foam/5 rounded-lg p-3 mb-6 text-center">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary">
               Department: <span className="font-medium">{invite.department}</span>
             </p>
           </div>
@@ -188,7 +188,7 @@ export default function JoinCorporatePage({
           <h3 className="font-medium text-ocean dark:text-sky mb-2">
             Benefits
           </h3>
-          <ul className="text-sm text-storm/70 dark:text-foam/70 space-y-2">
+          <ul className="text-sm text-storm-light dark:text-dark-text-secondary space-y-2">
             <li className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-teal flex-shrink-0" />
               Corporate matching on your contributions
@@ -225,7 +225,7 @@ export default function JoinCorporatePage({
           )}
         </button>
 
-        <p className="text-xs text-storm/50 dark:text-foam/50 text-center mt-4">
+        <p className="text-xs text-storm-light dark:text-dark-text-secondary text-center mt-4">
           By joining, you agree to share your giving activity with your employer's portal.
         </p>
       </motion.div>

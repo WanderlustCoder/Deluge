@@ -61,7 +61,7 @@ export function OpportunityCard({ opportunity, onSignup }: OpportunityCardProps)
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6 shadow-sm border border-storm/10"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6 shadow-sm border border-gray-200"
       >
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
@@ -72,7 +72,7 @@ export function OpportunityCard({ opportunity, onSignup }: OpportunityCardProps)
             <h3 className="text-lg font-semibold text-ocean dark:text-sky mt-2">
               {opportunity.title}
             </h3>
-            <p className="text-sm text-storm/70 dark:text-foam/70">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary">
               {opportunity.project.title}
             </p>
           </div>
@@ -85,12 +85,12 @@ export function OpportunityCard({ opportunity, onSignup }: OpportunityCardProps)
         </div>
 
         {/* Description */}
-        <p className="text-storm/80 dark:text-foam/80 text-sm mb-4 line-clamp-2">
+        <p className="text-storm-light dark:text-dark-text-secondary text-sm mb-4 line-clamp-2">
           {opportunity.description}
         </p>
 
         {/* Meta info */}
-        <div className="flex flex-wrap gap-3 mb-4 text-sm text-storm/60 dark:text-foam/60">
+        <div className="flex flex-wrap gap-3 mb-4 text-sm text-storm-light dark:text-dark-text-secondary">
           {opportunity.isRemote ? (
             <div className="flex items-center gap-1">
               <Wifi className="w-4 h-4" />
@@ -134,13 +134,13 @@ export function OpportunityCard({ opportunity, onSignup }: OpportunityCardProps)
             {opportunity.skillsRequired.slice(0, 3).map((skill) => (
               <span
                 key={skill}
-                className="text-xs bg-storm/5 dark:bg-foam/10 text-storm/70 dark:text-foam/70 px-2 py-1 rounded"
+                className="text-xs bg-gray-50 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary px-2 py-1 rounded"
               >
                 {skill}
               </span>
             ))}
             {opportunity.skillsRequired.length > 3 && (
-              <span className="text-xs text-storm/50 dark:text-foam/50">
+              <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                 +{opportunity.skillsRequired.length - 3} more
               </span>
             )}
@@ -150,11 +150,11 @@ export function OpportunityCard({ opportunity, onSignup }: OpportunityCardProps)
         {/* Progress bar */}
         {opportunity.hoursNeeded && (
           <div className="mb-4">
-            <div className="flex justify-between text-xs text-storm/60 dark:text-foam/60 mb-1">
+            <div className="flex justify-between text-xs text-storm-light dark:text-dark-text-secondary mb-1">
               <span>{opportunity.hoursLogged.toFixed(1)}h logged</span>
               <span>{progressPercent.toFixed(0)}%</span>
             </div>
-            <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+            <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
               <div
                 className="h-full bg-teal rounded-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}

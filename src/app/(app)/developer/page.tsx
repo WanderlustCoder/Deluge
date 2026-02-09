@@ -94,7 +94,7 @@ export default function DeveloperPage() {
             <Link
               key={feature.href}
               href={feature.href}
-              className="group block p-6 bg-white dark:bg-storm/20 border border-storm/10 rounded-xl hover:shadow-lg transition-all"
+              className="group block p-6 bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl hover:shadow-lg transition-all"
             >
               <div className={`inline-flex p-3 rounded-lg ${feature.color} mb-4`}>
                 <feature.icon className="w-6 h-6" />
@@ -132,7 +132,7 @@ export default function DeveloperPage() {
         {/* Quick Start */}
         <div className="mt-16 max-w-3xl mx-auto">
           <h2 className="text-2xl font-bold text-center mb-8">Quick Start</h2>
-          <div className="bg-storm/5 dark:bg-storm/20 rounded-xl p-6">
+          <div className="bg-gray-50 rounded-xl p-6">
             <p className="text-sm text-storm/60 mb-4">
               Make your first API request:
             </p>

@@ -67,8 +67,8 @@ export default function MentorshipPage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-storm/20 rounded w-1/3" />
-          <div className="h-32 bg-storm/20 rounded" />
+          <div className="h-8 bg-gray-200 rounded w-1/3" />
+          <div className="h-32 bg-gray-200 rounded" />
         </div>
       </div>
     );
@@ -89,7 +89,7 @@ export default function MentorshipPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-ocean dark:text-sky">Mentorship</h1>
-          <p className="text-storm/70 dark:text-foam/70 mt-1">
+          <p className="text-storm-light dark:text-dark-text-secondary mt-1">
             Connect with experienced givers or help guide newcomers
           </p>
         </div>
@@ -124,9 +124,9 @@ export default function MentorshipPage() {
         )}
 
         {mentorProfile?.status === 'pending' && (
-          <div className="p-6 rounded-xl bg-storm/10 dark:bg-storm/30 border border-storm/20">
-            <h3 className="font-semibold text-lg text-storm dark:text-foam">Application Pending</h3>
-            <p className="text-storm/70 dark:text-foam/70 text-sm mt-1">
+          <div className="p-6 rounded-xl bg-gray-100 border border-gray-200">
+            <h3 className="font-semibold text-lg text-storm dark:text-dark-text">Application Pending</h3>
+            <p className="text-storm-light dark:text-dark-text-secondary text-sm mt-1">
               Your mentor application is under review
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function MentorshipPage() {
         {mentorProfile?.status === 'active' && (
           <div className="p-6 rounded-xl bg-teal/10 dark:bg-teal/20 border border-teal/30">
             <h3 className="font-semibold text-lg text-teal">Active Mentor</h3>
-            <p className="text-storm/70 dark:text-foam/70 text-sm mt-1">
+            <p className="text-storm-light dark:text-dark-text-secondary text-sm mt-1">
               You&apos;re helping {mentorships.asMentor.filter(m => m.status === 'active').length} mentees
             </p>
           </div>
@@ -168,10 +168,10 @@ export default function MentorshipPage() {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-storm dark:text-foam">
+                    <p className="font-medium text-storm dark:text-dark-text">
                       {ship.mentor?.user.name || ship.mentee?.user.name}
                     </p>
-                    <p className="text-sm text-storm/70 dark:text-foam/70">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                       Goals: {ship.goals.join(', ')}
                     </p>
                   </div>
@@ -208,7 +208,7 @@ export default function MentorshipPage() {
                 <Link key={ship.id} href={`/mentorship/messages/${ship.id}`}>
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    className="p-4 rounded-lg bg-white dark:bg-storm/30 border border-storm/10 dark:border-storm/40 cursor-pointer"
+                    className="p-4 rounded-lg bg-white dark:bg-dark-elevated border border-gray-200 cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-teal/20 flex items-center justify-center">
@@ -217,15 +217,15 @@ export default function MentorshipPage() {
                         </span>
                       </div>
                       <div>
-                        <p className="font-medium text-storm dark:text-foam">
+                        <p className="font-medium text-storm dark:text-dark-text">
                           {ship.mentee?.user.name}
                         </p>
-                        <p className="text-xs text-storm/60 dark:text-foam/60">
+                        <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                           You&apos;re mentoring
                         </p>
                       </div>
                     </div>
-                    <p className="text-sm text-storm/70 dark:text-foam/70 mt-2">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-2">
                       Goals: {ship.goals.slice(0, 2).join(', ')}
                     </p>
                   </motion.div>
@@ -238,7 +238,7 @@ export default function MentorshipPage() {
                 <Link key={ship.id} href={`/mentorship/messages/${ship.id}`}>
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    className="p-4 rounded-lg bg-white dark:bg-storm/30 border border-storm/10 dark:border-storm/40 cursor-pointer"
+                    className="p-4 rounded-lg bg-white dark:bg-dark-elevated border border-gray-200 cursor-pointer"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-ocean/20 flex items-center justify-center">
@@ -247,15 +247,15 @@ export default function MentorshipPage() {
                         </span>
                       </div>
                       <div>
-                        <p className="font-medium text-storm dark:text-foam">
+                        <p className="font-medium text-storm dark:text-dark-text">
                           {ship.mentor?.user.name}
                         </p>
-                        <p className="text-xs text-storm/60 dark:text-foam/60">
+                        <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                           Your mentor
                         </p>
                       </div>
                     </div>
-                    <p className="text-sm text-storm/70 dark:text-foam/70 mt-2">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-2">
                       Goals: {ship.goals.slice(0, 2).join(', ')}
                     </p>
                   </motion.div>
@@ -264,8 +264,8 @@ export default function MentorshipPage() {
           </div>
         </div>
       ) : (
-        <div className="text-center py-12 bg-storm/5 dark:bg-storm/20 rounded-xl">
-          <p className="text-storm/60 dark:text-foam/60 mb-4">
+        <div className="text-center py-12 bg-gray-50 rounded-xl">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-4">
             No active mentorships yet
           </p>
           <Link

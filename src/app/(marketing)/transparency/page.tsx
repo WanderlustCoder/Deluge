@@ -75,7 +75,7 @@ export default function TransparencyPage() {
           ].map((item) => (
             <div
               key={item.title}
-              className="bg-foam rounded-lg p-5 border border-storm/10"
+              className="bg-foam rounded-lg p-5 border border-gray-200"
             >
               <div className="flex items-baseline justify-between mb-2">
                 <h3 className="font-semibold text-storm">{item.title}</h3>
@@ -95,7 +95,7 @@ export default function TransparencyPage() {
           What We Don&apos;t Do
         </h2>
 
-        <div className="bg-foam rounded-lg p-6 border border-storm/10">
+        <div className="bg-foam rounded-lg p-6 border border-gray-200">
           <ul className="space-y-3 text-storm-light">
             <li className="flex items-start gap-3">
               <span className="text-teal mt-0.5">&#10003;</span>
@@ -142,7 +142,7 @@ export default function TransparencyPage() {
         {loadingReports ? (
           <div className="animate-pulse space-y-4">
             {[1, 2].map((i) => (
-              <div key={i} className="h-32 bg-storm/10 rounded-lg" />
+              <div key={i} className="h-32 bg-gray-100 rounded-lg" />
             ))}
           </div>
         ) : reports.length > 0 ? (

@@ -85,7 +85,7 @@ export default function LearnPage() {
   };
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -107,7 +107,7 @@ export default function LearnPage() {
             <Link
               key={link.href}
               href={link.href}
-              className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-4 hover:shadow-lg transition-shadow text-center group"
+              className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow text-center group"
             >
               <link.icon className="w-8 h-8 mx-auto mb-2 text-ocean group-hover:text-teal transition-colors" />
               <h3 className="font-medium text-sm">{link.label}</h3>
@@ -125,7 +125,7 @@ export default function LearnPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search resources..."
-              className="w-full pl-10 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
             />
           </div>
         </form>
@@ -137,7 +137,7 @@ export default function LearnPage() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               selectedCategory === null
                 ? 'bg-ocean text-white'
-                : 'bg-storm/10 text-storm/70 hover:bg-storm/20'
+                : 'bg-gray-100 text-storm/70 hover:bg-gray-200'
             }`}
           >
             All
@@ -151,7 +151,7 @@ export default function LearnPage() {
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   selectedCategory === cat.id
                     ? 'bg-ocean text-white'
-                    : 'bg-storm/10 text-storm/70 hover:bg-storm/20'
+                    : 'bg-gray-100 text-storm/70 hover:bg-gray-200'
                 }`}
               >
                 <Icon className="w-4 h-4" />

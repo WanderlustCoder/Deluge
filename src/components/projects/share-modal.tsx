@@ -136,7 +136,7 @@ export function ShareModal({
                     key={platform.id}
                     onClick={() => handleShare(platform.id)}
                     disabled={sharing === platform.id}
-                    className="flex flex-col items-center gap-2 p-4 rounded-lg border border-storm/20 hover:border-sky hover:bg-sky/5 transition group"
+                    className="flex flex-col items-center gap-2 p-4 rounded-lg border border-gray-200 hover:border-sky hover:bg-sky/5 transition group"
                   >
                     <span className="text-2xl group-hover:scale-110 transition-transform">
                       {platform.icon}

@@ -100,7 +100,7 @@ export default function NewCirclePage() {
       >
         <Link
           href="/circles"
-          className="flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors mb-4"
+          className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Circles
@@ -108,7 +108,7 @@ export default function NewCirclePage() {
         <h1 className="text-2xl font-bold text-ocean dark:text-sky">
           Create Giving Circle
         </h1>
-        <p className="text-storm/60 dark:text-foam/60">
+        <p className="text-storm-light dark:text-dark-text-secondary">
           Bring people together to pool resources and give collectively
         </p>
       </motion.div>
@@ -128,14 +128,14 @@ export default function NewCirclePage() {
         )}
 
         {/* Basic Info */}
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-4">
           <h2 className="font-semibold text-ocean dark:text-sky flex items-center gap-2">
             <Users className="w-5 h-5" />
             Basic Information
           </h2>
 
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Circle Name *
             </label>
             <input
@@ -143,12 +143,12 @@ export default function NewCirclePage() {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="e.g., Neighborhood Giving Circle"
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Description
             </label>
             <textarea
@@ -156,12 +156,12 @@ export default function NewCirclePage() {
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="What brings this circle together?"
               rows={3}
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none resize-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Image URL (optional)
             </label>
             <input
@@ -169,13 +169,13 @@ export default function NewCirclePage() {
               value={formData.imageUrl}
               onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
               placeholder="https://..."
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
             />
           </div>
         </div>
 
         {/* Privacy */}
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-4">
           <h2 className="font-semibold text-ocean dark:text-sky">
             Privacy & Access
           </h2>
@@ -187,12 +187,12 @@ export default function NewCirclePage() {
               className={`flex-1 p-4 rounded-lg border-2 transition-colors ${
                 !formData.isPrivate
                   ? 'border-ocean dark:border-sky bg-ocean/5 dark:bg-sky/10'
-                  : 'border-storm/20 dark:border-foam/20 hover:border-storm/40'
+                  : 'border-gray-200 dark:border-foam/20 hover:border-storm/40'
               }`}
             >
               <Globe className={`w-6 h-6 mx-auto mb-2 ${!formData.isPrivate ? 'text-ocean dark:text-sky' : 'text-storm/50'}`} />
-              <p className="font-medium text-storm dark:text-foam">Public</p>
-              <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+              <p className="font-medium text-storm dark:text-dark-text">Public</p>
+              <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
                 Anyone can find and join
               </p>
             </button>
@@ -202,19 +202,19 @@ export default function NewCirclePage() {
               className={`flex-1 p-4 rounded-lg border-2 transition-colors ${
                 formData.isPrivate
                   ? 'border-ocean dark:border-sky bg-ocean/5 dark:bg-sky/10'
-                  : 'border-storm/20 dark:border-foam/20 hover:border-storm/40'
+                  : 'border-gray-200 dark:border-foam/20 hover:border-storm/40'
               }`}
             >
               <Lock className={`w-6 h-6 mx-auto mb-2 ${formData.isPrivate ? 'text-ocean dark:text-sky' : 'text-storm/50'}`} />
-              <p className="font-medium text-storm dark:text-foam">Private</p>
-              <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+              <p className="font-medium text-storm dark:text-dark-text">Private</p>
+              <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
                 Invite-only membership
               </p>
             </button>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Member Limit (optional)
             </label>
             <input
@@ -223,20 +223,20 @@ export default function NewCirclePage() {
               value={formData.memberLimit}
               onChange={(e) => setFormData({ ...formData, memberLimit: e.target.value })}
               placeholder="No limit"
-              className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
             />
           </div>
         </div>
 
         {/* Contribution Settings */}
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-4">
           <h2 className="font-semibold text-ocean dark:text-sky flex items-center gap-2">
             <DollarSign className="w-5 h-5" />
             Contribution Settings
           </h2>
 
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Minimum Monthly Contribution (optional)
             </label>
             <div className="relative">
@@ -248,14 +248,14 @@ export default function NewCirclePage() {
                 value={formData.minContribution}
                 onChange={(e) => setFormData({ ...formData, minContribution: e.target.value })}
                 placeholder="No minimum"
-                className="w-full pl-8 pr-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full pl-8 pr-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
               />
             </div>
           </div>
         </div>
 
         {/* Voting Settings */}
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-4">
           <h2 className="font-semibold text-ocean dark:text-sky flex items-center gap-2">
             <Clock className="w-5 h-5" />
             Voting Settings
@@ -263,13 +263,13 @@ export default function NewCirclePage() {
 
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+              <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                 Approval Threshold
               </label>
               <select
                 value={formData.votingThreshold}
                 onChange={(e) => setFormData({ ...formData, votingThreshold: e.target.value })}
-                className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
               >
                 <option value="50">Simple Majority (50%)</option>
                 <option value="60">60%</option>
@@ -278,13 +278,13 @@ export default function NewCirclePage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+              <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                 Voting Period
               </label>
               <select
                 value={formData.votingPeriod}
                 onChange={(e) => setFormData({ ...formData, votingPeriod: e.target.value })}
-                className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
               >
                 <option value="3">3 days</option>
                 <option value="5">5 days</option>
@@ -296,12 +296,12 @@ export default function NewCirclePage() {
         </div>
 
         {/* Focus Categories */}
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-4">
           <h2 className="font-semibold text-ocean dark:text-sky flex items-center gap-2">
             <Target className="w-5 h-5" />
             Focus Categories (optional)
           </h2>
-          <p className="text-sm text-storm/60 dark:text-foam/60">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
             Select categories your circle cares about most
           </p>
           <div className="flex flex-wrap gap-2">
@@ -313,7 +313,7 @@ export default function NewCirclePage() {
                 className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   formData.focusCategories.includes(category)
                     ? 'bg-ocean dark:bg-sky text-white'
-                    : 'bg-storm/10 dark:bg-foam/10 text-storm/70 dark:text-foam/70 hover:bg-storm/20'
+                    : 'bg-gray-100 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary hover:bg-gray-200'
                 }`}
               >
                 {category}
@@ -326,7 +326,7 @@ export default function NewCirclePage() {
         <div className="flex gap-3">
           <Link
             href="/circles"
-            className="flex-1 py-3 border border-storm/20 dark:border-foam/20 rounded-lg text-center text-storm/70 dark:text-foam/70 hover:bg-storm/5"
+            className="flex-1 py-3 border border-gray-200 dark:border-foam/20 rounded-lg text-center text-storm-light dark:text-dark-text-secondary hover:bg-gray-50"
           >
             Cancel
           </Link>

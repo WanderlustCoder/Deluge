@@ -72,10 +72,10 @@ export default function OccasionDetailPage({
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-64 bg-storm/10 rounded-2xl" />
+          <div className="h-64 bg-gray-100 rounded-2xl" />
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-48 bg-storm/10 rounded-xl" />
+              <div key={i} className="h-48 bg-gray-100 rounded-xl" />
             ))}
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function OccasionDetailPage({
   if (!occasion) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
-        <p className="text-storm/60 dark:text-foam/60">Occasion not found</p>
+        <p className="text-storm-light dark:text-dark-text-secondary">Occasion not found</p>
         <Link
           href="/occasions"
           className="inline-flex items-center gap-2 mt-4 text-ocean dark:text-sky hover:underline"
@@ -103,7 +103,7 @@ export default function OccasionDetailPage({
       {/* Back Link */}
       <Link
         href="/occasions"
-        className="inline-flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors"
+        className="inline-flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Occasions
@@ -119,7 +119,7 @@ export default function OccasionDetailPage({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+          <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
             Featured Projects
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -130,7 +130,7 @@ export default function OccasionDetailPage({
                 <Link key={project.id} href={`/projects/${project.id}`}>
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="bg-white dark:bg-storm/20 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                    className="bg-white dark:bg-dark-border/50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                   >
                     {project.imageUrl && (
                       <img
@@ -143,14 +143,14 @@ export default function OccasionDetailPage({
                       <span className="text-xs text-ocean dark:text-sky font-medium">
                         {project.category}
                       </span>
-                      <h3 className="font-semibold text-storm dark:text-foam mt-1 mb-2">
+                      <h3 className="font-semibold text-storm dark:text-dark-text mt-1 mb-2">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-storm/60 dark:text-foam/60 line-clamp-2 mb-3">
+                      <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-2 mb-3">
                         {project.description}
                       </p>
 
-                      <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden mb-2">
+                      <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden mb-2">
                         <div
                           className="h-full bg-teal rounded-full"
                           style={{ width: `${Math.min(100, progress)}%` }}
@@ -160,7 +160,7 @@ export default function OccasionDetailPage({
                         <span className="font-medium text-teal">
                           ${project.fundingRaised.toLocaleString()}
                         </span>
-                        <span className="text-storm/50 dark:text-foam/50">
+                        <span className="text-storm-light dark:text-dark-text-secondary">
                           of ${project.fundingGoal.toLocaleString()}
                         </span>
                       </div>
@@ -178,16 +178,16 @@ export default function OccasionDetailPage({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-8 text-center"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-8 text-center"
       >
         <Gift
           className="w-12 h-12 mx-auto mb-4"
           style={{ color: occasion.color || '#0D47A1' }}
         />
-        <h3 className="text-xl font-semibold text-storm dark:text-foam mb-2">
+        <h3 className="text-xl font-semibold text-storm dark:text-dark-text mb-2">
           Make a Gift for {occasion.name}
         </h3>
-        <p className="text-storm/60 dark:text-foam/60 mb-6 max-w-md mx-auto">
+        <p className="text-storm-light dark:text-dark-text-secondary mb-6 max-w-md mx-auto">
           Give to a project in someone&apos;s honor or memory
         </p>
         <Link

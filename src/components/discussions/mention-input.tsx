@@ -131,7 +131,7 @@ export function MentionInput({
 
       {/* Suggestions dropdown */}
       {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute z-10 mt-1 w-full max-w-xs bg-white dark:bg-ocean-dark border border-storm/20 rounded-lg shadow-lg overflow-hidden">
+        <div className="absolute z-10 mt-1 w-full max-w-xs bg-white dark:bg-ocean-dark border border-gray-200 rounded-lg shadow-lg overflow-hidden">
           {suggestions.map((user, i) => (
             <button
               key={user.id}
@@ -140,7 +140,7 @@ export function MentionInput({
               className={`w-full text-left px-3 py-2 text-sm transition ${
                 i === selectedIndex
                   ? "bg-sky/10 text-ocean"
-                  : "hover:bg-storm/5"
+                  : "hover:bg-gray-50"
               }`}
             >
               <span className="font-medium">@{user.name}</span>

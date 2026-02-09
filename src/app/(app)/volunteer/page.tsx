@@ -167,7 +167,7 @@ export default function VolunteerPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -178,7 +178,7 @@ export default function VolunteerPage() {
           <h1 className="text-3xl font-bold text-ocean dark:text-sky mb-2">
             Volunteer
           </h1>
-          <p className="text-storm/70 dark:text-foam/70">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             Give your time and skills to make a difference in your community.
           </p>
         </motion.div>
@@ -204,7 +204,7 @@ export default function VolunteerPage() {
               className={`flex items-center gap-2 px-4 py-2 rounded-full font-medium whitespace-nowrap transition-colors ${
                 activeTab === tab.id
                   ? 'bg-ocean dark:bg-sky text-white'
-                  : 'bg-white dark:bg-storm/20 text-storm/70 dark:text-foam/70 hover:bg-storm/10 dark:hover:bg-foam/10'
+                  : 'bg-white dark:bg-dark-border/50 text-storm-light dark:text-dark-text-secondary hover:bg-gray-100 dark:hover:bg-foam/10'
               }`}
             >
               <tab.icon className="w-4 h-4" />
@@ -229,12 +229,12 @@ export default function VolunteerPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search opportunities..."
-                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
+                  className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
                 />
               </div>
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/20 hover:bg-storm/5"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-border/50 hover:bg-gray-50"
               >
                 <Filter className="w-4 h-4" />
                 Filters
@@ -252,7 +252,7 @@ export default function VolunteerPage() {
                   className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
                     locationFilter === 'all'
                       ? 'bg-teal text-white'
-                      : 'bg-storm/10 dark:bg-foam/10 hover:bg-storm/20'
+                      : 'bg-gray-100 dark:bg-foam/10 hover:bg-gray-200'
                   }`}
                 >
                   All
@@ -262,7 +262,7 @@ export default function VolunteerPage() {
                   className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm transition-colors ${
                     locationFilter === 'remote'
                       ? 'bg-teal text-white'
-                      : 'bg-storm/10 dark:bg-foam/10 hover:bg-storm/20'
+                      : 'bg-gray-100 dark:bg-foam/10 hover:bg-gray-200'
                   }`}
                 >
                   <Wifi className="w-3 h-3" />
@@ -273,7 +273,7 @@ export default function VolunteerPage() {
                   className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-sm transition-colors ${
                     locationFilter === 'local'
                       ? 'bg-teal text-white'
-                      : 'bg-storm/10 dark:bg-foam/10 hover:bg-storm/20'
+                      : 'bg-gray-100 dark:bg-foam/10 hover:bg-gray-200'
                   }`}
                 >
                   <MapPin className="w-3 h-3" />
@@ -288,21 +288,21 @@ export default function VolunteerPage() {
                 {[1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="bg-white dark:bg-storm/20 rounded-xl p-6 animate-pulse"
+                    className="bg-white dark:bg-dark-border/50 rounded-xl p-6 animate-pulse"
                   >
-                    <div className="h-4 bg-storm/10 rounded w-1/4 mb-4" />
-                    <div className="h-6 bg-storm/10 rounded w-3/4 mb-2" />
-                    <div className="h-4 bg-storm/10 rounded w-1/2" />
+                    <div className="h-4 bg-gray-100 rounded w-1/4 mb-4" />
+                    <div className="h-6 bg-gray-100 rounded w-3/4 mb-2" />
+                    <div className="h-4 bg-gray-100 rounded w-1/2" />
                   </div>
                 ))}
               </div>
             ) : filteredOpportunities.length === 0 ? (
-              <div className="text-center py-12 bg-white dark:bg-storm/20 rounded-xl">
-                <Heart className="w-12 h-12 mx-auto text-storm/30 dark:text-foam/30 mb-4" />
-                <h3 className="text-lg font-medium text-storm/70 dark:text-foam/70 mb-2">
+              <div className="text-center py-12 bg-white dark:bg-dark-border/50 rounded-xl">
+                <Heart className="w-12 h-12 mx-auto text-storm/30 dark:text-dark-text/30 mb-4" />
+                <h3 className="text-lg font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   No Opportunities Found
                 </h3>
-                <p className="text-sm text-storm/50 dark:text-foam/50">
+                <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                   {searchQuery || locationFilter !== 'all'
                     ? 'Try adjusting your filters'
                     : 'Check back soon for new volunteer opportunities'}
@@ -347,7 +347,7 @@ export default function VolunteerPage() {
               <h2 className="text-xl font-semibold text-ocean dark:text-sky mb-2">
                 Your Skills
               </h2>
-              <p className="text-sm text-storm/60 dark:text-foam/60">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 Share your skills to get matched with relevant volunteer opportunities.
               </p>
             </div>

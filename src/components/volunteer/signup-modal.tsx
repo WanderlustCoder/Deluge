@@ -71,7 +71,7 @@ export function SignupModal({ isOpen, onClose, opportunity, onSuccess }: SignupM
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-md mx-auto bg-white dark:bg-storm/90 rounded-xl p-6 z-50 shadow-xl"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-md mx-auto bg-white dark:bg-dark-elevated rounded-xl p-6 z-50 shadow-xl"
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-ocean dark:text-sky">
@@ -79,24 +79,24 @@ export function SignupModal({ isOpen, onClose, opportunity, onSuccess }: SignupM
               </h2>
               <button
                 onClick={onClose}
-                className="p-1 rounded-full hover:bg-storm/10"
+                className="p-1 rounded-full hover:bg-gray-100"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="mb-4 p-3 bg-storm/5 dark:bg-foam/5 rounded-lg">
+            <div className="mb-4 p-3 bg-gray-50 dark:bg-foam/5 rounded-lg">
               <p className="font-medium text-ocean dark:text-sky">
                 {opportunity.title}
               </p>
-              <p className="text-sm text-storm/70 dark:text-foam/70">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 {opportunity.project.title}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   <Calendar className="w-4 h-4 inline mr-1" />
                   Available From (optional)
                 </label>
@@ -104,12 +104,12 @@ export function SignupModal({ isOpen, onClose, opportunity, onSuccess }: SignupM
                   type="date"
                   value={availableFrom}
                   onChange={(e) => setAvailableFrom(e.target.value)}
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   <Clock className="w-4 h-4 inline mr-1" />
                   Available Until (optional)
                 </label>
@@ -117,12 +117,12 @@ export function SignupModal({ isOpen, onClose, opportunity, onSuccess }: SignupM
                   type="date"
                   value={availableTo}
                   onChange={(e) => setAvailableTo(e.target.value)}
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   Notes (optional)
                 </label>
                 <textarea
@@ -130,7 +130,7 @@ export function SignupModal({ isOpen, onClose, opportunity, onSuccess }: SignupM
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Any relevant experience or availability details..."
                   rows={3}
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none"
                 />
               </div>
 
@@ -145,7 +145,7 @@ export function SignupModal({ isOpen, onClose, opportunity, onSuccess }: SignupM
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg font-medium hover:bg-storm/5 dark:hover:bg-foam/5 transition-colors"
+                  className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-foam/5 transition-colors"
                 >
                   Cancel
                 </button>

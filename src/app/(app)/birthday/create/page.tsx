@@ -89,20 +89,20 @@ export default function CreateBirthdayFundraiserPage() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-white dark:bg-storm/20 rounded-xl p-8 text-center"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-8 text-center"
         >
           <div className="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <CheckCircle className="w-8 h-8 text-teal" />
           </div>
-          <h2 className="text-2xl font-bold text-storm dark:text-foam mb-2">
+          <h2 className="text-2xl font-bold text-storm dark:text-dark-text mb-2">
             Fundraiser Created!
           </h2>
-          <p className="text-storm/60 dark:text-foam/60 mb-6">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-6">
             Share your fundraiser link with friends and family
           </p>
 
-          <div className="bg-storm/5 dark:bg-foam/5 rounded-lg p-4 mb-6">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-2">
+          <div className="bg-gray-50 dark:bg-foam/5 rounded-lg p-4 mb-6">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-2">
               Your shareable link:
             </p>
             <p className="font-medium text-ocean dark:text-sky break-all">
@@ -119,7 +119,7 @@ export default function CreateBirthdayFundraiserPage() {
             </button>
             <Link
               href="/birthday"
-              className="px-4 py-2 border border-storm/20 dark:border-foam/20 text-storm dark:text-foam rounded-lg font-medium hover:bg-storm/5 dark:hover:bg-foam/5"
+              className="px-4 py-2 border border-gray-200 dark:border-foam/20 text-storm dark:text-dark-text rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-foam/5"
             >
               View My Fundraisers
             </Link>
@@ -139,7 +139,7 @@ export default function CreateBirthdayFundraiserPage() {
       >
         <Link
           href="/birthday"
-          className="inline-flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors mb-4"
+          className="inline-flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -153,7 +153,7 @@ export default function CreateBirthdayFundraiserPage() {
             <h1 className="text-2xl font-bold text-ocean dark:text-sky">
               Create Birthday Fundraiser
             </h1>
-            <p className="text-storm/60 dark:text-foam/60">
+            <p className="text-storm-light dark:text-dark-text-secondary">
               Turn your celebration into giving
             </p>
           </div>
@@ -165,7 +165,7 @@ export default function CreateBirthdayFundraiserPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           {error && (
@@ -176,7 +176,7 @@ export default function CreateBirthdayFundraiserPage() {
 
           {/* Title */}
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
               Fundraiser Title
             </label>
             <input
@@ -185,13 +185,13 @@ export default function CreateBirthdayFundraiserPage() {
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="e.g., Sarah's 30th Birthday Giving"
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
               Message to Donors
             </label>
             <textarea
@@ -200,13 +200,13 @@ export default function CreateBirthdayFundraiserPage() {
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Share why this cause matters to you..."
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text resize-none"
             />
           </div>
 
           {/* Birthday Date */}
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
               Birthday Date
             </label>
             <div className="relative">
@@ -216,14 +216,14 @@ export default function CreateBirthdayFundraiserPage() {
                 required
                 value={formData.birthdayDate}
                 onChange={(e) => setFormData({ ...formData, birthdayDate: e.target.value })}
-                className="w-full pl-10 pr-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
               />
             </div>
           </div>
 
           {/* Goal Amount */}
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
               Fundraising Goal
             </label>
             <div className="relative">
@@ -236,26 +236,26 @@ export default function CreateBirthdayFundraiserPage() {
                 value={formData.goalAmount}
                 onChange={(e) => setFormData({ ...formData, goalAmount: e.target.value })}
                 placeholder="100"
-                className="w-full pl-10 pr-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
               />
             </div>
-            <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
               Minimum $10
             </p>
           </div>
 
           {/* Project Selection */}
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
               Benefitting Project (Optional)
             </label>
             {loading ? (
-              <div className="h-12 bg-storm/10 rounded-lg animate-pulse" />
+              <div className="h-12 bg-gray-100 rounded-lg animate-pulse" />
             ) : (
               <select
                 value={formData.projectId}
                 onChange={(e) => setFormData({ ...formData, projectId: e.target.value })}
-                className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
               >
                 <option value="">Any project (your choice later)</option>
                 {projects.map((project) => (
@@ -265,7 +265,7 @@ export default function CreateBirthdayFundraiserPage() {
                 ))}
               </select>
             )}
-            <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
               Choose a specific project or leave blank to decide later
             </p>
           </div>

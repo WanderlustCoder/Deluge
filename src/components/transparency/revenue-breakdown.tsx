@@ -34,9 +34,9 @@ export function RevenueBreakdown() {
       <Card>
         <CardContent className="pt-6">
           <div className="animate-pulse space-y-4">
-            <div className="h-6 bg-storm/10 rounded w-1/2" />
-            <div className="h-20 bg-storm/10 rounded" />
-            <div className="h-20 bg-storm/10 rounded" />
+            <div className="h-6 bg-gray-100 rounded w-1/2" />
+            <div className="h-20 bg-gray-100 rounded" />
+            <div className="h-20 bg-gray-100 rounded" />
           </div>
         </CardContent>
       </Card>
@@ -117,7 +117,7 @@ export function RevenueBreakdown() {
                     {formatCurrency(cat.amount)} ({percent.toFixed(0)}%)
                   </span>
                 </div>
-                <div className="h-2 bg-storm/10 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                   <div
                     className={`h-full ${cat.color} rounded-full transition-all`}
                     style={{ width: `${percent}%` }}
@@ -131,7 +131,7 @@ export function RevenueBreakdown() {
           })}
         </div>
 
-        <div className="mt-6 pt-4 border-t border-storm/10">
+        <div className="mt-6 pt-4 border-t border-gray-200">
           <p className="text-sm text-storm-light">
             <strong>Platform take:</strong> 40% of ad revenue funds operations.
             100% of user contributions go to projects.

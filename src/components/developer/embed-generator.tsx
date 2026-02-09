@@ -68,7 +68,7 @@ export function EmbedGenerator({ projectId, projectTitle }: EmbedGeneratorProps)
                   className={`flex items-start gap-3 p-3 border rounded-lg cursor-pointer transition-colors ${
                     embedType === type.value
                       ? 'border-ocean bg-ocean/5'
-                      : 'border-storm/20 hover:bg-storm/5'
+                      : 'border-gray-200 hover:bg-gray-50'
                   }`}
                 >
                   <input
@@ -110,7 +110,7 @@ export function EmbedGenerator({ projectId, projectTitle }: EmbedGeneratorProps)
               <select
                 value={theme}
                 onChange={(e) => setTheme(e.target.value as 'light' | 'dark' | 'auto')}
-                className="w-full px-3 py-2 border border-storm/20 rounded-lg"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg"
               >
                 <option value="auto">Auto</option>
                 <option value="light">Light</option>
@@ -122,7 +122,7 @@ export function EmbedGenerator({ projectId, projectTitle }: EmbedGeneratorProps)
               <select
                 value={size}
                 onChange={(e) => setSize(e.target.value as 'small' | 'medium' | 'large')}
-                className="w-full px-3 py-2 border border-storm/20 rounded-lg"
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg"
               >
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
@@ -138,13 +138,13 @@ export function EmbedGenerator({ projectId, projectTitle }: EmbedGeneratorProps)
                 type="color"
                 value={primaryColor}
                 onChange={(e) => setPrimaryColor(e.target.value)}
-                className="w-10 h-10 rounded border border-storm/20 cursor-pointer"
+                className="w-10 h-10 rounded border border-gray-200 cursor-pointer"
               />
               <input
                 type="text"
                 value={primaryColor}
                 onChange={(e) => setPrimaryColor(e.target.value)}
-                className="flex-1 px-3 py-2 border border-storm/20 rounded-lg font-mono text-sm"
+                className="flex-1 px-3 py-2 border border-gray-200 rounded-lg font-mono text-sm"
               />
             </div>
           </div>
@@ -166,7 +166,7 @@ export function EmbedGenerator({ projectId, projectTitle }: EmbedGeneratorProps)
         {/* Preview */}
         <div>
           <label className="block text-sm font-medium mb-2">Preview</label>
-          <div className="border border-storm/20 rounded-lg p-6 bg-foam dark:bg-storm/20 min-h-[200px] flex items-center justify-center">
+          <div className="border border-gray-200 rounded-lg p-6 bg-gray-50/20 min-h-[200px] flex items-center justify-center">
             {projectId ? (
               <div className="text-center">
                 <div
@@ -216,7 +216,7 @@ export function EmbedGenerator({ projectId, projectTitle }: EmbedGeneratorProps)
               )}
             </button>
           </div>
-          <pre className="p-4 bg-storm/5 dark:bg-storm/20 rounded-lg overflow-x-auto text-sm font-mono">
+          <pre className="p-4 bg-gray-50 rounded-lg overflow-x-auto text-sm font-mono">
             {embedCode}
           </pre>
         </div>

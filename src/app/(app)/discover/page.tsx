@@ -82,7 +82,7 @@ export default function DiscoverPage() {
   };
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -94,7 +94,7 @@ export default function DiscoverPage() {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-storm/10 bg-white dark:bg-storm sticky top-0 z-10">
+      <div className="border-b border-gray-200 bg-white dark:bg-dark-elevated sticky top-0 z-10">
         <div className="container mx-auto px-4">
           <div className="flex gap-1 overflow-x-auto">
             {TABS.map((tab) => (
@@ -170,24 +170,24 @@ export default function DiscoverPage() {
             )}
 
             {/* Quick Links */}
-            <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-4">
+            <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-4">
               <h3 className="font-medium mb-3">Explore More</h3>
               <div className="space-y-2">
                 <Link
                   href="/account/preferences"
-                  className="block px-3 py-2 text-sm text-storm/70 hover:bg-storm/5 rounded-lg transition-colors"
+                  className="block px-3 py-2 text-sm text-storm/70 hover:bg-gray-50 rounded-lg transition-colors"
                 >
                   Update your preferences →
                 </Link>
                 <Link
                   href="/communities"
-                  className="block px-3 py-2 text-sm text-storm/70 hover:bg-storm/5 rounded-lg transition-colors"
+                  className="block px-3 py-2 text-sm text-storm/70 hover:bg-gray-50 rounded-lg transition-colors"
                 >
                   Join communities →
                 </Link>
                 <Link
                   href="/projects"
-                  className="block px-3 py-2 text-sm text-storm/70 hover:bg-storm/5 rounded-lg transition-colors"
+                  className="block px-3 py-2 text-sm text-storm/70 hover:bg-gray-50 rounded-lg transition-colors"
                 >
                   Browse all projects →
                 </Link>

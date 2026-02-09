@@ -66,15 +66,15 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
       case 'proposal_rejected':
         return 'bg-red-100 dark:bg-red-900/20 text-red-500';
       case 'proposal_expired':
-        return 'bg-storm/10 text-storm/50';
+        return 'bg-gray-100 text-storm/50';
       case 'member_joined':
         return 'bg-gold/10 text-gold';
       case 'member_left':
-        return 'bg-storm/10 text-storm/50';
+        return 'bg-gray-100 text-storm/50';
       case 'discussion':
         return 'bg-sky/10 text-sky';
       default:
-        return 'bg-storm/10 text-storm/70';
+        return 'bg-gray-100 text-storm/70';
     }
   };
 
@@ -108,7 +108,7 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
   if (activities.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-storm/50 dark:text-foam/50">No activity yet</p>
+        <p className="text-storm-light dark:text-dark-text-secondary">No activity yet</p>
       </div>
     );
   }
@@ -121,16 +121,16 @@ export function ActivityFeed({ activities }: ActivityFeedProps) {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.05 }}
-          className="flex items-start gap-3 p-3 bg-storm/5 dark:bg-foam/5 rounded-lg"
+          className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-foam/5 rounded-lg"
         >
           <div className={`p-2 rounded-lg ${getActivityColor(activity.type)}`}>
             {getActivityIcon(activity.type)}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm text-storm dark:text-foam">
+            <p className="text-sm text-storm dark:text-dark-text">
               {formatMessage(activity.type, activity.data)}
             </p>
-            <p className="text-xs text-storm/50 dark:text-foam/50 mt-0.5">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-0.5">
               {formatDistanceToNow(new Date(activity.createdAt), { addSuffix: true })}
             </p>
           </div>

@@ -29,13 +29,13 @@ export function SDGBreakdown({ data }: SDGBreakdownProps) {
   const sortedData = [...data].sort((a, b) => b.amount - a.amount);
 
   return (
-    <div className="bg-white dark:bg-storm/20 rounded-xl p-6 shadow-sm border border-storm/10">
+    <div className="bg-white dark:bg-dark-border/50 rounded-xl p-6 shadow-sm border border-gray-200">
       <h3 className="font-semibold text-ocean dark:text-sky mb-4">
         UN Sustainable Development Goals Alignment
       </h3>
 
       {sortedData.length === 0 ? (
-        <p className="text-sm text-storm/50 dark:text-foam/50 text-center py-8">
+        <p className="text-sm text-storm-light dark:text-dark-text-secondary text-center py-8">
           No SDG data available yet
         </p>
       ) : (
@@ -57,7 +57,7 @@ export function SDGBreakdown({ data }: SDGBreakdownProps) {
                     >
                       {item.sdgId}
                     </div>
-                    <span className="text-sm font-medium text-storm/80 dark:text-foam/80">
+                    <span className="text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                       {item.name}
                     </span>
                   </div>
@@ -65,7 +65,7 @@ export function SDGBreakdown({ data }: SDGBreakdownProps) {
                     {formatCurrency(item.amount)}
                   </span>
                 </div>
-                <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${percent}%` }}
@@ -80,7 +80,7 @@ export function SDGBreakdown({ data }: SDGBreakdownProps) {
         </div>
       )}
 
-      <p className="text-xs text-storm/50 dark:text-foam/50 mt-4 text-center">
+      <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-4 text-center">
         Based on project category alignment with UN SDGs
       </p>
     </div>

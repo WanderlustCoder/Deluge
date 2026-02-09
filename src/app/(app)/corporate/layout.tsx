@@ -50,7 +50,7 @@ export default function CorporateLayout({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-pulse text-storm/50">Loading...</div>
       </div>
     );
@@ -58,9 +58,9 @@ export default function CorporateLayout({
 
   if (!account && slug && slug !== 'join') {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-lg text-storm/70 dark:text-foam/70 mb-4">
+          <p className="text-lg text-storm-light dark:text-dark-text-secondary mb-4">
             Corporate account not found
           </p>
           <Link href="/dashboard" className="text-ocean dark:text-sky hover:underline">
@@ -80,20 +80,20 @@ export default function CorporateLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white dark:bg-storm/20 border-b border-storm/10 dark:border-foam/10">
+      <div className="bg-white dark:bg-dark-border/50 border-b border-gray-200 dark:border-foam/10">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors"
+                className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span className="text-sm">Back</span>
               </Link>
-              <div className="h-6 w-px bg-storm/20 dark:bg-foam/20" />
+              <div className="h-6 w-px bg-gray-200 dark:bg-foam/20" />
               <div className="flex items-center gap-3">
                 {account?.logoUrl ? (
                   <img
@@ -113,7 +113,7 @@ export default function CorporateLayout({
                   <h1 className="font-semibold text-ocean dark:text-sky">
                     {account?.name || 'Corporate Portal'}
                   </h1>
-                  <p className="text-xs text-storm/60 dark:text-foam/60">
+                  <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                     Employee Giving Portal
                   </p>
                 </div>
@@ -125,7 +125,7 @@ export default function CorporateLayout({
 
       {/* Navigation */}
       {slug && (
-        <div className="bg-white dark:bg-storm/20 border-b border-storm/10 dark:border-foam/10">
+        <div className="bg-white dark:bg-dark-border/50 border-b border-gray-200 dark:border-foam/10">
           <div className="max-w-7xl mx-auto px-4">
             <nav className="flex gap-1 overflow-x-auto py-2">
               {navItems.map((item) => {
@@ -137,7 +137,7 @@ export default function CorporateLayout({
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-colors ${
                       isActive
                         ? 'bg-ocean dark:bg-sky text-white'
-                        : 'text-storm/70 dark:text-foam/70 hover:bg-storm/10 dark:hover:bg-foam/10'
+                        : 'text-storm-light dark:text-dark-text-secondary hover:bg-gray-100 dark:hover:bg-foam/10'
                     }`}
                   >
                     <item.icon className="w-4 h-4" />

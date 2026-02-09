@@ -66,7 +66,7 @@ export default function CertificatePage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-foam to-white dark:from-storm dark:to-storm/80 flex items-center justify-center">
-        <div className="animate-pulse text-storm/60 dark:text-foam/60">
+        <div className="animate-pulse text-storm-light dark:text-dark-text-secondary">
           Loading certificate...
         </div>
       </div>
@@ -78,10 +78,10 @@ export default function CertificatePage() {
       <div className="min-h-screen bg-gradient-to-b from-foam to-white dark:from-storm dark:to-storm/80 flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">📜</div>
-          <h1 className="text-2xl font-bold text-storm dark:text-foam mb-2">
+          <h1 className="text-2xl font-bold text-storm dark:text-dark-text mb-2">
             Certificate Not Found
           </h1>
-          <p className="text-storm/60 dark:text-foam/60 mb-6">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-6">
             {error || 'This certificate does not exist or is private.'}
           </p>
           <Link href="/" className="text-ocean dark:text-sky hover:underline">
@@ -99,7 +99,7 @@ export default function CertificatePage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-storm/40 rounded-2xl shadow-xl overflow-hidden"
+          className="bg-white dark:bg-dark-border rounded-2xl shadow-xl overflow-hidden"
         >
           {/* Header */}
           <div className="bg-gradient-to-r from-ocean to-teal p-8 text-center">
@@ -118,17 +118,17 @@ export default function CertificatePage() {
           <div className="p-8">
             {/* Recipient */}
             <div className="text-center mb-8">
-              <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">
                 Awarded to
               </p>
-              <p className="text-2xl font-semibold text-storm dark:text-foam">
+              <p className="text-2xl font-semibold text-storm dark:text-dark-text">
                 {certificate.user.name}
               </p>
             </div>
 
             {/* Impact Claim */}
             <div className="text-center mb-8 p-6 bg-teal/5 dark:bg-teal/10 rounded-xl">
-              <p className="text-lg text-storm dark:text-foam italic">
+              <p className="text-lg text-storm dark:text-dark-text italic">
                 &ldquo;{certificate.impactClaim}&rdquo;
               </p>
             </div>
@@ -136,16 +136,16 @@ export default function CertificatePage() {
             {/* Details */}
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               {certificate.amount && (
-                <div className="p-4 bg-storm/5 dark:bg-storm/30 rounded-lg">
-                  <p className="text-xs text-storm/50 dark:text-foam/50 mb-1">Amount</p>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-1">Amount</p>
                   <p className="text-xl font-bold text-ocean dark:text-sky">
                     ${certificate.amount.toLocaleString()}
                   </p>
                 </div>
               )}
-              <div className="p-4 bg-storm/5 dark:bg-storm/30 rounded-lg">
-                <p className="text-xs text-storm/50 dark:text-foam/50 mb-1">Issued</p>
-                <p className="font-medium text-storm dark:text-foam">
+              <div className="p-4 bg-gray-50 rounded-lg">
+                <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-1">Issued</p>
+                <p className="font-medium text-storm dark:text-dark-text">
                   {new Date(certificate.issuedAt).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -156,11 +156,11 @@ export default function CertificatePage() {
             </div>
 
             {/* Verification */}
-            <div className="border-t border-storm/10 dark:border-storm/30 pt-6">
-              <p className="text-xs text-storm/50 dark:text-foam/50 mb-2">
+            <div className="border-t border-gray-200 pt-6">
+              <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-2">
                 Certificate Hash
               </p>
-              <p className="font-mono text-xs text-storm/70 dark:text-foam/70 break-all mb-4">
+              <p className="font-mono text-xs text-storm-light dark:text-dark-text-secondary break-all mb-4">
                 {certificate.certificateHash}
               </p>
 
@@ -177,7 +177,7 @@ export default function CertificatePage() {
                       `${window.location.origin}/certificate/${certificate.certificateHash}`
                     );
                   }}
-                  className="px-4 py-2 bg-storm/10 text-storm dark:bg-foam/10 dark:text-foam rounded-lg text-sm hover:bg-storm/20 dark:hover:bg-foam/20"
+                  className="px-4 py-2 bg-gray-100 text-storm dark:bg-foam/10 dark:text-dark-text rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-foam/20"
                 >
                   Copy Link
                 </button>
@@ -186,8 +186,8 @@ export default function CertificatePage() {
           </div>
 
           {/* Footer */}
-          <div className="px-8 py-4 bg-storm/5 dark:bg-storm/30 text-center">
-            <p className="text-xs text-storm/50 dark:text-foam/50">
+          <div className="px-8 py-4 bg-gray-50 text-center">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">
               Viewed {certificate.viewCount.toLocaleString()} times • Verified by Deluge
             </p>
           </div>

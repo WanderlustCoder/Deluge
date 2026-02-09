@@ -365,13 +365,13 @@ function FundPageContent() {
 function FundPageLoading() {
   return (
     <div className="animate-pulse space-y-6">
-      <div className="h-10 bg-storm/10 rounded w-1/3" />
+      <div className="h-10 bg-gray-100 rounded w-1/3" />
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-4">
-          <div className="h-24 bg-storm/10 rounded-lg" />
-          <div className="h-80 bg-storm/10 rounded-lg" />
+          <div className="h-24 bg-gray-100 rounded-lg" />
+          <div className="h-80 bg-gray-100 rounded-lg" />
         </div>
-        <div className="h-40 bg-storm/10 rounded-lg" />
+        <div className="h-40 bg-gray-100 rounded-lg" />
       </div>
     </div>
   );

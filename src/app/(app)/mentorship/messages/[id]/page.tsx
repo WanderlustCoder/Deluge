@@ -95,8 +95,8 @@ export default function MentorshipMessagesPage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-storm/20 rounded w-1/4" />
-          <div className="h-96 bg-storm/20 rounded" />
+          <div className="h-8 bg-gray-200 rounded w-1/4" />
+          <div className="h-96 bg-gray-200 rounded" />
         </div>
       </div>
     );
@@ -108,7 +108,7 @@ export default function MentorshipMessagesPage() {
       <div className="flex items-center justify-between mb-4">
         <Link
           href="/mentorship"
-          className="text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky"
+          className="text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky"
         >
           ← Back to Mentorship
         </Link>
@@ -122,11 +122,11 @@ export default function MentorshipMessagesPage() {
 
       <div className="flex gap-4 flex-1 min-h-0">
         {/* Messages */}
-        <div className="flex-1 flex flex-col bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
+        <div className="flex-1 flex flex-col bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
           {/* Message List */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {messages.length === 0 ? (
-              <div className="text-center py-12 text-storm/60 dark:text-foam/60">
+              <div className="text-center py-12 text-storm-light dark:text-dark-text-secondary">
                 No messages yet. Start the conversation!
               </div>
             ) : (
@@ -141,13 +141,13 @@ export default function MentorshipMessagesPage() {
                     className={`max-w-[70%] px-4 py-2 rounded-xl ${
                       msg.isOwn
                         ? 'bg-ocean text-white'
-                        : 'bg-storm/10 dark:bg-storm/40 text-storm dark:text-foam'
+                        : 'bg-gray-100 dark:bg-dark-border text-storm dark:text-dark-text'
                     }`}
                   >
                     <p className="whitespace-pre-wrap">{msg.content}</p>
                     <p
                       className={`text-xs mt-1 ${
-                        msg.isOwn ? 'text-white/70' : 'text-storm/50 dark:text-foam/50'
+                        msg.isOwn ? 'text-white/70' : 'text-storm-light dark:text-dark-text-secondary'
                       }`}
                     >
                       {new Date(msg.createdAt).toLocaleTimeString([], {
@@ -163,14 +163,14 @@ export default function MentorshipMessagesPage() {
           </div>
 
           {/* Message Input */}
-          <form onSubmit={handleSend} className="p-4 border-t border-storm/10 dark:border-storm/40">
+          <form onSubmit={handleSend} className="p-4 border-t border-gray-200">
             <div className="flex gap-2">
               <input
                 type="text"
                 value={newMessage}
                 onChange={e => setNewMessage(e.target.value)}
                 placeholder="Type a message..."
-                className="flex-1 px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="flex-1 px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
               />
               <button
                 type="submit"
@@ -188,12 +188,12 @@ export default function MentorshipMessagesPage() {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="w-80 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40 p-4 overflow-y-auto"
+            className="w-80 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200 p-4 overflow-y-auto"
           >
             <h3 className="font-semibold text-ocean dark:text-sky mb-4">Learning Goals</h3>
 
             {goals.length === 0 ? (
-              <p className="text-sm text-storm/60 dark:text-foam/60">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 No goals set yet. Add goals to track progress.
               </p>
             ) : (
@@ -201,10 +201,10 @@ export default function MentorshipMessagesPage() {
                 {goals.map(goal => (
                   <div
                     key={goal.id}
-                    className="p-3 rounded-lg bg-storm/5 dark:bg-storm/40"
+                    className="p-3 rounded-lg bg-gray-50 dark:bg-dark-border"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <p className="font-medium text-storm dark:text-foam text-sm">
+                      <p className="font-medium text-storm dark:text-dark-text text-sm">
                         {goal.title}
                       </p>
                       <span
@@ -219,7 +219,7 @@ export default function MentorshipMessagesPage() {
                     </div>
 
                     {/* Progress bar */}
-                    <div className="h-2 bg-storm/10 dark:bg-storm/20 rounded-full mb-2">
+                    <div className="h-2 bg-gray-100 dark:bg-dark-border/50 rounded-full mb-2">
                       <div
                         className="h-full bg-teal rounded-full transition-all"
                         style={{ width: `${goal.progress}%` }}
@@ -232,7 +232,7 @@ export default function MentorshipMessagesPage() {
                         {goal.milestones.map(m => (
                           <label
                             key={m.id}
-                            className="flex items-center gap-2 text-sm text-storm/70 dark:text-foam/70"
+                            className="flex items-center gap-2 text-sm text-storm-light dark:text-dark-text-secondary"
                           >
                             <input
                               type="checkbox"

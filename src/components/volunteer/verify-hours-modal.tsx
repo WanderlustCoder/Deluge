@@ -81,7 +81,7 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-md mx-auto bg-white dark:bg-storm/90 rounded-xl p-6 z-50 shadow-xl"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-md mx-auto bg-white dark:bg-dark-elevated rounded-xl p-6 z-50 shadow-xl"
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-ocean dark:text-sky">
@@ -89,14 +89,14 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
               </h2>
               <button
                 onClick={onClose}
-                className="p-1 rounded-full hover:bg-storm/10"
+                className="p-1 rounded-full hover:bg-gray-100"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4 mb-6">
-              <div className="p-4 bg-storm/5 dark:bg-foam/5 rounded-lg">
+              <div className="p-4 bg-gray-50 dark:bg-foam/5 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 rounded-full bg-ocean/20 dark:bg-sky/20 flex items-center justify-center">
                     <span className="text-sm font-medium text-ocean dark:text-sky">
@@ -107,7 +107,7 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
                     <p className="font-medium text-ocean dark:text-sky">
                       {log.user.name}
                     </p>
-                    <p className="text-xs text-storm/60 dark:text-foam/60">
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                       {log.user.email}
                     </p>
                   </div>
@@ -116,7 +116,7 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs text-storm/60 dark:text-foam/60 mb-1">
+                  <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-1">
                     Hours Claimed
                   </p>
                   <p className="text-2xl font-bold text-teal flex items-center gap-2">
@@ -125,10 +125,10 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
                   </p>
                 </div>
                 <div>
-                  <p className="text-xs text-storm/60 dark:text-foam/60 mb-1">
+                  <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-1">
                     Date
                   </p>
-                  <p className="text-sm font-medium text-storm/80 dark:text-foam/80">
+                  <p className="text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                     {formatDate(log.date)}
                   </p>
                 </div>
@@ -136,17 +136,17 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
 
               {log.description && (
                 <div>
-                  <p className="text-xs text-storm/60 dark:text-foam/60 mb-1">
+                  <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-1">
                     Description
                   </p>
-                  <p className="text-sm text-storm/80 dark:text-foam/80">
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                     {log.description}
                   </p>
                 </div>
               )}
 
               {/* Adjust Hours Option */}
-              <div className="pt-4 border-t border-storm/10 dark:border-foam/10">
+              <div className="pt-4 border-t border-gray-200 dark:border-dark-border">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
@@ -154,7 +154,7 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
                     onChange={(e) => setAdjusting(e.target.checked)}
                     className="rounded border-storm/30"
                   />
-                  <span className="text-sm text-storm/70 dark:text-foam/70">
+                  <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                     Adjust hours before approving
                   </span>
                 </label>
@@ -168,9 +168,9 @@ export function VerifyHoursModal({ isOpen, onClose, log, onVerify }: VerifyHours
                       max="24"
                       value={adjustedHours}
                       onChange={(e) => setAdjustedHours(e.target.value)}
-                      className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20"
+                      className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50"
                     />
-                    <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
                       The volunteer will be notified of the adjustment.
                     </p>
                   </div>

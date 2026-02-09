@@ -43,7 +43,7 @@ export function CircleHeader({
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-storm/20 rounded-xl p-6 border border-storm/10"
+      className="bg-white dark:bg-dark-border/50 rounded-xl p-6 border border-gray-200"
     >
       <div className="flex flex-col md:flex-row md:items-start gap-6">
         {/* Circle Image */}
@@ -68,7 +68,7 @@ export function CircleHeader({
               {circle.name}
             </h1>
             {circle.isPrivate && (
-              <span className="flex items-center gap-1 px-2 py-1 bg-storm/10 dark:bg-foam/10 rounded-full text-xs text-storm/70 dark:text-foam/70">
+              <span className="flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-foam/10 rounded-full text-xs text-storm-light dark:text-dark-text-secondary">
                 <Lock className="w-3 h-3" />
                 Private
               </span>
@@ -76,7 +76,7 @@ export function CircleHeader({
           </div>
 
           {circle.description && (
-            <p className="text-storm/60 dark:text-foam/60 mb-4 max-w-2xl">
+            <p className="text-storm-light dark:text-dark-text-secondary mb-4 max-w-2xl">
               {circle.description}
             </p>
           )}
@@ -85,23 +85,23 @@ export function CircleHeader({
           <div className="flex flex-wrap gap-6">
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5 text-teal" />
-              <span className="font-medium text-storm dark:text-foam">
+              <span className="font-medium text-storm dark:text-dark-text">
                 {circle.memberCount}
               </span>
-              <span className="text-storm/50 dark:text-foam/50">members</span>
+              <span className="text-storm-light dark:text-dark-text-secondary">members</span>
             </div>
             <div className="flex items-center gap-2">
               <DollarSign className="w-5 h-5 text-ocean dark:text-sky" />
-              <span className="font-medium text-storm dark:text-foam">
+              <span className="font-medium text-storm dark:text-dark-text">
                 {formatCurrency(circle.pooledBalance)}
               </span>
-              <span className="text-storm/50 dark:text-foam/50">in pool</span>
+              <span className="text-storm-light dark:text-dark-text-secondary">in pool</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="font-medium text-gold">
                 {formatCurrency(circle.totalDeployed)}
               </span>
-              <span className="text-storm/50 dark:text-foam/50">deployed</span>
+              <span className="text-storm-light dark:text-dark-text-secondary">deployed</span>
             </div>
           </div>
         </div>
@@ -111,16 +111,16 @@ export function CircleHeader({
           {isAdmin && (
             <Link
               href={`/circles/${circle.slug}/settings`}
-              className="p-2 rounded-lg border border-storm/20 dark:border-foam/20 hover:bg-storm/5 dark:hover:bg-foam/5 transition-colors"
+              className="p-2 rounded-lg border border-gray-200 dark:border-foam/20 hover:bg-gray-50 dark:hover:bg-foam/5 transition-colors"
             >
-              <Settings className="w-5 h-5 text-storm/60 dark:text-foam/60" />
+              <Settings className="w-5 h-5 text-storm-light dark:text-dark-text-secondary" />
             </Link>
           )}
 
           {isMember ? (
             <button
               onClick={onLeave}
-              className="px-4 py-2 border border-storm/20 dark:border-foam/20 rounded-lg text-storm/70 dark:text-foam/70 hover:bg-storm/5 dark:hover:bg-foam/5 transition-colors"
+              className="px-4 py-2 border border-gray-200 dark:border-foam/20 rounded-lg text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-foam/5 transition-colors"
             >
               Leave Circle
             </button>

@@ -32,7 +32,7 @@ export default function BudgetPlannerPage() {
   };
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -58,7 +58,7 @@ export default function BudgetPlannerPage() {
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-2xl mx-auto space-y-8">
           {/* Income Input */}
-          <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6">
             <h2 className="font-semibold mb-4 flex items-center gap-2">
               <DollarSign className="w-5 h-5 text-ocean" />
               Monthly Income (optional)
@@ -74,14 +74,14 @@ export default function BudgetPlannerPage() {
                 value={monthlyIncome}
                 onChange={(e) => setMonthlyIncome(e.target.value)}
                 placeholder="0.00"
-                className="w-full pl-8 pr-4 py-3 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+                className="w-full pl-8 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
               />
             </div>
           </div>
 
           {/* Suggestions */}
           {income > 0 && (
-            <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+            <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6">
               <h2 className="font-semibold mb-4 flex items-center gap-2">
                 <Percent className="w-5 h-5 text-ocean" />
                 Suggested Amounts
@@ -94,7 +94,7 @@ export default function BudgetPlannerPage() {
                       setGivingMethod('fixed');
                       setFixedAmount(suggestion.amount.toFixed(2));
                     }}
-                    className="p-4 border border-storm/10 rounded-lg text-left hover:border-ocean transition-colors"
+                    className="p-4 border border-gray-200 rounded-lg text-left hover:border-ocean transition-colors"
                   >
                     <div className="text-lg font-semibold text-ocean">
                       ${suggestion.amount.toFixed(2)}/mo
@@ -108,7 +108,7 @@ export default function BudgetPlannerPage() {
           )}
 
           {/* Giving Method */}
-          <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6">
             <h2 className="font-semibold mb-4 flex items-center gap-2">
               <Calendar className="w-5 h-5 text-ocean" />
               Your Giving Approach
@@ -128,7 +128,7 @@ export default function BudgetPlannerPage() {
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       givingMethod === method.id
                         ? 'bg-ocean text-white'
-                        : 'bg-storm/10 text-storm/70 hover:bg-storm/20'
+                        : 'bg-gray-100 text-storm/70 hover:bg-gray-200'
                     }`}
                   >
                     {method.label}
@@ -148,7 +148,7 @@ export default function BudgetPlannerPage() {
                       value={percentage}
                       onChange={(e) => setPercentage(e.target.value)}
                       placeholder="5"
-                      className="w-full pr-8 pl-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+                      className="w-full pr-8 pl-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-storm/40">%</span>
                   </div>
@@ -172,7 +172,7 @@ export default function BudgetPlannerPage() {
                       value={fixedAmount}
                       onChange={(e) => setFixedAmount(e.target.value)}
                       placeholder="50.00"
-                      className="w-full pl-8 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+                      className="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
                     />
                   </div>
                 </div>
@@ -194,7 +194,7 @@ export default function BudgetPlannerPage() {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Any thoughts about your giving approach..."
                   rows={3}
-                  className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none dark:bg-storm/10"
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none dark:bg-gray-100"
                 />
               </div>
             </div>

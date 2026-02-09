@@ -65,8 +65,8 @@ export default function GrantProgramPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-12 bg-storm/20 rounded w-2/3" />
-          <div className="h-64 bg-storm/20 rounded-xl" />
+          <div className="h-12 bg-gray-200 rounded w-2/3" />
+          <div className="h-64 bg-gray-200 rounded-xl" />
         </div>
       </div>
     );
@@ -75,7 +75,7 @@ export default function GrantProgramPage() {
   if (!program) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-        <h1 className="text-2xl font-bold text-storm dark:text-foam mb-4">Program Not Found</h1>
+        <h1 className="text-2xl font-bold text-storm dark:text-dark-text mb-4">Program Not Found</h1>
         <Link href="/grants" className="text-ocean hover:underline">
           Back to Grants
         </Link>
@@ -91,7 +91,7 @@ export default function GrantProgramPage() {
       {/* Back Link */}
       <Link
         href="/grants"
-        className="text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky mb-6 inline-block"
+        className="text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky mb-6 inline-block"
       >
         ← Back to Grants
       </Link>
@@ -101,7 +101,7 @@ export default function GrantProgramPage() {
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-3xl font-bold text-ocean dark:text-sky">{program.name}</h1>
-            <p className="text-storm/60 dark:text-foam/60 capitalize mt-1">
+            <p className="text-storm-light dark:text-dark-text-secondary capitalize mt-1">
               {program.funderType} Grant Program
             </p>
           </div>
@@ -110,7 +110,7 @@ export default function GrantProgramPage() {
               isOpen
                 ? 'bg-teal/10 text-teal'
                 : program.status === 'completed'
-                  ? 'bg-storm/20 text-storm'
+                  ? 'bg-gray-200 text-storm'
                   : 'bg-gold/10 text-gold'
             }`}
           >
@@ -121,21 +121,21 @@ export default function GrantProgramPage() {
 
       {/* Key Details */}
       <div className="grid sm:grid-cols-3 gap-4 mb-8">
-        <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-          <p className="text-sm text-storm/60 dark:text-foam/60">Grant Range</p>
-          <p className="text-xl font-bold text-storm dark:text-foam">
+        <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">Grant Range</p>
+          <p className="text-xl font-bold text-storm dark:text-dark-text">
             ${program.minGrant.toLocaleString()} - ${program.maxGrant.toLocaleString()}
           </p>
         </div>
-        <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-          <p className="text-sm text-storm/60 dark:text-foam/60">Available Funding</p>
+        <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">Available Funding</p>
           <p className="text-xl font-bold text-teal">
             ${program.remainingBudget.toLocaleString()}
           </p>
         </div>
-        <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-          <p className="text-sm text-storm/60 dark:text-foam/60">Deadline</p>
-          <p className="text-xl font-bold text-storm dark:text-foam">
+        <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">Deadline</p>
+          <p className="text-xl font-bold text-storm dark:text-dark-text">
             {new Date(program.applicationEnd).toLocaleDateString()}
           </p>
         </div>
@@ -143,14 +143,14 @@ export default function GrantProgramPage() {
 
       {/* Description */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">About This Program</h2>
-        <p className="text-storm/80 dark:text-foam/80 whitespace-pre-wrap">{program.description}</p>
+        <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">About This Program</h2>
+        <p className="text-storm-light dark:text-dark-text-secondary whitespace-pre-wrap">{program.description}</p>
       </section>
 
       {/* Focus Areas */}
       {program.focusAreas.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">Focus Areas</h2>
+          <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">Focus Areas</h2>
           <div className="flex flex-wrap gap-2">
             {program.focusAreas.map((area) => (
               <span
@@ -167,7 +167,7 @@ export default function GrantProgramPage() {
       {/* Geographic Focus */}
       {program.geographicFocus.length > 0 && (
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+          <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
             Geographic Focus
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -185,32 +185,32 @@ export default function GrantProgramPage() {
 
       {/* Timeline */}
       <section className="mb-8">
-        <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">Timeline</h2>
+        <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">Timeline</h2>
         <div className="space-y-3">
           <div className="flex items-center gap-4">
-            <div className="w-24 text-sm text-storm/60 dark:text-foam/60">Opens</div>
-            <div className="font-medium text-storm dark:text-foam">
+            <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Opens</div>
+            <div className="font-medium text-storm dark:text-dark-text">
               {new Date(program.applicationStart).toLocaleDateString()}
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="w-24 text-sm text-storm/60 dark:text-foam/60">Deadline</div>
-            <div className="font-medium text-storm dark:text-foam">
+            <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Deadline</div>
+            <div className="font-medium text-storm dark:text-dark-text">
               {new Date(program.applicationEnd).toLocaleDateString()}
             </div>
           </div>
           {program.reviewStart && (
             <div className="flex items-center gap-4">
-              <div className="w-24 text-sm text-storm/60 dark:text-foam/60">Review</div>
-              <div className="font-medium text-storm dark:text-foam">
+              <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Review</div>
+              <div className="font-medium text-storm dark:text-dark-text">
                 {new Date(program.reviewStart).toLocaleDateString()}
               </div>
             </div>
           )}
           {program.awardDate && (
             <div className="flex items-center gap-4">
-              <div className="w-24 text-sm text-storm/60 dark:text-foam/60">Awards</div>
-              <div className="font-medium text-storm dark:text-foam">
+              <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Awards</div>
+              <div className="font-medium text-storm dark:text-dark-text">
                 {new Date(program.awardDate).toLocaleDateString()}
               </div>
             </div>
@@ -221,10 +221,10 @@ export default function GrantProgramPage() {
       {/* Reporting */}
       {program.reportingRequired && (
         <section className="mb-8">
-          <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+          <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
             Reporting Requirements
           </h2>
-          <p className="text-storm/70 dark:text-foam/70">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             Grant recipients will be required to submit{' '}
             <span className="font-medium">{program.reportingFrequency}</span> progress reports.
           </p>
@@ -232,7 +232,7 @@ export default function GrantProgramPage() {
       )}
 
       {/* Apply Button */}
-      <div className="flex justify-center pt-8 border-t border-storm/10 dark:border-storm/30">
+      <div className="flex justify-center pt-8 border-t border-gray-200">
         {isOpen && !deadlinePassed ? (
           <Link href={`/grants/${slug}/apply`}>
             <motion.button
@@ -245,7 +245,7 @@ export default function GrantProgramPage() {
           </Link>
         ) : (
           <div className="text-center">
-            <p className="text-storm/60 dark:text-foam/60 mb-2">
+            <p className="text-storm-light dark:text-dark-text-secondary mb-2">
               {deadlinePassed
                 ? 'The application deadline has passed.'
                 : 'This program is not currently accepting applications.'}

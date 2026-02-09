@@ -68,7 +68,7 @@ export function CampaignHero({ campaign, stats }: CampaignHeroProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className={`text-lg mb-2 ${
-                campaign.heroImageUrl ? 'text-white/80' : 'text-storm/60 dark:text-foam/60'
+                campaign.heroImageUrl ? 'text-white/80' : 'text-storm-light dark:text-dark-text-secondary'
               }`}
             >
               {campaign.tagline}
@@ -90,7 +90,7 @@ export function CampaignHero({ campaign, stats }: CampaignHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
             className={`text-lg mb-6 max-w-2xl ${
-              campaign.heroImageUrl ? 'text-white/90' : 'text-storm/70 dark:text-foam/70'
+              campaign.heroImageUrl ? 'text-white/90' : 'text-storm-light dark:text-dark-text-secondary'
             }`}
           >
             {campaign.description}
@@ -161,7 +161,7 @@ export function CampaignHero({ campaign, stats }: CampaignHeroProps) {
               </div>
               <div
                 className={`h-3 rounded-full overflow-hidden ${
-                  campaign.heroImageUrl ? 'bg-white/30' : 'bg-storm/10 dark:bg-foam/10'
+                  campaign.heroImageUrl ? 'bg-white/30' : 'bg-gray-100 dark:bg-foam/10'
                 }`}
               >
                 <motion.div
@@ -174,7 +174,7 @@ export function CampaignHero({ campaign, stats }: CampaignHeroProps) {
               </div>
               <p
                 className={`text-sm mt-2 ${
-                  campaign.heroImageUrl ? 'text-white/70' : 'text-storm/50 dark:text-foam/50'
+                  campaign.heroImageUrl ? 'text-white/70' : 'text-storm-light dark:text-dark-text-secondary'
                 }`}
               >
                 {progress.toFixed(0)}% of goal reached

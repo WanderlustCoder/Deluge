@@ -62,7 +62,7 @@ export function CampaignCard({ campaign, slug }: CampaignCardProps) {
         );
       case 'completed':
         return (
-          <span className="text-xs font-medium bg-storm/10 text-storm/60 px-2 py-1 rounded-full">
+          <span className="text-xs font-medium bg-gray-100 text-storm/60 px-2 py-1 rounded-full">
             Completed
           </span>
         );
@@ -81,7 +81,7 @@ export function CampaignCard({ campaign, slug }: CampaignCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-storm/20 rounded-xl p-6 shadow-sm border border-storm/10 hover:shadow-md transition-shadow"
+      className="bg-white dark:bg-dark-border/50 rounded-xl p-6 shadow-sm border border-gray-200 hover:shadow-md transition-shadow"
     >
       <div className="flex items-start justify-between mb-4">
         <div>
@@ -90,7 +90,7 @@ export function CampaignCard({ campaign, slug }: CampaignCardProps) {
             {campaign.name}
           </h3>
           {campaign.description && (
-            <p className="text-sm text-storm/60 dark:text-foam/60 mt-1 line-clamp-2">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1 line-clamp-2">
               {campaign.description}
             </p>
           )}
@@ -109,20 +109,20 @@ export function CampaignCard({ campaign, slug }: CampaignCardProps) {
       {campaign.targetAmount && (
         <div className="mb-4">
           <div className="flex justify-between text-sm mb-1">
-            <span className="text-storm/60 dark:text-foam/60">
+            <span className="text-storm-light dark:text-dark-text-secondary">
               {formatCurrency(campaign.currentAmount)} raised
             </span>
             <span className="font-medium text-ocean dark:text-sky">
               {progress.toFixed(0)}%
             </span>
           </div>
-          <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+          <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
             <div
               className="h-full bg-teal rounded-full transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+          <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
             Goal: {formatCurrency(campaign.targetAmount)}
           </p>
         </div>
@@ -130,7 +130,7 @@ export function CampaignCard({ campaign, slug }: CampaignCardProps) {
 
       {/* Meta */}
       <div className="flex items-center justify-between text-sm">
-        <div className="flex items-center gap-4 text-storm/60 dark:text-foam/60">
+        <div className="flex items-center gap-4 text-storm-light dark:text-dark-text-secondary">
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             <span>

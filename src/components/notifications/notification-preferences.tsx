@@ -89,7 +89,7 @@ export function NotificationPreferencesForm() {
         <CardContent className="pt-5">
           <div className="animate-pulse space-y-4">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-16 bg-storm/10 rounded" />
+              <div key={i} className="h-16 bg-gray-100 rounded" />
             ))}
           </div>
         </CardContent>
@@ -122,7 +122,7 @@ export function NotificationPreferencesForm() {
                         [key]: e.target.value as PreferenceValue,
                       })
                     }
-                    className="px-3 py-1.5 bg-white border border-storm/20 rounded-lg text-sm text-storm focus:outline-none focus:border-ocean"
+                    className="px-3 py-1.5 bg-white border border-gray-200 rounded-lg text-sm text-storm focus:outline-none focus:border-ocean"
                   >
                     {PREFERENCE_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value}>
@@ -136,7 +136,7 @@ export function NotificationPreferencesForm() {
           )}
 
           {/* Weekly Digest */}
-          <div className="flex items-center justify-between pt-4 border-t border-storm/10">
+          <div className="flex items-center justify-between pt-4 border-t border-gray-200">
             <div>
               <p className="font-medium text-storm">Weekly Digest</p>
               <p className="text-sm text-storm-light">
@@ -155,12 +155,12 @@ export function NotificationPreferencesForm() {
                 }
                 className="sr-only peer"
               />
-              <div className="w-11 h-6 bg-storm/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ocean" />
+              <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-ocean" />
             </label>
           </div>
         </div>
 
-        <div className="mt-6 pt-4 border-t border-storm/10">
+        <div className="mt-6 pt-4 border-t border-gray-200">
           <Button onClick={handleSave} loading={saving}>
             Save Preferences
           </Button>

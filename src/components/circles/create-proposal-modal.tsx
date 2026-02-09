@@ -159,19 +159,19 @@ export function CreateProposalModal({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="relative bg-white dark:bg-storm rounded-xl p-6 max-w-lg w-full shadow-xl max-h-[90vh] overflow-y-auto"
+            className="relative bg-white dark:bg-dark-elevated rounded-xl p-6 max-w-lg w-full shadow-xl max-h-[90vh] overflow-y-auto"
           >
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 p-1 rounded-lg hover:bg-storm/10 dark:hover:bg-foam/10"
+              className="absolute right-4 top-4 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-foam/10"
             >
-              <X className="w-5 h-5 text-storm/50 dark:text-foam/50" />
+              <X className="w-5 h-5 text-storm-light dark:text-dark-text-secondary" />
             </button>
 
             <h2 className="text-xl font-semibold text-ocean dark:text-sky mb-2">
               Create Proposal
             </h2>
-            <p className="text-sm text-storm/60 dark:text-foam/60 mb-6">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-6">
               Propose how to deploy circle funds. Members will vote.
             </p>
 
@@ -184,7 +184,7 @@ export function CreateProposalModal({
 
               {/* Type Selection */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Proposal Type
                 </label>
                 <div className="flex gap-2">
@@ -201,7 +201,7 @@ export function CreateProposalModal({
                       className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
                         type === t
                           ? 'bg-ocean dark:bg-sky text-white'
-                          : 'bg-storm/10 dark:bg-foam/10 text-storm/70 dark:text-foam/70 hover:bg-storm/20'
+                          : 'bg-gray-100 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary hover:bg-gray-200'
                       }`}
                     >
                       {t.charAt(0).toUpperCase() + t.slice(1)}
@@ -213,7 +213,7 @@ export function CreateProposalModal({
               {/* Project Search */}
               {type === 'project' && (
                 <div>
-                  <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                  <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                     Select Project
                   </label>
                   <div className="relative">
@@ -223,22 +223,22 @@ export function CreateProposalModal({
                       value={projectSearch}
                       onChange={(e) => setProjectSearch(e.target.value)}
                       placeholder="Search for a project..."
-                      className="w-full pl-10 pr-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30"
+                      className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated"
                     />
                   </div>
                   {projects.length > 0 && (
-                    <div className="mt-2 border border-storm/10 rounded-lg overflow-hidden">
+                    <div className="mt-2 border border-gray-200 rounded-lg overflow-hidden">
                       {projects.map((project) => (
                         <button
                           key={project.id}
                           type="button"
                           onClick={() => selectProject(project)}
-                          className="w-full px-4 py-3 text-left hover:bg-storm/5 dark:hover:bg-foam/5 border-b border-storm/10 last:border-0"
+                          className="w-full px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-foam/5 border-b border-gray-200 last:border-0"
                         >
-                          <p className="font-medium text-storm dark:text-foam">
+                          <p className="font-medium text-storm dark:text-dark-text">
                             {project.title}
                           </p>
-                          <p className="text-sm text-storm/50 dark:text-foam/50">
+                          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                             ${(project.fundingGoal - project.fundingRaised).toFixed(0)} remaining
                           </p>
                         </button>
@@ -250,7 +250,7 @@ export function CreateProposalModal({
 
               {/* Title */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Proposal Title
                 </label>
                 <input
@@ -258,13 +258,13 @@ export function CreateProposalModal({
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="What are you proposing?"
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated"
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Description (optional)
                 </label>
                 <textarea
@@ -272,13 +272,13 @@ export function CreateProposalModal({
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Why should the circle fund this?"
                   rows={3}
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 resize-none"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated resize-none"
                 />
               </div>
 
               {/* Amount */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Amount (Pool balance: ${poolBalance.toFixed(2)})
                 </label>
                 <div className="relative">
@@ -291,7 +291,7 @@ export function CreateProposalModal({
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="0.00"
-                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30"
+                    className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated"
                   />
                 </div>
               </div>
@@ -301,7 +301,7 @@ export function CreateProposalModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg text-storm/70 dark:text-foam/70"
+                  className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg text-storm-light dark:text-dark-text-secondary"
                 >
                   Cancel
                 </button>

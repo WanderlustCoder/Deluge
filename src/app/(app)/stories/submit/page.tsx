@@ -32,7 +32,6 @@ export default function SubmitStoryPage() {
     setSubmitting(true);
 
     try {
-      // Parse content into blocks
       const contentBlocks = form.content
         .split('\n\n')
         .filter(p => p.trim())
@@ -73,7 +72,7 @@ export default function SubmitStoryPage() {
     <div className="max-w-2xl mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-ocean dark:text-sky">Share Your Story</h1>
-        <p className="text-storm/70 dark:text-foam/70 mt-1">
+        <p className="text-storm-light dark:text-dark-text-secondary mt-1">
           Help inspire others by sharing how Deluge has made a difference
         </p>
       </div>
@@ -86,7 +85,7 @@ export default function SubmitStoryPage() {
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
                 step >= s
                   ? 'bg-ocean text-white'
-                  : 'bg-storm/10 dark:bg-storm/30 text-storm/50 dark:text-foam/50'
+                  : 'bg-gray-100 dark:bg-dark-border text-storm-light dark:text-dark-text-secondary'
               }`}
             >
               {s}
@@ -94,7 +93,7 @@ export default function SubmitStoryPage() {
             {s < 3 && (
               <div
                 className={`flex-1 h-1 mx-2 ${
-                  step > s ? 'bg-ocean' : 'bg-storm/10 dark:bg-storm/30'
+                  step > s ? 'bg-ocean' : 'bg-gray-100 dark:bg-dark-border'
                 }`}
               />
             )}
@@ -110,7 +109,7 @@ export default function SubmitStoryPage() {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-4"
           >
-            <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+            <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
               What kind of story is this?
             </h2>
             <div className="grid sm:grid-cols-2 gap-4">
@@ -123,11 +122,11 @@ export default function SubmitStoryPage() {
                   className={`p-4 rounded-xl border text-left transition-colors ${
                     form.type === type.value
                       ? 'border-ocean bg-ocean/10 dark:bg-ocean/20'
-                      : 'border-storm/20 dark:border-storm/40 hover:border-ocean/50'
+                      : 'border-gray-200 dark:border-dark-border hover:border-ocean/50'
                   }`}
                 >
-                  <p className="font-medium text-storm dark:text-foam">{type.label}</p>
-                  <p className="text-sm text-storm/60 dark:text-foam/60">{type.desc}</p>
+                  <p className="font-medium text-storm dark:text-dark-text">{type.label}</p>
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary">{type.desc}</p>
                 </motion.button>
               ))}
             </div>
@@ -151,12 +150,12 @@ export default function SubmitStoryPage() {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-4"
           >
-            <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+            <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
               Tell your story
             </h2>
 
             <div>
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 Title
               </label>
               <input
@@ -165,29 +164,29 @@ export default function SubmitStoryPage() {
                 value={form.title}
                 onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
                 placeholder="Give your story a compelling title"
-                className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
-                Summary <span className="text-storm/50">(280 chars max)</span>
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
+                Summary <span className="text-storm-light">(280 chars max)</span>
               </label>
               <textarea
                 required
                 value={form.summary}
                 onChange={e => setForm(f => ({ ...f, summary: e.target.value.slice(0, 280) }))}
                 placeholder="A brief summary that captures the essence"
-                className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text resize-none"
                 rows={2}
               />
-              <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+              <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
                 {form.summary.length}/280
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 Full Story
               </label>
               <textarea
@@ -195,7 +194,7 @@ export default function SubmitStoryPage() {
                 value={form.content}
                 onChange={e => setForm(f => ({ ...f, content: e.target.value }))}
                 placeholder="Share the full story. Use blank lines to separate paragraphs. Start a line with # for headings."
-                className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text resize-none"
                 rows={10}
               />
             </div>
@@ -204,7 +203,7 @@ export default function SubmitStoryPage() {
               <button
                 type="button"
                 onClick={() => setStep(1)}
-                className="px-6 py-3 border border-storm/20 dark:border-storm/40 rounded-lg text-storm dark:text-foam hover:bg-storm/5"
+                className="px-6 py-3 border border-gray-200 dark:border-dark-border rounded-lg text-storm dark:text-dark-text hover:bg-gray-50"
               >
                 Back
               </button>
@@ -227,12 +226,12 @@ export default function SubmitStoryPage() {
             animate={{ opacity: 1, x: 0 }}
             className="space-y-4"
           >
-            <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+            <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
               A few more details
             </h2>
 
             <div>
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 Your Role (optional)
               </label>
               <input
@@ -240,12 +239,12 @@ export default function SubmitStoryPage() {
                 value={form.authorRole}
                 onChange={e => setForm(f => ({ ...f, authorRole: e.target.value }))}
                 placeholder="e.g., Parent, Volunteer, Project Lead"
-                className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 Location (optional)
               </label>
               <input
@@ -253,12 +252,12 @@ export default function SubmitStoryPage() {
                 value={form.location}
                 onChange={e => setForm(f => ({ ...f, location: e.target.value }))}
                 placeholder="e.g., Boise, ID"
-                className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 Tags (optional, comma-separated)
               </label>
               <input
@@ -266,12 +265,12 @@ export default function SubmitStoryPage() {
                 value={form.tags}
                 onChange={e => setForm(f => ({ ...f, tags: e.target.value }))}
                 placeholder="e.g., education, community, success"
-                className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text"
               />
             </div>
 
-            <div className="bg-storm/5 dark:bg-storm/20 rounded-lg p-4">
-              <p className="text-sm text-storm/70 dark:text-foam/70">
+            <div className="bg-gray-50 dark:bg-dark-border/50 rounded-lg p-4">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 Your story will be reviewed before publication. We may reach out to verify details
                 or request additional information.
               </p>
@@ -281,7 +280,7 @@ export default function SubmitStoryPage() {
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="px-6 py-3 border border-storm/20 dark:border-storm/40 rounded-lg text-storm dark:text-foam hover:bg-storm/5"
+                className="px-6 py-3 border border-gray-200 dark:border-dark-border rounded-lg text-storm dark:text-dark-text hover:bg-gray-50"
               >
                 Back
               </button>

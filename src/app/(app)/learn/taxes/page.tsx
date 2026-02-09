@@ -45,7 +45,7 @@ export default function TaxInfoPage() {
   const effectiveCost = donationsNum - estimatedSavings;
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -80,7 +80,7 @@ export default function TaxInfoPage() {
           </div>
 
           {/* Simple Estimator */}
-          <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6">
             <h2 className="font-semibold mb-4 flex items-center gap-2">
               <Calculator className="w-5 h-5 text-ocean" />
               Simple Tax Savings Estimator
@@ -99,7 +99,7 @@ export default function TaxInfoPage() {
                     value={income}
                     onChange={(e) => setIncome(e.target.value)}
                     placeholder="75,000"
-                    className="w-full pl-8 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+                    className="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
                   />
                 </div>
               </div>
@@ -112,7 +112,7 @@ export default function TaxInfoPage() {
                     value={donations}
                     onChange={(e) => setDonations(e.target.value)}
                     placeholder="1,000"
-                    className="w-full pl-8 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+                    className="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
                   />
                 </div>
               </div>
@@ -128,7 +128,7 @@ export default function TaxInfoPage() {
                   <span>Estimated tax savings*:</span>
                   <span className="font-medium">−${estimatedSavings.toFixed(2)}</span>
                 </div>
-                <div className="border-t border-storm/10 pt-2 flex justify-between text-lg font-semibold">
+                <div className="border-t border-gray-200 pt-2 flex justify-between text-lg font-semibold">
                   <span>Effective cost to you:</span>
                   <span>${effectiveCost.toFixed(2)}</span>
                 </div>
@@ -140,18 +140,18 @@ export default function TaxInfoPage() {
           </div>
 
           {/* FAQ Section */}
-          <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl overflow-hidden">
+          <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl overflow-hidden">
             <h2 className="font-semibold p-6 pb-0 flex items-center gap-2">
               <HelpCircle className="w-5 h-5 text-ocean" />
               Common Questions
             </h2>
 
-            <div className="divide-y divide-storm/10">
+            <div className="divide-y divide-gray-200">
               {FAQS.map((faq, index) => (
                 <div key={index}>
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full flex items-center justify-between p-6 text-left hover:bg-storm/5 transition-colors"
+                    className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
                   >
                     <span className="font-medium pr-4">{faq.question}</span>
                     {expandedFaq === index ? (
@@ -171,7 +171,7 @@ export default function TaxInfoPage() {
           </div>
 
           {/* Resources */}
-          <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6">
             <h2 className="font-semibold mb-4">Additional Resources</h2>
             <ul className="space-y-3">
               <li>

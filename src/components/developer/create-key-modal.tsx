@@ -95,16 +95,16 @@ export function CreateKeyModal({ isOpen, onClose, onCreated }: CreateKeyModalPro
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="relative w-full max-w-lg bg-white dark:bg-storm rounded-xl shadow-xl"
+            className="relative w-full max-w-lg bg-white dark:bg-dark-elevated rounded-xl shadow-xl"
           >
-            <div className="flex items-center justify-between p-4 border-b border-storm/10">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200">
               <div className="flex items-center gap-2">
                 <Key className="w-5 h-5 text-ocean" />
                 <h2 className="text-lg font-semibold">Create API Key</h2>
               </div>
               <button
                 onClick={onClose}
-                className="p-1 hover:bg-storm/10 rounded"
+                className="p-1 hover:bg-gray-100 rounded"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -125,7 +125,7 @@ export function CreateKeyModal({ isOpen, onClose, onCreated }: CreateKeyModalPro
                   onChange={(e) => setName(e.target.value)}
                   placeholder="My API Key"
                   required
-                  className="w-full px-3 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
                 />
               </div>
 
@@ -135,7 +135,7 @@ export function CreateKeyModal({ isOpen, onClose, onCreated }: CreateKeyModalPro
                   {SCOPES.map((scope) => (
                     <label
                       key={scope.value}
-                      className="flex items-start gap-3 p-3 border border-storm/20 rounded-lg cursor-pointer hover:bg-storm/5 transition-colors"
+                      className="flex items-start gap-3 p-3 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
                     >
                       <input
                         type="checkbox"
@@ -160,7 +160,7 @@ export function CreateKeyModal({ isOpen, onClose, onCreated }: CreateKeyModalPro
                   <select
                     value={rateLimit}
                     onChange={(e) => setRateLimit(Number(e.target.value))}
-                    className="w-full px-3 py-2 border border-storm/20 rounded-lg"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg"
                   >
                     <option value={100}>100</option>
                     <option value={500}>500</option>
@@ -180,7 +180,7 @@ export function CreateKeyModal({ isOpen, onClose, onCreated }: CreateKeyModalPro
                     placeholder="Never"
                     min={1}
                     max={365}
-                    className="w-full px-3 py-2 border border-storm/20 rounded-lg"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg"
                   />
                 </div>
               </div>
@@ -196,7 +196,7 @@ export function CreateKeyModal({ isOpen, onClose, onCreated }: CreateKeyModalPro
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 text-storm/70 hover:bg-storm/10 rounded-lg transition-colors"
+                  className="px-4 py-2 text-storm/70 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   Cancel
                 </button>

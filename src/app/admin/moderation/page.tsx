@@ -96,10 +96,10 @@ export default function ModerationPage() {
     return (
       <div className="p-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-10 bg-storm/20 rounded w-1/3" />
+          <div className="h-10 bg-gray-200 rounded w-1/3" />
           <div className="grid sm:grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-24 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-24 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -111,10 +111,10 @@ export default function ModerationPage() {
     <div className="p-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-storm dark:text-foam">
+        <h1 className="text-3xl font-bold text-storm dark:text-dark-text">
           Content Moderation
         </h1>
-        <p className="text-storm/70 dark:text-foam/70 mt-2">
+        <p className="text-storm-light dark:text-dark-text-secondary mt-2">
           Review AI-flagged content for potential issues
         </p>
       </div>
@@ -122,22 +122,22 @@ export default function ModerationPage() {
       {/* Stats */}
       {stats && (
         <div className="grid sm:grid-cols-4 gap-4 mb-8">
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Pending</p>
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Pending</p>
             <p className="text-3xl font-bold text-gold">{stats.pending}</p>
           </div>
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Reviewed Today</p>
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Reviewed Today</p>
             <p className="text-3xl font-bold text-teal">{stats.reviewedToday}</p>
           </div>
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Dismissed</p>
-            <p className="text-3xl font-bold text-storm/60 dark:text-foam/60">
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Dismissed</p>
+            <p className="text-3xl font-bold text-storm-light dark:text-dark-text-secondary">
               {stats.dismissed}
             </p>
           </div>
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Actioned</p>
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Actioned</p>
             <p className="text-3xl font-bold text-red-500">{stats.actioned}</p>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function ModerationPage() {
         <select
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         >
           <option value="">All Flag Types</option>
           {FLAG_TYPES.map((type) => (
@@ -162,7 +162,7 @@ export default function ModerationPage() {
         <select
           value={filterContent}
           onChange={(e) => setFilterContent(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         >
           <option value="">All Content Types</option>
           {CONTENT_TYPES.map((type) => (
@@ -175,9 +175,9 @@ export default function ModerationPage() {
 
       {/* Flags List */}
       {flags.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-storm/30 rounded-xl">
+        <div className="text-center py-12 bg-white dark:bg-dark-elevated rounded-xl">
           <div className="text-4xl mb-4">✓</div>
-          <p className="text-storm/60 dark:text-foam/60">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             No pending items to review. Great work!
           </p>
         </div>
@@ -189,7 +189,7 @@ export default function ModerationPage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -100 }}
-              className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40"
+              className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200"
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
@@ -200,33 +200,33 @@ export default function ModerationPage() {
                           ? 'bg-red-100 text-red-600'
                           : flag.flagType === 'fraud_risk'
                           ? 'bg-gold/20 text-gold'
-                          : 'bg-storm/20 text-storm'
+                          : 'bg-gray-200 text-storm'
                       }`}
                     >
                       {flag.flagType.replace('_', ' ')}
                     </span>
-                    <span className="text-sm text-storm/50 dark:text-foam/50">
+                    <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                       {flag.contentType}
                     </span>
-                    <span className="text-sm text-storm/50 dark:text-foam/50">
+                    <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                       {Math.round(flag.confidence * 100)}% confidence
                     </span>
                   </div>
-                  <p className="text-sm text-storm/70 dark:text-foam/70">
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                     {flag.reason || 'No specific reason provided'}
                   </p>
                 </div>
-                <p className="text-xs text-storm/40 dark:text-foam/40">
+                <p className="text-xs text-storm/40 dark:text-dark-text/40">
                   {new Date(flag.createdAt).toLocaleString()}
                 </p>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-storm/10 dark:border-storm/30">
+              <div className="flex gap-3 pt-4 border-t border-gray-200">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => handleReview(flag.id, 'dismiss')}
-                  className="px-4 py-2 bg-storm/10 dark:bg-storm/50 text-storm dark:text-foam rounded-lg text-sm hover:bg-storm/20"
+                  className="px-4 py-2 bg-gray-100 text-storm dark:text-dark-text rounded-lg text-sm hover:bg-gray-200"
                 >
                   Dismiss
                 </motion.button>

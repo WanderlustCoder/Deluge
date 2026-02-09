@@ -60,7 +60,7 @@ export function OccasionCard({ occasion }: OccasionCardProps) {
     <Link href={`/occasions/${occasion.slug}`}>
       <motion.div
         whileHover={{ y: -4 }}
-        className="bg-white dark:bg-storm/20 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+        className="bg-white dark:bg-dark-border/50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
       >
         {occasion.imageUrl && (
           <div className="h-32 relative overflow-hidden">
@@ -85,10 +85,10 @@ export function OccasionCard({ occasion }: OccasionCardProps) {
                 </span>
               </div>
               <div>
-                <h3 className="font-semibold text-storm dark:text-foam">
+                <h3 className="font-semibold text-storm dark:text-dark-text">
                   {occasion.name}
                 </h3>
-                <p className="text-xs text-storm/50 dark:text-foam/50">
+                <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                   {getTypeLabel()}
                 </p>
               </div>
@@ -107,13 +107,13 @@ export function OccasionCard({ occasion }: OccasionCardProps) {
           </div>
 
           {occasion.description && (
-            <p className="text-sm text-storm/60 dark:text-foam/60 mb-3 line-clamp-2">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-3 line-clamp-2">
               {occasion.description}
             </p>
           )}
 
           <div className="flex items-center justify-between text-sm">
-            <span className="text-storm/50 dark:text-foam/50">
+            <span className="text-storm-light dark:text-dark-text-secondary">
               {isActive
                 ? `Ends ${formatDistanceToNow(endDate, { addSuffix: true })}`
                 : isUpcoming

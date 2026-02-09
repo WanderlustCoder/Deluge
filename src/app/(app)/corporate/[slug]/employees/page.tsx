@@ -107,11 +107,11 @@ export default function EmployeesPage({
 
   if (loading) {
     return (
-      <div className="bg-white dark:bg-storm/20 rounded-xl p-8 animate-pulse">
-        <div className="h-10 bg-storm/10 rounded w-1/4 mb-4" />
+      <div className="bg-white dark:bg-dark-border/50 rounded-xl p-8 animate-pulse">
+        <div className="h-10 bg-gray-100 rounded w-1/4 mb-4" />
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-16 bg-storm/10 rounded" />
+            <div key={i} className="h-16 bg-gray-100 rounded" />
           ))}
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function EmployeesPage({
           <h1 className="text-2xl font-bold text-ocean dark:text-sky">
             Employees
           </h1>
-          <p className="text-storm/60 dark:text-foam/60">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             {employees.length} employee{employees.length !== 1 ? 's' : ''} enrolled
           </p>
         </div>
@@ -150,14 +150,14 @@ export default function EmployeesPage({
         transition={{ delay: 0.1 }}
       >
         {employees.length === 0 ? (
-          <div className="bg-white dark:bg-storm/20 rounded-xl p-12 text-center">
+          <div className="bg-white dark:bg-dark-border/50 rounded-xl p-12 text-center">
             <div className="w-16 h-16 bg-ocean/10 dark:bg-sky/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <UserPlus className="w-8 h-8 text-ocean dark:text-sky" />
             </div>
             <h3 className="text-lg font-medium text-ocean dark:text-sky mb-2">
               No Employees Yet
             </h3>
-            <p className="text-storm/60 dark:text-foam/60 mb-6">
+            <p className="text-storm-light dark:text-dark-text-secondary mb-6">
               Start by inviting your team members to join
             </p>
             <button

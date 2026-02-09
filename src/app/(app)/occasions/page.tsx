@@ -78,7 +78,7 @@ export default function OccasionsPage() {
         <h1 className="text-3xl font-bold text-ocean dark:text-sky mb-2">
           Giving Occasions
         </h1>
-        <p className="text-storm/60 dark:text-foam/60">
+        <p className="text-storm-light dark:text-dark-text-secondary">
           Celebrate special moments by giving to causes that matter
         </p>
       </motion.div>
@@ -97,7 +97,7 @@ export default function OccasionsPage() {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
               filter === value
                 ? 'bg-ocean dark:bg-sky text-white'
-                : 'bg-storm/10 dark:bg-foam/10 text-storm/70 dark:text-foam/70 hover:bg-storm/20'
+                : 'bg-gray-100 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary hover:bg-gray-200'
             }`}
           >
             <Icon className="w-4 h-4" />
@@ -109,10 +109,10 @@ export default function OccasionsPage() {
       {loading ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white dark:bg-storm/20 rounded-xl p-6 animate-pulse">
-              <div className="h-32 bg-storm/10 rounded-lg mb-4" />
-              <div className="h-5 bg-storm/10 rounded w-3/4 mb-2" />
-              <div className="h-4 bg-storm/10 rounded w-full" />
+            <div key={i} className="bg-white dark:bg-dark-border/50 rounded-xl p-6 animate-pulse">
+              <div className="h-32 bg-gray-100 rounded-lg mb-4" />
+              <div className="h-5 bg-gray-100 rounded w-3/4 mb-2" />
+              <div className="h-4 bg-gray-100 rounded w-full" />
             </div>
           ))}
         </div>
@@ -126,7 +126,7 @@ export default function OccasionsPage() {
               transition={{ delay: 0.2 }}
               className="mb-12"
             >
-              <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+              <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
                 Happening Now
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -144,7 +144,7 @@ export default function OccasionsPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+              <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
                 Coming Up
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -160,7 +160,7 @@ export default function OccasionsPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white dark:bg-storm/20 rounded-xl p-12 text-center"
+              className="bg-white dark:bg-dark-border/50 rounded-xl p-12 text-center"
             >
               <div className="w-16 h-16 bg-ocean/10 dark:bg-sky/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Calendar className="w-8 h-8 text-ocean dark:text-sky" />
@@ -168,7 +168,7 @@ export default function OccasionsPage() {
               <h3 className="text-lg font-medium text-ocean dark:text-sky mb-2">
                 No Occasions Found
               </h3>
-              <p className="text-storm/60 dark:text-foam/60">
+              <p className="text-storm-light dark:text-dark-text-secondary">
                 {filter
                   ? 'Try a different filter to find occasions'
                   : 'Check back soon for upcoming giving occasions'}

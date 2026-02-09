@@ -78,7 +78,7 @@ export function VoteButtons({
               : 'bg-red-100 dark:bg-red-900/20 text-red-500 hover:bg-red-200',
             storm: isSelected
               ? 'bg-storm dark:bg-foam/80 text-white dark:text-storm'
-              : 'bg-storm/10 text-storm/70 dark:text-foam/70 hover:bg-storm/20',
+              : 'bg-gray-100 text-storm-light dark:text-dark-text-secondary hover:bg-gray-200',
           };
 
           return (
@@ -102,7 +102,7 @@ export function VoteButtons({
       </div>
 
       {currentVote && (
-        <p className="text-center text-sm text-storm/50 dark:text-foam/50">
+        <p className="text-center text-sm text-storm-light dark:text-dark-text-secondary">
           You voted: <span className="font-medium capitalize">{currentVote}</span>
         </p>
       )}

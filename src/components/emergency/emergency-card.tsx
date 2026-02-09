@@ -61,7 +61,7 @@ export function EmergencyCard({ emergency, featured }: EmergencyCardProps) {
     <Link href={`/emergency/${emergency.slug}`}>
       <motion.div
         whileHover={{ y: -4 }}
-        className={`bg-white dark:bg-storm/20 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all ${
+        className={`bg-white dark:bg-dark-border/50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all ${
           featured ? 'border-2 border-red-500/30' : ''
         }`}
       >
@@ -78,7 +78,7 @@ export function EmergencyCard({ emergency, featured }: EmergencyCardProps) {
               <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${getTypeColor()}`}>
                 {getTypeLabel()}
               </span>
-              <h3 className="font-semibold text-lg text-storm dark:text-foam mt-2">
+              <h3 className="font-semibold text-lg text-storm dark:text-dark-text mt-2">
                 {emergency.title}
               </h3>
             </div>
@@ -90,13 +90,13 @@ export function EmergencyCard({ emergency, featured }: EmergencyCardProps) {
           </div>
 
           {emergency.location && (
-            <div className="flex items-center gap-1 text-sm text-storm/60 dark:text-foam/60 mb-3">
+            <div className="flex items-center gap-1 text-sm text-storm-light dark:text-dark-text-secondary mb-3">
               <MapPin className="w-4 h-4" />
               {emergency.location}
             </div>
           )}
 
-          <p className="text-sm text-storm/60 dark:text-foam/60 mb-4 line-clamp-2">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-4 line-clamp-2">
             {emergency.description}
           </p>
 
@@ -107,11 +107,11 @@ export function EmergencyCard({ emergency, featured }: EmergencyCardProps) {
                 <span className="font-medium text-teal">
                   ${emergency.currentAmount.toLocaleString()}
                 </span>
-                <span className="text-storm/50 dark:text-foam/50">
+                <span className="text-storm-light dark:text-dark-text-secondary">
                   of ${emergency.targetAmount.toLocaleString()}
                 </span>
               </div>
-              <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${progress}%` }}
@@ -122,7 +122,7 @@ export function EmergencyCard({ emergency, featured }: EmergencyCardProps) {
           )}
 
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4 text-sm text-storm/50 dark:text-foam/50">
+            <div className="flex items-center gap-4 text-sm text-storm-light dark:text-dark-text-secondary">
               <span className="flex items-center gap-1">
                 <Users className="w-4 h-4" />
                 {emergency.backerCount} donors

@@ -50,7 +50,7 @@ export function ReportCard({ report, onDownload }: ReportCardProps) {
       case 'annual':
         return 'bg-gold/10 text-gold';
       default:
-        return 'bg-storm/10 text-storm/70';
+        return 'bg-gray-100 text-storm/70';
     }
   };
 
@@ -58,7 +58,7 @@ export function ReportCard({ report, onDownload }: ReportCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-storm/20 rounded-xl p-4 shadow-sm border border-storm/10 flex items-center justify-between"
+      className="bg-white dark:bg-dark-border/50 rounded-xl p-4 shadow-sm border border-gray-200 flex items-center justify-between"
     >
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 bg-ocean/10 dark:bg-sky/10 rounded-lg flex items-center justify-center">
@@ -68,13 +68,13 @@ export function ReportCard({ report, onDownload }: ReportCardProps) {
           <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getTypeColor(report.type)}`}>
             {getTypeLabel(report.type)}
           </span>
-          <div className="flex items-center gap-2 mt-1 text-sm text-storm/60 dark:text-foam/60">
+          <div className="flex items-center gap-2 mt-1 text-sm text-storm-light dark:text-dark-text-secondary">
             <Calendar className="w-4 h-4" />
             <span>
               {formatDate(report.startDate)} - {formatDate(report.endDate)}
             </span>
           </div>
-          <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+          <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
             Generated {formatDate(report.generatedAt)}
           </p>
         </div>

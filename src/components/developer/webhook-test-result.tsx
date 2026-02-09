@@ -25,7 +25,7 @@ export function WebhookTestResult({ result, onClose }: WebhookTestResultProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="fixed bottom-4 right-4 w-96 bg-white dark:bg-storm border border-storm/20 rounded-xl shadow-xl overflow-hidden z-50"
+        className="fixed bottom-4 right-4 w-96 bg-white dark:bg-dark-elevated border border-gray-200 rounded-xl shadow-xl overflow-hidden z-50"
       >
         <div className={`px-4 py-3 ${result.success ? 'bg-teal/10' : 'bg-red-50'}`}>
           <div className="flex items-center justify-between">
@@ -80,7 +80,7 @@ export function WebhookTestResult({ result, onClose }: WebhookTestResultProps) {
           {result.responseBody && (
             <div>
               <span className="text-xs text-storm/60">Response:</span>
-              <pre className="mt-1 p-2 bg-storm/5 rounded text-xs font-mono overflow-x-auto max-h-32">
+              <pre className="mt-1 p-2 bg-gray-50 rounded text-xs font-mono overflow-x-auto max-h-32">
                 {result.responseBody}
               </pre>
             </div>

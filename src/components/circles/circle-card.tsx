@@ -39,7 +39,7 @@ export function CircleCard({ circle }: CircleCardProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ y: -4 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6 border border-storm/10 hover:shadow-lg transition-shadow cursor-pointer h-full"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer h-full"
       >
         {/* Header */}
         <div className="flex items-start gap-4 mb-4">
@@ -60,10 +60,10 @@ export function CircleCard({ circle }: CircleCardProps) {
                 {circle.name}
               </h3>
               {circle.isPrivate && (
-                <Lock className="w-4 h-4 text-storm/50 dark:text-foam/50 flex-shrink-0" />
+                <Lock className="w-4 h-4 text-storm-light dark:text-dark-text-secondary flex-shrink-0" />
               )}
             </div>
-            <p className="text-sm text-storm/60 dark:text-foam/60 line-clamp-2">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-2">
               {circle.description || 'A giving circle'}
             </p>
           </div>
@@ -76,21 +76,21 @@ export function CircleCard({ circle }: CircleCardProps) {
               <Users className="w-4 h-4" />
               <span className="font-semibold">{memberCount}</span>
             </div>
-            <p className="text-xs text-storm/50 dark:text-foam/50">Members</p>
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">Members</p>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 text-ocean dark:text-sky">
               <DollarSign className="w-4 h-4" />
               <span className="font-semibold">{formatCurrency(circle.pooledBalance)}</span>
             </div>
-            <p className="text-xs text-storm/50 dark:text-foam/50">Pool</p>
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">Pool</p>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 text-gold">
               <Target className="w-4 h-4" />
               <span className="font-semibold">{formatCurrency(circle.totalDeployed)}</span>
             </div>
-            <p className="text-xs text-storm/50 dark:text-foam/50">Deployed</p>
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">Deployed</p>
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export function CircleCard({ circle }: CircleCardProps) {
               {circle.members.slice(0, 5).map((member, index) => (
                 <div
                   key={member.user.id}
-                  className="w-8 h-8 rounded-full border-2 border-white dark:border-storm bg-storm/10 flex items-center justify-center overflow-hidden"
+                  className="w-8 h-8 rounded-full border-2 border-white dark:border-storm bg-gray-100 flex items-center justify-center overflow-hidden"
                   style={{ zIndex: 5 - index }}
                 >
                   {member.user.avatarUrl ? (
@@ -111,7 +111,7 @@ export function CircleCard({ circle }: CircleCardProps) {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="text-xs font-medium text-storm/70 dark:text-foam/70">
+                    <span className="text-xs font-medium text-storm-light dark:text-dark-text-secondary">
                       {member.user.name.charAt(0).toUpperCase()}
                     </span>
                   )}
@@ -119,7 +119,7 @@ export function CircleCard({ circle }: CircleCardProps) {
               ))}
             </div>
             {memberCount > 5 && (
-              <span className="ml-2 text-sm text-storm/50 dark:text-foam/50">
+              <span className="ml-2 text-sm text-storm-light dark:text-dark-text-secondary">
                 +{memberCount - 5} more
               </span>
             )}

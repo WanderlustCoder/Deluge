@@ -58,10 +58,10 @@ export default function BlockchainAdminPage() {
     return (
       <div className="p-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-10 bg-storm/20 rounded w-1/3" />
+          <div className="h-10 bg-gray-200 rounded w-1/3" />
           <div className="grid sm:grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-28 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-28 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -73,10 +73,10 @@ export default function BlockchainAdminPage() {
     <div className="p-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-storm dark:text-foam">
+        <h1 className="text-3xl font-bold text-storm dark:text-dark-text">
           Blockchain Transparency
         </h1>
-        <p className="text-storm/70 dark:text-foam/70 mt-2">
+        <p className="text-storm-light dark:text-dark-text-secondary mt-2">
           Monitor blockchain anchoring and verification systems
         </p>
       </div>
@@ -84,38 +84,38 @@ export default function BlockchainAdminPage() {
       {/* Stats */}
       {stats && (
         <div className="grid sm:grid-cols-4 gap-4 mb-8">
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Total Records</p>
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Total Records</p>
             <p className="text-3xl font-bold text-ocean dark:text-sky">
               {stats.totalRecords.toLocaleString()}
             </p>
           </div>
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Anchored</p>
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Anchored</p>
             <p className="text-3xl font-bold text-teal">
               {stats.anchoredRecords.toLocaleString()}
             </p>
-            <p className="text-xs text-storm/40 dark:text-foam/40 mt-1">
+            <p className="text-xs text-storm/40 dark:text-dark-text/40 mt-1">
               {stats.totalRecords > 0
                 ? `${((stats.anchoredRecords / stats.totalRecords) * 100).toFixed(1)}%`
                 : '0%'}
             </p>
           </div>
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Pending</p>
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Pending</p>
             <p className="text-3xl font-bold text-gold">
               {stats.pendingRecords.toLocaleString()}
             </p>
-            <p className="text-xs text-storm/40 dark:text-foam/40 mt-1">
+            <p className="text-xs text-storm/40 dark:text-dark-text/40 mt-1">
               Awaiting anchor
             </p>
           </div>
-          <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-sm text-storm/50 dark:text-foam/50 mb-1">Failed</p>
+          <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-1">Failed</p>
             <p className="text-3xl font-bold text-red-500">
               {stats.failedRecords.toLocaleString()}
             </p>
-            <p className="text-xs text-storm/40 dark:text-foam/40 mt-1">
+            <p className="text-xs text-storm/40 dark:text-dark-text/40 mt-1">
               Need retry
             </p>
           </div>
@@ -133,7 +133,7 @@ export default function BlockchainAdminPage() {
 
       {/* Chain Status */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+        <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
           Chain Status
         </h2>
         <div className="grid sm:grid-cols-3 gap-4">
@@ -160,12 +160,12 @@ export default function BlockchainAdminPage() {
 
       {/* Recent Anchors */}
       <div className="mb-8">
-        <h2 className="text-xl font-semibold text-storm dark:text-foam mb-4">
+        <h2 className="text-xl font-semibold text-storm dark:text-dark-text mb-4">
           Recent Anchors
         </h2>
         {recentAnchors.length === 0 ? (
-          <div className="p-8 bg-white dark:bg-storm/30 rounded-xl text-center">
-            <p className="text-storm/60 dark:text-foam/60">
+          <div className="p-8 bg-white dark:bg-dark-elevated rounded-xl text-center">
+            <p className="text-storm-light dark:text-dark-text-secondary">
               No anchors yet. Records will be batched and anchored periodically.
             </p>
           </div>
@@ -173,23 +173,23 @@ export default function BlockchainAdminPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-storm/10 dark:border-storm/30">
-                  <th className="text-left py-3 px-4 text-sm font-medium text-storm/50 dark:text-foam/50">
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                     Chain
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-storm/50 dark:text-foam/50">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                     Records
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-storm/50 dark:text-foam/50">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                     TX Hash
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-storm/50 dark:text-foam/50">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                     Status
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-storm/50 dark:text-foam/50">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                     Cost
                   </th>
-                  <th className="text-left py-3 px-4 text-sm font-medium text-storm/50 dark:text-foam/50">
+                  <th className="text-left py-3 px-4 text-sm font-medium text-storm-light dark:text-dark-text-secondary">
                     Time
                   </th>
                 </tr>
@@ -198,16 +198,16 @@ export default function BlockchainAdminPage() {
                 {recentAnchors.map((anchor) => (
                   <tr
                     key={anchor.id}
-                    className="border-b border-storm/5 dark:border-storm/20"
+                    className="border-b border-storm/5 dark:border-gray-200"
                   >
-                    <td className="py-3 px-4 text-storm dark:text-foam capitalize">
+                    <td className="py-3 px-4 text-storm dark:text-dark-text capitalize">
                       {anchor.chain}
                     </td>
-                    <td className="py-3 px-4 text-storm dark:text-foam">
+                    <td className="py-3 px-4 text-storm dark:text-dark-text">
                       {anchor.recordCount}
                     </td>
                     <td className="py-3 px-4">
-                      <code className="text-xs text-storm/70 dark:text-foam/70">
+                      <code className="text-xs text-storm-light dark:text-dark-text-secondary">
                         {anchor.txHash.slice(0, 16)}...
                       </code>
                     </td>
@@ -224,10 +224,10 @@ export default function BlockchainAdminPage() {
                         {anchor.status}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-storm/60 dark:text-foam/60">
+                    <td className="py-3 px-4 text-storm-light dark:text-dark-text-secondary">
                       {anchor.costUsd ? `$${anchor.costUsd.toFixed(4)}` : '-'}
                     </td>
-                    <td className="py-3 px-4 text-storm/60 dark:text-foam/60 text-sm">
+                    <td className="py-3 px-4 text-storm-light dark:text-dark-text-secondary text-sm">
                       {new Date(anchor.confirmedAt).toLocaleString()}
                     </td>
                   </tr>
@@ -249,7 +249,7 @@ export default function BlockchainAdminPage() {
         </motion.button>
         <Link
           href="/admin/blockchain/costs"
-          className="px-6 py-3 bg-storm/10 dark:bg-storm/30 text-storm dark:text-foam rounded-lg font-medium hover:bg-storm/20"
+          className="px-6 py-3 bg-gray-100 text-storm dark:text-dark-text rounded-lg font-medium hover:bg-gray-200"
         >
           View Cost Analysis
         </Link>
@@ -277,26 +277,26 @@ function ChainCard({
 }) {
   const statusColors = {
     active: 'bg-teal/10 text-teal',
-    inactive: 'bg-storm/20 text-storm/60',
+    inactive: 'bg-gray-200 text-storm/60',
     error: 'bg-red-100 text-red-600',
   };
 
   return (
-    <div className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
+    <div className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-storm dark:text-foam">{name}</h3>
+        <h3 className="font-semibold text-storm dark:text-dark-text">{name}</h3>
         <span className={`px-2 py-1 rounded text-xs ${statusColors[status]}`}>
           {status}
         </span>
       </div>
       <div className="space-y-2">
         <div className="flex justify-between text-sm">
-          <span className="text-storm/50 dark:text-foam/50">Cost/Anchor</span>
-          <span className="text-storm dark:text-foam">{costPerAnchor}</span>
+          <span className="text-storm-light dark:text-dark-text-secondary">Cost/Anchor</span>
+          <span className="text-storm dark:text-dark-text">{costPerAnchor}</span>
         </div>
         <div className="flex justify-between text-sm">
-          <span className="text-storm/50 dark:text-foam/50">Block</span>
-          <span className="text-storm dark:text-foam">{lastBlock}</span>
+          <span className="text-storm-light dark:text-dark-text-secondary">Block</span>
+          <span className="text-storm dark:text-dark-text">{lastBlock}</span>
         </div>
       </div>
     </div>

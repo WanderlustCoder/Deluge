@@ -53,7 +53,7 @@ export function VolunteerStats({ stats }: VolunteerStatsProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
-          className="bg-white dark:bg-storm/20 rounded-xl p-4 shadow-sm border border-storm/10"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-4 shadow-sm border border-gray-200"
         >
           <div className={`w-10 h-10 ${item.bgColor} rounded-lg flex items-center justify-center mb-3`}>
             <item.icon className={`w-5 h-5 ${item.color}`} />
@@ -61,7 +61,7 @@ export function VolunteerStats({ stats }: VolunteerStatsProps) {
           <p className="text-2xl font-bold text-ocean dark:text-sky">
             {item.value}
           </p>
-          <p className="text-sm text-storm/60 dark:text-foam/60">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
             {item.label}
           </p>
         </motion.div>

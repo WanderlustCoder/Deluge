@@ -75,11 +75,11 @@ export default function CorporateDashboardPage({
           {[1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className="bg-white dark:bg-storm/20 rounded-xl p-4 animate-pulse"
+              className="bg-white dark:bg-dark-border/50 rounded-xl p-4 animate-pulse"
             >
-              <div className="w-10 h-10 bg-storm/10 rounded-lg mb-3" />
-              <div className="h-8 bg-storm/10 rounded w-1/2 mb-2" />
-              <div className="h-4 bg-storm/10 rounded w-2/3" />
+              <div className="w-10 h-10 bg-gray-100 rounded-lg mb-3" />
+              <div className="h-8 bg-gray-100 rounded w-1/2 mb-2" />
+              <div className="h-4 bg-gray-100 rounded w-2/3" />
             </div>
           ))}
         </div>
@@ -112,8 +112,8 @@ export default function CorporateDashboardPage({
         </div>
 
         {campaigns.length === 0 ? (
-          <div className="bg-white dark:bg-storm/20 rounded-xl p-8 text-center">
-            <p className="text-storm/60 dark:text-foam/60 mb-4">
+          <div className="bg-white dark:bg-dark-border/50 rounded-xl p-8 text-center">
+            <p className="text-storm-light dark:text-dark-text-secondary mb-4">
               No active campaigns
             </p>
             <Link
@@ -142,36 +142,36 @@ export default function CorporateDashboardPage({
       >
         <Link
           href={`/corporate/${slug}/employees`}
-          className="bg-white dark:bg-storm/20 rounded-xl p-6 border border-storm/10 hover:shadow-md transition-shadow"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow"
         >
           <h3 className="font-semibold text-ocean dark:text-sky mb-2">
             Manage Employees
           </h3>
-          <p className="text-sm text-storm/60 dark:text-foam/60">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
             Invite employees and manage permissions
           </p>
         </Link>
 
         <Link
           href={`/corporate/${slug}/campaigns/new`}
-          className="bg-white dark:bg-storm/20 rounded-xl p-6 border border-storm/10 hover:shadow-md transition-shadow"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow"
         >
           <h3 className="font-semibold text-ocean dark:text-sky mb-2">
             Launch Campaign
           </h3>
-          <p className="text-sm text-storm/60 dark:text-foam/60">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
             Create a giving campaign for your team
           </p>
         </Link>
 
         <Link
           href={`/corporate/${slug}/reports`}
-          className="bg-white dark:bg-storm/20 rounded-xl p-6 border border-storm/10 hover:shadow-md transition-shadow"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow"
         >
           <h3 className="font-semibold text-ocean dark:text-sky mb-2">
             View Reports
           </h3>
-          <p className="text-sm text-storm/60 dark:text-foam/60">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
             Generate ESG and impact reports
           </p>
         </Link>

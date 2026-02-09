@@ -161,8 +161,8 @@ export default function SupportGroupDetailPage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-storm/20 rounded w-1/3" />
-          <div className="h-48 bg-storm/20 rounded" />
+          <div className="h-8 bg-gray-200 rounded w-1/3" />
+          <div className="h-48 bg-gray-200 rounded" />
         </div>
       </div>
     );
@@ -171,7 +171,7 @@ export default function SupportGroupDetailPage() {
   if (!group) {
     return (
       <div className="max-w-4xl mx-auto p-6 text-center">
-        <p className="text-storm/60 dark:text-foam/60">Group not found</p>
+        <p className="text-storm-light dark:text-dark-text-secondary">Group not found</p>
         <Link href="/support-groups" className="text-ocean hover:underline mt-2 inline-block">
           Back to groups
         </Link>
@@ -184,16 +184,16 @@ export default function SupportGroupDetailPage() {
       {/* Header */}
       <Link
         href="/support-groups"
-        className="text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky inline-block mb-4"
+        className="text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky inline-block mb-4"
       >
         ← Back to Groups
       </Link>
 
-      <div className="bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40 p-6 mb-6">
+      <div className="bg-white dark:bg-dark-elevated rounded-xl border border-gray-200 p-6 mb-6">
         <div className="flex items-start justify-between mb-4">
           <div>
             <h1 className="text-2xl font-bold text-ocean dark:text-sky">{group.name}</h1>
-            <p className="text-sm text-storm/60 dark:text-foam/60 mt-1 capitalize">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1 capitalize">
               {group.type.replace('_', ' ')} • {group._count.members}/{group.maxMembers} members
             </p>
           </div>
@@ -208,14 +208,14 @@ export default function SupportGroupDetailPage() {
           ) : (
             <button
               onClick={handleLeave}
-              className="px-4 py-2 border border-storm/20 dark:border-storm/40 text-storm dark:text-foam rounded-lg hover:bg-storm/5"
+              className="px-4 py-2 border border-gray-200 text-storm dark:text-dark-text rounded-lg hover:bg-gray-50"
             >
               Leave Group
             </button>
           )}
         </div>
 
-        <p className="text-storm/80 dark:text-foam/80">{group.description}</p>
+        <p className="text-storm-light dark:text-dark-text-secondary">{group.description}</p>
 
         {group.meetingSchedule && (
           <p className="text-sm text-teal mt-3">Schedule: {group.meetingSchedule}</p>
@@ -236,11 +236,11 @@ export default function SupportGroupDetailPage() {
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-storm dark:text-foam">
+                    <p className="font-medium text-storm dark:text-dark-text">
                       {meeting.title || 'Group Meeting'}
                     </p>
                     {meeting.topic && (
-                      <p className="text-sm text-storm/60 dark:text-foam/60">{meeting.topic}</p>
+                      <p className="text-sm text-storm-light dark:text-dark-text-secondary">{meeting.topic}</p>
                     )}
                   </div>
                   <p className="text-sm text-teal">
@@ -270,7 +270,7 @@ export default function SupportGroupDetailPage() {
               value={newPost}
               onChange={e => setNewPost(e.target.value)}
               placeholder="Share something with the group..."
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text resize-none"
               rows={3}
             />
             <div className="flex justify-end mt-2">
@@ -287,7 +287,7 @@ export default function SupportGroupDetailPage() {
 
         {/* Posts List */}
         {posts.length === 0 ? (
-          <div className="text-center py-8 text-storm/60 dark:text-foam/60">
+          <div className="text-center py-8 text-storm-light dark:text-dark-text-secondary">
             No posts yet. Start the conversation!
           </div>
         ) : (
@@ -297,25 +297,25 @@ export default function SupportGroupDetailPage() {
                 key={post.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={`p-4 rounded-lg bg-white dark:bg-storm/30 border border-storm/10 dark:border-storm/40 ${
+                className={`p-4 rounded-lg bg-white dark:bg-dark-elevated border border-gray-200 ${
                   post.isPinned ? 'ring-2 ring-gold' : ''
                 }`}
               >
                 {post.isPinned && (
                   <span className="text-xs text-gold mb-2 block">Pinned</span>
                 )}
-                <p className="text-storm dark:text-foam whitespace-pre-wrap">{post.content}</p>
-                <p className="text-xs text-storm/50 dark:text-foam/50 mt-2">
+                <p className="text-storm dark:text-dark-text whitespace-pre-wrap">{post.content}</p>
+                <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-2">
                   {new Date(post.createdAt).toLocaleDateString()}
                   {post._count.replies > 0 && ` • ${post._count.replies} replies`}
                 </p>
 
                 {/* Preview replies */}
                 {post.replies.length > 0 && (
-                  <div className="mt-3 pl-4 border-l-2 border-storm/10 dark:border-storm/40 space-y-2">
+                  <div className="mt-3 pl-4 border-l-2 border-gray-200 space-y-2">
                     {post.replies.map(reply => (
                       <div key={reply.id} className="text-sm">
-                        <p className="text-storm/80 dark:text-foam/80">{reply.content}</p>
+                        <p className="text-storm-light dark:text-dark-text-secondary">{reply.content}</p>
                       </div>
                     ))}
                   </div>

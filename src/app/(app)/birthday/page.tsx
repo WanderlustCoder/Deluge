@@ -64,7 +64,7 @@ export default function BirthdayPage() {
             <h1 className="text-2xl font-bold text-ocean dark:text-sky">
               Birthday Fundraisers
             </h1>
-            <p className="text-storm/60 dark:text-foam/60">
+            <p className="text-storm-light dark:text-dark-text-secondary">
               Turn your birthday into a giving celebration
             </p>
           </div>
@@ -81,10 +81,10 @@ export default function BirthdayPage() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="bg-white dark:bg-storm/20 rounded-xl p-6 animate-pulse">
-              <div className="h-6 bg-storm/10 rounded w-1/3 mb-4" />
-              <div className="h-4 bg-storm/10 rounded w-full mb-2" />
-              <div className="h-4 bg-storm/10 rounded w-2/3" />
+            <div key={i} className="bg-white dark:bg-dark-border/50 rounded-xl p-6 animate-pulse">
+              <div className="h-6 bg-gray-100 rounded w-1/3 mb-4" />
+              <div className="h-4 bg-gray-100 rounded w-full mb-2" />
+              <div className="h-4 bg-gray-100 rounded w-2/3" />
             </div>
           ))}
         </div>
@@ -92,15 +92,15 @@ export default function BirthdayPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-storm/20 rounded-xl p-12 text-center"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-12 text-center"
         >
           <div className="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Cake className="w-8 h-8 text-gold" />
           </div>
-          <h3 className="text-lg font-medium text-storm dark:text-foam mb-2">
+          <h3 className="text-lg font-medium text-storm dark:text-dark-text mb-2">
             No Fundraisers Yet
           </h3>
-          <p className="text-storm/60 dark:text-foam/60 max-w-md mx-auto mb-6">
+          <p className="text-storm-light dark:text-dark-text-secondary max-w-md mx-auto mb-6">
             Create your first birthday fundraiser and invite friends to
             celebrate by giving to causes you care about.
           </p>
@@ -122,7 +122,7 @@ export default function BirthdayPage() {
               transition={{ delay: 0.1 }}
               className="mb-8"
             >
-              <h2 className="text-lg font-semibold text-storm dark:text-foam mb-4">
+              <h2 className="text-lg font-semibold text-storm dark:text-dark-text mb-4">
                 Active Fundraisers
               </h2>
               <div className="space-y-4">
@@ -140,7 +140,7 @@ export default function BirthdayPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <h2 className="text-lg font-semibold text-storm/60 dark:text-foam/60 mb-4">
+              <h2 className="text-lg font-semibold text-storm-light dark:text-dark-text-secondary mb-4">
                 Past Fundraisers
               </h2>
               <div className="space-y-4">
@@ -165,9 +165,9 @@ export default function BirthdayPage() {
         className="mt-12 bg-gold/5 rounded-xl p-6"
       >
         <h3 className="font-semibold text-gold mb-4">How Birthday Fundraising Works</h3>
-        <div className="grid md:grid-cols-3 gap-6 text-sm text-storm/70 dark:text-foam/70">
+        <div className="grid md:grid-cols-3 gap-6 text-sm text-storm-light dark:text-dark-text-secondary">
           <div>
-            <h4 className="font-medium text-storm dark:text-foam mb-1">
+            <h4 className="font-medium text-storm dark:text-dark-text mb-1">
               1. Create Your Fundraiser
             </h4>
             <p>
@@ -176,7 +176,7 @@ export default function BirthdayPage() {
             </p>
           </div>
           <div>
-            <h4 className="font-medium text-storm dark:text-foam mb-1">
+            <h4 className="font-medium text-storm dark:text-dark-text mb-1">
               2. Share with Friends
             </h4>
             <p>
@@ -185,7 +185,7 @@ export default function BirthdayPage() {
             </p>
           </div>
           <div>
-            <h4 className="font-medium text-storm dark:text-foam mb-1">
+            <h4 className="font-medium text-storm dark:text-dark-text mb-1">
               3. Watch the Impact
             </h4>
             <p>
@@ -224,20 +224,20 @@ function FundraiserCard({
 
   return (
     <div
-      className={`bg-white dark:bg-storm/20 rounded-xl p-6 ${
+      className={`bg-white dark:bg-dark-border/50 rounded-xl p-6 ${
         muted ? 'opacity-60' : ''
       }`}
     >
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
         <div className="flex-1">
-          <h3 className="font-semibold text-storm dark:text-foam mb-1">
+          <h3 className="font-semibold text-storm dark:text-dark-text mb-1">
             {fundraiser.title}
           </h3>
-          <p className="text-sm text-storm/60 dark:text-foam/60 mb-3">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-3">
             {fundraiser.description}
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs text-storm/50 dark:text-foam/50">
+          <div className="flex flex-wrap items-center gap-4 text-xs text-storm-light dark:text-dark-text-secondary">
             <span className="flex items-center gap-1">
               <Calendar className="w-3 h-3" />
               {format(new Date(fundraiser.birthdayDate), 'MMMM d, yyyy')}
@@ -262,7 +262,7 @@ function FundraiserCard({
             <p className="font-semibold text-teal">
               ${fundraiser.currentAmount.toFixed(2)}
             </p>
-            <p className="text-xs text-storm/50 dark:text-foam/50">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">
               of ${fundraiser.goalAmount.toFixed(2)}
             </p>
           </div>
@@ -270,7 +270,7 @@ function FundraiserCard({
           {!muted && (
             <button
               onClick={handleShare}
-              className="p-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors"
+              className="p-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors"
             >
               <Share2 className="w-5 h-5" />
             </button>
@@ -280,14 +280,14 @@ function FundraiserCard({
 
       {/* Progress Bar */}
       <div className="mt-4">
-        <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min(100, progress)}%` }}
             className="h-full bg-teal rounded-full"
           />
         </div>
-        <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+        <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
           {progress.toFixed(0)}% of goal reached
         </p>
       </div>

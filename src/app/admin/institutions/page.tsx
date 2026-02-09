@@ -47,7 +47,7 @@ const STATUS_COLORS: Record<string, string> = {
   active: 'bg-teal/10 text-teal',
   pending: 'bg-gold/10 text-gold',
   suspended: 'bg-red-100 text-red-600',
-  expired: 'bg-storm/10 text-storm/60',
+  expired: 'bg-gray-100 text-storm/60',
 };
 
 export default function InstitutionsAdminPage() {
@@ -113,7 +113,7 @@ export default function InstitutionsAdminPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search institutions..."
-            className="w-full pl-10 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
           />
         </div>
 
@@ -125,7 +125,7 @@ export default function InstitutionsAdminPage() {
               className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 statusFilter === status
                   ? 'bg-ocean text-white'
-                  : 'bg-storm/10 text-storm/70 hover:bg-storm/20'
+                  : 'bg-gray-100 text-storm/70 hover:bg-gray-200'
               }`}
             >
               {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -142,7 +142,7 @@ export default function InstitutionsAdminPage() {
           { label: 'Pending', count: institutions.filter((i) => i.status === 'pending').length, color: 'bg-gold' },
           { label: 'MRR', value: `$${institutions.reduce((sum, i) => sum + (i.monthlyFee || 0), 0).toLocaleString()}`, color: 'bg-sky' },
         ].map((stat, i) => (
-          <div key={i} className="bg-white border border-storm/10 rounded-xl p-4">
+          <div key={i} className="bg-white border border-gray-200 rounded-xl p-4">
             <div className={`w-10 h-10 ${stat.color}/10 rounded-lg flex items-center justify-center mb-2`}>
               <Building2 className={`w-5 h-5 ${stat.color.replace('bg-', 'text-')}`} />
             </div>
@@ -158,7 +158,7 @@ export default function InstitutionsAdminPage() {
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
         </div>
       ) : filteredInstitutions.length === 0 ? (
-        <div className="text-center py-12 bg-white border border-storm/10 rounded-xl">
+        <div className="text-center py-12 bg-white border border-gray-200 rounded-xl">
           <Building2 className="w-12 h-12 text-storm/30 mx-auto mb-4" />
           <h2 className="text-lg font-medium mb-2">No institutions found</h2>
           <p className="text-storm/60 mb-4">
@@ -173,9 +173,9 @@ export default function InstitutionsAdminPage() {
           </button>
         </div>
       ) : (
-        <div className="bg-white border border-storm/10 rounded-xl overflow-hidden">
+        <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
           <table className="w-full">
-            <thead className="bg-storm/5 border-b border-storm/10">
+            <thead className="bg-gray-50 border-b border-gray-200">
               <tr>
                 <th className="text-left px-4 py-3 text-sm font-medium text-storm/70">Institution</th>
                 <th className="text-left px-4 py-3 text-sm font-medium text-storm/70">Type</th>
@@ -186,11 +186,11 @@ export default function InstitutionsAdminPage() {
                 <th className="text-left px-4 py-3 text-sm font-medium text-storm/70"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-storm/10">
+            <tbody className="divide-y divide-gray-200">
               {filteredInstitutions.map((institution) => {
                 const TypeIcon = TYPE_ICONS[institution.type] || Building2;
                 return (
-                  <tr key={institution.id} className="hover:bg-storm/5">
+                  <tr key={institution.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <div
@@ -309,7 +309,7 @@ function CreateInstitutionModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-storm/10">
+        <div className="p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold">New Institutional Partnership</h2>
         </div>
 
@@ -321,7 +321,7 @@ function CreateInstitutionModal({
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="e.g., City of Boise"
-              className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
               required
             />
           </div>
@@ -334,10 +334,10 @@ function CreateInstitutionModal({
                 value={formData.slug}
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') })}
                 placeholder="boise"
-                className="flex-1 px-4 py-2 border border-storm/20 rounded-l-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+                className="flex-1 px-4 py-2 border border-gray-200 rounded-l-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
                 required
               />
-              <span className="px-4 py-2 bg-storm/10 border border-l-0 border-storm/20 rounded-r-lg text-storm/60">
+              <span className="px-4 py-2 bg-gray-100 border border-l-0 border-gray-200 rounded-r-lg text-storm/60">
                 .deluge.fund
               </span>
             </div>
@@ -349,7 +349,7 @@ function CreateInstitutionModal({
               <select
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
               >
                 <option value="city">City/Government</option>
                 <option value="university">University</option>
@@ -364,7 +364,7 @@ function CreateInstitutionModal({
               <select
                 value={formData.tier}
                 onChange={(e) => setFormData({ ...formData, tier: e.target.value })}
-                className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
               >
                 <option value="standard">Standard ($500/mo)</option>
                 <option value="premium">Premium ($2K/mo)</option>
@@ -380,7 +380,7 @@ function CreateInstitutionModal({
               value={formData.adminEmail}
               onChange={(e) => setFormData({ ...formData, adminEmail: e.target.value })}
               placeholder="admin@institution.gov"
-              className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
               required
             />
           </div>
@@ -392,7 +392,7 @@ function CreateInstitutionModal({
                 type="date"
                 value={formData.contractStart}
                 onChange={(e) => setFormData({ ...formData, contractStart: e.target.value })}
-                className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
                 required
               />
             </div>
@@ -406,7 +406,7 @@ function CreateInstitutionModal({
                   value={formData.monthlyFee}
                   onChange={(e) => setFormData({ ...formData, monthlyFee: e.target.value })}
                   placeholder="500"
-                  className="w-full pl-8 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
+                  className="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
                 />
               </div>
             </div>
@@ -419,7 +419,7 @@ function CreateInstitutionModal({
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               placeholder="Brief description of the partnership..."
               rows={3}
-              className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none"
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none"
             />
           </div>
 
@@ -427,7 +427,7 @@ function CreateInstitutionModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-storm/20 rounded-lg hover:bg-storm/5"
+              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50"
             >
               Cancel
             </button>

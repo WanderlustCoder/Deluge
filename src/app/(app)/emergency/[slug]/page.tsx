@@ -96,9 +96,9 @@ export default function EmergencyDetailPage({
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-8 bg-storm/10 rounded w-1/4" />
-          <div className="h-48 bg-storm/10 rounded-xl" />
-          <div className="h-32 bg-storm/10 rounded-xl" />
+          <div className="h-8 bg-gray-100 rounded w-1/4" />
+          <div className="h-48 bg-gray-100 rounded-xl" />
+          <div className="h-32 bg-gray-100 rounded-xl" />
         </div>
       </div>
     );
@@ -107,7 +107,7 @@ export default function EmergencyDetailPage({
   if (!emergency) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 text-center">
-        <p className="text-storm/60 dark:text-foam/60">Emergency campaign not found</p>
+        <p className="text-storm-light dark:text-dark-text-secondary">Emergency campaign not found</p>
         <Link
           href="/emergency"
           className="inline-flex items-center gap-2 mt-4 text-ocean dark:text-sky hover:underline"
@@ -129,7 +129,7 @@ export default function EmergencyDetailPage({
       {/* Back Link */}
       <Link
         href="/emergency"
-        className="inline-flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors"
+        className="inline-flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Emergencies
@@ -142,7 +142,7 @@ export default function EmergencyDetailPage({
         className={`rounded-xl p-6 ${
           emergency.priority >= 5
             ? 'bg-gradient-to-r from-red-500 to-orange-500 text-white'
-            : 'bg-white dark:bg-storm/20'
+            : 'bg-white dark:bg-dark-border/50'
         }`}
       >
         {emergency.priority >= 5 && (
@@ -154,7 +154,7 @@ export default function EmergencyDetailPage({
 
         <h1
           className={`text-3xl font-bold mb-2 ${
-            emergency.priority >= 5 ? '' : 'text-storm dark:text-foam'
+            emergency.priority >= 5 ? '' : 'text-storm dark:text-dark-text'
           }`}
         >
           {emergency.title}
@@ -181,7 +181,7 @@ export default function EmergencyDetailPage({
           className={
             emergency.priority >= 5
               ? 'text-white/90'
-              : 'text-storm/70 dark:text-foam/70'
+              : 'text-storm-light dark:text-dark-text-secondary'
           }
         >
           {emergency.description}
@@ -196,14 +196,14 @@ export default function EmergencyDetailPage({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="bg-white dark:bg-storm/20 rounded-xl p-6"
+            className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
           >
-            <h2 className="font-semibold text-lg text-storm dark:text-foam mb-4">
+            <h2 className="font-semibold text-lg text-storm dark:text-dark-text mb-4">
               Updates
             </h2>
 
             {emergency.updates.length === 0 ? (
-              <p className="text-storm/50 dark:text-foam/50 text-center py-4">
+              <p className="text-storm-light dark:text-dark-text-secondary text-center py-4">
                 No updates yet
               </p>
             ) : (
@@ -214,14 +214,14 @@ export default function EmergencyDetailPage({
                     className="border-l-2 border-ocean dark:border-sky pl-4"
                   >
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className="font-medium text-storm dark:text-foam">
+                      <h3 className="font-medium text-storm dark:text-dark-text">
                         {update.title}
                       </h3>
-                      <span className="text-xs text-storm/50 dark:text-foam/50">
+                      <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                         {format(new Date(update.createdAt), 'MMM d, yyyy')}
                       </span>
                     </div>
-                    <p className="text-sm text-storm/70 dark:text-foam/70">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                       {update.content}
                     </p>
                   </div>
@@ -238,9 +238,9 @@ export default function EmergencyDetailPage({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="bg-white dark:bg-storm/20 rounded-xl p-6"
+            className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
           >
-            <h2 className="font-semibold text-lg text-storm dark:text-foam mb-4">
+            <h2 className="font-semibold text-lg text-storm dark:text-dark-text mb-4">
               Donate Now
             </h2>
 
@@ -251,18 +251,18 @@ export default function EmergencyDetailPage({
                   <span className="font-medium text-teal">
                     ${emergency.currentAmount.toLocaleString()}
                   </span>
-                  <span className="text-storm/50 dark:text-foam/50">
+                  <span className="text-storm-light dark:text-dark-text-secondary">
                     of ${emergency.targetAmount.toLocaleString()}
                   </span>
                 </div>
-                <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${progress}%` }}
                     className="h-full bg-teal rounded-full"
                   />
                 </div>
-                <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+                <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
                   {progress.toFixed(0)}% of goal
                 </p>
               </div>
@@ -292,7 +292,7 @@ export default function EmergencyDetailPage({
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder="Enter amount"
-                  className="w-full pl-8 pr-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                  className="w-full pl-8 pr-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                 />
               </div>
 
@@ -302,7 +302,7 @@ export default function EmergencyDetailPage({
                     key={preset}
                     type="button"
                     onClick={() => setAmount(preset.toString())}
-                    className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg text-sm text-storm/70 dark:text-foam/70 hover:border-ocean dark:hover:border-sky hover:text-ocean dark:hover:text-sky transition-colors"
+                    className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg text-sm text-storm-light dark:text-dark-text-secondary hover:border-ocean dark:hover:border-sky hover:text-ocean dark:hover:text-sky transition-colors"
                   >
                     ${preset}
                   </button>

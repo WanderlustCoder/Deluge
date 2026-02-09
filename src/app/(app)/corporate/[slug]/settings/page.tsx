@@ -98,8 +98,8 @@ export default function SettingsPage({
   if (loading || !settings) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-10 bg-storm/10 rounded w-1/4" />
-        <div className="h-96 bg-storm/10 rounded-xl" />
+        <div className="h-10 bg-gray-100 rounded w-1/4" />
+        <div className="h-96 bg-gray-100 rounded-xl" />
       </div>
     );
   }
@@ -126,7 +126,7 @@ export default function SettingsPage({
         <h1 className="text-2xl font-bold text-ocean dark:text-sky">
           Settings
         </h1>
-        <p className="text-storm/60 dark:text-foam/60">
+        <p className="text-storm-light dark:text-dark-text-secondary">
           Manage your corporate account settings
         </p>
       </motion.div>
@@ -148,7 +148,7 @@ export default function SettingsPage({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-6"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-6"
       >
         <div className="flex items-center gap-3 mb-2">
           <Building2 className="w-5 h-5 text-ocean dark:text-sky" />
@@ -157,31 +157,31 @@ export default function SettingsPage({
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Company Name
             </label>
             <input
               type="text"
               value={settings.name}
               onChange={(e) => setSettings({ ...settings, name: e.target.value })}
-              className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Billing Email
             </label>
             <input
               type="email"
               value={settings.billingEmail || ''}
               onChange={(e) => setSettings({ ...settings, billingEmail: e.target.value })}
-              className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+          <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
             Logo URL
           </label>
           <input
@@ -189,7 +189,7 @@ export default function SettingsPage({
             value={settings.logoUrl || ''}
             onChange={(e) => setSettings({ ...settings, logoUrl: e.target.value })}
             placeholder="https://example.com/logo.png"
-            className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+            className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
           />
         </div>
       </motion.div>
@@ -199,7 +199,7 @@ export default function SettingsPage({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-6"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-6"
       >
         <div className="flex items-center gap-3 mb-2">
           <Palette className="w-5 h-5 text-ocean dark:text-sky" />
@@ -208,7 +208,7 @@ export default function SettingsPage({
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Primary Color
             </label>
             <div className="flex items-center gap-3">
@@ -222,12 +222,12 @@ export default function SettingsPage({
                 type="text"
                 value={settings.primaryColor}
                 onChange={(e) => setSettings({ ...settings, primaryColor: e.target.value })}
-                className="flex-1 px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam font-mono text-sm"
+                className="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text font-mono text-sm"
               />
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
               Secondary Color
             </label>
             <div className="flex items-center gap-3">
@@ -242,7 +242,7 @@ export default function SettingsPage({
                 value={settings.secondaryColor || ''}
                 onChange={(e) => setSettings({ ...settings, secondaryColor: e.target.value })}
                 placeholder="#00897B"
-                className="flex-1 px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam font-mono text-sm"
+                className="flex-1 px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text font-mono text-sm"
               />
             </div>
           </div>
@@ -254,7 +254,7 @@ export default function SettingsPage({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6 space-y-6"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6 space-y-6"
       >
         <div className="flex items-center gap-3 mb-2">
           <Gift className="w-5 h-5 text-ocean dark:text-sky" />
@@ -262,7 +262,7 @@ export default function SettingsPage({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+          <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
             Matching Ratio
           </label>
           <div className="flex items-center gap-3">
@@ -275,20 +275,20 @@ export default function SettingsPage({
               onChange={(e) =>
                 setSettings({ ...settings, matchingRatio: parseFloat(e.target.value) || 0 })
               }
-              className="w-24 px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="w-24 px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
             />
-            <span className="text-storm/60 dark:text-foam/60">: 1</span>
+            <span className="text-storm-light dark:text-dark-text-secondary">: 1</span>
           </div>
-          <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+          <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
             For every $1 an employee contributes, you match ${settings.matchingRatio}
           </p>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+          <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
             Eligible Categories
           </label>
-          <p className="text-xs text-storm/50 dark:text-foam/50 mb-3">
+          <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-3">
             Select which project categories are eligible for matching. Leave empty for all categories.
           </p>
           <div className="flex flex-wrap gap-2">
@@ -306,7 +306,7 @@ export default function SettingsPage({
                 className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   settings.matchingCategories.includes(category)
                     ? 'bg-ocean dark:bg-sky text-white'
-                    : 'bg-storm/10 dark:bg-foam/10 text-storm/70 dark:text-foam/70 hover:bg-storm/20'
+                    : 'bg-gray-100 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary hover:bg-gray-200'
                 }`}
               >
                 {category}

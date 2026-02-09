@@ -84,19 +84,19 @@ export function ContributeModal({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="relative bg-white dark:bg-storm rounded-xl p-6 max-w-md w-full shadow-xl"
+            className="relative bg-white dark:bg-dark-elevated rounded-xl p-6 max-w-md w-full shadow-xl"
           >
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 p-1 rounded-lg hover:bg-storm/10 dark:hover:bg-foam/10"
+              className="absolute right-4 top-4 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-foam/10"
             >
-              <X className="w-5 h-5 text-storm/50 dark:text-foam/50" />
+              <X className="w-5 h-5 text-storm-light dark:text-dark-text-secondary" />
             </button>
 
             <h2 className="text-xl font-semibold text-ocean dark:text-sky mb-2">
               Contribute to Pool
             </h2>
-            <p className="text-sm text-storm/60 dark:text-foam/60 mb-6">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-6">
               Add funds to {circleName}'s shared pool
             </p>
 
@@ -105,7 +105,7 @@ export function ContributeModal({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Wallet className="w-5 h-5 text-ocean dark:text-sky" />
-                  <span className="text-sm text-storm/60 dark:text-foam/60">
+                  <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                     Your Watershed Balance
                   </span>
                 </div>
@@ -124,11 +124,11 @@ export function ContributeModal({
 
               {/* Amount */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Amount
                 </label>
                 <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-storm/40 dark:text-foam/40" />
+                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-storm/40 dark:text-dark-text/40" />
                   <input
                     type="number"
                     step="0.01"
@@ -137,7 +137,7 @@ export function ContributeModal({
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     placeholder="0.00"
-                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+                    className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
                   />
                 </div>
               </div>
@@ -153,7 +153,7 @@ export function ContributeModal({
                     className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
                       amount === String(preset)
                         ? 'bg-ocean dark:bg-sky text-white'
-                        : 'bg-storm/10 dark:bg-foam/10 text-storm/70 dark:text-foam/70 hover:bg-storm/20 disabled:opacity-50'
+                        : 'bg-gray-100 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary hover:bg-gray-200 disabled:opacity-50'
                     }`}
                   >
                     ${preset}
@@ -163,7 +163,7 @@ export function ContributeModal({
 
               {/* Note */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Note (optional)
                 </label>
                 <input
@@ -171,7 +171,7 @@ export function ContributeModal({
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                   placeholder="Add a message to your contribution"
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
                 />
               </div>
 

@@ -78,8 +78,8 @@ export default function BecomeMentorPage() {
     return (
       <div className="max-w-2xl mx-auto p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-storm/20 rounded w-1/3" />
-          <div className="h-64 bg-storm/20 rounded" />
+          <div className="h-8 bg-gray-200 rounded w-1/3" />
+          <div className="h-64 bg-gray-200 rounded" />
         </div>
       </div>
     );
@@ -97,7 +97,7 @@ export default function BecomeMentorPage() {
               ? 'Application Under Review'
               : 'You\'re Already a Mentor'}
           </h1>
-          <p className="text-storm/70 dark:text-foam/70 mb-6">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-6">
             {existingProfile.status === 'pending'
               ? 'We\'ll review your application and get back to you soon.'
               : 'Check your mentorship dashboard for incoming requests.'}
@@ -117,7 +117,7 @@ export default function BecomeMentorPage() {
     <div className="max-w-2xl mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-ocean dark:text-sky">Become a Mentor</h1>
-        <p className="text-storm/70 dark:text-foam/70 mt-1">
+        <p className="text-storm-light dark:text-dark-text-secondary mt-1">
           Share your experience and help guide newcomers on their giving journey
         </p>
       </div>
@@ -125,7 +125,7 @@ export default function BecomeMentorPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Bio */}
         <div>
-          <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+          <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
             About You
           </label>
           <textarea
@@ -133,14 +133,14 @@ export default function BecomeMentorPage() {
             value={form.bio}
             onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
             placeholder="Tell mentees about your experience with giving, what you've learned, and what motivates you to help others..."
-            className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text resize-none"
             rows={4}
           />
         </div>
 
         {/* Expertise */}
         <div>
-          <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+          <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
             Areas of Expertise
           </label>
           <div className="grid sm:grid-cols-2 gap-3">
@@ -150,7 +150,7 @@ export default function BecomeMentorPage() {
                 className={`p-4 rounded-lg border cursor-pointer transition-colors ${
                   form.expertise.includes(opt.value)
                     ? 'border-teal bg-teal/10 dark:bg-teal/20'
-                    : 'border-storm/20 dark:border-storm/40 hover:border-teal/50'
+                    : 'border-gray-200 hover:border-teal/50'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -170,8 +170,8 @@ export default function BecomeMentorPage() {
                     className="mt-1 rounded border-storm/30"
                   />
                   <div>
-                    <p className="font-medium text-storm dark:text-foam">{opt.label}</p>
-                    <p className="text-sm text-storm/60 dark:text-foam/60">{opt.description}</p>
+                    <p className="font-medium text-storm dark:text-dark-text">{opt.label}</p>
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary">{opt.description}</p>
                   </div>
                 </div>
               </label>
@@ -184,7 +184,7 @@ export default function BecomeMentorPage() {
 
         {/* Communication Style */}
         <div>
-          <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+          <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
             Preferred Communication Style
           </label>
           <div className="flex gap-3">
@@ -197,11 +197,11 @@ export default function BecomeMentorPage() {
                 className={`flex-1 p-4 rounded-lg border text-left ${
                   form.preferredStyle === opt.value
                     ? 'border-ocean bg-ocean/10 dark:bg-ocean/20'
-                    : 'border-storm/20 dark:border-storm/40'
+                    : 'border-gray-200'
                 }`}
               >
-                <p className="font-medium text-storm dark:text-foam">{opt.label}</p>
-                <p className="text-sm text-storm/60 dark:text-foam/60">{opt.description}</p>
+                <p className="font-medium text-storm dark:text-dark-text">{opt.label}</p>
+                <p className="text-sm text-storm-light dark:text-dark-text-secondary">{opt.description}</p>
               </motion.button>
             ))}
           </div>
@@ -210,7 +210,7 @@ export default function BecomeMentorPage() {
         {/* Availability */}
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
               Time Available
             </label>
             <input
@@ -219,17 +219,17 @@ export default function BecomeMentorPage() {
               value={form.availability}
               onChange={e => setForm(f => ({ ...f, availability: e.target.value }))}
               placeholder="e.g., 2-4 hours/month"
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
               Max Mentees
             </label>
             <select
               value={form.maxMentees}
               onChange={e => setForm(f => ({ ...f, maxMentees: parseInt(e.target.value) }))}
-              className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
             >
               {[1, 2, 3, 4, 5].map(n => (
                 <option key={n} value={n}>
@@ -242,14 +242,14 @@ export default function BecomeMentorPage() {
 
         {/* Timezone */}
         <div>
-          <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+          <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
             Timezone
           </label>
           <input
             type="text"
             value={form.timezone}
             onChange={e => setForm(f => ({ ...f, timezone: e.target.value }))}
-            className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
           />
         </div>
 
@@ -258,7 +258,7 @@ export default function BecomeMentorPage() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="flex-1 px-6 py-3 border border-storm/20 dark:border-storm/40 rounded-lg text-storm dark:text-foam hover:bg-storm/5 dark:hover:bg-storm/40"
+            className="flex-1 px-6 py-3 border border-gray-200 rounded-lg text-storm dark:text-dark-text hover:bg-gray-50 dark:hover:bg-dark-border"
           >
             Cancel
           </button>

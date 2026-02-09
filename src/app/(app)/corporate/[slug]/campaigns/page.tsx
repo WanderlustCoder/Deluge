@@ -52,13 +52,13 @@ export default function CampaignsPage({
   if (loading) {
     return (
       <div className="space-y-6">
-        <div className="h-10 bg-storm/10 rounded w-1/4 animate-pulse" />
+        <div className="h-10 bg-gray-100 rounded w-1/4 animate-pulse" />
         <div className="grid md:grid-cols-2 gap-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="bg-white dark:bg-storm/20 rounded-xl p-6 animate-pulse">
-              <div className="h-6 bg-storm/10 rounded w-3/4 mb-4" />
-              <div className="h-4 bg-storm/10 rounded w-full mb-2" />
-              <div className="h-4 bg-storm/10 rounded w-1/2" />
+            <div key={i} className="bg-white dark:bg-dark-border/50 rounded-xl p-6 animate-pulse">
+              <div className="h-6 bg-gray-100 rounded w-3/4 mb-4" />
+              <div className="h-4 bg-gray-100 rounded w-full mb-2" />
+              <div className="h-4 bg-gray-100 rounded w-1/2" />
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ export default function CampaignsPage({
           <h1 className="text-2xl font-bold text-ocean dark:text-sky">
             Campaigns
           </h1>
-          <p className="text-storm/60 dark:text-foam/60">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             Create and manage giving campaigns for your team
           </p>
         </div>
@@ -98,7 +98,7 @@ export default function CampaignsPage({
         transition={{ delay: 0.1 }}
         className="flex items-center gap-2 overflow-x-auto pb-2"
       >
-        <Filter className="w-4 h-4 text-storm/50 dark:text-foam/50 flex-shrink-0" />
+        <Filter className="w-4 h-4 text-storm-light dark:text-dark-text-secondary flex-shrink-0" />
         {(['all', 'active', 'upcoming', 'completed'] as const).map((status) => (
           <button
             key={status}
@@ -106,7 +106,7 @@ export default function CampaignsPage({
             className={`px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
               filter === status
                 ? 'bg-ocean dark:bg-sky text-white'
-                : 'bg-storm/10 dark:bg-foam/10 text-storm/70 dark:text-foam/70 hover:bg-storm/20 dark:hover:bg-foam/20'
+                : 'bg-gray-100 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary hover:bg-gray-200 dark:hover:bg-foam/20'
             }`}
           >
             {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -121,8 +121,8 @@ export default function CampaignsPage({
         transition={{ delay: 0.2 }}
       >
         {campaigns.length === 0 ? (
-          <div className="bg-white dark:bg-storm/20 rounded-xl p-12 text-center">
-            <p className="text-storm/60 dark:text-foam/60 mb-4">
+          <div className="bg-white dark:bg-dark-border/50 rounded-xl p-12 text-center">
+            <p className="text-storm-light dark:text-dark-text-secondary mb-4">
               {filter === 'all'
                 ? 'No campaigns yet. Create your first campaign to engage your team.'
                 : `No ${filter} campaigns.`}

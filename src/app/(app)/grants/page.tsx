@@ -62,10 +62,10 @@ export default function GrantsPage() {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-12 bg-storm/20 rounded w-1/3" />
+          <div className="h-12 bg-gray-200 rounded w-1/3" />
           <div className="grid md:grid-cols-2 gap-6">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-64 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-64 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function GrantsPage() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-ocean dark:text-sky">Grant Opportunities</h1>
-        <p className="text-storm/70 dark:text-foam/70 mt-2">
+        <p className="text-storm-light dark:text-dark-text-secondary mt-2">
           Apply for funding to support your community projects
         </p>
       </div>
@@ -87,7 +87,7 @@ export default function GrantsPage() {
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         >
           {CATEGORIES.map((cat) => (
             <option key={cat.value} value={cat.value}>
@@ -100,7 +100,7 @@ export default function GrantsPage() {
       {/* Programs Grid */}
       {filteredPrograms.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-storm/60 dark:text-foam/60">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             No open grant programs at this time. Check back soon!
           </p>
         </div>
@@ -110,14 +110,14 @@ export default function GrantsPage() {
             <Link key={program.id} href={`/grants/${program.slug}`}>
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40 h-full cursor-pointer"
+                className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200 h-full cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-xl font-semibold text-storm dark:text-foam">
+                    <h2 className="text-xl font-semibold text-storm dark:text-dark-text">
                       {program.name}
                     </h2>
-                    <p className="text-sm text-storm/60 dark:text-foam/60 capitalize">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary capitalize">
                       {program.funderType} Grant
                     </p>
                   </div>
@@ -126,21 +126,21 @@ export default function GrantsPage() {
                   </span>
                 </div>
 
-                <p className="text-storm/70 dark:text-foam/70 mb-4 line-clamp-2">
+                <p className="text-storm-light dark:text-dark-text-secondary mb-4 line-clamp-2">
                   {program.description}
                 </p>
 
                 {/* Grant Range */}
                 <div className="flex items-center gap-4 mb-4">
                   <div className="flex-1">
-                    <p className="text-xs text-storm/50 dark:text-foam/50">Grant Range</p>
-                    <p className="font-semibold text-storm dark:text-foam">
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary">Grant Range</p>
+                    <p className="font-semibold text-storm dark:text-dark-text">
                       ${program.minGrant.toLocaleString()} - ${program.maxGrant.toLocaleString()}
                     </p>
                   </div>
                   <div className="flex-1">
-                    <p className="text-xs text-storm/50 dark:text-foam/50">Available</p>
-                    <p className="font-semibold text-storm dark:text-foam">
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary">Available</p>
+                    <p className="font-semibold text-storm dark:text-dark-text">
                       ${program.remainingBudget.toLocaleString()}
                     </p>
                   </div>
@@ -152,7 +152,7 @@ export default function GrantsPage() {
                     {program.focusAreas.slice(0, 3).map((area) => (
                       <span
                         key={area}
-                        className="px-2 py-1 bg-storm/10 dark:bg-storm/50 text-storm/70 dark:text-foam/70 text-xs rounded"
+                        className="px-2 py-1 bg-gray-100 text-storm-light dark:text-dark-text-secondary text-xs rounded"
                       >
                         {area}
                       </span>
@@ -161,10 +161,10 @@ export default function GrantsPage() {
                 )}
 
                 {/* Deadline */}
-                <div className="pt-4 border-t border-storm/10 dark:border-storm/30">
-                  <p className="text-sm text-storm/60 dark:text-foam/60">
+                <div className="pt-4 border-t border-gray-200">
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                     Deadline:{' '}
-                    <span className="font-medium text-storm dark:text-foam">
+                    <span className="font-medium text-storm dark:text-dark-text">
                       {new Date(program.applicationEnd).toLocaleDateString()}
                     </span>
                   </p>

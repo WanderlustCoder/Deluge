@@ -133,10 +133,10 @@ export default function MentorsPage() {
     return (
       <div className="max-w-6xl mx-auto p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-storm/20 rounded w-1/4" />
+          <div className="h-8 bg-gray-200 rounded w-1/4" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="h-48 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-48 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function MentorsPage() {
     <div className="max-w-6xl mx-auto p-6">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-ocean dark:text-sky">Find a Mentor</h1>
-        <p className="text-storm/70 dark:text-foam/70 mt-1">
+        <p className="text-storm-light dark:text-dark-text-secondary mt-1">
           Connect with experienced givers who can guide your journey
         </p>
       </div>
@@ -175,7 +175,7 @@ export default function MentorsPage() {
                     <span className="text-ocean font-semibold">{s.mentorName.charAt(0)}</span>
                   </div>
                   <div>
-                    <p className="font-medium text-storm dark:text-foam">{s.mentorName}</p>
+                    <p className="font-medium text-storm dark:text-dark-text">{s.mentorName}</p>
                     <p className="text-xs text-teal">{s.score}% match</p>
                   </div>
                 </div>
@@ -202,12 +202,12 @@ export default function MentorsPage() {
           placeholder="Search mentors..."
           value={filter.search}
           onChange={e => setFilter(f => ({ ...f, search: e.target.value }))}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         />
         <select
           value={filter.expertise}
           onChange={e => setFilter(f => ({ ...f, expertise: e.target.value }))}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         >
           <option value="">All Expertise</option>
           {EXPERTISE_OPTIONS.map(opt => (
@@ -219,7 +219,7 @@ export default function MentorsPage() {
         <select
           value={filter.style}
           onChange={e => setFilter(f => ({ ...f, style: e.target.value }))}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         >
           {STYLE_OPTIONS.map(opt => (
             <option key={opt.value} value={opt.value}>
@@ -235,7 +235,7 @@ export default function MentorsPage() {
           <motion.div
             key={mentor.id}
             whileHover={{ scale: 1.02 }}
-            className="p-5 rounded-xl bg-white dark:bg-storm/30 border border-storm/10 dark:border-storm/40 cursor-pointer"
+            className="p-5 rounded-xl bg-white dark:bg-dark-elevated border border-gray-200 cursor-pointer"
             onClick={() => setRequestModal(mentor)}
           >
             <div className="flex items-center gap-3 mb-3">
@@ -245,8 +245,8 @@ export default function MentorsPage() {
                 </span>
               </div>
               <div>
-                <p className="font-medium text-storm dark:text-foam">{mentor.user.name}</p>
-                <p className="text-xs text-storm/60 dark:text-foam/60">
+                <p className="font-medium text-storm dark:text-dark-text">{mentor.user.name}</p>
+                <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                   {mentor.currentMentees}/{mentor.maxMentees} mentees
                 </p>
               </div>
@@ -258,7 +258,7 @@ export default function MentorsPage() {
               )}
             </div>
 
-            <p className="text-sm text-storm/80 dark:text-foam/80 line-clamp-2 mb-3">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-2 mb-3">
               {mentor.bio}
             </p>
 
@@ -273,7 +273,7 @@ export default function MentorsPage() {
               ))}
             </div>
 
-            <div className="flex items-center justify-between text-xs text-storm/60 dark:text-foam/60">
+            <div className="flex items-center justify-between text-xs text-storm-light dark:text-dark-text-secondary">
               <span>{mentor.preferredStyle} communication</span>
               <span>{mentor.availability}</span>
             </div>
@@ -282,7 +282,7 @@ export default function MentorsPage() {
       </div>
 
       {filteredMentors.length === 0 && (
-        <div className="text-center py-12 text-storm/60 dark:text-foam/60">
+        <div className="text-center py-12 text-storm-light dark:text-dark-text-secondary">
           No mentors match your criteria
         </div>
       )}
@@ -293,28 +293,28 @@ export default function MentorsPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-storm/90 rounded-xl p-6 max-w-md w-full"
+            className="bg-white dark:bg-dark-elevated rounded-xl p-6 max-w-md w-full"
           >
             <h2 className="text-xl font-semibold text-ocean dark:text-sky mb-4">
               Request Mentorship
             </h2>
 
-            <div className="flex items-center gap-3 mb-4 p-3 bg-storm/5 dark:bg-storm/30 rounded-lg">
+            <div className="flex items-center gap-3 mb-4 p-3 bg-gray-50 rounded-lg">
               <div className="w-10 h-10 rounded-full bg-ocean/20 flex items-center justify-center">
                 <span className="text-ocean font-semibold">
                   {requestModal.user.name.charAt(0)}
                 </span>
               </div>
               <div>
-                <p className="font-medium text-storm dark:text-foam">{requestModal.user.name}</p>
-                <p className="text-sm text-storm/60 dark:text-foam/60">
+                <p className="font-medium text-storm dark:text-dark-text">{requestModal.user.name}</p>
+                <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                   {requestModal.expertise.join(', ')}
                 </p>
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 What do you want to learn? (Select all that apply)
               </label>
               <div className="space-y-2">
@@ -338,21 +338,21 @@ export default function MentorsPage() {
                       }}
                       className="rounded border-storm/30"
                     />
-                    <span className="text-storm dark:text-foam">{goal.label}</span>
+                    <span className="text-storm dark:text-dark-text">{goal.label}</span>
                   </label>
                 ))}
               </div>
             </div>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 Message (optional)
               </label>
               <textarea
                 value={requestMessage}
                 onChange={e => setRequestMessage(e.target.value)}
                 placeholder="Introduce yourself and share what you hope to learn..."
-                className="w-full px-3 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+                className="w-full px-3 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text resize-none"
                 rows={3}
               />
             </div>
@@ -364,7 +364,7 @@ export default function MentorsPage() {
                   setSelectedGoals([]);
                   setRequestMessage('');
                 }}
-                className="flex-1 px-4 py-2 border border-storm/20 dark:border-storm/40 rounded-lg text-storm dark:text-foam hover:bg-storm/5 dark:hover:bg-storm/40"
+                className="flex-1 px-4 py-2 border border-gray-200 rounded-lg text-storm dark:text-dark-text hover:bg-gray-50 dark:hover:bg-dark-border"
               >
                 Cancel
               </button>

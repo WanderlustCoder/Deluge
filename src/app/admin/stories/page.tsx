@@ -109,8 +109,8 @@ export default function AdminStoriesPage() {
     return (
       <div className="p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-storm/20 rounded w-1/4" />
-          <div className="h-64 bg-storm/20 rounded" />
+          <div className="h-8 bg-gray-200 rounded w-1/4" />
+          <div className="h-64 bg-gray-200 rounded" />
         </div>
       </div>
     );
@@ -120,8 +120,8 @@ export default function AdminStoriesPage() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-storm dark:text-foam">Stories & Testimonials</h1>
-          <p className="text-storm/60 dark:text-foam/60">
+          <h1 className="text-2xl font-bold text-storm dark:text-dark-text">Stories & Testimonials</h1>
+          <p className="text-storm-light dark:text-dark-text-secondary">
             Review and manage user-submitted stories and testimonials
           </p>
         </div>
@@ -140,13 +140,13 @@ export default function AdminStoriesPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 border-b border-storm/20 dark:border-storm/40 mb-6">
+      <div className="flex gap-4 border-b border-gray-200 mb-6">
         <button
           onClick={() => setTab('stories')}
           className={`pb-3 px-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
             tab === 'stories'
               ? 'border-ocean text-ocean dark:text-sky'
-              : 'border-transparent text-storm/60 dark:text-foam/60 hover:text-storm dark:hover:text-foam'
+              : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
           }`}
         >
           Stories ({stories.length})
@@ -156,7 +156,7 @@ export default function AdminStoriesPage() {
           className={`pb-3 px-2 text-sm font-medium border-b-2 -mb-px transition-colors ${
             tab === 'testimonials'
               ? 'border-ocean text-ocean dark:text-sky'
-              : 'border-transparent text-storm/60 dark:text-foam/60 hover:text-storm dark:hover:text-foam'
+              : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
           }`}
         >
           Testimonials ({testimonials.length})
@@ -170,7 +170,7 @@ export default function AdminStoriesPage() {
             <select
               value={statusFilter}
               onChange={e => setStatusFilter(e.target.value)}
-              className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+              className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text"
             >
               <option value="">All Statuses</option>
               <option value="draft">Pending Review</option>
@@ -180,54 +180,54 @@ export default function AdminStoriesPage() {
           </div>
 
           {/* Stories Table */}
-          <div className="bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40 overflow-hidden">
+          <div className="bg-white dark:bg-dark-elevated rounded-xl border border-gray-200 overflow-hidden">
             <table className="w-full">
-              <thead className="bg-storm/5 dark:bg-storm/50">
+              <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-foam">
+                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-dark-text">
                     Story
                   </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-foam">
+                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-dark-text">
                     Type
                   </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-foam">
+                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-dark-text">
                     Author
                   </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-foam">
+                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-dark-text">
                     Status
                   </th>
-                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-foam">
+                  <th className="px-4 py-3 text-left text-sm font-medium text-storm dark:text-dark-text">
                     Stats
                   </th>
-                  <th className="px-4 py-3 text-right text-sm font-medium text-storm dark:text-foam">
+                  <th className="px-4 py-3 text-right text-sm font-medium text-storm dark:text-dark-text">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-storm/10 dark:divide-storm/40">
+              <tbody className="divide-y divide-gray-200">
                 {stories.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-4 py-8 text-center text-storm/60 dark:text-foam/60">
+                    <td colSpan={6} className="px-4 py-8 text-center text-storm-light dark:text-dark-text-secondary">
                       No stories found
                     </td>
                   </tr>
                 ) : (
                   stories.map(story => (
-                    <tr key={story.id} className="hover:bg-storm/5 dark:hover:bg-storm/40">
+                    <tr key={story.id} className="hover:bg-gray-50">
                       <td className="px-4 py-3">
                         <div>
-                          <p className="font-medium text-storm dark:text-foam">{story.title}</p>
-                          <p className="text-sm text-storm/60 dark:text-foam/60 line-clamp-1">
+                          <p className="font-medium text-storm dark:text-dark-text">{story.title}</p>
+                          <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-1">
                             {story.summary}
                           </p>
                         </div>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="px-2 py-1 bg-storm/10 dark:bg-storm/50 rounded text-xs text-storm dark:text-foam capitalize">
+                        <span className="px-2 py-1 bg-gray-100 dark:bg-dark-border rounded text-xs text-storm dark:text-dark-text capitalize">
                           {story.type}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-sm text-storm/70 dark:text-foam/70">
+                      <td className="px-4 py-3 text-sm text-storm-light dark:text-dark-text-secondary">
                         {story.authorName || story.author?.name || 'Anonymous'}
                       </td>
                       <td className="px-4 py-3">
@@ -237,25 +237,25 @@ export default function AdminStoriesPage() {
                               ? 'bg-teal/20 text-teal'
                               : story.status === 'draft'
                                 ? 'bg-gold/20 text-gold'
-                                : 'bg-red-100 text-red-600'
+                                : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
                           }`}
                         >
                           {story.status}
                         </span>
                         {story.featured && (
-                          <span className="ml-2 px-2 py-1 bg-ocean/20 text-ocean text-xs rounded">
+                          <span className="ml-2 px-2 py-1 bg-ocean/20 text-ocean dark:text-sky text-xs rounded">
                             Featured
                           </span>
                         )}
                       </td>
-                      <td className="px-4 py-3 text-sm text-storm/70 dark:text-foam/70">
+                      <td className="px-4 py-3 text-sm text-storm-light dark:text-dark-text-secondary">
                         {story.viewCount} views / {story.shareCount} shares
                       </td>
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Link
                             href={`/stories/${story.slug}`}
-                            className="px-3 py-1 text-sm text-ocean hover:underline"
+                            className="px-3 py-1 text-sm text-ocean dark:text-sky hover:underline"
                             target="_blank"
                           >
                             View
@@ -281,7 +281,7 @@ export default function AdminStoriesPage() {
                               onClick={() =>
                                 handleStoryAction(story.id, story.featured ? 'unfeature' : 'feature')
                               }
-                              className="px-3 py-1 bg-ocean/10 text-ocean text-sm rounded hover:bg-ocean/20"
+                              className="px-3 py-1 bg-ocean/10 text-ocean dark:text-sky text-sm rounded hover:bg-ocean/20"
                             >
                               {story.featured ? 'Unfeature' : 'Feature'}
                             </button>
@@ -300,33 +300,33 @@ export default function AdminStoriesPage() {
       {tab === 'testimonials' && (
         <div className="space-y-4">
           {testimonials.length === 0 ? (
-            <div className="text-center py-12 text-storm/60 dark:text-foam/60">
+            <div className="text-center py-12 text-storm-light dark:text-dark-text-secondary">
               No testimonials yet
             </div>
           ) : (
             testimonials.map(testimonial => (
               <div
                 key={testimonial.id}
-                className="bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40 p-4"
+                className="bg-white dark:bg-dark-elevated rounded-xl border border-gray-200 p-4"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <p className="text-storm dark:text-foam italic mb-2">
+                    <p className="text-storm dark:text-dark-text italic mb-2">
                       &ldquo;{testimonial.content}&rdquo;
                     </p>
                     <div className="flex items-center gap-4 text-sm">
-                      <span className="font-medium text-storm dark:text-foam">
+                      <span className="font-medium text-storm dark:text-dark-text">
                         {testimonial.authorName}
                       </span>
                       {testimonial.authorTitle && (
-                        <span className="text-storm/60 dark:text-foam/60">
+                        <span className="text-storm-light dark:text-dark-text-secondary">
                           {testimonial.authorTitle}
                         </span>
                       )}
                       {testimonial.rating && (
                         <span className="text-gold">{'★'.repeat(Math.round(testimonial.rating))}</span>
                       )}
-                      <span className="px-2 py-0.5 bg-storm/10 dark:bg-storm/50 rounded text-xs capitalize">
+                      <span className="px-2 py-0.5 bg-gray-100 dark:bg-dark-border rounded text-xs capitalize">
                         {testimonial.type}
                       </span>
                     </div>
@@ -338,17 +338,17 @@ export default function AdminStoriesPage() {
                           ? 'bg-teal/20 text-teal'
                           : testimonial.status === 'pending'
                             ? 'bg-gold/20 text-gold'
-                            : 'bg-red-100 text-red-600'
+                            : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
                       }`}
                     >
                       {testimonial.status}
                     </span>
                     {testimonial.featured && (
-                      <span className="px-2 py-1 bg-ocean/20 text-ocean text-xs rounded">Featured</span>
+                      <span className="px-2 py-1 bg-ocean/20 text-ocean dark:text-sky text-xs rounded">Featured</span>
                     )}
                   </div>
                 </div>
-                <div className="flex items-center justify-end gap-2 mt-4 pt-4 border-t border-storm/10 dark:border-storm/30">
+                <div className="flex items-center justify-end gap-2 mt-4 pt-4 border-t border-gray-200">
                   {testimonial.status === 'pending' && (
                     <>
                       <button
@@ -373,7 +373,7 @@ export default function AdminStoriesPage() {
                           testimonial.featured ? 'unfeature' : 'feature'
                         )
                       }
-                      className="px-3 py-1 bg-ocean/10 text-ocean text-sm rounded hover:bg-ocean/20"
+                      className="px-3 py-1 bg-ocean/10 text-ocean dark:text-sky text-sm rounded hover:bg-ocean/20"
                     >
                       {testimonial.featured ? 'Unfeature' : 'Feature'}
                     </button>

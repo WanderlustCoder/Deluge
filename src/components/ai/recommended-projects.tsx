@@ -53,10 +53,10 @@ export function RecommendedProjects({
   if (loading) {
     return (
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold text-storm dark:text-foam">{title}</h2>
+        <h2 className="text-xl font-semibold text-storm dark:text-dark-text">{title}</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: limit }).map((_, i) => (
-            <div key={i} className="h-48 bg-storm/10 dark:bg-storm/30 rounded-xl animate-pulse" />
+            <div key={i} className="h-48 bg-gray-100 rounded-xl animate-pulse" />
           ))}
         </div>
       </div>
@@ -69,28 +69,28 @@ export function RecommendedProjects({
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-storm dark:text-foam">{title}</h2>
+      <h2 className="text-xl font-semibold text-storm dark:text-dark-text">{title}</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {projects.map((project) => (
           <Link key={project.id} href={`/projects/${project.id}`}>
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40 h-full cursor-pointer"
+              className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200 h-full cursor-pointer"
             >
-              <h3 className="font-medium text-storm dark:text-foam mb-2 line-clamp-2">
+              <h3 className="font-medium text-storm dark:text-dark-text mb-2 line-clamp-2">
                 {project.title}
               </h3>
 
               <div className="mb-3">
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-storm/60 dark:text-foam/60">
+                  <span className="text-storm-light dark:text-dark-text-secondary">
                     ${project.fundingRaised.toLocaleString()}
                   </span>
-                  <span className="text-storm/40 dark:text-foam/40">
+                  <span className="text-storm/40 dark:text-dark-text/40">
                     ${project.fundingGoal.toLocaleString()}
                   </span>
                 </div>
-                <div className="h-2 bg-storm/10 dark:bg-storm/50 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-teal rounded-full"
                     style={{
@@ -105,7 +105,7 @@ export function RecommendedProjects({
               </span>
 
               {project.reasons.length > 0 && (
-                <p className="text-xs text-storm/50 dark:text-foam/50 line-clamp-2">
+                <p className="text-xs text-storm-light dark:text-dark-text-secondary line-clamp-2">
                   {project.reasons[0]}
                 </p>
               )}

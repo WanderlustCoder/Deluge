@@ -73,7 +73,7 @@ export function RallyCard({ rally, onJoin, hasJoined = false }: RallyCardProps) 
           ? "border-teal bg-teal/5"
           : isActive
           ? "border-sky bg-sky/5"
-          : "border-storm/30 bg-storm/5 opacity-75"
+          : "border-storm/30 bg-gray-50 opacity-75"
       }`}
     >
       <div className="flex items-start justify-between gap-3">
@@ -106,7 +106,7 @@ export function RallyCard({ rally, onJoin, hasJoined = false }: RallyCardProps) 
           <span>{currentLabel}</span>
           <span>{targetLabel}</span>
         </div>
-        <div className="h-2 bg-storm/20 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${Math.min(progress, 100)}%` }}

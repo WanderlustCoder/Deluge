@@ -78,7 +78,7 @@ export function DescriptionHelper({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           rows={minRows}
-          className="w-full px-4 py-3 border border-storm/20 dark:border-storm/40 rounded-lg bg-white dark:bg-storm/20 text-storm dark:text-foam resize-y"
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg bg-white dark:bg-dark-border/50 text-storm dark:text-dark-text resize-y"
         />
 
         {/* Analyze Button */}
@@ -99,33 +99,33 @@ export function DescriptionHelper({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="p-4 bg-storm/5 dark:bg-storm/30 rounded-lg border border-storm/10 dark:border-storm/40"
+            className="p-4 bg-gray-50 rounded-lg border border-gray-200"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-4">
                 <div>
-                  <p className="text-xs text-storm/50 dark:text-foam/50">Score</p>
+                  <p className="text-xs text-storm-light dark:text-dark-text-secondary">Score</p>
                   <p className={`text-2xl font-bold ${scoreColor}`}>
                     {analysis.score}
                   </p>
                 </div>
-                <div className="h-10 w-px bg-storm/10 dark:bg-storm/30" />
+                <div className="h-10 w-px bg-gray-100" />
                 <div className="flex gap-4 text-sm">
                   <div>
-                    <p className="text-storm/50 dark:text-foam/50">Words</p>
-                    <p className="font-medium text-storm dark:text-foam">
+                    <p className="text-storm-light dark:text-dark-text-secondary">Words</p>
+                    <p className="font-medium text-storm dark:text-dark-text">
                       {analysis.metrics.wordCount}
                     </p>
                   </div>
                   <div>
-                    <p className="text-storm/50 dark:text-foam/50">Readability</p>
-                    <p className="font-medium text-storm dark:text-foam">
+                    <p className="text-storm-light dark:text-dark-text-secondary">Readability</p>
+                    <p className="font-medium text-storm dark:text-dark-text">
                       {analysis.metrics.readability}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-storm/50 dark:text-foam/50">Impact</p>
-                    <p className="font-medium text-storm dark:text-foam">
+                    <p className="text-storm-light dark:text-dark-text-secondary">Impact</p>
+                    <p className="font-medium text-storm dark:text-dark-text">
                       {analysis.metrics.impactScore}%
                     </p>
                   </div>
@@ -133,7 +133,7 @@ export function DescriptionHelper({
               </div>
               <button
                 onClick={() => setShowPanel(false)}
-                className="text-storm/40 hover:text-storm dark:text-foam/40 dark:hover:text-foam"
+                className="text-storm/40 hover:text-storm dark:text-dark-text/40 dark:hover:text-dark-text"
               >
                 ✕
               </button>
@@ -142,7 +142,7 @@ export function DescriptionHelper({
             {/* Suggestions */}
             {analysis.suggestions.length > 0 && (
               <div className="space-y-2 mb-4">
-                <p className="text-sm font-medium text-storm dark:text-foam">Suggestions</p>
+                <p className="text-sm font-medium text-storm dark:text-dark-text">Suggestions</p>
                 {analysis.suggestions.map((suggestion, i) => (
                   <div
                     key={i}
@@ -151,7 +151,7 @@ export function DescriptionHelper({
                         ? 'bg-gold/10 text-gold'
                         : suggestion.severity === 'suggestion'
                         ? 'bg-ocean/10 text-ocean'
-                        : 'bg-storm/10 text-storm/70 dark:bg-storm/50 dark:text-foam/70'
+                        : 'bg-gray-100 text-storm/70 dark:bg-dark-elevated dark:text-dark-text-secondary'
                     }`}
                   >
                     <span>
@@ -170,7 +170,7 @@ export function DescriptionHelper({
             {/* Suggested Titles */}
             {suggestedTitles.length > 0 && (
               <div>
-                <p className="text-sm font-medium text-storm dark:text-foam mb-2">
+                <p className="text-sm font-medium text-storm dark:text-dark-text mb-2">
                   Title Ideas
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -180,7 +180,7 @@ export function DescriptionHelper({
                       onClick={() => {
                         navigator.clipboard.writeText(title);
                       }}
-                      className="px-3 py-1 bg-white dark:bg-storm/40 rounded text-sm text-storm dark:text-foam hover:bg-storm/10 dark:hover:bg-storm/50"
+                      className="px-3 py-1 bg-white dark:bg-dark-border rounded text-sm text-storm dark:text-dark-text hover:bg-gray-100 dark:hover:bg-gray-500"
                     >
                       {title}
                     </button>

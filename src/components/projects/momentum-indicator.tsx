@@ -43,7 +43,7 @@ export function MomentumIndicator({
 
   if (loading) {
     return (
-      <div className="animate-pulse bg-storm/20 rounded h-6 w-16" />
+      <div className="animate-pulse bg-gray-200 rounded h-6 w-16" />
     );
   }
 

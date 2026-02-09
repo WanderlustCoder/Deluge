@@ -170,7 +170,7 @@ export function ProjectActions({
       )}
 
       {loadingRallies && (
-        <div className="animate-pulse h-16 bg-storm/10 rounded-lg" />
+        <div className="animate-pulse h-16 bg-gray-100 rounded-lg" />
       )}
 
       {/* Modals */}

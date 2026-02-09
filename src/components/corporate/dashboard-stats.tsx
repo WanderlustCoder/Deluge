@@ -76,7 +76,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
-            className="bg-white dark:bg-storm/20 rounded-xl p-4 shadow-sm border border-storm/10"
+            className="bg-white dark:bg-dark-border/50 rounded-xl p-4 shadow-sm border border-gray-200"
           >
             <div className={`w-10 h-10 ${stat.bgColor} rounded-lg flex items-center justify-center mb-3`}>
               <stat.icon className={`w-5 h-5 ${stat.color}`} />
@@ -84,10 +84,10 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
             <p className="text-2xl font-bold text-ocean dark:text-sky">
               {stat.value}
             </p>
-            <p className="text-sm text-storm/60 dark:text-foam/60">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary">
               {stat.label}
             </p>
-            <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
               {stat.subValue}
             </p>
           </motion.div>
@@ -99,7 +99,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6 shadow-sm border border-storm/10"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6 shadow-sm border border-gray-200"
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
               <h3 className="font-semibold text-ocean dark:text-sky">
                 Matching Budget
               </h3>
-              <p className="text-sm text-storm/60 dark:text-foam/60">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 Annual employee matching funds
               </p>
             </div>
@@ -119,7 +119,7 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
             <p className="text-2xl font-bold text-teal">
               {formatCurrency(stats.matchingRemaining)}
             </p>
-            <p className="text-sm text-storm/60 dark:text-foam/60">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary">
               remaining
             </p>
           </div>
@@ -128,20 +128,20 @@ export function DashboardStats({ stats }: DashboardStatsProps) {
         {/* Progress Bar */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-storm/60 dark:text-foam/60">
+            <span className="text-storm-light dark:text-dark-text-secondary">
               {formatCurrency(stats.matchingSpent)} spent
             </span>
-            <span className="text-storm/60 dark:text-foam/60">
+            <span className="text-storm-light dark:text-dark-text-secondary">
               {formatCurrency(stats.matchingBudget)} total
             </span>
           </div>
-          <div className="h-3 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+          <div className="h-3 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
             <div
               className="h-full bg-teal rounded-full transition-all duration-500"
               style={{ width: `${Math.min(100, budgetPercent)}%` }}
             />
           </div>
-          <p className="text-xs text-storm/50 dark:text-foam/50 text-center">
+          <p className="text-xs text-storm-light dark:text-dark-text-secondary text-center">
             {budgetPercent.toFixed(1)}% of budget used
           </p>
         </div>

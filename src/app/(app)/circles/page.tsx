@@ -72,7 +72,7 @@ export default function CirclesPage() {
           <h1 className="text-3xl font-bold text-ocean dark:text-sky">
             Giving Circles
           </h1>
-          <p className="text-storm/60 dark:text-foam/60">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             Pool resources and make collective giving decisions
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function CirclesPage() {
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             tab === 'mine'
               ? 'bg-ocean dark:bg-sky text-white'
-              : 'text-storm/70 dark:text-foam/70 hover:bg-storm/10 dark:hover:bg-foam/10'
+              : 'text-storm-light dark:text-dark-text-secondary hover:bg-gray-100 dark:hover:bg-foam/10'
           }`}
         >
           My Circles
@@ -107,7 +107,7 @@ export default function CirclesPage() {
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             tab === 'browse'
               ? 'bg-ocean dark:bg-sky text-white'
-              : 'text-storm/70 dark:text-foam/70 hover:bg-storm/10 dark:hover:bg-foam/10'
+              : 'text-storm-light dark:text-dark-text-secondary hover:bg-gray-100 dark:hover:bg-foam/10'
           }`}
         >
           Browse All
@@ -123,13 +123,13 @@ export default function CirclesPage() {
           className="mb-6"
         >
           <div className="relative max-w-md">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-storm/40 dark:text-foam/40" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-storm/40 dark:text-dark-text/40" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search circles..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
             />
           </div>
         </motion.div>
@@ -139,15 +139,15 @@ export default function CirclesPage() {
       {loading ? (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white dark:bg-storm/20 rounded-xl p-6 animate-pulse">
+            <div key={i} className="bg-white dark:bg-dark-border/50 rounded-xl p-6 animate-pulse">
               <div className="flex gap-4 mb-4">
-                <div className="w-14 h-14 bg-storm/10 rounded-xl" />
+                <div className="w-14 h-14 bg-gray-100 rounded-xl" />
                 <div className="flex-1">
-                  <div className="h-5 bg-storm/10 rounded w-3/4 mb-2" />
-                  <div className="h-4 bg-storm/10 rounded w-full" />
+                  <div className="h-5 bg-gray-100 rounded w-3/4 mb-2" />
+                  <div className="h-4 bg-gray-100 rounded w-full" />
                 </div>
               </div>
-              <div className="h-12 bg-storm/10 rounded" />
+              <div className="h-12 bg-gray-100 rounded" />
             </div>
           ))}
         </div>
@@ -155,7 +155,7 @@ export default function CirclesPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-storm/20 rounded-xl p-12 text-center"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-12 text-center"
         >
           <div className="w-16 h-16 bg-ocean/10 dark:bg-sky/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Users className="w-8 h-8 text-ocean dark:text-sky" />
@@ -165,7 +165,7 @@ export default function CirclesPage() {
               <h3 className="text-lg font-medium text-ocean dark:text-sky mb-2">
                 No Circles Yet
               </h3>
-              <p className="text-storm/60 dark:text-foam/60 mb-6">
+              <p className="text-storm-light dark:text-dark-text-secondary mb-6">
                 Create a circle or join one to start giving together
               </p>
               <div className="flex justify-center gap-3">
@@ -177,7 +177,7 @@ export default function CirclesPage() {
                 </Link>
                 <button
                   onClick={() => setTab('browse')}
-                  className="px-4 py-2 border border-storm/20 dark:border-foam/20 rounded-lg text-storm/70 dark:text-foam/70 hover:bg-storm/5"
+                  className="px-4 py-2 border border-gray-200 dark:border-foam/20 rounded-lg text-storm-light dark:text-dark-text-secondary hover:bg-gray-50"
                 >
                   Browse Circles
                 </button>
@@ -188,7 +188,7 @@ export default function CirclesPage() {
               <h3 className="text-lg font-medium text-ocean dark:text-sky mb-2">
                 No Circles Found
               </h3>
-              <p className="text-storm/60 dark:text-foam/60 mb-6">
+              <p className="text-storm-light dark:text-dark-text-secondary mb-6">
                 {search ? 'Try a different search term' : 'Be the first to create a circle!'}
               </p>
               <Link

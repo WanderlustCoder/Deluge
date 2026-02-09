@@ -23,7 +23,7 @@ interface MatchData {
 }
 
 const MATCH_COLORS = {
-  low: 'bg-storm/20 text-storm/60',
+  low: 'bg-gray-200 text-storm/60',
   medium: 'bg-sky/20 text-sky',
   high: 'bg-teal/20 text-teal',
   excellent: 'bg-gold/20 text-gold',
@@ -62,7 +62,7 @@ export function MatchIndicator({ projectId, compact = false }: MatchIndicatorPro
   if (loading) {
     return (
       <div className="animate-pulse flex items-center gap-2">
-        <div className="w-16 h-6 bg-storm/10 rounded" />
+        <div className="w-16 h-6 bg-gray-100 rounded" />
       </div>
     );
   }
@@ -79,10 +79,10 @@ export function MatchIndicator({ projectId, compact = false }: MatchIndicatorPro
   }
 
   return (
-    <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-lg overflow-hidden">
+    <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-lg overflow-hidden">
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between p-4 hover:bg-storm/5 transition-colors"
+        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
       >
         <div className="flex items-center gap-3">
           <div className={`p-2 rounded-lg ${MATCH_COLORS[matchData.matchLevel]}`}>
@@ -106,7 +106,7 @@ export function MatchIndicator({ projectId, compact = false }: MatchIndicatorPro
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="border-t border-storm/10"
+            className="border-t border-gray-200"
           >
             <div className="p-4 space-y-4">
               {/* Highlights */}
@@ -134,7 +134,7 @@ export function MatchIndicator({ projectId, compact = false }: MatchIndicatorPro
                         <span className="capitalize">{key}</span>
                         <span>{value}%</span>
                       </div>
-                      <div className="h-1.5 bg-storm/10 rounded-full overflow-hidden">
+                      <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-ocean rounded-full"
                           style={{ width: `${value}%` }}

@@ -75,10 +75,10 @@ export default function StoriesPage() {
     return (
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="animate-pulse space-y-8">
-          <div className="h-12 bg-storm/20 rounded w-1/3" />
+          <div className="h-12 bg-gray-200 rounded w-1/3" />
           <div className="grid md:grid-cols-3 gap-6">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-64 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-64 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -87,7 +87,7 @@ export default function StoriesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm">
+    <div>
       {/* Hero */}
       <section className="bg-gradient-to-br from-ocean to-teal text-white py-20">
         <div className="max-w-6xl mx-auto px-4 text-center">
@@ -120,10 +120,10 @@ export default function StoriesPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
                   whileHover={{ scale: 1.02 }}
-                  className="bg-white dark:bg-storm/50 rounded-xl shadow-lg overflow-hidden cursor-pointer h-full"
+                  className="bg-white dark:bg-dark-elevated rounded-xl shadow-lg overflow-hidden cursor-pointer h-full"
                 >
                   {story.mediaUrls[0] && (
-                    <div className="h-48 bg-storm/20 relative">
+                    <div className="h-48 bg-gray-200 relative">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={story.mediaUrls[0]}
@@ -139,10 +139,10 @@ export default function StoriesPage() {
                     <span className="text-xs text-teal uppercase tracking-wide">
                       {story.type}
                     </span>
-                    <h3 className="font-semibold text-lg text-storm dark:text-foam mt-1 mb-2">
+                    <h3 className="font-semibold text-lg text-storm dark:text-dark-text mt-1 mb-2">
                       {story.title}
                     </h3>
-                    <p className="text-sm text-storm/70 dark:text-foam/70 line-clamp-2">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-2">
                       {story.summary}
                     </p>
                   </div>
@@ -155,7 +155,7 @@ export default function StoriesPage() {
 
       {/* Testimonials Carousel */}
       {testimonials.length > 0 && (
-        <section className="py-16 bg-storm/5 dark:bg-storm/30 mt-12">
+        <section className="py-16 bg-gray-50 mt-12">
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="text-2xl font-bold text-ocean dark:text-sky text-center mb-8">
               What People Are Saying
@@ -165,17 +165,17 @@ export default function StoriesPage() {
                 <motion.div
                   key={t.id}
                   whileHover={{ scale: 1.02 }}
-                  className="flex-shrink-0 w-80 p-6 bg-white dark:bg-storm/50 rounded-xl shadow"
+                  className="flex-shrink-0 w-80 p-6 bg-white dark:bg-dark-elevated rounded-xl shadow"
                 >
-                  <p className="text-storm dark:text-foam italic mb-4">&ldquo;{t.content}&rdquo;</p>
+                  <p className="text-storm dark:text-dark-text italic mb-4">&ldquo;{t.content}&rdquo;</p>
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-teal/20 flex items-center justify-center">
                       <span className="text-teal font-semibold">{t.authorName.charAt(0)}</span>
                     </div>
                     <div>
-                      <p className="font-medium text-storm dark:text-foam text-sm">{t.authorName}</p>
+                      <p className="font-medium text-storm dark:text-dark-text text-sm">{t.authorName}</p>
                       {t.authorTitle && (
-                        <p className="text-xs text-storm/60 dark:text-foam/60">{t.authorTitle}</p>
+                        <p className="text-xs text-storm-light dark:text-dark-text-secondary">{t.authorTitle}</p>
                       )}
                     </div>
                   </div>
@@ -199,7 +199,7 @@ export default function StoriesPage() {
           <select
             value={filter}
             onChange={e => setFilter(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+            className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated dark:border-dark-border text-storm dark:text-dark-text"
           >
             {STORY_TYPES.map(opt => (
               <option key={opt.value} value={opt.value}>
@@ -210,7 +210,7 @@ export default function StoriesPage() {
         </div>
 
         {stories.length === 0 ? (
-          <div className="text-center py-12 text-storm/60 dark:text-foam/60">
+          <div className="text-center py-12 text-storm-light dark:text-dark-text-secondary">
             No stories yet. Check back soon!
           </div>
         ) : (
@@ -219,10 +219,10 @@ export default function StoriesPage() {
               <Link key={story.id} href={`/stories/${story.slug}`}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40 overflow-hidden cursor-pointer h-full"
+                  className="bg-white dark:bg-dark-elevated rounded-xl border border-gray-200 overflow-hidden cursor-pointer h-full"
                 >
                   {story.mediaUrls[0] && (
-                    <div className="h-40 bg-storm/20">
+                    <div className="h-40 bg-gray-200">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={story.mediaUrls[0]}
@@ -236,18 +236,18 @@ export default function StoriesPage() {
                       <span className="text-xs text-teal uppercase tracking-wide">
                         {story.type}
                       </span>
-                      <span className="text-xs text-storm/50 dark:text-foam/50">
+                      <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                         {story.viewCount} views
                       </span>
                     </div>
-                    <h3 className="font-semibold text-storm dark:text-foam mb-2">
+                    <h3 className="font-semibold text-storm dark:text-dark-text mb-2">
                       {story.title}
                     </h3>
-                    <p className="text-sm text-storm/70 dark:text-foam/70 line-clamp-2">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-2">
                       {story.summary}
                     </p>
                     {story.authorName && (
-                      <p className="text-xs text-storm/50 dark:text-foam/50 mt-3">
+                      <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-3">
                         By {story.authorName}
                       </p>
                     )}
@@ -269,7 +269,7 @@ export default function StoriesPage() {
           </p>
           <Link
             href="/stories/submit"
-            className="inline-block px-8 py-3 bg-white text-ocean rounded-lg font-semibold hover:bg-foam transition-colors"
+            className="inline-block px-8 py-3 bg-white text-ocean rounded-lg font-semibold hover:bg-gray-50 transition-colors"
           >
             Share Your Story
           </Link>

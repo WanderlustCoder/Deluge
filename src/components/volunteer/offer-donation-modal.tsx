@@ -113,7 +113,7 @@ export function OfferDonationModal({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto bg-white dark:bg-storm/90 rounded-xl p-6 z-50 shadow-xl max-h-[90vh] overflow-y-auto"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto bg-white dark:bg-dark-elevated rounded-xl p-6 z-50 shadow-xl max-h-[90vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-ocean dark:text-sky flex items-center gap-2">
@@ -122,20 +122,20 @@ export function OfferDonationModal({
               </h2>
               <button
                 onClick={onClose}
-                className="p-1 rounded-full hover:bg-storm/10"
+                className="p-1 rounded-full hover:bg-gray-100"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-sm text-storm/60 dark:text-foam/60 mb-4">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-4">
               Contributing to: <span className="font-medium">{projectTitle}</span>
             </p>
 
             {/* Project Needs */}
             {needs.length > 0 && (
               <div className="mb-6">
-                <p className="text-sm font-medium text-storm/70 dark:text-foam/70 mb-2">
+                <p className="text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Project Needs
                 </p>
                 <div className="space-y-2">
@@ -146,13 +146,13 @@ export function OfferDonationModal({
                       className={`w-full p-3 rounded-lg border text-left transition-colors ${
                         selectedNeed === need.id
                           ? 'border-teal bg-teal/5'
-                          : 'border-storm/20 hover:border-storm/40'
+                          : 'border-gray-200 hover:border-storm/40'
                       }`}
                     >
                       <p className="font-medium text-sm text-ocean dark:text-sky">
                         {need.description}
                       </p>
-                      <div className="flex items-center gap-3 mt-1 text-xs text-storm/60 dark:text-foam/60">
+                      <div className="flex items-center gap-3 mt-1 text-xs text-storm-light dark:text-dark-text-secondary">
                         <span className="capitalize">{need.type}</span>
                         {need.quantity && <span>Qty: {need.quantity}</span>}
                         {need.estimatedValue && <span>~${need.estimatedValue}</span>}
@@ -165,13 +165,13 @@ export function OfferDonationModal({
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   Type *
                 </label>
                 <select
                   value={type}
                   onChange={(e) => setType(e.target.value)}
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
                 >
                   {IN_KIND_TYPES.map((t) => (
                     <option key={t.value} value={t.value}>
@@ -182,7 +182,7 @@ export function OfferDonationModal({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   Description *
                 </label>
                 <textarea
@@ -191,12 +191,12 @@ export function OfferDonationModal({
                   placeholder="What are you offering?"
                   rows={3}
                   required
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   <DollarSign className="w-4 h-4 inline" />
                   Estimated Value (optional)
                 </label>
@@ -207,12 +207,12 @@ export function OfferDonationModal({
                   value={value}
                   onChange={(e) => setValue(e.target.value)}
                   placeholder="0.00"
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   Additional Notes (optional)
                 </label>
                 <textarea
@@ -220,7 +220,7 @@ export function OfferDonationModal({
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Pickup/delivery details, timing, etc."
                   rows={2}
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none"
                 />
               </div>
 
@@ -235,7 +235,7 @@ export function OfferDonationModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg font-medium hover:bg-storm/5 dark:hover:bg-foam/5 transition-colors"
+                  className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-foam/5 transition-colors"
                 >
                   Cancel
                 </button>

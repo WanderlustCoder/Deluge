@@ -86,14 +86,14 @@ export default function ReflectPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm/20 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -120,7 +120,7 @@ export default function ReflectPage() {
         <div className="max-w-2xl mx-auto">
           {/* Current Prompt */}
           {currentPrompt && (
-            <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6 mb-8">
+            <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6 mb-8">
               <div className="flex items-start justify-between mb-4">
                 <h2 className="text-lg font-semibold">Today&apos;s Prompt</h2>
                 <button
@@ -140,7 +140,7 @@ export default function ReflectPage() {
                   onChange={(e) => setResponse(e.target.value)}
                   placeholder="Write your thoughts..."
                   rows={6}
-                  className="w-full px-4 py-3 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none dark:bg-storm/10"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none dark:bg-gray-100"
                 />
 
                 <div className="flex items-center justify-between mt-4">
@@ -178,11 +178,11 @@ export default function ReflectPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
-                      className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-4"
+                      className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-4"
                     >
                       <p className="text-sm text-storm/50 mb-2">{reflection.prompt}</p>
                       <p className="whitespace-pre-wrap">{reflection.response}</p>
-                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-storm/10">
+                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
                         <span className="text-xs text-storm/40">
                           {new Date(reflection.createdAt).toLocaleDateString()}
                         </span>
@@ -218,7 +218,7 @@ export default function ReflectPage() {
                   className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
                     currentPrompt?.id === prompt.id
                       ? 'bg-ocean text-white'
-                      : 'bg-storm/10 text-storm/70 hover:bg-storm/20'
+                      : 'bg-gray-100 text-storm/70 hover:bg-gray-200'
                   }`}
                 >
                   {prompt.prompt.slice(0, 30)}...

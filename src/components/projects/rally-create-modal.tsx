@@ -136,7 +136,7 @@ export function RallyCreateModal({
                       className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition ${
                         targetType === "backers"
                           ? "bg-sky text-white"
-                          : "bg-storm/10 text-storm hover:bg-storm/20"
+                          : "bg-gray-100 text-storm hover:bg-gray-200"
                       }`}
                     >
                       Backers
@@ -147,7 +147,7 @@ export function RallyCreateModal({
                       className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition ${
                         targetType === "amount"
                           ? "bg-sky text-white"
-                          : "bg-storm/10 text-storm hover:bg-storm/20"
+                          : "bg-gray-100 text-storm hover:bg-gray-200"
                       }`}
                     >
                       Amount ($)

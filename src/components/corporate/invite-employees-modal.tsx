@@ -104,7 +104,7 @@ export function InviteEmployeesModal({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto bg-white dark:bg-storm/90 rounded-xl p-6 z-50 shadow-xl"
+            className="fixed inset-x-4 top-1/2 -translate-y-1/2 max-w-lg mx-auto bg-white dark:bg-dark-elevated rounded-xl p-6 z-50 shadow-xl"
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-ocean dark:text-sky">
@@ -112,7 +112,7 @@ export function InviteEmployeesModal({
               </h2>
               <button
                 onClick={onClose}
-                className="p-1 rounded-full hover:bg-storm/10"
+                className="p-1 rounded-full hover:bg-gray-100"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -125,7 +125,7 @@ export function InviteEmployeesModal({
                 className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
                   mode === 'single'
                     ? 'bg-ocean dark:bg-sky text-white'
-                    : 'bg-storm/10 dark:bg-foam/10 hover:bg-storm/20'
+                    : 'bg-gray-100 dark:bg-foam/10 hover:bg-gray-200'
                 }`}
               >
                 Single Invite
@@ -135,7 +135,7 @@ export function InviteEmployeesModal({
                 className={`flex-1 py-2 rounded-lg font-medium transition-colors ${
                   mode === 'bulk'
                     ? 'bg-ocean dark:bg-sky text-white'
-                    : 'bg-storm/10 dark:bg-foam/10 hover:bg-storm/20'
+                    : 'bg-gray-100 dark:bg-foam/10 hover:bg-gray-200'
                 }`}
               >
                 Bulk Invite
@@ -155,7 +155,7 @@ export function InviteEmployeesModal({
               <form onSubmit={handleSubmit} className="space-y-4">
                 {mode === 'single' ? (
                   <div>
-                    <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                    <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                       <Mail className="w-4 h-4 inline mr-1" />
                       Employee Email
                     </label>
@@ -164,13 +164,13 @@ export function InviteEmployeesModal({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="employee@company.com"
-                      className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
+                      className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky"
                     />
                   </div>
                 ) : (
                   <>
                     <div>
-                      <label className="block text-sm font-medium text-storm/70 dark:text-foam/70 mb-1">
+                      <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                         Email List
                       </label>
                       <textarea
@@ -178,13 +178,13 @@ export function InviteEmployeesModal({
                         onChange={(e) => setBulkEmails(e.target.value)}
                         placeholder="Enter emails separated by commas, semicolons, or new lines"
                         rows={6}
-                        className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none font-mono text-sm"
+                        className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 focus:ring-2 focus:ring-ocean dark:focus:ring-sky resize-none font-mono text-sm"
                       />
                     </div>
                     <div>
-                      <label className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-storm/20 dark:border-foam/20 rounded-lg cursor-pointer hover:border-ocean dark:hover:border-sky transition-colors">
+                      <label className="flex items-center gap-2 px-4 py-3 border-2 border-dashed border-gray-200 dark:border-foam/20 rounded-lg cursor-pointer hover:border-ocean dark:hover:border-sky transition-colors">
                         <Upload className="w-5 h-5 text-storm/50" />
-                        <span className="text-sm text-storm/60 dark:text-foam/60">
+                        <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                           Upload CSV file
                         </span>
                         <input
@@ -209,7 +209,7 @@ export function InviteEmployeesModal({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg font-medium hover:bg-storm/5 dark:hover:bg-foam/5 transition-colors"
+                    className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-foam/5 transition-colors"
                   >
                     Cancel
                   </button>

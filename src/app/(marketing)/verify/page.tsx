@@ -68,7 +68,7 @@ export default function VerifyPage() {
           <h1 className="text-4xl font-bold text-ocean dark:text-sky mb-4">
             Verify Transparency Record
           </h1>
-          <p className="text-storm/70 dark:text-foam/70 max-w-xl mx-auto">
+          <p className="text-storm-light dark:text-dark-text-secondary max-w-xl mx-auto">
             Enter a record hash to verify its authenticity and check its blockchain anchor status.
             All Deluge transactions are cryptographically secured for complete transparency.
           </p>
@@ -82,7 +82,7 @@ export default function VerifyPage() {
               value={hash}
               onChange={(e) => setHash(e.target.value)}
               placeholder="Enter record hash (64 hex characters)"
-              className="flex-1 px-4 py-3 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam font-mono text-sm"
+              className="flex-1 px-4 py-3 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text font-mono text-sm"
             />
             <motion.button
               type="submit"
@@ -136,7 +136,7 @@ export default function VerifyPage() {
                   >
                     {result.verification.isValid ? 'Record Verified' : 'Verification Failed'}
                   </h2>
-                  <p className="text-storm/60 dark:text-foam/60 text-sm">
+                  <p className="text-storm-light dark:text-dark-text-secondary text-sm">
                     {result.verification.isValid
                       ? 'This record is authentic and has not been tampered with.'
                       : result.verification.errors.join('. ')}
@@ -147,32 +147,32 @@ export default function VerifyPage() {
 
             {/* Record Details */}
             {result.record && (
-              <div className="bg-white dark:bg-storm/30 rounded-xl p-6 border border-storm/10 dark:border-storm/40">
-                <h3 className="font-semibold text-storm dark:text-foam mb-4">Record Details</h3>
+              <div className="bg-white dark:bg-dark-elevated rounded-xl p-6 border border-gray-200">
+                <h3 className="font-semibold text-storm dark:text-dark-text mb-4">Record Details</h3>
                 <dl className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <dt className="text-xs text-storm/50 dark:text-foam/50">Type</dt>
-                    <dd className="font-medium text-storm dark:text-foam capitalize">
+                    <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Type</dt>
+                    <dd className="font-medium text-storm dark:text-dark-text capitalize">
                       {result.record.recordType.replace('_', ' ')}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-storm/50 dark:text-foam/50">Entity</dt>
-                    <dd className="font-medium text-storm dark:text-foam capitalize">
+                    <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Entity</dt>
+                    <dd className="font-medium text-storm dark:text-dark-text capitalize">
                       {result.record.entityType}
                     </dd>
                   </div>
                   {result.record.amount && (
                     <div>
-                      <dt className="text-xs text-storm/50 dark:text-foam/50">Amount</dt>
-                      <dd className="font-medium text-storm dark:text-foam">
+                      <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Amount</dt>
+                      <dd className="font-medium text-storm dark:text-dark-text">
                         ${result.record.amount.toLocaleString()}
                       </dd>
                     </div>
                   )}
                   <div>
-                    <dt className="text-xs text-storm/50 dark:text-foam/50">Created</dt>
-                    <dd className="font-medium text-storm dark:text-foam">
+                    <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Created</dt>
+                    <dd className="font-medium text-storm dark:text-dark-text">
                       {new Date(result.record.createdAt).toLocaleString()}
                     </dd>
                   </div>
@@ -181,8 +181,8 @@ export default function VerifyPage() {
             )}
 
             {/* Verification Checks */}
-            <div className="bg-white dark:bg-storm/30 rounded-xl p-6 border border-storm/10 dark:border-storm/40">
-              <h3 className="font-semibold text-storm dark:text-foam mb-4">
+            <div className="bg-white dark:bg-dark-elevated rounded-xl p-6 border border-gray-200">
+              <h3 className="font-semibold text-storm dark:text-dark-text mb-4">
                 Verification Checks
               </h3>
               <div className="space-y-3">
@@ -209,26 +209,26 @@ export default function VerifyPage() {
 
             {/* Blockchain Anchor */}
             {result.verification.anchorDetails && (
-              <div className="bg-white dark:bg-storm/30 rounded-xl p-6 border border-storm/10 dark:border-storm/40">
-                <h3 className="font-semibold text-storm dark:text-foam mb-4">
+              <div className="bg-white dark:bg-dark-elevated rounded-xl p-6 border border-gray-200">
+                <h3 className="font-semibold text-storm dark:text-dark-text mb-4">
                   Blockchain Anchor
                 </h3>
                 <dl className="space-y-3">
                   <div>
-                    <dt className="text-xs text-storm/50 dark:text-foam/50">Chain</dt>
-                    <dd className="font-medium text-storm dark:text-foam capitalize">
+                    <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Chain</dt>
+                    <dd className="font-medium text-storm dark:text-dark-text capitalize">
                       {result.verification.anchorDetails.chain}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-storm/50 dark:text-foam/50">Transaction Hash</dt>
-                    <dd className="font-mono text-sm text-storm dark:text-foam break-all">
+                    <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Transaction Hash</dt>
+                    <dd className="font-mono text-sm text-storm dark:text-dark-text break-all">
                       {result.verification.anchorDetails.txHash}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-storm/50 dark:text-foam/50">Anchored At</dt>
-                    <dd className="font-medium text-storm dark:text-foam">
+                    <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Anchored At</dt>
+                    <dd className="font-medium text-storm dark:text-dark-text">
                       {new Date(result.verification.anchorDetails.anchoredAt).toLocaleString()}
                     </dd>
                   </div>
@@ -247,8 +247,8 @@ export default function VerifyPage() {
         )}
 
         {/* Info Section */}
-        <div className="mt-12 pt-8 border-t border-storm/10 dark:border-storm/30">
-          <h3 className="font-semibold text-storm dark:text-foam mb-4">
+        <div className="mt-12 pt-8 border-t border-gray-200">
+          <h3 className="font-semibold text-storm dark:text-dark-text mb-4">
             How Verification Works
           </h3>
           <div className="grid md:grid-cols-3 gap-6">
@@ -291,12 +291,12 @@ function CheckItem({ label, passed }: { label: string; passed: boolean }) {
         className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
           passed
             ? 'bg-teal/20 text-teal'
-            : 'bg-storm/20 text-storm/40 dark:bg-storm/50 dark:text-foam/40'
+            : 'bg-gray-200 text-storm/40 dark:bg-dark-elevated dark:text-dark-text/40'
         }`}
       >
         {passed ? '✓' : '○'}
       </div>
-      <span className={passed ? 'text-storm dark:text-foam' : 'text-storm/50 dark:text-foam/50'}>
+      <span className={passed ? 'text-storm dark:text-dark-text' : 'text-storm-light dark:text-dark-text-secondary'}>
         {label}
       </span>
     </div>
@@ -305,10 +305,10 @@ function CheckItem({ label, passed }: { label: string; passed: boolean }) {
 
 function InfoCard({ icon, title, description }: { icon: string; title: string; description: string }) {
   return (
-    <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
+    <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
       <div className="text-2xl mb-2">{icon}</div>
-      <h4 className="font-medium text-storm dark:text-foam mb-1">{title}</h4>
-      <p className="text-sm text-storm/60 dark:text-foam/60">{description}</p>
+      <h4 className="font-medium text-storm dark:text-dark-text mb-1">{title}</h4>
+      <p className="text-sm text-storm-light dark:text-dark-text-secondary">{description}</p>
     </div>
   );
 }

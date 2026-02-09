@@ -118,10 +118,10 @@ export default function SupportGroupsPage() {
     return (
       <div className="max-w-6xl mx-auto p-6">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-storm/20 rounded w-1/4" />
+          <div className="h-8 bg-gray-200 rounded w-1/4" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[1, 2, 3, 4, 5, 6].map(i => (
-              <div key={i} className="h-40 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-40 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function SupportGroupsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-ocean dark:text-sky">Support Groups</h1>
-          <p className="text-storm/70 dark:text-foam/70 mt-1">
+          <p className="text-storm-light dark:text-dark-text-secondary mt-1">
             Join peer groups for mutual support and shared learning
           </p>
         </div>
@@ -157,8 +157,8 @@ export default function SupportGroupsPage() {
                   whileHover={{ scale: 1.02 }}
                   className="flex-shrink-0 w-56 p-4 rounded-xl bg-gradient-to-br from-teal/10 to-ocean/10 dark:from-teal/20 dark:to-ocean/20 border border-teal/20 cursor-pointer"
                 >
-                  <p className="font-medium text-storm dark:text-foam">{group.name}</p>
-                  <p className="text-sm text-storm/60 dark:text-foam/60 mt-1">
+                  <p className="font-medium text-storm dark:text-dark-text">{group.name}</p>
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1">
                     {group._count?.members || 0} members
                   </p>
                 </motion.div>
@@ -175,12 +175,12 @@ export default function SupportGroupsPage() {
           placeholder="Search groups..."
           value={filter.search}
           onChange={e => setFilter(f => ({ ...f, search: e.target.value }))}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         />
         <select
           value={filter.type}
           onChange={e => setFilter(f => ({ ...f, type: e.target.value }))}
-          className="px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+          className="px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
         >
           {GROUP_TYPES.map(opt => (
             <option key={opt.value} value={opt.value}>
@@ -200,27 +200,27 @@ export default function SupportGroupsPage() {
             <Link key={group.id} href={`/support-groups/${group.id}`}>
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="p-5 rounded-xl bg-white dark:bg-storm/30 border border-storm/10 dark:border-storm/40 cursor-pointer h-full"
+                className="p-5 rounded-xl bg-white dark:bg-dark-elevated border border-gray-200 cursor-pointer h-full"
               >
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-medium text-storm dark:text-foam">{group.name}</h3>
+                  <h3 className="font-medium text-storm dark:text-dark-text">{group.name}</h3>
                   {isMember && (
                     <span className="text-xs px-2 py-0.5 bg-teal/20 text-teal rounded">
                       Member
                     </span>
                   )}
                   {!isMember && isFull && (
-                    <span className="text-xs px-2 py-0.5 bg-storm/20 text-storm/60 dark:text-foam/60 rounded">
+                    <span className="text-xs px-2 py-0.5 bg-gray-200 text-storm-light dark:text-dark-text-secondary rounded">
                       Full
                     </span>
                   )}
                 </div>
 
-                <p className="text-sm text-storm/80 dark:text-foam/80 line-clamp-2 mb-3">
+                <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-2 mb-3">
                   {group.description}
                 </p>
 
-                <div className="flex items-center justify-between text-xs text-storm/60 dark:text-foam/60">
+                <div className="flex items-center justify-between text-xs text-storm-light dark:text-dark-text-secondary">
                   <span className="capitalize">{group.type.replace('_', ' ')}</span>
                   <span>
                     {group._count.members}/{group.maxMembers} members
@@ -237,7 +237,7 @@ export default function SupportGroupsPage() {
       </div>
 
       {filteredGroups.length === 0 && (
-        <div className="text-center py-12 text-storm/60 dark:text-foam/60">
+        <div className="text-center py-12 text-storm-light dark:text-dark-text-secondary">
           No groups found. Be the first to create one!
         </div>
       )}
@@ -248,7 +248,7 @@ export default function SupportGroupsPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-storm/90 rounded-xl p-6 max-w-md w-full"
+            className="bg-white dark:bg-dark-elevated rounded-xl p-6 max-w-md w-full"
           >
             <h2 className="text-xl font-semibold text-ocean dark:text-sky mb-4">
               Create Support Group
@@ -256,7 +256,7 @@ export default function SupportGroupsPage() {
 
             <form onSubmit={handleCreate} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-storm dark:text-foam mb-1">
+                <label className="block text-sm font-medium text-storm dark:text-dark-text mb-1">
                   Group Name
                 </label>
                 <input
@@ -264,32 +264,32 @@ export default function SupportGroupsPage() {
                   required
                   value={newGroup.name}
                   onChange={e => setNewGroup(g => ({ ...g, name: e.target.value }))}
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-storm dark:text-foam mb-1">
+                <label className="block text-sm font-medium text-storm dark:text-dark-text mb-1">
                   Description
                 </label>
                 <textarea
                   required
                   value={newGroup.description}
                   onChange={e => setNewGroup(g => ({ ...g, description: e.target.value }))}
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text resize-none"
                   rows={3}
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-storm dark:text-foam mb-1">
+                  <label className="block text-sm font-medium text-storm dark:text-dark-text mb-1">
                     Type
                   </label>
                   <select
                     value={newGroup.type}
                     onChange={e => setNewGroup(g => ({ ...g, type: e.target.value }))}
-                    className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                   >
                     {GROUP_TYPES.filter(t => t.value).map(opt => (
                       <option key={opt.value} value={opt.value}>
@@ -299,7 +299,7 @@ export default function SupportGroupsPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-storm dark:text-foam mb-1">
+                  <label className="block text-sm font-medium text-storm dark:text-dark-text mb-1">
                     Max Members
                   </label>
                   <input
@@ -308,7 +308,7 @@ export default function SupportGroupsPage() {
                     max={50}
                     value={newGroup.maxMembers}
                     onChange={e => setNewGroup(g => ({ ...g, maxMembers: parseInt(e.target.value) }))}
-                    className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                   />
                 </div>
               </div>
@@ -320,14 +320,14 @@ export default function SupportGroupsPage() {
                   onChange={e => setNewGroup(g => ({ ...g, isPrivate: e.target.checked }))}
                   className="rounded border-storm/30"
                 />
-                <span className="text-storm dark:text-foam">Private group (invite only)</span>
+                <span className="text-storm dark:text-dark-text">Private group (invite only)</span>
               </label>
 
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowCreate(false)}
-                  className="flex-1 px-4 py-2 border border-storm/20 dark:border-storm/40 rounded-lg text-storm dark:text-foam hover:bg-storm/5"
+                  className="flex-1 px-4 py-2 border border-gray-200 rounded-lg text-storm dark:text-dark-text hover:bg-gray-50"
                 >
                   Cancel
                 </button>

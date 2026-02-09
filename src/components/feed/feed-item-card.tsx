@@ -84,7 +84,7 @@ export function FeedItemCard({ item, onRead }: FeedItemCardProps) {
   const config = ACTION_CONFIG[item.actionType] || {
     icon: FileText,
     color: "text-storm",
-    bgColor: "bg-storm/10",
+    bgColor: "bg-gray-100",
   };
 
   const Icon = config.icon;
@@ -108,7 +108,7 @@ export function FeedItemCard({ item, onRead }: FeedItemCardProps) {
     <div
       className={`flex gap-3 p-4 rounded-lg border transition ${
         item.read
-          ? "border-storm/10 bg-white dark:bg-storm/5"
+          ? "border-gray-200 bg-white dark:bg-gray-50"
           : "border-sky/30 bg-sky/5"
       } hover:border-sky/50`}
       onClick={handleClick}

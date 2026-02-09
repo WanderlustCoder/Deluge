@@ -127,20 +127,20 @@ export function ScheduleGiftModal({
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="fixed inset-x-4 top-[10%] md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-white dark:bg-storm rounded-xl shadow-xl z-50 max-h-[80vh] overflow-y-auto"
+            className="fixed inset-x-4 top-[10%] md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-white dark:bg-dark-elevated rounded-xl shadow-xl z-50 max-h-[80vh] overflow-y-auto"
           >
-            <div className="sticky top-0 bg-white dark:bg-storm border-b border-storm/10 dark:border-foam/10 px-6 py-4 flex items-center justify-between">
+            <div className="sticky top-0 bg-white dark:bg-dark-elevated border-b border-gray-200 dark:border-dark-border px-6 py-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-ocean/10 dark:bg-sky/10 rounded-lg">
                   <Calendar className="w-5 h-5 text-ocean dark:text-sky" />
                 </div>
-                <h2 className="text-lg font-semibold text-storm dark:text-foam">
+                <h2 className="text-lg font-semibold text-storm dark:text-dark-text">
                   Schedule Giving
                 </h2>
               </div>
               <button
                 onClick={onClose}
-                className="p-2 text-storm/50 hover:text-storm dark:text-foam/50 dark:hover:text-foam rounded-lg hover:bg-storm/5 dark:hover:bg-foam/5"
+                className="p-2 text-storm/50 hover:text-storm dark:text-dark-text/50 dark:hover:text-dark-text rounded-lg hover:bg-gray-50 dark:hover:bg-foam/5"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -155,7 +155,7 @@ export function ScheduleGiftModal({
 
               {/* Date */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Date *
                 </label>
                 <input
@@ -163,19 +163,19 @@ export function ScheduleGiftModal({
                   value={formData.scheduledDate}
                   onChange={(e) => setFormData({ ...formData, scheduledDate: e.target.value })}
                   min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                 />
               </div>
 
               {/* Occasion */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Occasion
                 </label>
                 <select
                   value={formData.occasionId}
                   onChange={(e) => setFormData({ ...formData, occasionId: e.target.value })}
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                 >
                   <option value="">Custom occasion</option>
                   {occasions.map((occasion) => (
@@ -188,7 +188,7 @@ export function ScheduleGiftModal({
 
               {!formData.occasionId && (
                 <div>
-                  <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                  <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                     Custom Occasion Name
                   </label>
                   <input
@@ -196,14 +196,14 @@ export function ScheduleGiftModal({
                     value={formData.customOccasion}
                     onChange={(e) => setFormData({ ...formData, customOccasion: e.target.value })}
                     placeholder="e.g., Anniversary, Graduation"
-                    className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                   />
                 </div>
               )}
 
               {/* Amount */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Amount *
                 </label>
                 <div className="relative">
@@ -215,7 +215,7 @@ export function ScheduleGiftModal({
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                     placeholder="0.00"
-                    className="w-full pl-8 pr-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                    className="w-full pl-8 pr-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                   />
                 </div>
               </div>
@@ -223,7 +223,7 @@ export function ScheduleGiftModal({
               {/* Recipient (optional) */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                  <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                     For Someone?
                   </label>
                   <input
@@ -231,11 +231,11 @@ export function ScheduleGiftModal({
                     value={formData.recipientName}
                     onChange={(e) => setFormData({ ...formData, recipientName: e.target.value })}
                     placeholder="Recipient name"
-                    className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                  <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                     Email
                   </label>
                   <input
@@ -243,14 +243,14 @@ export function ScheduleGiftModal({
                     value={formData.recipientEmail}
                     onChange={(e) => setFormData({ ...formData, recipientEmail: e.target.value })}
                     placeholder="To notify them"
-                    className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                    className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                   />
                 </div>
               </div>
 
               {/* Message */}
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Message (optional)
                 </label>
                 <textarea
@@ -258,7 +258,7 @@ export function ScheduleGiftModal({
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Add a personal note..."
                   rows={2}
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text resize-none"
                 />
               </div>
 
@@ -267,7 +267,7 @@ export function ScheduleGiftModal({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg text-storm/70 dark:text-foam/70 hover:bg-storm/5"
+                  className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg text-storm-light dark:text-dark-text-secondary hover:bg-gray-50"
                 >
                   Cancel
                 </button>

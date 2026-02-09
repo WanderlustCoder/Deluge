@@ -73,7 +73,7 @@ export default function DocsPage() {
             <Key className="w-5 h-5" />
             Authentication
           </h2>
-          <div className="bg-foam dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-gray-50/20 border border-gray-200 rounded-xl p-6">
             <p className="mb-4">
               All API requests require authentication via an API key. Include your key
               in the Authorization header:
@@ -94,22 +94,22 @@ export default function DocsPage() {
         {/* Rate Limiting */}
         <section className="mb-12">
           <h2 className="text-xl font-semibold mb-4">Rate Limiting</h2>
-          <div className="bg-foam dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-gray-50/20 border border-gray-200 rounded-xl p-6">
             <p className="mb-4">
               API requests are rate limited based on your API key configuration.
               Rate limit information is included in response headers:
             </p>
             <ul className="space-y-2 text-sm">
               <li>
-                <code className="bg-storm/10 px-2 py-0.5 rounded">X-RateLimit-Limit</code> -
+                <code className="bg-gray-100 px-2 py-0.5 rounded">X-RateLimit-Limit</code> -
                 Maximum requests per hour
               </li>
               <li>
-                <code className="bg-storm/10 px-2 py-0.5 rounded">X-RateLimit-Remaining</code> -
+                <code className="bg-gray-100 px-2 py-0.5 rounded">X-RateLimit-Remaining</code> -
                 Requests remaining in current window
               </li>
               <li>
-                <code className="bg-storm/10 px-2 py-0.5 rounded">X-RateLimit-Reset</code> -
+                <code className="bg-gray-100 px-2 py-0.5 rounded">X-RateLimit-Reset</code> -
                 Unix timestamp when the window resets
               </li>
             </ul>
@@ -126,7 +126,7 @@ export default function DocsPage() {
             {ENDPOINTS.map((endpoint) => (
               <div
                 key={endpoint.path}
-                className="bg-foam dark:bg-storm/20 border border-storm/10 rounded-xl p-6"
+                className="bg-gray-50/20 border border-gray-200 rounded-xl p-6"
               >
                 <div className="flex items-center gap-3 mb-2">
                   <span className="px-2 py-0.5 text-xs font-bold bg-teal/10 text-teal rounded">
@@ -141,7 +141,7 @@ export default function DocsPage() {
                     <h4 className="text-sm font-medium mb-2">Parameters</h4>
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="text-left border-b border-storm/10">
+                        <tr className="text-left border-b border-gray-200">
                           <th className="pb-2">Name</th>
                           <th className="pb-2">Type</th>
                           <th className="pb-2">Description</th>
@@ -170,7 +170,7 @@ export default function DocsPage() {
             <Webhook className="w-5 h-5" />
             Webhooks
           </h2>
-          <div className="bg-foam dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-gray-50/20 border border-gray-200 rounded-xl p-6">
             <p className="mb-4">
               Webhooks allow you to receive real-time notifications when events occur.
               All webhook payloads are signed with HMAC-SHA256 using your webhook secret.
@@ -196,7 +196,7 @@ const isValid = crypto.timingSafeEqual(
             <h4 className="font-medium mb-2">Available Events</h4>
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left border-b border-storm/10">
+                <tr className="text-left border-b border-gray-200">
                   <th className="pb-2">Event</th>
                   <th className="pb-2">Description</th>
                 </tr>
@@ -216,7 +216,7 @@ const isValid = crypto.timingSafeEqual(
         {/* Response Format */}
         <section className="mb-12">
           <h2 className="text-xl font-semibold mb-4">Response Format</h2>
-          <div className="bg-foam dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+          <div className="bg-gray-50/20 border border-gray-200 rounded-xl p-6">
             <p className="mb-4">All API responses follow a consistent format:</p>
             <pre className="bg-storm text-foam p-4 rounded-lg overflow-x-auto text-sm">
               <code>{`{

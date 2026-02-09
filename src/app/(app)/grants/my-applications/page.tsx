@@ -26,7 +26,7 @@ interface Application {
 }
 
 const STATUS_LABELS: Record<string, { label: string; color: string }> = {
-  draft: { label: 'Draft', color: 'bg-storm/20 text-storm' },
+  draft: { label: 'Draft', color: 'bg-gray-200 text-storm' },
   submitted: { label: 'Submitted', color: 'bg-ocean/20 text-ocean' },
   under_review: { label: 'Under Review', color: 'bg-gold/20 text-gold' },
   approved: { label: 'Approved', color: 'bg-teal/20 text-teal' },
@@ -59,10 +59,10 @@ export default function MyApplicationsPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-12 bg-storm/20 rounded w-1/3" />
+          <div className="h-12 bg-gray-200 rounded w-1/3" />
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-32 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-32 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -75,7 +75,7 @@ export default function MyApplicationsPage() {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold text-ocean dark:text-sky">My Applications</h1>
-          <p className="text-storm/70 dark:text-foam/70 mt-1">
+          <p className="text-storm-light dark:text-dark-text-secondary mt-1">
             Track your grant applications
           </p>
         </div>
@@ -90,8 +90,8 @@ export default function MyApplicationsPage() {
       </div>
 
       {applications.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-storm/30 rounded-xl">
-          <p className="text-storm/60 dark:text-foam/60 mb-4">
+        <div className="text-center py-12 bg-white dark:bg-dark-elevated rounded-xl">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-4">
             You haven&apos;t started any grant applications yet.
           </p>
           <Link href="/grants" className="text-ocean hover:underline">
@@ -108,14 +108,14 @@ export default function MyApplicationsPage() {
               <motion.div
                 key={app.id}
                 whileHover={{ scale: 1.01 }}
-                className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40"
+                className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-lg font-semibold text-storm dark:text-foam">
+                    <h2 className="text-lg font-semibold text-storm dark:text-dark-text">
                       {app.projectTitle}
                     </h2>
-                    <p className="text-sm text-storm/60 dark:text-foam/60">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                       {app.program.name}
                     </p>
                   </div>
@@ -126,22 +126,22 @@ export default function MyApplicationsPage() {
 
                 <div className="grid sm:grid-cols-3 gap-4 mb-4">
                   <div>
-                    <p className="text-xs text-storm/50 dark:text-foam/50">Requested</p>
-                    <p className="font-medium text-storm dark:text-foam">
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary">Requested</p>
+                    <p className="font-medium text-storm dark:text-dark-text">
                       ${app.requestedAmount.toLocaleString()}
                     </p>
                   </div>
                   {app.submittedAt && (
                     <div>
-                      <p className="text-xs text-storm/50 dark:text-foam/50">Submitted</p>
-                      <p className="font-medium text-storm dark:text-foam">
+                      <p className="text-xs text-storm-light dark:text-dark-text-secondary">Submitted</p>
+                      <p className="font-medium text-storm dark:text-dark-text">
                         {new Date(app.submittedAt).toLocaleDateString()}
                       </p>
                     </div>
                   )}
                   {app.award && (
                     <div>
-                      <p className="text-xs text-storm/50 dark:text-foam/50">Awarded</p>
+                      <p className="text-xs text-storm-light dark:text-dark-text-secondary">Awarded</p>
                       <p className="font-medium text-teal">
                         ${app.award.awardedAmount.toLocaleString()}
                       </p>
@@ -149,8 +149,8 @@ export default function MyApplicationsPage() {
                   )}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-storm/10 dark:border-storm/30">
-                  <p className="text-xs text-storm/50 dark:text-foam/50">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                  <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                     Last saved: {new Date(app.lastSavedAt).toLocaleString()}
                   </p>
                   <div className="flex gap-2">
@@ -172,7 +172,7 @@ export default function MyApplicationsPage() {
                     )}
                     <Link
                       href={`/grants/${app.program.slug}`}
-                      className="px-4 py-2 text-storm/60 dark:text-foam/60 text-sm hover:text-ocean"
+                      className="px-4 py-2 text-storm-light dark:text-dark-text-secondary text-sm hover:text-ocean"
                     >
                       View Program
                     </Link>

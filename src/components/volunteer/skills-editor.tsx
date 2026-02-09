@@ -75,7 +75,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="bg-white dark:bg-storm/20 rounded-lg p-4 border border-storm/10"
+            className="bg-white dark:bg-dark-border/50 rounded-lg p-4 border border-gray-200"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
@@ -84,20 +84,20 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
                   <h4 className="font-medium text-ocean dark:text-sky">
                     {skill.skill}
                   </h4>
-                  <span className="text-xs bg-storm/10 dark:bg-foam/10 px-2 py-0.5 rounded">
+                  <span className="text-xs bg-gray-100 dark:bg-foam/10 px-2 py-0.5 rounded">
                     {levels[skill.level]?.label || skill.level}
                   </span>
                   {!skill.isPublic && (
-                    <span className="text-xs text-storm/50 dark:text-foam/50">
+                    <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                       (private)
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-storm/60 dark:text-foam/60 mt-1">
+                <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1">
                   {categories[skill.category]?.label || skill.category}
                 </p>
                 {skill.description && (
-                  <p className="text-sm text-storm/70 dark:text-foam/70 mt-2">
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-2">
                     {skill.description}
                   </p>
                 )}
@@ -105,9 +105,9 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setEditingId(editingId === skill.id ? null : skill.id)}
-                  className="p-1.5 rounded hover:bg-storm/10 dark:hover:bg-foam/10 transition-colors"
+                  className="p-1.5 rounded hover:bg-gray-100 dark:hover:bg-foam/10 transition-colors"
                 >
-                  <Pencil className="w-4 h-4 text-storm/60 dark:text-foam/60" />
+                  <Pencil className="w-4 h-4 text-storm-light dark:text-dark-text-secondary" />
                 </button>
                 <button
                   onClick={() => handleRemove(skill.id)}
@@ -125,16 +125,16 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="mt-4 pt-4 border-t border-storm/10 dark:border-foam/10 space-y-3"
+                  className="mt-4 pt-4 border-t border-gray-200 dark:border-foam/10 space-y-3"
                 >
                   <div>
-                    <label className="block text-xs font-medium text-storm/60 dark:text-foam/60 mb-1">
+                    <label className="block text-xs font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                       Level
                     </label>
                     <select
                       value={skill.level}
                       onChange={(e) => onUpdate(skill.id, { level: e.target.value })}
-                      className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 text-sm"
+                      className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 text-sm"
                     >
                       {Object.entries(levels).map(([key, val]) => (
                         <option key={key} value={key}>{val.label}</option>
@@ -148,7 +148,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
                       onChange={(e) => onUpdate(skill.id, { isPublic: e.target.checked })}
                       className="rounded border-storm/30"
                     />
-                    <label className="text-sm text-storm/70 dark:text-foam/70">
+                    <label className="text-sm text-storm-light dark:text-dark-text-secondary">
                       Show on public profile
                     </label>
                   </div>
@@ -170,7 +170,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
           >
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-storm/60 dark:text-foam/60 mb-1">
+                <label className="block text-xs font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   Skill Name *
                 </label>
                 <input
@@ -178,17 +178,17 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
                   value={newSkill.skill}
                   onChange={(e) => setNewSkill({ ...newSkill, skill: e.target.value })}
                   placeholder="e.g., Carpentry"
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 text-sm"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 text-sm"
                 />
               </div>
               <div>
-                <label className="block text-xs font-medium text-storm/60 dark:text-foam/60 mb-1">
+                <label className="block text-xs font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                   Category *
                 </label>
                 <select
                   value={newSkill.category}
                   onChange={(e) => setNewSkill({ ...newSkill, category: e.target.value })}
-                  className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 text-sm"
+                  className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 text-sm"
                 >
                   <option value="">Select category</option>
                   {categoryOptions.map(([key, val]) => (
@@ -198,13 +198,13 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
               </div>
             </div>
             <div>
-              <label className="block text-xs font-medium text-storm/60 dark:text-foam/60 mb-1">
+              <label className="block text-xs font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                 Level
               </label>
               <select
                 value={newSkill.level}
                 onChange={(e) => setNewSkill({ ...newSkill, level: e.target.value })}
-                className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 text-sm"
+                className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 text-sm"
               >
                 {Object.entries(levels).map(([key, val]) => (
                   <option key={key} value={key}>{val.label} - {val.description}</option>
@@ -212,7 +212,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
               </select>
             </div>
             <div>
-              <label className="block text-xs font-medium text-storm/60 dark:text-foam/60 mb-1">
+              <label className="block text-xs font-medium text-storm-light dark:text-dark-text-secondary mb-1">
                 Description (optional)
               </label>
               <textarea
@@ -220,7 +220,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
                 onChange={(e) => setNewSkill({ ...newSkill, description: e.target.value })}
                 placeholder="Brief description of your experience..."
                 rows={2}
-                className="w-full px-3 py-2 border border-storm/20 dark:border-foam/20 rounded-lg bg-white dark:bg-storm/20 text-sm resize-none"
+                className="w-full px-3 py-2 border border-gray-200 dark:border-foam/20 rounded-lg bg-white dark:bg-dark-border/50 text-sm resize-none"
               />
             </div>
             <div className="flex items-center gap-2">
@@ -230,7 +230,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
                 onChange={(e) => setNewSkill({ ...newSkill, isPublic: e.target.checked })}
                 className="rounded border-storm/30"
               />
-              <label className="text-sm text-storm/70 dark:text-foam/70">
+              <label className="text-sm text-storm-light dark:text-dark-text-secondary">
                 Show on public profile
               </label>
             </div>
@@ -245,7 +245,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
             <div className="flex gap-2">
               <button
                 onClick={() => setIsAdding(false)}
-                className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg text-sm hover:bg-storm/5 transition-colors"
+                className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg text-sm hover:bg-gray-50 transition-colors"
               >
                 Cancel
               </button>
@@ -264,7 +264,7 @@ export function SkillsEditor({ skills, categories, levels, onAdd, onUpdate, onRe
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={() => setIsAdding(true)}
-            className="w-full py-3 border-2 border-dashed border-storm/20 dark:border-foam/20 rounded-lg text-storm/60 dark:text-foam/60 hover:border-teal hover:text-teal transition-colors flex items-center justify-center gap-2"
+            className="w-full py-3 border-2 border-dashed border-gray-200 dark:border-foam/20 rounded-lg text-storm-light dark:text-dark-text-secondary hover:border-teal hover:text-teal transition-colors flex items-center justify-center gap-2"
           >
             <Plus className="w-5 h-5" />
             Add Skill

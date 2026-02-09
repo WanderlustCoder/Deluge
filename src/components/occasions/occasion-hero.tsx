@@ -62,13 +62,13 @@ export function OccasionHero({ occasion, stats }: OccasionHeroProps) {
             </h1>
 
             {occasion.description && (
-              <p className="text-storm/70 dark:text-foam/70 text-lg max-w-2xl mb-4">
+              <p className="text-storm-light dark:text-dark-text-secondary text-lg max-w-2xl mb-4">
                 {occasion.description}
               </p>
             )}
 
             <div className="flex flex-wrap items-center gap-4 text-sm">
-              <div className="flex items-center gap-2 text-storm/60 dark:text-foam/60">
+              <div className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary">
                 <Calendar className="w-4 h-4" />
                 <span>
                   {format(startDate, 'MMM d')} - {format(endDate, 'MMM d, yyyy')}
@@ -96,7 +96,7 @@ export function OccasionHero({ occasion, stats }: OccasionHeroProps) {
                 >
                   ${stats.totalRaised.toLocaleString()}
                 </div>
-                <div className="text-sm text-storm/50 dark:text-foam/50">Raised</div>
+                <div className="text-sm text-storm-light dark:text-dark-text-secondary">Raised</div>
               </div>
               <div className="text-center">
                 <div
@@ -105,7 +105,7 @@ export function OccasionHero({ occasion, stats }: OccasionHeroProps) {
                 >
                   {stats.backerCount}
                 </div>
-                <div className="text-sm text-storm/50 dark:text-foam/50">Backers</div>
+                <div className="text-sm text-storm-light dark:text-dark-text-secondary">Backers</div>
               </div>
               <div className="text-center">
                 <div
@@ -114,7 +114,7 @@ export function OccasionHero({ occasion, stats }: OccasionHeroProps) {
                 >
                   {stats.projectCount}
                 </div>
-                <div className="text-sm text-storm/50 dark:text-foam/50">Projects</div>
+                <div className="text-sm text-storm-light dark:text-dark-text-secondary">Projects</div>
               </div>
             </div>
           )}

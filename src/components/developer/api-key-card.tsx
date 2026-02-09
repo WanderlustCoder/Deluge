@@ -39,29 +39,29 @@ export function ApiKeyCard({ apiKey, fullKey, onRevoke }: ApiKeyCardProps) {
   };
 
   return (
-    <div className="border border-storm/20 rounded-lg p-4 bg-foam dark:bg-storm/10">
+    <div className="border border-gray-200 rounded-lg p-4 bg-gray-50/10">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className={`p-2 rounded-lg ${isActive ? 'bg-teal/10' : 'bg-storm/10'}`}>
+          <div className={`p-2 rounded-lg ${isActive ? 'bg-teal/10' : 'bg-gray-100'}`}>
             <Key className={`w-5 h-5 ${isActive ? 'text-teal' : 'text-storm/50'}`} />
           </div>
           <div>
             <h3 className="font-medium text-ocean dark:text-sky">{apiKey.name}</h3>
             <div className="flex items-center gap-2 mt-1">
-              <code className="text-sm text-storm/70 bg-storm/10 px-2 py-0.5 rounded">
+              <code className="text-sm text-storm/70 bg-gray-100 px-2 py-0.5 rounded">
                 {fullKey && showKey ? fullKey : `${apiKey.keyPrefix}...`}
               </code>
               {fullKey && (
                 <>
                   <button
                     onClick={() => setShowKey(!showKey)}
-                    className="p-1 hover:bg-storm/10 rounded"
+                    className="p-1 hover:bg-gray-100 rounded"
                   >
                     {showKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                   <button
                     onClick={handleCopy}
-                    className="p-1 hover:bg-storm/10 rounded"
+                    className="p-1 hover:bg-gray-100 rounded"
                   >
                     {copied ? (
                       <CheckCircle className="w-4 h-4 text-teal" />
@@ -135,7 +135,7 @@ export function ApiKeyCard({ apiKey, fullKey, onRevoke }: ApiKeyCardProps) {
       </div>
 
       {isActive && (
-        <div className="mt-4 pt-4 border-t border-storm/10 flex justify-end">
+        <div className="mt-4 pt-4 border-t border-gray-200 flex justify-end">
           <button
             onClick={() => onRevoke(apiKey.id)}
             className="flex items-center gap-2 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded transition-colors"

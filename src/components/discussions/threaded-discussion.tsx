@@ -104,7 +104,7 @@ export function ThreadedDiscussion({
   }
 
   return (
-    <div className="border border-storm/20 rounded-lg p-4">
+    <div className="border border-gray-200 rounded-lg p-4">
       {/* Main discussion */}
       <div className="flex gap-3">
         <div className="flex-shrink-0">
@@ -139,7 +139,7 @@ export function ThreadedDiscussion({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center gap-4 mt-4 pt-3 border-t border-storm/10">
+      <div className="flex items-center gap-4 mt-4 pt-3 border-t border-gray-200">
         <button
           onClick={toggleReplies}
           className="flex items-center gap-1 text-sm text-storm hover:text-ocean transition"
@@ -195,7 +195,7 @@ export function ThreadedDiscussion({
       {showReplies && (
         <div className="mt-4 pl-8 space-y-4">
           {loading && (
-            <div className="animate-pulse h-16 bg-storm/10 rounded" />
+            <div className="animate-pulse h-16 bg-gray-100 rounded" />
           )}
           {replies.map((reply) => (
             <div key={reply.id} className="flex gap-3">
@@ -212,7 +212,7 @@ export function ThreadedDiscussion({
                   </div>
                 )}
               </div>
-              <div className="flex-1 bg-storm/5 rounded-lg p-3">
+              <div className="flex-1 bg-gray-50 rounded-lg p-3">
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-sm text-ocean dark:text-white">
                     {reply.user.name}

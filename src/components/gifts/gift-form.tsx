@@ -98,7 +98,7 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
         <h3 className="text-xl font-semibold text-ocean dark:text-sky mb-2">
           Gift Created!
         </h3>
-        <p className="text-storm/60 dark:text-foam/60 mb-6">
+        <p className="text-storm-light dark:text-dark-text-secondary mb-6">
           Your gift for {formData.recipientName} has been created.
         </p>
         <button
@@ -133,7 +133,7 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
 
       {/* Occasion Type */}
       <div>
-        <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-3">
+        <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-3">
           Occasion
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -145,17 +145,17 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
               className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 transition-colors ${
                 formData.occasionType === value
                   ? 'border-ocean dark:border-sky bg-ocean/5 dark:bg-sky/10'
-                  : 'border-storm/20 dark:border-foam/20 hover:border-storm/40'
+                  : 'border-gray-200 dark:border-foam/20 hover:border-storm/40'
               }`}
             >
               <Icon
                 className={`w-5 h-5 ${
                   formData.occasionType === value
                     ? 'text-ocean dark:text-sky'
-                    : 'text-storm/50 dark:text-foam/50'
+                    : 'text-storm-light dark:text-dark-text-secondary'
                 }`}
               />
-              <span className="text-xs font-medium text-storm dark:text-foam">{label}</span>
+              <span className="text-xs font-medium text-storm dark:text-dark-text">{label}</span>
             </button>
           ))}
         </div>
@@ -164,7 +164,7 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
       {/* Recipient */}
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+          <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
             Recipient Name *
           </label>
           <input
@@ -172,11 +172,11 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
             value={formData.recipientName}
             onChange={(e) => setFormData({ ...formData, recipientName: e.target.value })}
             placeholder="Who is this gift for?"
-            className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+          <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
             Recipient Email (optional)
           </label>
           <input
@@ -184,14 +184,14 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
             value={formData.recipientEmail}
             onChange={(e) => setFormData({ ...formData, recipientEmail: e.target.value })}
             placeholder="To send notification"
-            className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
           />
         </div>
       </div>
 
       {/* Amount */}
       <div>
-        <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+        <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
           Gift Amount *
         </label>
         <div className="relative">
@@ -203,17 +203,17 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
             value={formData.amount}
             onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
             placeholder="0.00"
-            className="w-full pl-8 pr-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
+            className="w-full pl-8 pr-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
           />
         </div>
-        <p className="mt-1 text-xs text-storm/50 dark:text-foam/50">
+        <p className="mt-1 text-xs text-storm-light dark:text-dark-text-secondary">
           Available: ${watershedBalance.toFixed(2)}
         </p>
       </div>
 
       {/* Message */}
       <div>
-        <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+        <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
           Personal Message (optional)
         </label>
         <textarea
@@ -221,7 +221,7 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Write a heartfelt message..."
           rows={3}
-          className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none resize-none"
+          className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none resize-none"
         />
       </div>
 
@@ -234,7 +234,7 @@ export function GiftForm({ watershedBalance, onSuccess }: GiftFormProps) {
             onChange={(e) => setFormData({ ...formData, isAnonymous: e.target.checked })}
             className="w-4 h-4 rounded border-storm/30 text-ocean focus:ring-ocean"
           />
-          <span className="text-sm text-storm/70 dark:text-foam/70">Give anonymously</span>
+          <span className="text-sm text-storm-light dark:text-dark-text-secondary">Give anonymously</span>
         </label>
       </div>
 

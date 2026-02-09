@@ -73,11 +73,11 @@ export default function CampaignDetailPage({
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-8 bg-storm/10 rounded w-1/4" />
-        <div className="h-48 bg-storm/10 rounded-xl" />
+        <div className="h-8 bg-gray-100 rounded w-1/4" />
+        <div className="h-48 bg-gray-100 rounded-xl" />
         <div className="grid md:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-24 bg-storm/10 rounded-xl" />
+            <div key={i} className="h-24 bg-gray-100 rounded-xl" />
           ))}
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function CampaignDetailPage({
   if (!campaign) {
     return (
       <div className="text-center py-12">
-        <p className="text-storm/60 dark:text-foam/60 mb-4">Campaign not found</p>
+        <p className="text-storm-light dark:text-dark-text-secondary mb-4">Campaign not found</p>
         <Link
           href={`/corporate/${slug}/campaigns`}
           className="text-ocean dark:text-sky hover:underline"
@@ -111,7 +111,7 @@ export default function CampaignDetailPage({
       case 'upcoming':
         return 'bg-gold/10 text-gold';
       default:
-        return 'bg-storm/10 text-storm/70';
+        return 'bg-gray-100 text-storm/70';
     }
   };
 
@@ -124,7 +124,7 @@ export default function CampaignDetailPage({
       >
         <Link
           href={`/corporate/${slug}/campaigns`}
-          className="flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors mb-4"
+          className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Campaigns
@@ -140,7 +140,7 @@ export default function CampaignDetailPage({
               </span>
             </div>
             {campaign.description && (
-              <p className="text-storm/60 dark:text-foam/60">
+              <p className="text-storm-light dark:text-dark-text-secondary">
                 {campaign.description}
               </p>
             )}
@@ -154,14 +154,14 @@ export default function CampaignDetailPage({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white dark:bg-storm/20 rounded-xl p-6"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
         >
           <div className="flex items-center justify-between mb-4">
             <div>
-              <p className="text-sm text-storm/60 dark:text-foam/60">Campaign Progress</p>
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">Campaign Progress</p>
               <p className="text-2xl font-bold text-ocean dark:text-sky">
                 {formatCurrency(campaign.currentAmount)}
-                <span className="text-sm font-normal text-storm/50 dark:text-foam/50 ml-2">
+                <span className="text-sm font-normal text-storm-light dark:text-dark-text-secondary ml-2">
                   of {formatCurrency(campaign.targetAmount)} goal
                 </span>
               </p>
@@ -170,7 +170,7 @@ export default function CampaignDetailPage({
               <p className="text-3xl font-bold text-teal">{progress.toFixed(0)}%</p>
             </div>
           </div>
-          <div className="h-4 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+          <div className="h-4 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
@@ -188,43 +188,43 @@ export default function CampaignDetailPage({
         transition={{ delay: 0.2 }}
         className="grid md:grid-cols-4 gap-4"
       >
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-4">
           <div className="w-10 h-10 bg-ocean/10 dark:bg-sky/10 rounded-lg flex items-center justify-center mb-2">
             <Calendar className="w-5 h-5 text-ocean dark:text-sky" />
           </div>
-          <p className="text-sm text-storm/60 dark:text-foam/60">Duration</p>
-          <p className="font-medium text-storm dark:text-foam">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">Duration</p>
+          <p className="font-medium text-storm dark:text-dark-text">
             {formatDate(campaign.startDate)} - {formatDate(campaign.endDate)}
           </p>
         </div>
 
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-4">
           <div className="w-10 h-10 bg-teal/10 rounded-lg flex items-center justify-center mb-2">
             <Users className="w-5 h-5 text-teal" />
           </div>
-          <p className="text-sm text-storm/60 dark:text-foam/60">Participants</p>
-          <p className="font-medium text-storm dark:text-foam">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">Participants</p>
+          <p className="font-medium text-storm dark:text-dark-text">
             {campaign.participantCount} employees
           </p>
         </div>
 
-        <div className="bg-white dark:bg-storm/20 rounded-xl p-4">
+        <div className="bg-white dark:bg-dark-border/50 rounded-xl p-4">
           <div className="w-10 h-10 bg-gold/10 rounded-lg flex items-center justify-center mb-2">
             <TrendingUp className="w-5 h-5 text-gold" />
           </div>
-          <p className="text-sm text-storm/60 dark:text-foam/60">Total Raised</p>
-          <p className="font-medium text-storm dark:text-foam">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">Total Raised</p>
+          <p className="font-medium text-storm dark:text-dark-text">
             {formatCurrency(campaign.currentAmount)}
           </p>
         </div>
 
         {campaign.matchingBonus && (
-          <div className="bg-white dark:bg-storm/20 rounded-xl p-4">
+          <div className="bg-white dark:bg-dark-border/50 rounded-xl p-4">
             <div className="w-10 h-10 bg-sky/10 rounded-lg flex items-center justify-center mb-2">
               <Gift className="w-5 h-5 text-sky" />
             </div>
-            <p className="text-sm text-storm/60 dark:text-foam/60">Bonus Match</p>
-            <p className="font-medium text-storm dark:text-foam">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary">Bonus Match</p>
+            <p className="font-medium text-storm dark:text-dark-text">
               +{(campaign.matchingBonus * 100).toFixed(0)}%
             </p>
           </div>
@@ -237,7 +237,7 @@ export default function CampaignDetailPage({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white dark:bg-storm/20 rounded-xl p-6"
+          className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
         >
           <h2 className="font-semibold text-ocean dark:text-sky mb-4">
             Top Funded Projects
@@ -246,7 +246,7 @@ export default function CampaignDetailPage({
             {campaign.topProjects.map((project, index) => (
               <div
                 key={project.id}
-                className="flex items-center justify-between p-3 bg-storm/5 dark:bg-foam/5 rounded-lg"
+                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-foam/5 rounded-lg"
               >
                 <div className="flex items-center gap-3">
                   <span className="w-6 h-6 bg-ocean/10 dark:bg-sky/10 rounded-full flex items-center justify-center text-sm font-medium text-ocean dark:text-sky">
@@ -254,7 +254,7 @@ export default function CampaignDetailPage({
                   </span>
                   <Link
                     href={`/projects/${project.id}`}
-                    className="font-medium text-storm dark:text-foam hover:text-ocean dark:hover:text-sky transition-colors"
+                    className="font-medium text-storm dark:text-dark-text hover:text-ocean dark:hover:text-sky transition-colors"
                   >
                     {project.title}
                   </Link>

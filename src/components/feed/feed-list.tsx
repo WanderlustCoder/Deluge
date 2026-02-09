@@ -97,7 +97,7 @@ export function FeedList({ initialItems }: FeedListProps) {
         {[1, 2, 3].map((i) => (
           <div
             key={i}
-            className="animate-pulse h-20 bg-storm/10 rounded-lg"
+            className="animate-pulse h-20 bg-gray-100 rounded-lg"
           />
         ))}
       </div>

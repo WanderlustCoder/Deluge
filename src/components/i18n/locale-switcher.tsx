@@ -17,7 +17,7 @@ export function LocaleSwitcher({ currentLocale, onLocaleChange }: LocaleSwitcher
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
         aria-haspopup="listbox"
-        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam hover:bg-storm/5 dark:hover:bg-storm/40"
+        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text hover:bg-gray-50 dark:hover:bg-dark-border"
       >
         <span className="text-lg" aria-hidden="true">
           🌐
@@ -39,7 +39,7 @@ export function LocaleSwitcher({ currentLocale, onLocaleChange }: LocaleSwitcher
           <ul
             role="listbox"
             aria-label="Select language"
-            className="absolute top-full left-0 mt-1 w-48 py-1 bg-white dark:bg-storm/90 border border-storm/20 dark:border-storm/40 rounded-lg shadow-lg z-20 max-h-64 overflow-y-auto"
+            className="absolute top-full left-0 mt-1 w-48 py-1 bg-white dark:bg-dark-elevated border border-gray-200 rounded-lg shadow-lg z-20 max-h-64 overflow-y-auto"
           >
             {SUPPORTED_LOCALES.map((locale) => (
               <li key={locale}>
@@ -51,10 +51,10 @@ export function LocaleSwitcher({ currentLocale, onLocaleChange }: LocaleSwitcher
                     setIsOpen(false);
                   }}
                   dir={getLocaleDirection(locale)}
-                  className={`w-full text-left px-4 py-2 hover:bg-storm/5 dark:hover:bg-storm/40 ${
+                  className={`w-full text-left px-4 py-2 hover:bg-gray-50 dark:hover:bg-dark-border ${
                     locale === currentLocale
                       ? 'bg-ocean/10 text-ocean dark:text-sky'
-                      : 'text-storm dark:text-foam'
+                      : 'text-storm dark:text-dark-text'
                   }`}
                 >
                   {LOCALE_NAMES[locale]}
@@ -79,7 +79,7 @@ export function LocaleSwitcherCompact({ currentLocale, onLocaleChange }: LocaleS
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-label={`Current language: ${LOCALE_NAMES[currentLocale]}. Click to change.`}
-        className="p-2 rounded-lg border border-storm/20 dark:border-storm/40 bg-white dark:bg-storm/30 text-storm dark:text-foam hover:bg-storm/5 dark:hover:bg-storm/40"
+        className="p-2 rounded-lg border border-gray-200 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text hover:bg-gray-50 dark:hover:bg-dark-border"
       >
         <span className="text-lg">🌐</span>
       </button>
@@ -90,7 +90,7 @@ export function LocaleSwitcherCompact({ currentLocale, onLocaleChange }: LocaleS
           <ul
             role="listbox"
             aria-label="Select language"
-            className="absolute top-full right-0 mt-1 w-40 py-1 bg-white dark:bg-storm/90 border border-storm/20 dark:border-storm/40 rounded-lg shadow-lg z-20"
+            className="absolute top-full right-0 mt-1 w-40 py-1 bg-white dark:bg-dark-elevated border border-gray-200 rounded-lg shadow-lg z-20"
           >
             {SUPPORTED_LOCALES.map((locale) => (
               <li key={locale}>
@@ -102,10 +102,10 @@ export function LocaleSwitcherCompact({ currentLocale, onLocaleChange }: LocaleS
                     setIsOpen(false);
                   }}
                   dir={getLocaleDirection(locale)}
-                  className={`w-full text-left px-4 py-2 hover:bg-storm/5 dark:hover:bg-storm/40 ${
+                  className={`w-full text-left px-4 py-2 hover:bg-gray-50 dark:hover:bg-dark-border ${
                     locale === currentLocale
                       ? 'bg-ocean/10 text-ocean dark:text-sky'
-                      : 'text-storm dark:text-foam'
+                      : 'text-storm dark:text-dark-text'
                   }`}
                 >
                   {LOCALE_NAMES[locale]}

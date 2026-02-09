@@ -63,14 +63,14 @@ export default function CertificatesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm/20 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -103,7 +103,7 @@ export default function CertificatesPage() {
                 {certificates.map((cert) => (
                   <div
                     key={cert.id}
-                    className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6"
+                    className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6"
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-4">
@@ -122,7 +122,7 @@ export default function CertificatesPage() {
                           // Download PDF logic would go here
                           alert('PDF download coming soon');
                         }}
-                        className="inline-flex items-center gap-2 px-4 py-2 border border-storm/20 rounded-lg hover:bg-storm/5 text-sm"
+                        className="inline-flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm"
                       >
                         <Download className="w-4 h-4" />
                         Download
@@ -139,7 +139,7 @@ export default function CertificatesPage() {
             <h2 className="text-lg font-semibold mb-4">Available Certificates</h2>
 
             {available.length === 0 ? (
-              <div className="text-center py-8 bg-white dark:bg-storm/20 border border-storm/10 rounded-xl">
+              <div className="text-center py-8 bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl">
                 <Check className="w-12 h-12 text-teal mx-auto mb-4" />
                 <p className="text-storm/60">You&apos;ve collected all available certificates!</p>
               </div>
@@ -148,7 +148,7 @@ export default function CertificatesPage() {
                 {available.map((topic) => (
                   <div
                     key={topic.id}
-                    className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6"
+                    className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6"
                   >
                     <div className="flex items-start justify-between">
                       <div>

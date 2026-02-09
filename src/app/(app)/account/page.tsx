@@ -65,13 +65,13 @@ export default function AccountPage() {
     return (
       <div className="max-w-3xl mx-auto">
         <div className="mb-8">
-          <div className="h-8 w-48 bg-storm/10 rounded animate-pulse" />
-          <div className="h-4 w-32 bg-storm/10 rounded animate-pulse mt-2" />
+          <div className="h-8 w-48 bg-gray-100 rounded animate-pulse" />
+          <div className="h-4 w-32 bg-gray-100 rounded animate-pulse mt-2" />
         </div>
         <div className="space-y-4">
-          <div className="h-32 bg-storm/10 rounded-xl animate-pulse" />
-          <div className="h-12 bg-storm/10 rounded-lg animate-pulse" />
-          <div className="h-48 bg-storm/10 rounded-xl animate-pulse" />
+          <div className="h-32 bg-gray-100 rounded-xl animate-pulse" />
+          <div className="h-12 bg-gray-100 rounded-lg animate-pulse" />
+          <div className="h-48 bg-gray-100 rounded-xl animate-pulse" />
         </div>
       </div>
     );

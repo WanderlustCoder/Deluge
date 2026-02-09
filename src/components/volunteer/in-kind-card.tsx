@@ -46,7 +46,7 @@ export function InKindCard({
       case 'declined':
         return { icon: XCircle, color: 'text-red-500', bg: 'bg-red-50', label: 'Declined' };
       default:
-        return { icon: Inbox, color: 'text-storm/50', bg: 'bg-storm/10', label: status };
+        return { icon: Inbox, color: 'text-storm/50', bg: 'bg-gray-100', label: status };
     }
   };
 
@@ -75,12 +75,12 @@ export function InKindCard({
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-white dark:bg-storm/20 rounded-xl p-4 shadow-sm border border-storm/10"
+      className="bg-white dark:bg-dark-border/50 rounded-xl p-4 shadow-sm border border-gray-200"
     >
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium bg-storm/10 dark:bg-foam/10 px-2 py-0.5 rounded">
+            <span className="text-xs font-medium bg-gray-100 dark:bg-foam/10 px-2 py-0.5 rounded">
               {typeLabels[donation.type] || donation.type}
             </span>
             <div className={`flex items-center gap-1 ${statusConfig.color} text-xs`}>
@@ -92,7 +92,7 @@ export function InKindCard({
             {donation.description}
           </p>
           {showProject && (
-            <p className="text-sm text-storm/60 dark:text-foam/60">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary">
               for {donation.project.title}
             </p>
           )}
@@ -105,20 +105,20 @@ export function InKindCard({
         )}
       </div>
 
-      <div className="flex items-center justify-between text-xs text-storm/50 dark:text-foam/50">
+      <div className="flex items-center justify-between text-xs text-storm-light dark:text-dark-text-secondary">
         <span>From {donation.donor.name}</span>
         <span>{formatDate(donation.offeredAt)}</span>
       </div>
 
       {donation.notes && (
-        <p className="text-sm text-storm/70 dark:text-foam/70 mt-2 pt-2 border-t border-storm/10 dark:border-foam/10">
+        <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-2 pt-2 border-t border-gray-200 dark:border-foam/10">
           {donation.notes}
         </p>
       )}
 
       {/* Action buttons for project coordinators */}
       {(onAccept || onDecline || onMarkReceived) && (
-        <div className="flex gap-2 mt-4 pt-3 border-t border-storm/10 dark:border-foam/10">
+        <div className="flex gap-2 mt-4 pt-3 border-t border-gray-200 dark:border-foam/10">
           {donation.status === 'offered' && onAccept && (
             <button
               onClick={onAccept}

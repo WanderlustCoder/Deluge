@@ -48,7 +48,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
   return (
     <Link
       href={`/learn/${resource.slug}`}
-      className="block bg-white dark:bg-storm/20 border border-storm/10 rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+      className="block bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
     >
       {/* Image */}
       <div className="relative h-40 bg-gradient-to-br from-ocean/20 to-teal/20">
@@ -65,7 +65,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
           </div>
         )}
         {/* Format badge */}
-        <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-white/90 dark:bg-storm/90 rounded-full text-xs font-medium">
+        <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-white/90 dark:bg-dark-elevated rounded-full text-xs font-medium">
           <FormatIcon className="w-3 h-3" />
           {FORMAT_LABELS[resource.format]}
         </div>
@@ -74,7 +74,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
       {/* Content */}
       <div className="p-4">
         {/* Category tag */}
-        <span className={`inline-block px-2 py-0.5 text-xs rounded mb-2 ${CATEGORY_COLORS[resource.category] || 'bg-storm/10'}`}>
+        <span className={`inline-block px-2 py-0.5 text-xs rounded mb-2 ${CATEGORY_COLORS[resource.category] || 'bg-gray-100'}`}>
           {resource.category.charAt(0).toUpperCase() + resource.category.slice(1)}
         </span>
 

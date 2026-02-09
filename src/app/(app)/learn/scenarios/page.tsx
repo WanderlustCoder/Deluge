@@ -66,7 +66,7 @@ export default function ScenariosPage() {
   };
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -99,7 +99,7 @@ export default function ScenariosPage() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedCategory === null
                   ? 'bg-ocean text-white'
-                  : 'bg-storm/10 text-storm/70 hover:bg-storm/20'
+                  : 'bg-gray-100 text-storm/70 hover:bg-gray-200'
               }`}
             >
               All
@@ -111,7 +111,7 @@ export default function ScenariosPage() {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   selectedCategory === cat.id
                     ? 'bg-ocean text-white'
-                    : 'bg-storm/10 text-storm/70 hover:bg-storm/20'
+                    : 'bg-gray-100 text-storm/70 hover:bg-gray-200'
                 }`}
               >
                 {cat.label} ({cat.count})
@@ -144,12 +144,12 @@ export default function ScenariosPage() {
             {scenarios.map((scenario) => (
               <div
                 key={scenario.id}
-                className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl overflow-hidden"
+                className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl overflow-hidden"
               >
                 {/* Scenario Header */}
                 <button
                   onClick={() => setExpandedId(expandedId === scenario.id ? null : scenario.id)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-storm/5 transition-colors"
+                  className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
                 >
                   <div>
                     <h3 className="font-semibold text-lg">{scenario.title}</h3>
@@ -171,7 +171,7 @@ export default function ScenariosPage() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      className="border-t border-storm/10"
+                      className="border-t border-gray-200"
                     >
                       <div className="p-6 space-y-6">
                         {/* Full Scenario */}
@@ -186,7 +186,7 @@ export default function ScenariosPage() {
                             {scenario.options.map((option) => (
                               <div
                                 key={option.id}
-                                className="p-4 bg-storm/5 rounded-lg"
+                                className="p-4 bg-gray-50 rounded-lg"
                               >
                                 <h5 className="font-medium mb-1">{option.title}</h5>
                                 <p className="text-sm text-storm/60">{option.description}</p>

@@ -51,7 +51,7 @@ export function ProposalCard({ proposal, circleSlug, userVote }: ProposalCardPro
             {daysRemaining}d left
           </span>
         ) : (
-          <span className="px-2 py-0.5 bg-storm/10 text-storm/70 rounded-full text-xs font-medium">
+          <span className="px-2 py-0.5 bg-gray-100 text-storm/70 rounded-full text-xs font-medium">
             Voting ended
           </span>
         );
@@ -72,7 +72,7 @@ export function ProposalCard({ proposal, circleSlug, userVote }: ProposalCardPro
         );
       case 'expired':
         return (
-          <span className="px-2 py-0.5 bg-storm/10 text-storm/50 rounded-full text-xs font-medium">
+          <span className="px-2 py-0.5 bg-gray-100 text-storm/50 rounded-full text-xs font-medium">
             Expired
           </span>
         );
@@ -100,15 +100,15 @@ export function ProposalCard({ proposal, circleSlug, userVote }: ProposalCardPro
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         whileHover={{ y: -2 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-5 border border-storm/10 hover:shadow-md transition-shadow cursor-pointer"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-5 border border-gray-200 hover:shadow-md transition-shadow cursor-pointer"
       >
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex-1 min-w-0">
-            <p className="text-xs text-storm/50 dark:text-foam/50 mb-1">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-1">
               {getTypeLabel()}
             </p>
-            <h4 className="font-medium text-storm dark:text-foam truncate">
+            <h4 className="font-medium text-storm dark:text-dark-text truncate">
               {proposal.title}
             </h4>
           </div>
@@ -116,7 +116,7 @@ export function ProposalCard({ proposal, circleSlug, userVote }: ProposalCardPro
         </div>
 
         {proposal.description && (
-          <p className="text-sm text-storm/60 dark:text-foam/60 line-clamp-2 mb-4">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary line-clamp-2 mb-4">
             {proposal.description}
           </p>
         )}
@@ -141,20 +141,20 @@ export function ProposalCard({ proposal, circleSlug, userVote }: ProposalCardPro
                 <ThumbsDown className="w-4 h-4" />
                 {proposal.noVotes}
               </span>
-              <span className="flex items-center gap-1 text-storm/50 dark:text-foam/50">
+              <span className="flex items-center gap-1 text-storm-light dark:text-dark-text-secondary">
                 <Minus className="w-4 h-4" />
                 {proposal.abstainVotes}
               </span>
             </div>
             {userVote && (
-              <span className="text-xs text-storm/50 dark:text-foam/50">
+              <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                 You voted: {userVote.vote}
               </span>
             )}
           </div>
 
           {/* Approval Bar */}
-          <div className="h-2 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden flex">
+          <div className="h-2 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden flex">
             {votingVotes > 0 && (
               <>
                 <div
@@ -169,7 +169,7 @@ export function ProposalCard({ proposal, circleSlug, userVote }: ProposalCardPro
             )}
           </div>
 
-          <p className="text-xs text-storm/50 dark:text-foam/50 text-center">
+          <p className="text-xs text-storm-light dark:text-dark-text-secondary text-center">
             {approvalPercent.toFixed(0)}% approval • {totalVotes} votes
           </p>
         </div>

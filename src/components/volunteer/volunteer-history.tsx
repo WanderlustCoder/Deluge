@@ -44,12 +44,12 @@ export function VolunteerHistory({ logs }: VolunteerHistoryProps) {
 
   if (logs.length === 0) {
     return (
-      <div className="text-center py-12 bg-white dark:bg-storm/20 rounded-xl">
-        <Clock className="w-12 h-12 mx-auto text-storm/30 dark:text-foam/30 mb-4" />
-        <h3 className="text-lg font-medium text-storm/70 dark:text-foam/70 mb-2">
+      <div className="text-center py-12 bg-white dark:bg-dark-border/50 rounded-xl">
+        <Clock className="w-12 h-12 mx-auto text-storm/30 dark:text-dark-text/30 mb-4" />
+        <h3 className="text-lg font-medium text-storm-light dark:text-dark-text-secondary mb-2">
           No Hours Logged Yet
         </h3>
-        <p className="text-sm text-storm/50 dark:text-foam/50">
+        <p className="text-sm text-storm-light dark:text-dark-text-secondary">
           Sign up for an opportunity and log your volunteer hours.
         </p>
       </div>
@@ -57,35 +57,35 @@ export function VolunteerHistory({ logs }: VolunteerHistoryProps) {
   }
 
   return (
-    <div className="bg-white dark:bg-storm/20 rounded-xl shadow-sm border border-storm/10 overflow-hidden">
-      <div className="p-4 border-b border-storm/10 dark:border-foam/10">
+    <div className="bg-white dark:bg-dark-border/50 rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="p-4 border-b border-gray-200 dark:border-foam/10">
         <h3 className="font-semibold text-ocean dark:text-sky">
           Recent Activity
         </h3>
       </div>
-      <div className="divide-y divide-storm/10 dark:divide-foam/10">
+      <div className="divide-y divide-gray-200 dark:divide-foam/10">
         {logs.map((log, index) => (
           <motion.div
             key={log.id}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="p-4 hover:bg-storm/5 dark:hover:bg-foam/5 transition-colors"
+            className="p-4 hover:bg-gray-50 dark:hover:bg-foam/5 transition-colors"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <p className="font-medium text-ocean dark:text-sky">
                   {log.opportunity.title}
                 </p>
-                <p className="text-sm text-storm/60 dark:text-foam/60">
+                <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                   {log.opportunity.project.title}
                 </p>
                 {log.description && (
-                  <p className="text-sm text-storm/70 dark:text-foam/70 mt-1">
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1">
                     {log.description}
                   </p>
                 )}
-                <p className="text-xs text-storm/50 dark:text-foam/50 mt-2">
+                <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-2">
                   {formatDate(log.date)}
                 </p>
               </div>
@@ -95,7 +95,7 @@ export function VolunteerHistory({ logs }: VolunteerHistoryProps) {
                 </p>
                 <div className="flex items-center gap-1 justify-end mt-1">
                   {getStatusIcon(log.verified)}
-                  <span className="text-xs text-storm/60 dark:text-foam/60">
+                  <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                     {getStatusText(log.verified)}
                   </span>
                 </div>

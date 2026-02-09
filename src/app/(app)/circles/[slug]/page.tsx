@@ -179,10 +179,10 @@ export default function CircleDetailPage({
     return (
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-40 bg-storm/10 rounded-xl" />
+          <div className="h-40 bg-gray-100 rounded-xl" />
           <div className="grid lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 h-64 bg-storm/10 rounded-xl" />
-            <div className="h-64 bg-storm/10 rounded-xl" />
+            <div className="lg:col-span-2 h-64 bg-gray-100 rounded-xl" />
+            <div className="h-64 bg-gray-100 rounded-xl" />
           </div>
         </div>
       </div>
@@ -192,7 +192,7 @@ export default function CircleDetailPage({
   if (!circle) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-8 text-center">
-        <p className="text-storm/60 dark:text-foam/60">Circle not found</p>
+        <p className="text-storm-light dark:text-dark-text-secondary">Circle not found</p>
       </div>
     );
   }
@@ -215,13 +215,13 @@ export default function CircleDetailPage({
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Tabs */}
-          <div className="flex items-center gap-2 border-b border-storm/10 dark:border-foam/10">
+          <div className="flex items-center gap-2 border-b border-gray-200 dark:border-foam/10">
             <button
               onClick={() => setTab('proposals')}
               className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium transition-colors ${
                 tab === 'proposals'
                   ? 'border-ocean dark:border-sky text-ocean dark:text-sky'
-                  : 'border-transparent text-storm/60 dark:text-foam/60 hover:text-storm dark:hover:text-foam'
+                  : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
               }`}
             >
               <FileText className="w-4 h-4" />
@@ -237,7 +237,7 @@ export default function CircleDetailPage({
               className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium transition-colors ${
                 tab === 'activity'
                   ? 'border-ocean dark:border-sky text-ocean dark:text-sky'
-                  : 'border-transparent text-storm/60 dark:text-foam/60 hover:text-storm dark:hover:text-foam'
+                  : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
               }`}
             >
               <Activity className="w-4 h-4" />
@@ -248,7 +248,7 @@ export default function CircleDetailPage({
               className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium transition-colors ${
                 tab === 'members'
                   ? 'border-ocean dark:border-sky text-ocean dark:text-sky'
-                  : 'border-transparent text-storm/60 dark:text-foam/60 hover:text-storm dark:hover:text-foam'
+                  : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
               }`}
             >
               <Users className="w-4 h-4" />
@@ -266,7 +266,7 @@ export default function CircleDetailPage({
               {isMember && (
                 <button
                   onClick={() => setShowProposalModal(true)}
-                  className="w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-storm/20 dark:border-foam/20 rounded-xl text-storm/60 dark:text-foam/60 hover:border-ocean dark:hover:border-sky hover:text-ocean dark:hover:text-sky transition-colors"
+                  className="w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-gray-200 dark:border-foam/20 rounded-xl text-storm-light dark:text-dark-text-secondary hover:border-ocean dark:hover:border-sky hover:text-ocean dark:hover:text-sky transition-colors"
                 >
                   <Plus className="w-5 h-5" />
                   Create Proposal
@@ -274,9 +274,9 @@ export default function CircleDetailPage({
               )}
 
               {proposals.length === 0 ? (
-                <div className="bg-white dark:bg-storm/20 rounded-xl p-8 text-center">
-                  <FileText className="w-12 h-12 text-storm/30 dark:text-foam/30 mx-auto mb-3" />
-                  <p className="text-storm/60 dark:text-foam/60">
+                <div className="bg-white dark:bg-dark-border/50 rounded-xl p-8 text-center">
+                  <FileText className="w-12 h-12 text-storm/30 dark:text-dark-text/30 mx-auto mb-3" />
+                  <p className="text-storm-light dark:text-dark-text-secondary">
                     No proposals yet. Create one to suggest how to deploy funds.
                   </p>
                 </div>
@@ -298,7 +298,7 @@ export default function CircleDetailPage({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-white dark:bg-storm/20 rounded-xl p-6"
+              className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
             >
               <ActivityFeed activities={activities} />
             </motion.div>
@@ -308,13 +308,13 @@ export default function CircleDetailPage({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="bg-white dark:bg-storm/20 rounded-xl p-6"
+              className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
             >
               <div className="space-y-3">
                 {circle.members.map((member) => (
                   <div
                     key={member.id}
-                    className="flex items-center justify-between p-3 bg-storm/5 dark:bg-foam/5 rounded-lg"
+                    className="flex items-center justify-between p-3 bg-gray-50 dark:bg-foam/5 rounded-lg"
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-ocean/10 dark:bg-sky/10 flex items-center justify-center overflow-hidden">
@@ -331,10 +331,10 @@ export default function CircleDetailPage({
                         )}
                       </div>
                       <div>
-                        <p className="font-medium text-storm dark:text-foam">
+                        <p className="font-medium text-storm dark:text-dark-text">
                           {member.user.name}
                         </p>
-                        <p className="text-xs text-storm/50 dark:text-foam/50 capitalize">
+                        <p className="text-xs text-storm-light dark:text-dark-text-secondary capitalize">
                           {member.role}
                         </p>
                       </div>
@@ -343,7 +343,7 @@ export default function CircleDetailPage({
                       <p className="font-medium text-teal">
                         ${member.totalContributed.toFixed(2)}
                       </p>
-                      <p className="text-xs text-storm/50 dark:text-foam/50">
+                      <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                         contributed
                       </p>
                     </div>
@@ -365,7 +365,7 @@ export default function CircleDetailPage({
           />
 
           {circle.focusCategories.length > 0 && (
-            <div className="bg-white dark:bg-storm/20 rounded-xl p-6">
+            <div className="bg-white dark:bg-dark-border/50 rounded-xl p-6">
               <h3 className="font-semibold text-ocean dark:text-sky mb-3">
                 Focus Areas
               </h3>

@@ -95,7 +95,7 @@ export function BirthdayFundraiserView({
   };
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-2xl mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -106,14 +106,14 @@ export function BirthdayFundraiserView({
           <div className="w-20 h-20 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <Cake className="w-10 h-10 text-gold" />
           </div>
-          <h1 className="text-3xl font-bold text-storm dark:text-foam mb-2">
+          <h1 className="text-3xl font-bold text-storm dark:text-dark-text mb-2">
             {fundraiser.title}
           </h1>
-          <p className="text-storm/60 dark:text-foam/60 mb-4">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-4">
             by {fundraiser.creator.name || 'Anonymous'}
           </p>
 
-          <div className="flex items-center justify-center gap-4 text-sm text-storm/60 dark:text-foam/60">
+          <div className="flex items-center justify-center gap-4 text-sm text-storm-light dark:text-dark-text-secondary">
             <span className="flex items-center gap-1">
               <Calendar className="w-4 h-4" />
               {format(birthdayDate, 'MMMM d, yyyy')}
@@ -131,28 +131,28 @@ export function BirthdayFundraiserView({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-white dark:bg-storm/40 rounded-xl p-6 mb-6 shadow-sm"
+          className="bg-white dark:bg-dark-border rounded-xl p-6 mb-6 shadow-sm"
         >
           <div className="flex justify-between items-end mb-2">
             <div>
               <p className="text-3xl font-bold text-teal">
                 ${fundraiser.currentAmount.toFixed(2)}
               </p>
-              <p className="text-sm text-storm/50 dark:text-foam/50">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 raised of ${fundraiser.goalAmount.toFixed(2)} goal
               </p>
             </div>
             <div className="text-right">
-              <p className="text-xl font-semibold text-storm dark:text-foam">
+              <p className="text-xl font-semibold text-storm dark:text-dark-text">
                 {fundraiser.backerCount}
               </p>
-              <p className="text-sm text-storm/50 dark:text-foam/50">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 supporter{fundraiser.backerCount !== 1 ? 's' : ''}
               </p>
             </div>
           </div>
 
-          <div className="h-3 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+          <div className="h-3 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${Math.min(100, progress)}%` }}
@@ -160,7 +160,7 @@ export function BirthdayFundraiserView({
               className="h-full bg-gradient-to-r from-teal to-gold rounded-full"
             />
           </div>
-          <p className="text-sm text-storm/50 dark:text-foam/50 mt-2 text-center">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-2 text-center">
             {progress.toFixed(0)}% of goal
           </p>
         </motion.div>
@@ -170,12 +170,12 @@ export function BirthdayFundraiserView({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white dark:bg-storm/40 rounded-xl p-6 mb-6 shadow-sm"
+          className="bg-white dark:bg-dark-border rounded-xl p-6 mb-6 shadow-sm"
         >
-          <h2 className="font-semibold text-storm dark:text-foam mb-3">
+          <h2 className="font-semibold text-storm dark:text-dark-text mb-3">
             {fundraiser.creator.name?.split(' ')[0] || 'The organizer'}&apos;s message
           </h2>
-          <p className="text-storm/70 dark:text-foam/70">{fundraiser.description}</p>
+          <p className="text-storm-light dark:text-dark-text-secondary">{fundraiser.description}</p>
         </motion.div>
 
         {/* Benefitting Project */}
@@ -189,7 +189,7 @@ export function BirthdayFundraiserView({
             <h2 className="font-semibold text-ocean dark:text-sky mb-2">
               Benefitting: {fundraiser.project.title}
             </h2>
-            <p className="text-sm text-storm/60 dark:text-foam/60">
+            <p className="text-sm text-storm-light dark:text-dark-text-secondary">
               {fundraiser.project.description.slice(0, 150)}...
             </p>
           </motion.div>
@@ -200,17 +200,17 @@ export function BirthdayFundraiserView({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white dark:bg-storm/40 rounded-xl p-6 shadow-sm"
+          className="bg-white dark:bg-dark-border rounded-xl p-6 shadow-sm"
         >
           {success ? (
             <div className="text-center py-6">
               <div className="w-16 h-16 bg-teal/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-teal" />
               </div>
-              <h3 className="text-xl font-semibold text-storm dark:text-foam mb-2">
+              <h3 className="text-xl font-semibold text-storm dark:text-dark-text mb-2">
                 Thank You!
               </h3>
-              <p className="text-storm/60 dark:text-foam/60 mb-4">
+              <p className="text-storm-light dark:text-dark-text-secondary mb-4">
                 Your donation has been recorded. {fundraiser.creator.name?.split(' ')[0] || 'They'} will be notified of your gift.
               </p>
               <button
@@ -223,7 +223,7 @@ export function BirthdayFundraiserView({
             </div>
           ) : (
             <>
-              <h2 className="font-semibold text-storm dark:text-foam mb-4">
+              <h2 className="font-semibold text-storm dark:text-dark-text mb-4">
                 Make a Donation
               </h2>
 
@@ -236,7 +236,7 @@ export function BirthdayFundraiserView({
               <div className="space-y-4">
                 {/* Amount */}
                 <div>
-                  <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+                  <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                     Amount
                   </label>
                   <div className="relative">
@@ -250,7 +250,7 @@ export function BirthdayFundraiserView({
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
                       placeholder="25"
-                      className="w-full pl-8 pr-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                      className="w-full pl-8 pr-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                     />
                   </div>
                   <div className="flex gap-2 mt-2">
@@ -259,7 +259,7 @@ export function BirthdayFundraiserView({
                         key={preset}
                         type="button"
                         onClick={() => setAmount(preset.toString())}
-                        className="flex-1 py-2 border border-storm/20 dark:border-foam/20 rounded-lg text-sm text-storm/70 dark:text-foam/70 hover:border-ocean dark:hover:border-sky transition-colors"
+                        className="flex-1 py-2 border border-gray-200 dark:border-foam/20 rounded-lg text-sm text-storm-light dark:text-dark-text-secondary hover:border-ocean dark:hover:border-sky transition-colors"
                       >
                         ${preset}
                       </button>
@@ -269,7 +269,7 @@ export function BirthdayFundraiserView({
 
                 {/* Name */}
                 <div>
-                  <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+                  <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                     Your Name (Optional)
                   </label>
                   <input
@@ -277,13 +277,13 @@ export function BirthdayFundraiserView({
                     value={donorName}
                     onChange={(e) => setDonorName(e.target.value)}
                     placeholder="Anonymous"
-                    className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                   />
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="block text-sm font-medium text-storm dark:text-foam mb-2">
+                  <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                     Birthday Message (Optional)
                   </label>
                   <textarea
@@ -291,7 +291,7 @@ export function BirthdayFundraiserView({
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Happy birthday! Wishing you the best..."
-                    className="w-full px-4 py-3 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam resize-none"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text resize-none"
                   />
                 </div>
 
@@ -315,7 +315,7 @@ export function BirthdayFundraiserView({
         </motion.div>
 
         {/* Footer */}
-        <div className="text-center mt-8 text-sm text-storm/50 dark:text-foam/50">
+        <div className="text-center mt-8 text-sm text-storm-light dark:text-dark-text-secondary">
           <p>Powered by</p>
           <Link href="/" className="font-semibold text-ocean dark:text-sky hover:underline">
             Deluge

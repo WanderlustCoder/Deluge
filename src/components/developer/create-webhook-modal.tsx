@@ -89,16 +89,16 @@ export function CreateWebhookModal({ isOpen, onClose, onCreated }: CreateWebhook
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="relative w-full max-w-lg bg-white dark:bg-storm rounded-xl shadow-xl max-h-[90vh] overflow-hidden flex flex-col"
+            className="relative w-full max-w-lg bg-white dark:bg-dark-elevated rounded-xl shadow-xl max-h-[90vh] overflow-hidden flex flex-col"
           >
-            <div className="flex items-center justify-between p-4 border-b border-storm/10">
+            <div className="flex items-center justify-between p-4 border-b border-gray-200">
               <div className="flex items-center gap-2">
                 <Webhook className="w-5 h-5 text-ocean" />
                 <h2 className="text-lg font-semibold">Create Webhook</h2>
               </div>
               <button
                 onClick={onClose}
-                className="p-1 hover:bg-storm/10 rounded"
+                className="p-1 hover:bg-gray-100 rounded"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -119,7 +119,7 @@ export function CreateWebhookModal({ isOpen, onClose, onCreated }: CreateWebhook
                   onChange={(e) => setName(e.target.value)}
                   placeholder="My Webhook"
                   required
-                  className="w-full px-3 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
                 />
               </div>
 
@@ -131,7 +131,7 @@ export function CreateWebhookModal({ isOpen, onClose, onCreated }: CreateWebhook
                   onChange={(e) => setUrl(e.target.value)}
                   placeholder="https://example.com/webhooks/deluge"
                   required
-                  className="w-full px-3 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
                 />
               </div>
 
@@ -160,7 +160,7 @@ export function CreateWebhookModal({ isOpen, onClose, onCreated }: CreateWebhook
                   {EVENTS.map((event) => (
                     <label
                       key={event.value}
-                      className="flex items-start gap-3 p-2 border border-storm/20 rounded-lg cursor-pointer hover:bg-storm/5 transition-colors"
+                      className="flex items-start gap-3 p-2 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
                     >
                       <input
                         type="checkbox"
@@ -188,7 +188,7 @@ export function CreateWebhookModal({ isOpen, onClose, onCreated }: CreateWebhook
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 text-storm/70 hover:bg-storm/10 rounded-lg transition-colors"
+                  className="px-4 py-2 text-storm/70 hover:bg-gray-100 rounded-lg transition-colors"
                 >
                   Cancel
                 </button>

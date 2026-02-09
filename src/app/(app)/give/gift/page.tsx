@@ -38,7 +38,7 @@ export default function GiftGivingPage() {
       >
         <Link
           href="/occasions"
-          className="inline-flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky transition-colors mb-4"
+          className="inline-flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky transition-colors mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
@@ -52,7 +52,7 @@ export default function GiftGivingPage() {
             <h1 className="text-2xl font-bold text-ocean dark:text-sky">
               Give a Gift
             </h1>
-            <p className="text-storm/60 dark:text-foam/60">
+            <p className="text-storm-light dark:text-dark-text-secondary">
               Celebrate someone special with a meaningful gift
             </p>
           </div>
@@ -64,21 +64,21 @@ export default function GiftGivingPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
       >
         {loading ? (
           <div className="animate-pulse space-y-4">
-            <div className="h-10 bg-storm/10 rounded" />
-            <div className="h-10 bg-storm/10 rounded" />
-            <div className="h-24 bg-storm/10 rounded" />
+            <div className="h-10 bg-gray-100 rounded" />
+            <div className="h-10 bg-gray-100 rounded" />
+            <div className="h-24 bg-gray-100 rounded" />
           </div>
         ) : watershedBalance < 0.25 ? (
           <div className="text-center py-8">
-            <Gift className="w-12 h-12 text-storm/30 dark:text-foam/30 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-storm dark:text-foam mb-2">
+            <Gift className="w-12 h-12 text-storm/30 dark:text-dark-text/30 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-storm dark:text-dark-text mb-2">
               Insufficient Balance
             </h3>
-            <p className="text-storm/60 dark:text-foam/60 mb-6">
+            <p className="text-storm-light dark:text-dark-text-secondary mb-6">
               You need at least $0.25 in your watershed to create a gift.
             </p>
             <Link
@@ -106,7 +106,7 @@ export default function GiftGivingPage() {
         <h3 className="font-medium text-ocean dark:text-sky mb-2">
           How Gift Giving Works
         </h3>
-        <ul className="space-y-2 text-sm text-storm/70 dark:text-foam/70">
+        <ul className="space-y-2 text-sm text-storm-light dark:text-dark-text-secondary">
           <li>• Choose an occasion type (birthday, memorial, celebration, etc.)</li>
           <li>• Enter the recipient&apos;s name and optional email</li>
           <li>• Select an amount from your watershed balance</li>

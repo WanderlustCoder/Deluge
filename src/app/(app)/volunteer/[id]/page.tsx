@@ -114,13 +114,13 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm py-8">
+      <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-3xl mx-auto px-4">
           <div className="animate-pulse space-y-4">
-            <div className="h-8 bg-storm/10 rounded w-1/4" />
-            <div className="h-12 bg-storm/10 rounded w-3/4" />
-            <div className="h-4 bg-storm/10 rounded w-1/2" />
-            <div className="h-64 bg-storm/10 rounded" />
+            <div className="h-8 bg-gray-100 rounded w-1/4" />
+            <div className="h-12 bg-gray-100 rounded w-3/4" />
+            <div className="h-4 bg-gray-100 rounded w-1/2" />
+            <div className="h-64 bg-gray-100 rounded" />
           </div>
         </div>
       </div>
@@ -140,12 +140,12 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
     : null;
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm py-8">
+    <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-3xl mx-auto px-4">
         {/* Back Link */}
         <Link
           href="/volunteer"
-          className="inline-flex items-center gap-2 text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky mb-6 transition-colors"
+          className="inline-flex items-center gap-2 text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Volunteer
@@ -154,10 +154,10 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-storm/20 rounded-xl shadow-sm overflow-hidden"
+          className="bg-white dark:bg-dark-border/50 rounded-xl shadow-sm overflow-hidden"
         >
           {/* Header */}
-          <div className="p-6 border-b border-storm/10 dark:border-foam/10">
+          <div className="p-6 border-b border-gray-200 dark:border-foam/10">
             <div className="flex items-start justify-between mb-4">
               <div>
                 <span className="text-sm font-medium text-teal bg-teal/10 px-3 py-1 rounded-full">
@@ -176,7 +176,7 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
                     ? 'bg-teal/10 text-teal'
                     : opportunity.status === 'filled'
                     ? 'bg-gold/10 text-gold'
-                    : 'bg-storm/10 text-storm/60'
+                    : 'bg-gray-100 text-storm/60'
                 }`}
               >
                 {opportunity.status.charAt(0).toUpperCase() + opportunity.status.slice(1)}
@@ -189,7 +189,7 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
 
             <Link
               href={`/projects/${opportunity.project.id}`}
-              className="text-storm/60 dark:text-foam/60 hover:text-teal transition-colors"
+              className="text-storm-light dark:text-dark-text-secondary hover:text-teal transition-colors"
             >
               {opportunity.project.title} →
             </Link>
@@ -200,26 +200,26 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
             {/* Meta info */}
             <div className="grid grid-cols-2 gap-4">
               {opportunity.isRemote ? (
-                <div className="flex items-center gap-2 text-storm/70 dark:text-foam/70">
+                <div className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary">
                   <Wifi className="w-5 h-5 text-teal" />
                   <span>Remote / Virtual</span>
                 </div>
               ) : opportunity.location ? (
-                <div className="flex items-center gap-2 text-storm/70 dark:text-foam/70">
+                <div className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary">
                   <MapPin className="w-5 h-5 text-teal" />
                   <span>{opportunity.location}</span>
                 </div>
               ) : null}
 
               {opportunity.hoursNeeded && (
-                <div className="flex items-center gap-2 text-storm/70 dark:text-foam/70">
+                <div className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary">
                   <Clock className="w-5 h-5 text-teal" />
                   <span>{opportunity.hoursNeeded} hours needed</span>
                 </div>
               )}
 
               {opportunity.startDate && (
-                <div className="flex items-center gap-2 text-storm/70 dark:text-foam/70">
+                <div className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary">
                   <Calendar className="w-5 h-5 text-teal" />
                   <span>
                     {formatDate(opportunity.startDate)}
@@ -229,7 +229,7 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
               )}
 
               {spotsLeft !== null && (
-                <div className="flex items-center gap-2 text-storm/70 dark:text-foam/70">
+                <div className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary">
                   <Users className="w-5 h-5 text-teal" />
                   <span>
                     {spotsLeft > 0 ? `${spotsLeft} spots left` : 'Fully staffed'}
@@ -240,12 +240,12 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
 
             {/* Progress */}
             {opportunity.hoursNeeded && (
-              <div className="p-4 bg-storm/5 dark:bg-foam/5 rounded-lg">
-                <div className="flex justify-between text-sm text-storm/60 dark:text-foam/60 mb-2">
+              <div className="p-4 bg-gray-50 dark:bg-foam/5 rounded-lg">
+                <div className="flex justify-between text-sm text-storm-light dark:text-dark-text-secondary mb-2">
                   <span>{opportunity.hoursLogged.toFixed(1)} hours logged</span>
                   <span>{progressPercent.toFixed(0)}% complete</span>
                 </div>
-                <div className="h-3 bg-storm/10 dark:bg-foam/10 rounded-full overflow-hidden">
+                <div className="h-3 bg-gray-100 dark:bg-foam/10 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-teal rounded-full transition-all duration-500"
                     style={{ width: `${progressPercent}%` }}
@@ -259,7 +259,7 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
               <h2 className="text-lg font-semibold text-ocean dark:text-sky mb-3">
                 About This Opportunity
               </h2>
-              <p className="text-storm/80 dark:text-foam/80 whitespace-pre-line">
+              <p className="text-storm-light dark:text-dark-text-secondary whitespace-pre-line">
                 {opportunity.description}
               </p>
             </div>
@@ -274,7 +274,7 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
                   {opportunity.skillsRequired.map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1 bg-storm/10 dark:bg-foam/10 text-storm/70 dark:text-foam/70 rounded-full text-sm"
+                      className="px-3 py-1 bg-gray-100 dark:bg-foam/10 text-storm-light dark:text-dark-text-secondary rounded-full text-sm"
                     >
                       {skill}
                     </span>
@@ -308,7 +308,7 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
             )}
 
             {/* Actions */}
-            <div className="flex gap-3 pt-4 border-t border-storm/10 dark:border-foam/10">
+            <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-foam/10">
               {isSignedUp ? (
                 <>
                   <button
@@ -334,7 +334,7 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
                   Sign Up to Volunteer
                 </button>
               ) : (
-                <div className="flex-1 py-3 bg-storm/10 text-storm/50 rounded-lg font-medium text-center">
+                <div className="flex-1 py-3 bg-gray-100 text-storm/50 rounded-lg font-medium text-center">
                   This opportunity is no longer accepting volunteers
                 </div>
               )}

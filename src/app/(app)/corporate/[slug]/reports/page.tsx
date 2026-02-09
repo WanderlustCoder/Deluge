@@ -87,10 +87,10 @@ export default function ReportsPage({
   if (loading) {
     return (
       <div className="space-y-6 animate-pulse">
-        <div className="h-10 bg-storm/10 rounded w-1/4" />
+        <div className="h-10 bg-gray-100 rounded w-1/4" />
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="h-64 bg-storm/10 rounded-xl" />
-          <div className="h-64 bg-storm/10 rounded-xl" />
+          <div className="h-64 bg-gray-100 rounded-xl" />
+          <div className="h-64 bg-gray-100 rounded-xl" />
         </div>
       </div>
     );
@@ -108,7 +108,7 @@ export default function ReportsPage({
           <h1 className="text-2xl font-bold text-ocean dark:text-sky">
             Reports
           </h1>
-          <p className="text-storm/60 dark:text-foam/60">
+          <p className="text-storm-light dark:text-dark-text-secondary">
             ESG reports and impact analytics
           </p>
         </div>
@@ -127,7 +127,7 @@ export default function ReportsPage({
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-storm rounded-xl p-6 max-w-md w-full"
+            className="bg-white dark:bg-dark-elevated rounded-xl p-6 max-w-md w-full"
           >
             <h2 className="text-xl font-semibold text-ocean dark:text-sky mb-4">
               Generate Report
@@ -135,7 +135,7 @@ export default function ReportsPage({
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                   Report Type
                 </label>
                 <select
@@ -146,7 +146,7 @@ export default function ReportsPage({
                       type: e.target.value as typeof generateForm.type,
                     })
                   }
-                  className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                 >
                   <option value="monthly">Monthly</option>
                   <option value="quarterly">Quarterly</option>
@@ -158,7 +158,7 @@ export default function ReportsPage({
               {generateForm.type === 'custom' && (
                 <>
                   <div>
-                    <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                    <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                       Start Date
                     </label>
                     <input
@@ -167,11 +167,11 @@ export default function ReportsPage({
                       onChange={(e) =>
                         setGenerateForm({ ...generateForm, startDate: e.target.value })
                       }
-                      className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-storm/80 dark:text-foam/80 mb-2">
+                    <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                       End Date
                     </label>
                     <input
@@ -180,7 +180,7 @@ export default function ReportsPage({
                       onChange={(e) =>
                         setGenerateForm({ ...generateForm, endDate: e.target.value })
                       }
-                      className="w-full px-4 py-2 rounded-lg border border-storm/20 dark:border-foam/20 bg-white dark:bg-storm/30 text-storm dark:text-foam"
+                      className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
                     />
                   </div>
                 </>
@@ -190,7 +190,7 @@ export default function ReportsPage({
             <div className="flex justify-end gap-3 mt-6">
               <button
                 onClick={() => setShowGenerateForm(false)}
-                className="px-4 py-2 text-storm/70 dark:text-foam/70 hover:text-storm dark:hover:text-foam"
+                className="px-4 py-2 text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text"
               >
                 Cancel
               </button>
@@ -229,11 +229,11 @@ export default function ReportsPage({
           </h2>
 
           {reports.length === 0 ? (
-            <div className="bg-white dark:bg-storm/20 rounded-xl p-8 text-center">
+            <div className="bg-white dark:bg-dark-border/50 rounded-xl p-8 text-center">
               <div className="w-16 h-16 bg-ocean/10 dark:bg-sky/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <FileText className="w-8 h-8 text-ocean dark:text-sky" />
               </div>
-              <p className="text-storm/60 dark:text-foam/60 mb-4">
+              <p className="text-storm-light dark:text-dark-text-secondary mb-4">
                 No reports generated yet
               </p>
               <button
@@ -263,7 +263,7 @@ export default function ReportsPage({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="bg-white dark:bg-storm/20 rounded-xl p-6"
+        className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
       >
         <h2 className="font-semibold text-ocean dark:text-sky mb-4">
           ESG Impact Summary
@@ -271,28 +271,28 @@ export default function ReportsPage({
         <div className="grid md:grid-cols-3 gap-6">
           <div className="text-center p-4 bg-teal/10 rounded-lg">
             <p className="text-3xl font-bold text-teal mb-1">E</p>
-            <p className="text-sm font-medium text-storm/80 dark:text-foam/80">
+            <p className="text-sm font-medium text-storm-light dark:text-dark-text-secondary">
               Environmental
             </p>
-            <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
               Climate, Conservation, Clean Energy
             </p>
           </div>
           <div className="text-center p-4 bg-ocean/10 dark:bg-sky/10 rounded-lg">
             <p className="text-3xl font-bold text-ocean dark:text-sky mb-1">S</p>
-            <p className="text-sm font-medium text-storm/80 dark:text-foam/80">
+            <p className="text-sm font-medium text-storm-light dark:text-dark-text-secondary">
               Social
             </p>
-            <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
               Education, Health, Community
             </p>
           </div>
           <div className="text-center p-4 bg-gold/10 rounded-lg">
             <p className="text-3xl font-bold text-gold mb-1">G</p>
-            <p className="text-sm font-medium text-storm/80 dark:text-foam/80">
+            <p className="text-sm font-medium text-storm-light dark:text-dark-text-secondary">
               Governance
             </p>
-            <p className="text-xs text-storm/50 dark:text-foam/50 mt-1">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-1">
               Transparency, Ethics, Accountability
             </p>
           </div>

@@ -51,14 +51,12 @@ export default function StoryDetailPage() {
   }, [slug]);
 
   async function handleShare(platform: string) {
-    // Track share
     await fetch(`/api/stories/${slug}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ platform }),
     });
 
-    // Open share dialog
     const url = encodeURIComponent(window.location.href);
     const text = encodeURIComponent(story?.title || '');
 
@@ -76,12 +74,12 @@ export default function StoryDetailPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12">
         <div className="animate-pulse space-y-8">
-          <div className="h-12 bg-storm/20 rounded w-2/3" />
-          <div className="h-96 bg-storm/20 rounded-xl" />
+          <div className="h-12 bg-gray-200 rounded w-2/3" />
+          <div className="h-96 bg-gray-200 rounded-xl" />
           <div className="space-y-4">
-            <div className="h-4 bg-storm/20 rounded w-full" />
-            <div className="h-4 bg-storm/20 rounded w-5/6" />
-            <div className="h-4 bg-storm/20 rounded w-4/6" />
+            <div className="h-4 bg-gray-200 rounded w-full" />
+            <div className="h-4 bg-gray-200 rounded w-5/6" />
+            <div className="h-4 bg-gray-200 rounded w-4/6" />
           </div>
         </div>
       </div>
@@ -91,8 +89,8 @@ export default function StoryDetailPage() {
   if (!story) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold text-storm dark:text-foam mb-4">Story Not Found</h1>
-        <Link href="/stories" className="text-ocean hover:underline">
+        <h1 className="text-2xl font-bold text-storm dark:text-dark-text mb-4">Story Not Found</h1>
+        <Link href="/stories" className="text-ocean dark:text-sky hover:underline">
           Back to Stories
         </Link>
       </div>
@@ -100,7 +98,7 @@ export default function StoryDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm">
+    <div>
       {/* Hero Image */}
       {story.mediaUrls[0] && (
         <div className="h-96 relative">
@@ -126,7 +124,7 @@ export default function StoryDetailPage() {
         {/* Back Link */}
         <Link
           href="/stories"
-          className="text-storm/60 dark:text-foam/60 hover:text-ocean dark:hover:text-sky mb-6 inline-block"
+          className="text-storm-light dark:text-dark-text-secondary hover:text-ocean dark:hover:text-sky mb-6 inline-block"
         >
           ← Back to Stories
         </Link>
@@ -142,10 +140,10 @@ export default function StoryDetailPage() {
         )}
 
         {/* Meta */}
-        <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-storm/60 dark:text-foam/60">
+        <div className="flex flex-wrap items-center gap-4 mb-8 text-sm text-storm-light dark:text-dark-text-secondary">
           {story.authorName && (
             <span>
-              By <strong className="text-storm dark:text-foam">{story.authorName}</strong>
+              By <strong className="text-storm dark:text-dark-text">{story.authorName}</strong>
               {story.authorRole && ` (${story.authorRole})`}
             </span>
           )}
@@ -160,7 +158,7 @@ export default function StoryDetailPage() {
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-xl text-storm/80 dark:text-foam/80 mb-8 leading-relaxed"
+          className="text-xl text-storm-light dark:text-dark-text-secondary mb-8 leading-relaxed"
         >
           {story.summary}
         </motion.p>
@@ -175,7 +173,7 @@ export default function StoryDetailPage() {
                   <p className="text-2xl font-bold text-ocean dark:text-sky">
                     {value.toLocaleString()}
                   </p>
-                  <p className="text-sm text-storm/60 dark:text-foam/60 capitalize">
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary capitalize">
                     {key.replace(/_/g, ' ')}
                   </p>
                 </div>
@@ -189,7 +187,7 @@ export default function StoryDetailPage() {
           {story.content.map((block, i) => {
             if (block.type === 'paragraph') {
               return (
-                <p key={i} className="text-storm/80 dark:text-foam/80 mb-4">
+                <p key={i} className="text-storm-light dark:text-dark-text-secondary mb-4">
                   {block.content}
                 </p>
               );
@@ -213,7 +211,7 @@ export default function StoryDetailPage() {
               return (
                 <blockquote
                   key={i}
-                  className="border-l-4 border-teal pl-4 my-6 italic text-storm/70 dark:text-foam/70"
+                  className="border-l-4 border-teal pl-4 my-6 italic text-storm-light dark:text-dark-text-secondary"
                 >
                   {block.content}
                 </blockquote>
@@ -229,7 +227,7 @@ export default function StoryDetailPage() {
             {story.quotes.map((quote, i) => (
               <blockquote
                 key={i}
-                className="text-xl italic text-center text-storm/80 dark:text-foam/80 border-y border-storm/10 dark:border-storm/40 py-6"
+                className="text-xl italic text-center text-storm-light dark:text-dark-text-secondary border-y border-gray-200 py-6"
               >
                 &ldquo;{quote}&rdquo;
               </blockquote>
@@ -240,7 +238,7 @@ export default function StoryDetailPage() {
         {/* Video */}
         {story.videoUrl && (
           <div className="mb-8">
-            <div className="aspect-video bg-storm/20 rounded-xl overflow-hidden">
+            <div className="aspect-video bg-gray-200 rounded-xl overflow-hidden">
               <iframe
                 src={story.videoUrl}
                 className="w-full h-full"
@@ -256,7 +254,7 @@ export default function StoryDetailPage() {
             {story.tags.map(tag => (
               <span
                 key={tag}
-                className="px-3 py-1 bg-storm/10 dark:bg-storm/30 text-storm/70 dark:text-foam/70 rounded-full text-sm"
+                className="px-3 py-1 bg-gray-100 dark:bg-dark-border text-storm-light dark:text-dark-text-secondary rounded-full text-sm"
               >
                 #{tag}
               </span>
@@ -285,8 +283,8 @@ export default function StoryDetailPage() {
         </div>
 
         {/* Share */}
-        <div className="border-t border-storm/10 dark:border-storm/40 pt-6">
-          <p className="text-sm text-storm/60 dark:text-foam/60 mb-3">
+        <div className="border-t border-gray-200 pt-6">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-3">
             Share this story ({story.shareCount} shares)
           </p>
           <div className="flex gap-3">
@@ -304,7 +302,7 @@ export default function StoryDetailPage() {
             </button>
             <button
               onClick={() => handleShare('copy')}
-              className="px-4 py-2 bg-storm/10 dark:bg-storm/30 text-storm dark:text-foam rounded-lg hover:bg-storm/20"
+              className="px-4 py-2 bg-gray-100 dark:bg-dark-border text-storm dark:text-dark-text rounded-lg hover:bg-gray-200"
             >
               Copy Link
             </button>

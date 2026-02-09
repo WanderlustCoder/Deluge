@@ -148,7 +148,7 @@ export default function ResourceDetailPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm/20 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
       </div>
     );
@@ -156,7 +156,7 @@ export default function ResourceDetailPage({
 
   if (error || !resource) {
     return (
-      <div className="min-h-screen bg-foam dark:bg-storm/20 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center">
         <div className="text-center">
           <BookOpen className="w-12 h-12 text-storm/30 mx-auto mb-4" />
           <h1 className="text-xl font-semibold mb-2">{error || 'Resource not found'}</h1>
@@ -171,9 +171,9 @@ export default function ResourceDetailPage({
   const FormatIcon = FORMAT_ICONS[resource.format] || BookOpen;
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
-      <div className="bg-white dark:bg-storm border-b border-storm/10">
+      <div className="bg-white dark:bg-dark-elevated border-b border-gray-200">
         <div className="container mx-auto px-4 py-6">
           <Link
             href="/learn"
@@ -209,7 +209,7 @@ export default function ResourceDetailPage({
       {/* Content */}
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
-          <div className="bg-white dark:bg-storm/20 rounded-xl p-8 border border-storm/10">
+          <div className="bg-white dark:bg-dark-border/50 rounded-xl p-8 border border-gray-200">
             <ContentRenderer blocks={resource.content} />
           </div>
 

@@ -155,19 +155,19 @@ export default function WebhooksPage() {
         {/* Stats */}
         {stats && (
           <div className="grid grid-cols-4 gap-4 mb-6">
-            <div className="p-4 bg-foam dark:bg-storm/20 border border-storm/10 rounded-lg">
+            <div className="p-4 bg-gray-50/20 border border-gray-200 rounded-lg">
               <p className="text-sm text-storm/60">Total</p>
               <p className="text-2xl font-bold">{stats.total}</p>
             </div>
-            <div className="p-4 bg-foam dark:bg-storm/20 border border-storm/10 rounded-lg">
+            <div className="p-4 bg-gray-50/20 border border-gray-200 rounded-lg">
               <p className="text-sm text-storm/60">Active</p>
               <p className="text-2xl font-bold text-teal">{stats.active}</p>
             </div>
-            <div className="p-4 bg-foam dark:bg-storm/20 border border-storm/10 rounded-lg">
+            <div className="p-4 bg-gray-50/20 border border-gray-200 rounded-lg">
               <p className="text-sm text-storm/60">Failed</p>
               <p className="text-2xl font-bold text-red-500">{stats.failed}</p>
             </div>
-            <div className="p-4 bg-foam dark:bg-storm/20 border border-storm/10 rounded-lg">
+            <div className="p-4 bg-gray-50/20 border border-gray-200 rounded-lg">
               <p className="text-sm text-storm/60">Last 24h</p>
               <p className="text-2xl font-bold">{stats.deliveriesLast24h}</p>
             </div>
@@ -184,7 +184,7 @@ export default function WebhooksPage() {
                 <p className="text-sm text-storm/70 mt-1 mb-2">
                   This secret is used to verify webhook signatures. It won&apos;t be shown again.
                 </p>
-                <code className="block p-2 bg-storm/10 rounded font-mono text-sm break-all">
+                <code className="block p-2 bg-gray-100 rounded font-mono text-sm break-all">
                   {newWebhookSecret}
                 </code>
                 <button
@@ -205,7 +205,7 @@ export default function WebhooksPage() {
             <p className="font-medium text-storm">Webhook Security</p>
             <p className="text-storm/70 mt-1">
               All webhook payloads are signed with HMAC-SHA256. Verify the{' '}
-              <code className="bg-storm/10 px-1 rounded">X-Webhook-Signature</code> header
+              <code className="bg-gray-100 px-1 rounded">X-Webhook-Signature</code> header
               to ensure authenticity.
             </p>
           </div>
@@ -216,7 +216,7 @@ export default function WebhooksPage() {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
           </div>
         ) : webhooks.length === 0 ? (
-          <div className="text-center py-12 border-2 border-dashed border-storm/20 rounded-xl">
+          <div className="text-center py-12 border-2 border-dashed border-gray-200 rounded-xl">
             <Webhook className="w-12 h-12 text-storm/30 mx-auto mb-4" />
             <h2 className="text-lg font-medium mb-2">No webhooks yet</h2>
             <p className="text-storm/60 mb-4">

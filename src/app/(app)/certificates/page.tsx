@@ -94,15 +94,15 @@ export default function CertificatesPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="animate-pulse space-y-6">
-          <div className="h-12 bg-storm/20 rounded w-1/3" />
+          <div className="h-12 bg-gray-200 rounded w-1/3" />
           <div className="grid sm:grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-24 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-24 bg-gray-200 rounded-xl" />
             ))}
           </div>
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-32 bg-storm/20 rounded-xl" />
+              <div key={i} className="h-32 bg-gray-200 rounded-xl" />
             ))}
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function CertificatesPage() {
         <h1 className="text-3xl font-bold text-ocean dark:text-sky">
           My Impact Certificates
         </h1>
-        <p className="text-storm/70 dark:text-foam/70 mt-2">
+        <p className="text-storm-light dark:text-dark-text-secondary mt-2">
           Verifiable proof of your contributions to the community
         </p>
       </div>
@@ -125,21 +125,21 @@ export default function CertificatesPage() {
       {/* Stats */}
       {stats && (
         <div className="grid sm:grid-cols-4 gap-4 mb-8">
-          <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-xs text-storm/50 dark:text-foam/50">Total Certificates</p>
+          <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">Total Certificates</p>
             <p className="text-2xl font-bold text-ocean dark:text-sky">{stats.total}</p>
           </div>
-          <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-xs text-storm/50 dark:text-foam/50">Total Impact</p>
+          <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">Total Impact</p>
             <p className="text-2xl font-bold text-teal">${stats.totalAmount.toLocaleString()}</p>
           </div>
-          <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-xs text-storm/50 dark:text-foam/50">Certificate Views</p>
-            <p className="text-2xl font-bold text-storm dark:text-foam">{stats.totalViews}</p>
+          <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">Certificate Views</p>
+            <p className="text-2xl font-bold text-storm dark:text-dark-text">{stats.totalViews}</p>
           </div>
-          <div className="p-4 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40">
-            <p className="text-xs text-storm/50 dark:text-foam/50">Types Earned</p>
-            <p className="text-2xl font-bold text-storm dark:text-foam">
+          <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
+            <p className="text-xs text-storm-light dark:text-dark-text-secondary">Types Earned</p>
+            <p className="text-2xl font-bold text-storm dark:text-dark-text">
               {Object.keys(stats.byType).length}
             </p>
           </div>
@@ -153,7 +153,7 @@ export default function CertificatesPage() {
           className={`px-4 py-2 rounded-full text-sm transition ${
             filter === ''
               ? 'bg-ocean text-white'
-              : 'bg-storm/10 text-storm dark:bg-storm/30 dark:text-foam hover:bg-storm/20'
+              : 'bg-gray-100 text-storm dark:bg-dark-elevated dark:text-dark-text hover:bg-gray-200'
           }`}
         >
           All
@@ -165,7 +165,7 @@ export default function CertificatesPage() {
             className={`px-4 py-2 rounded-full text-sm transition flex items-center gap-2 ${
               filter === key
                 ? 'bg-ocean text-white'
-                : 'bg-storm/10 text-storm dark:bg-storm/30 dark:text-foam hover:bg-storm/20'
+                : 'bg-gray-100 text-storm dark:bg-dark-elevated dark:text-dark-text hover:bg-gray-200'
             }`}
           >
             <span>{TYPE_ICONS[key]}</span>
@@ -176,14 +176,14 @@ export default function CertificatesPage() {
 
       {/* Certificates List */}
       {filteredCertificates.length === 0 ? (
-        <div className="text-center py-12 bg-white dark:bg-storm/30 rounded-xl">
+        <div className="text-center py-12 bg-white dark:bg-dark-elevated rounded-xl">
           <div className="text-4xl mb-4">📜</div>
-          <p className="text-storm/60 dark:text-foam/60 mb-4">
+          <p className="text-storm-light dark:text-dark-text-secondary mb-4">
             {filter
               ? 'No certificates of this type yet.'
               : 'You haven\'t earned any certificates yet.'}
           </p>
-          <p className="text-sm text-storm/50 dark:text-foam/50">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary">
             Contribute to projects, fund loans, or volunteer to earn certificates.
           </p>
         </div>
@@ -194,16 +194,16 @@ export default function CertificatesPage() {
               key={cert.id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-6 bg-white dark:bg-storm/30 rounded-xl border border-storm/10 dark:border-storm/40"
+              className="p-6 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="text-3xl">{TYPE_ICONS[cert.certificateType] || '📜'}</div>
                   <div>
-                    <h3 className="font-semibold text-storm dark:text-foam">
+                    <h3 className="font-semibold text-storm dark:text-dark-text">
                       {TYPE_LABELS[cert.certificateType] || cert.certificateType}
                     </h3>
-                    <p className="text-sm text-storm/60 dark:text-foam/60">
+                    <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                       {new Date(cert.issuedAt).toLocaleDateString()}
                     </p>
                   </div>
@@ -214,7 +214,7 @@ export default function CertificatesPage() {
                     className={`px-3 py-1 rounded-full text-xs ${
                       cert.isPublic
                         ? 'bg-teal/10 text-teal'
-                        : 'bg-storm/10 text-storm/60 dark:bg-storm/50 dark:text-foam/60'
+                        : 'bg-gray-100 text-storm/60 dark:bg-dark-elevated dark:text-dark-text-secondary'
                     }`}
                   >
                     {cert.isPublic ? 'Public' : 'Private'}
@@ -222,18 +222,18 @@ export default function CertificatesPage() {
                 </div>
               </div>
 
-              <p className="text-storm/80 dark:text-foam/80 mb-4 italic">
+              <p className="text-storm-light dark:text-dark-text-secondary mb-4 italic">
                 &ldquo;{cert.impactClaim}&rdquo;
               </p>
 
-              <div className="flex items-center justify-between pt-4 border-t border-storm/10 dark:border-storm/30">
+              <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                 <div className="flex items-center gap-4">
                   {cert.amount && (
-                    <span className="text-sm text-storm/60 dark:text-foam/60">
+                    <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                       ${cert.amount.toLocaleString()}
                     </span>
                   )}
-                  <span className="text-sm text-storm/50 dark:text-foam/50">
+                  <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                     {cert.viewCount} views
                   </span>
                 </div>
@@ -252,7 +252,7 @@ export default function CertificatesPage() {
                         `${window.location.origin}/certificate/${cert.certificateHash}`
                       );
                     }}
-                    className="px-3 py-1 text-sm text-storm/60 dark:text-foam/60 hover:text-ocean"
+                    className="px-3 py-1 text-sm text-storm-light dark:text-dark-text-secondary hover:text-ocean"
                   >
                     Copy Link
                   </button>
@@ -268,7 +268,7 @@ export default function CertificatesPage() {
         <h3 className="font-semibold text-ocean dark:text-sky mb-2">
           About Impact Certificates
         </h3>
-        <p className="text-sm text-storm/70 dark:text-foam/70">
+        <p className="text-sm text-storm-light dark:text-dark-text-secondary">
           Impact certificates are cryptographically verified records of your contributions.
           Each certificate is linked to an immutable blockchain record, providing transparent
           proof of your positive impact in the community.

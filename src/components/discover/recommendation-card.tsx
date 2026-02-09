@@ -40,7 +40,7 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
   return (
     <Link
       href={`/projects/${project.id}`}
-      className="block bg-white dark:bg-storm/20 border border-storm/10 rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
+      className="block bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow"
     >
       {/* Image */}
       <div className="relative h-40 bg-gradient-to-br from-ocean/20 to-teal/20">
@@ -57,7 +57,7 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
           </div>
         )}
         {/* Match indicator */}
-        <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-white/90 dark:bg-storm/90 rounded-full text-xs font-medium">
+        <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 bg-white/90 dark:bg-dark-elevated rounded-full text-xs font-medium">
           <Sparkles className="w-3 h-3 text-gold" />
           {Math.round(score * 100)}% match
         </div>
@@ -96,7 +96,7 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
               {project.progress}% of {formatCurrency(project.fundingGoal)}
             </span>
           </div>
-          <div className="h-2 bg-storm/10 rounded-full overflow-hidden">
+          <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-ocean to-teal rounded-full transition-all"
               style={{ width: `${Math.min(100, project.progress)}%` }}
@@ -110,7 +110,7 @@ export function RecommendationCard({ recommendation }: RecommendationCardProps) 
             {project.communities.slice(0, 2).map((c) => (
               <span
                 key={c.slug}
-                className="px-2 py-0.5 bg-storm/5 text-xs text-storm/60 rounded"
+                className="px-2 py-0.5 bg-gray-50 text-xs text-storm/60 rounded"
               >
                 {c.name}
               </span>

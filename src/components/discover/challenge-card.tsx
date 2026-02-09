@@ -36,7 +36,7 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-lg p-4">
+    <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-lg p-4">
       <div className="flex items-start gap-3">
         <div className="p-2 bg-gold/10 rounded-lg">
           <Target className="w-5 h-5 text-gold" />
@@ -53,7 +53,7 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
 
       {/* Progress bar */}
       <div className="mt-3">
-        <div className="h-2 bg-storm/10 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-gold to-gold/70 rounded-full transition-all"
             style={{ width: `${challenge.percentComplete}%` }}

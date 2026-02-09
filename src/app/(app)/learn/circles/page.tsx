@@ -66,7 +66,7 @@ export default function StudyCirclesPage() {
   );
 
   return (
-    <div className="min-h-screen bg-foam dark:bg-storm/20">
+    <div className="min-h-screen bg-gray-50/20">
       {/* Header */}
       <div className="bg-gradient-to-r from-ocean to-teal text-white py-12">
         <div className="container mx-auto px-4">
@@ -116,7 +116,7 @@ export default function StudyCirclesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search circles..."
-              className="w-full pl-10 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+              className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
             />
           </div>
 
@@ -183,7 +183,7 @@ function CircleCard({
   const isFull = circle.memberCount >= circle.maxMembers;
 
   return (
-    <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-4">
+    <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-4">
       <div className="flex items-start justify-between mb-3">
         <div>
           <h3 className="font-semibold">{circle.name}</h3>
@@ -273,8 +273,8 @@ function CreateCircleModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-storm rounded-xl w-full max-w-md">
-        <div className="p-6 border-b border-storm/10">
+      <div className="bg-white dark:bg-dark-elevated rounded-xl w-full max-w-md">
+        <div className="p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold">Start a Study Circle</h2>
         </div>
 
@@ -286,7 +286,7 @@ function CreateCircleModal({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Effective Giving Explorers"
-              className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
               required
             />
           </div>
@@ -298,7 +298,7 @@ function CreateCircleModal({
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               placeholder="e.g., Understanding Impact"
-              className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-storm/10"
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent dark:bg-gray-100"
             />
           </div>
 
@@ -309,7 +309,7 @@ function CreateCircleModal({
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What will this circle explore together?"
               rows={3}
-              className="w-full px-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none dark:bg-storm/10"
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent resize-none dark:bg-gray-100"
             />
           </div>
 
@@ -330,7 +330,7 @@ function CreateCircleModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-storm/20 rounded-lg hover:bg-storm/5"
+              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50"
             >
               Cancel
             </button>

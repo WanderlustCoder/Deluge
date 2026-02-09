@@ -61,7 +61,7 @@ export default function EmbedsPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search projects..."
-                  className="w-full pl-9 pr-4 py-2 border border-storm/20 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
+                  className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-ocean"
                 />
               </div>
 
@@ -78,7 +78,7 @@ export default function EmbedsPage() {
                       className={`w-full text-left p-3 rounded-lg border transition-colors ${
                         selectedProject?.id === project.id
                           ? 'border-ocean bg-ocean/5'
-                          : 'border-storm/10 hover:bg-storm/5'
+                          : 'border-gray-200 hover:bg-gray-50'
                       }`}
                     >
                       <p className="font-medium truncate">{project.title}</p>
@@ -97,7 +97,7 @@ export default function EmbedsPage() {
 
           {/* Embed Generator */}
           <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-storm/20 border border-storm/10 rounded-xl p-6">
+            <div className="bg-white dark:bg-dark-border/50 border border-gray-200 rounded-xl p-6">
               <h2 className="font-semibold mb-4">Configure Widget</h2>
               <EmbedGenerator
                 projectId={selectedProject?.id}
