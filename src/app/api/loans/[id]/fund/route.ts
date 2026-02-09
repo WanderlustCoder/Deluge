@@ -6,6 +6,7 @@ import { logError } from "@/lib/logger";
 import { notifyLoanFunded } from "@/lib/notifications";
 import { checkAndUpdateRoles } from "@/lib/roles";
 import { loanFundSchema } from "@/lib/validation";
+import { hasFundingLock } from "@/lib/watershed-loans";
 
 export async function POST(
   request: Request,
@@ -19,6 +20,15 @@ export async function POST(
   const { id } = await params;
 
   try {
+    // Check funding lock
+    const locked = await hasFundingLock(session.user.id);
+    if (locked) {
+      return NextResponse.json(
+        { error: "Your watershed funds are locked until your community funders are repaid." },
+        { status: 403 }
+      );
+    }
+
     const body = await request.json();
     const parsed = loanFundSchema.safeParse(body);
 

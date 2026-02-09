@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { SHARE_PRICE } from "@/lib/constants";
+import { SHARE_PRICE, WATERSHED_LOAN_MIN_AMOUNT } from "@/lib/constants";
 import { getTierConfig } from "@/lib/loans";
 import { logError } from "@/lib/logger";
 import { loanApplySchema } from "@/lib/validation";
@@ -55,6 +55,14 @@ export async function POST(request: Request) {
     }
 
     const tierConfig = getTierConfig(user.creditTier);
+
+    // Enforce $100 minimum for all loans
+    if (parsed.data.amount < WATERSHED_LOAN_MIN_AMOUNT) {
+      return NextResponse.json(
+        { error: `Minimum loan amount is $${WATERSHED_LOAN_MIN_AMOUNT}.` },
+        { status: 400 }
+      );
+    }
 
     // Check if loan exceeds credit limit — if so, mark as seeking sponsor
     const needsSponsor = parsed.data.amount > tierConfig.maxAmount;

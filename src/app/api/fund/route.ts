@@ -12,6 +12,7 @@ import { updateGoalProgress } from "@/lib/community-goals";
 import { checkAndAwardMilestones } from "@/lib/community-milestones";
 import { updateChallengeProgress } from "@/lib/challenges";
 import { findMatchingCampaigns, applyMatch } from "@/lib/matching";
+import { hasFundingLock } from "@/lib/watershed-loans";
 
 export async function POST(request: Request) {
   const session = await auth();
@@ -33,6 +34,15 @@ export async function POST(request: Request) {
     }
 
     const { projectId, amount } = parsed.data;
+
+    // Check funding lock (watershed-backed loan)
+    const locked = await hasFundingLock(userId);
+    if (locked) {
+      return NextResponse.json(
+        { error: "Your watershed funds are locked until your community funders are repaid. You can accelerate repayment from your loan dashboard." },
+        { status: 403 }
+      );
+    }
 
     // Check watershed balance
     const watershed = await prisma.watershed.findUnique({

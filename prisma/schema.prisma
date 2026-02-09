@@ -155,6 +155,10 @@ model User {
   securitySessions          SecuritySession[]
   twoFactorAuth             TwoFactorAuth?
   recoveryRequests          AccountRecovery[]
+  // Plan 41: Watershed Loans
+  watershedLoans            WatershedLoan[]
+  watershedLoanPayments     WatershedLoanPayment[] @relation("WatershedLoanPayer")
+  watershedLoanShares       WatershedLoanShare[]   @relation("WatershedLoanFunder")
 }
 
 model Watershed {
@@ -6341,5 +6345,79 @@ model QueueItem {
 
   @@index([queueId, status, priority])
   @@index([assignedTo, status])
+}
+
+// =============================================================================
+// Plan 41: Watershed Loans
+// =============================================================================
+
+model WatershedLoan {
+  id                        String    @id @default(cuid())
+  userId                    String
+  amount                    Float     // Total loan amount
+  selfFundedAmount          Float     // Portion from user's watershed
+  communityFundedAmount     Float     // Portion needing community funding (0 for pure)
+  remainingBalance          Float     // Outstanding principal
+  communityRemainingBalance Float     // Outstanding principal owed to community funders
+  purpose                   String
+  status                    String    @default("pending") // pending, funding, active, late, at_risk, defaulted, recovering, completed
+  type                      String    // pure, backed
+  originationFee            Float     @default(0) // 1% of communityFundedAmount
+  monthlyPayment            Float
+  termMonths                Int
+  paymentsRemaining         Int
+  nextPaymentDate           DateTime?
+  fundingDeadline           DateTime? // null for pure loans
+  portfolioValueAtOrigination Float?  // Informational: user's outstanding lending portfolio
+  fundingLockActive         Boolean   @default(false)
+  communityRepaidAt         DateTime? // When community funders were fully repaid
+  disbursedAt               DateTime?
+  completedAt               DateTime?
+  defaultedAt               DateTime?
+  recoveryStartedAt         DateTime?
+  recoveryPayments          Int       @default(0)
+  latePayments              Int       @default(0)
+  createdAt                 DateTime  @default(now())
+  updatedAt                 DateTime  @updatedAt
+
+  user     User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments WatershedLoanPayment[]
+  shares   WatershedLoanShare[]
+
+  @@index([userId, status])
+  @@index([status])
+}
+
+model WatershedLoanShare {
+  id        String   @id @default(cuid())
+  loanId    String
+  funderId  String
+  count     Int      // Number of shares
+  amount    Float    // Dollar amount funded
+  repaid    Float    @default(0) // Amount repaid to this funder
+  isSelfFunded Boolean @default(false) // True if this is the borrower's own watershed contribution
+  createdAt DateTime @default(now())
+
+  loan   WatershedLoan @relation(fields: [loanId], references: [id], onDelete: Cascade)
+  funder User          @relation("WatershedLoanFunder", fields: [funderId], references: [id])
+
+  @@index([loanId])
+  @@index([funderId])
+}
+
+model WatershedLoanPayment {
+  id                 String   @id @default(cuid())
+  watershedLoanId    String
+  payerId            String
+  amount             Float    // Total payment amount
+  type               String   // scheduled, acceleration, payoff
+  appliedToCommunity Float    // Portion applied to community-funded shares
+  appliedToSelf      Float    // Portion applied to self-funded shares
+  paidAt             DateTime @default(now())
+
+  loan  WatershedLoan @relation(fields: [watershedLoanId], references: [id], onDelete: Cascade)
+  payer User          @relation("WatershedLoanPayer", fields: [payerId], references: [id])
+
+  @@index([watershedLoanId])
 }
 

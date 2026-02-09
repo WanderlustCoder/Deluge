@@ -8,8 +8,8 @@ import { TransactionHistory } from "@/components/watershed/transaction-history";
 import { OnboardingLoader } from "@/components/onboarding/onboarding-loader";
 import { QuickStartCard } from "@/components/onboarding/quick-start-card";
 import { Card, CardContent } from "@/components/ui/card";
-import { DAILY_AD_CAP } from "@/lib/constants";
-import { Tv, Heart, FolderOpen } from "lucide-react";
+import { DAILY_AD_CAP, WATERSHED_LOAN_MIN_BALANCE } from "@/lib/constants";
+import { Tv, Heart, FolderOpen, Droplets } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -189,6 +189,17 @@ export default async function DashboardPage() {
               Projects
             </Link>
           </div>
+
+          {/* Watershed Loan — quiet safety net */}
+          {(watershed?.balance ?? 0) >= WATERSHED_LOAN_MIN_BALANCE && (
+            <Link
+              href="/account/watershed-loan"
+              className="flex items-center gap-2 p-3 bg-ocean/5 text-storm-light rounded-lg text-sm hover:bg-ocean/10 transition-colors dark:bg-ocean/10 dark:text-dark-text-secondary dark:hover:bg-ocean/20"
+            >
+              <Droplets className="h-4 w-4 text-ocean/60" />
+              Need help? Borrow from your watershed &rarr;
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -464,29 +464,10 @@ See full plan: `docs/plans/plan-40-admin-automation.md`
 
 #### Epic 41: Watershed Loans
 
-Unified flow: givers borrow against their watershed balance. If the amount exceeds their balance, watershed auto-contributes as first funder and the remainder enters community funding (Watershed-Backed Loan) with lending portfolio as informational trust signal. $100 minimum all loans. 1% upfront origination fee on community-funded portion only (no fee on pure watershed loans or self-funded portion). Tier-independent. Funding lock prevents watershed deployment until community funders repaid. Voluntary acceleration lets borrower direct watershed funds toward community repayment.
+**Status: Complete** — See Plan 41 in `docs/plans/plan-41-watershed-loans.md`
 
-| ID | Title | Epic | Notes |
-|----|-------|------|-------|
-| DLG-WLOAN-001 | WatershedLoan, WatershedLoanPayment Prisma models | watershed-loans | Schema + migration |
-| DLG-WLOAN-002 | Available balance calculation (watershed minus earmarks minus active watershed loan) | watershed-loans | `src/lib/watershed-loans.ts` |
-| DLG-WLOAN-003 | Pure Watershed Loan API — apply, auto-approve, disburse (no fee) | watershed-loans | `/api/watershed-loans` |
-| DLG-WLOAN-004 | Watershed Loan repayment API — interleaved FIFO including self-funded shares | watershed-loans | `/api/watershed-loans/[id]/pay` |
-| DLG-WLOAN-005 | Watershed-Backed Loan — self-funding mechanism + integration with loan share system | watershed-loans | Watershed auto-contributes as first funder |
-| DLG-WLOAN-006 | Origination fee — 1% of community-funded portion, collected at loan creation | watershed-loans | Added to borrower's total obligation |
-| DLG-WLOAN-007 | Loan request trust signals — self-funded amount, lending portfolio display (informational) | watershed-loans | Funder-facing loan detail |
-| DLG-WLOAN-008 | Funding lock enforcement — block watershed deployment during active community balance | watershed-loans | Check on all fund/allocate actions |
-| DLG-WLOAN-009 | Voluntary acceleration API — borrower directs watershed funds to community repayment | watershed-loans | `/api/watershed-loans/[id]/accelerate` |
-| DLG-WLOAN-010 | Funding lock release — lift lock when community funders fully repaid | watershed-loans | Status transition + notification |
-| DLG-WLOAN-011 | Unified application UI — amount slider, auto-detect pure vs. backed path | watershed-loans | `/account/watershed-loan` |
-| DLG-WLOAN-012 | Community Repayment Progress bar — borrower + funder views | watershed-loans | Central transparency element |
-| DLG-WLOAN-013 | "Accelerate Community Repayment" button + celebration on voluntary acceleration | watershed-loans | Borrower dashboard action |
-| DLG-WLOAN-014 | "Fully self-funded" milestone — celebration + lock lift | watershed-loans | Status transition + notification |
-| DLG-WLOAN-015 | Default escalation — standard late/at-risk/default, funding lock persists | watershed-loans | Shared escalation logic |
-| DLG-WLOAN-016 | Recovery paths — 3 consecutive payments or full payoff | watershed-loans | Same as standard loans |
-| DLG-WLOAN-017 | Credit bureau reporting for Watershed Loans (Plan 16 integration) | watershed-loans | Metro 2 via existing infra |
-| DLG-WLOAN-018 | Admin visibility — active Watershed Loans, funding lock status overview | watershed-loans | `/admin/watershed-loans` |
-| DLG-WLOAN-019 | $100 minimum enforcement across all loan types | watershed-loans | Update Tier 1 min + validation |
+Unified flow: givers borrow against their watershed balance. Pure loans auto-approve when watershed covers full amount. Backed loans: watershed auto-contributes as first funder, remainder enters community funding with lending portfolio trust signal. 1% origination fee on community-funded portion only. Funding lock prevents watershed deployment until community funders repaid. Voluntary acceleration for faster community repayment.
+All tasks moved to Done section.
 
 See full plan: `docs/plans/plan-41-watershed-loans.md`
 
@@ -681,3 +662,22 @@ See full plan: `docs/plans/plan-41-watershed-loans.md`
 | DLG-AUTO-008 | Admin workflows API (Plan 40) | automation | 2026-02-07 |
 | DLG-AUTO-009 | Admin tasks API (Plan 40) | automation | 2026-02-07 |
 | DLG-AUTO-010 | Operations dashboard (Plan 40) | automation | 2026-02-07 |
+| DLG-WLOAN-001 | WatershedLoan, WatershedLoanShare, WatershedLoanPayment Prisma models (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-002 | Available balance calculation (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-003 | Pure Watershed Loan API (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-004 | Watershed Loan repayment API (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-005 | Watershed-Backed Loan self-funding + share system (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-006 | Origination fee 1% community-funded (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-007 | Trust signals — self-funded amount, lending portfolio (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-008 | Funding lock enforcement (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-009 | Voluntary acceleration API (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-010 | Funding lock release on community repaid (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-011 | Unified application UI (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-012 | Community Repayment Progress bar (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-013 | Accelerate Community Repayment button (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-014 | Fully self-funded milestone (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-015 | Default escalation (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-016 | Recovery paths (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-017 | Credit bureau reporting for Watershed Loans (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-018 | Admin watershed loans dashboard (Plan 41) | watershed-loans | 2026-02-09 |
+| DLG-WLOAN-019 | $100 minimum enforcement all loans (Plan 41) | watershed-loans | 2026-02-09 |

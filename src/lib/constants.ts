@@ -248,3 +248,22 @@ export const IMPACT_METRIC_TEMPLATES: Record<string, Array<{ name: string; unit:
     { name: "Programs Run", unit: "programs" },
   ],
 } as const;
+
+// --- Watershed Loan Constants ---
+export const WATERSHED_LOAN_MIN_BALANCE = 100; // Minimum watershed balance to be eligible
+export const WATERSHED_LOAN_MIN_AMOUNT = 100;  // Minimum loan amount (platform-wide)
+export const WATERSHED_LOAN_ORIGINATION_FEE_RATE = 0.01; // 1% of community-funded portion
+export const WATERSHED_LOAN_TERM_LIMITS = [
+  { minAmount: 100,  maxAmount: 500,  maxMonths: 12 },
+  { minAmount: 501,  maxAmount: 1000, maxMonths: 18 },
+  { minAmount: 1001, maxAmount: 5000, maxMonths: 24 },
+  { minAmount: 5001, maxAmount: Infinity, maxMonths: 24 },
+] as const;
+
+// Funding deadline days for watershed-backed loans (based on community-funded amount)
+export const WATERSHED_LOAN_FUNDING_DEADLINE_DAYS = [
+  { maxAmount: 500,  days: 14 },
+  { maxAmount: 1000, days: 21 },
+  { maxAmount: 5000, days: 30 },
+  { maxAmount: Infinity, days: 45 },
+] as const;
