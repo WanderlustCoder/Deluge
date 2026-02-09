@@ -5,16 +5,16 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const lines = [
   {
-    text: "You gave $10 to a cause last month. You don\u2019t know what happened to it.",
+    text: "Imagine giving $10 and watching exactly where it lands.",
     delay: 0,
   },
   {
-    text: "That\u2019s the problem with giving today. It disappears.",
+    text: "Every cent tracked. Every project transparent. Every outcome visible.",
     delay: 0.1,
     bold: true,
   },
   {
-    text: "On Deluge, nothing disappears. You see where every cent lands, what it built, and who it helped.",
+    text: "On Deluge, you see what your giving built and who it helped \u2014 in real time.",
     delay: 0.2,
   },
   {
