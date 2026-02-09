@@ -159,6 +159,9 @@ model User {
   watershedLoans            WatershedLoan[]
   watershedLoanPayments     WatershedLoanPayment[] @relation("WatershedLoanPayer")
   watershedLoanShares       WatershedLoanShare[]   @relation("WatershedLoanFunder")
+  // Plan 42: Home Efficiency Program
+  efficiencyHomes           EfficiencyHome[]
+  efficiencyNominations     EfficiencyNomination[] @relation("EfficiencyNominator")
 }
 
 model Watershed {
@@ -240,6 +243,9 @@ model Project {
   beforeAfters           BeforeAfter[]
   // Plan 31: Pledge Campaigns
   pledgeCampaigns        PledgeCampaign[]
+  // Plan 42: Home Efficiency Program
+  efficiencyPhase        EfficiencyPhase?
+  neighborhoodCascade    NeighborhoodCascade?
 }
 
 model Allocation {
@@ -565,6 +571,8 @@ model Community {
   marketplaceListings MarketplaceListing[]
   // Plan 30: Fundraising Events
   fundraisingEvents FundraisingEvent[]
+  // Plan 42: Home Efficiency Program
+  efficiencyNominations EfficiencyNomination[]
 
   @@index([parentId])
   @@index([level])
@@ -6419,5 +6427,190 @@ model WatershedLoanPayment {
   payer User          @relation("WatershedLoanPayer", fields: [payerId], references: [id])
 
   @@index([watershedLoanId])
+}
+
+// ──────────────────────────────────────
+// Plan 42: Home Efficiency Program
+// ──────────────────────────────────────
+
+model EfficiencyHome {
+  id                String    @id @default(cuid())
+  userId            String
+  // Address & property
+  address           String
+  city              String
+  state             String
+  zipCode           String
+  homeType          String    // single_family, townhouse, duplex, mobile, condo
+  yearBuilt         Int?
+  squareFootage     Int?
+  ownershipStatus   String    // owner, renter_with_permission
+  // Entry track
+  entryTrack        String    // individual, nomination, cascade
+  // Status
+  status            String    @default("applied") // applied, assessment_queued, assessed, funding, in_progress, completed, withdrawn
+  // Energy baseline
+  currentEnergyBill Float?    // Average monthly energy cost
+  energyScoreBefore Int?      // 0-100 efficiency score before upgrades
+  energyScoreAfter  Int?      // 0-100 efficiency score after upgrades
+  // Solar potential
+  roofOrientation   String?   // north, south, east, west, flat
+  shadingFactor     String?   // none, partial, heavy
+  solarCapacityKw   Float?    // Estimated kW capacity
+  solarGenerationKwh Float?   // Estimated annual kWh generation
+  // Cascade tracking
+  neighborhoodBatchId String? // Links to NeighborhoodCascade if part of a batch
+  // Timestamps
+  appliedAt         DateTime  @default(now())
+  assessedAt        DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  user              User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessment        EfficiencyAssessment?
+  phases            EfficiencyPhase[]
+  nominations       EfficiencyNomination[]
+  neighborhoodBatch NeighborhoodCascade?   @relation(fields: [neighborhoodBatchId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([status])
+  @@index([zipCode])
+  @@index([neighborhoodBatchId])
+}
+
+model EfficiencyAssessment {
+  id                String   @id @default(cuid())
+  homeId            String   @unique
+  // Data collection
+  insulationCondition String?  // none, poor, fair, good
+  windowType        String?  // single, double, triple
+  hvacAge           Int?     // Years old
+  hvacType          String?  // furnace, heat_pump, boiler, window_ac
+  waterHeaterType   String?  // tank_gas, tank_electric, tankless, heat_pump
+  roofCondition     String?  // poor, fair, good, excellent
+  electricalPanelAmps Int?   // Current panel capacity
+  // Scoring
+  efficiencyScore   Int?     // 0-100 overall score
+  // Upgrade plan (JSON: array of {category, priority, needed, notes})
+  upgradePlan       String?  // JSON
+  // Cost estimates (JSON: {category: estimatedCost} for each applicable category)
+  costEstimates     String?  // JSON
+  totalEstimatedCost Float   @default(0)
+  // Savings projections
+  projectedSavingsKwh Float? // Annual kWh savings
+  projectedSavingsDollars Float? // Annual dollar savings
+  projectedCo2Reduction Float?  // Annual tons CO2 reduction
+  // Assessor
+  assessedBy        String?  // Who performed the assessment
+  assessorNotes     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  home              EfficiencyHome @relation(fields: [homeId], references: [id], onDelete: Cascade)
+}
+
+model EfficiencyPhase {
+  id                String    @id @default(cuid())
+  homeId            String
+  phaseNumber       Int       // 1-5
+  phaseName         String    // envelope, openings, systems, electrical, generation
+  // Categories in this phase (JSON array of category names)
+  categories        String    // JSON: ["insulation", "air_sealing", "doors"]
+  // Cost
+  estimatedCost     Float     @default(0)
+  actualCost        Float?
+  // Funding
+  fundingTrack      String?   // fully_funded, loan_assisted, co_pay
+  amountFunded      Float     @default(0)
+  fundingComplete   Boolean   @default(false)
+  // Gap funding
+  gapAmount         Float?    // Additional funding needed beyond estimate
+  gapFunded         Float     @default(0)
+  // Linked project (each phase becomes a fundable project)
+  projectId         String?   @unique
+  // Status
+  status            String    @default("pending") // pending, funding, funded, in_progress, completed, verified
+  // Contractor
+  contractorName    String?
+  contractorNotes   String?
+  // Verification
+  verifiedBy        String?
+  verifiedAt        DateTime?
+  // Timestamps
+  startedAt         DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  home              EfficiencyHome @relation(fields: [homeId], references: [id], onDelete: Cascade)
+  project           Project?       @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([homeId])
+  @@index([status])
+  @@unique([homeId, phaseNumber])
+}
+
+model EfficiencyNomination {
+  id                String    @id @default(cuid())
+  homeId            String?   // Linked after home is created
+  nominatorId       String
+  communityId       String?   // Community making the nomination
+  // Nominee info
+  nomineeAddress    String
+  nomineeCity       String
+  nomineeState      String
+  nomineeZipCode    String
+  nomineeReason     String    // Why this home needs upgrades
+  nomineeConsent    Boolean   @default(false) // Has the homeowner given permission?
+  // Voting (through aquifer system)
+  status            String    @default("pending") // pending, voting, approved, rejected
+  votingEndsAt      DateTime?
+  approvalVotes     Int       @default(0)
+  rejectionVotes    Int       @default(0)
+  totalVotes        Int       @default(0)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  home              EfficiencyHome? @relation(fields: [homeId], references: [id], onDelete: SetNull)
+  nominator         User            @relation("EfficiencyNominator", fields: [nominatorId], references: [id], onDelete: Cascade)
+  community         Community?      @relation(fields: [communityId], references: [id], onDelete: SetNull)
+
+  @@index([nominatorId])
+  @@index([status])
+}
+
+model NeighborhoodCascade {
+  id                String    @id @default(cuid())
+  name              String    // e.g., "Oak Street Efficiency Cascade"
+  zipCode           String
+  // Geographic center
+  centerLat         Float?
+  centerLng         Float?
+  radiusMiles       Float     @default(1.0)
+  // Thresholds
+  homeCount         Int       @default(0) // Current homes in cascade
+  minHomes          Int       @default(10) // Minimum to trigger
+  triggered         Boolean   @default(false)
+  // Linked flagship project
+  projectId         String?   @unique
+  // Phase targeting (which phase this cascade covers)
+  targetPhase       Int?      // 1-5, null if covers all phases
+  // Cost
+  totalEstimatedCost Float    @default(0)
+  bulkDiscount      Float     @default(0) // Percentage savings from bulk pricing
+  totalFunded       Float     @default(0)
+  // Status
+  status            String    @default("forming") // forming, triggered, funding, in_progress, completed
+  triggeredAt       DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  homes             EfficiencyHome[]
+  project           Project?  @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  @@index([zipCode])
+  @@index([status])
 }
 

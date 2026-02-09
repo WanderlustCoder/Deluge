@@ -26,6 +26,7 @@ import {
   AlertTriangle,
   ShieldCheck,
   ChevronDown,
+  Sun,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -66,6 +67,7 @@ const navSections: NavSection[] = [
       { href: "/admin/projects", label: "Projects", icon: FolderOpen },
       { href: "/admin/proposals", label: "Proposals", icon: FileText },
       { href: "/admin/aquifer", label: "Aquifer", icon: Waves },
+      { href: "/admin/efficiency", label: "Efficiency", icon: Sun },
     ],
   },
   {

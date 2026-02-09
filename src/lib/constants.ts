@@ -248,6 +248,12 @@ export const IMPACT_METRIC_TEMPLATES: Record<string, Array<{ name: string; unit:
     { name: "Youth Served", unit: "youth" },
     { name: "Programs Run", unit: "programs" },
   ],
+  Energy: [
+    { name: "Homes Upgraded", unit: "homes" },
+    { name: "kWh Saved Annually", unit: "kWh" },
+    { name: "Solar Capacity Installed", unit: "kW" },
+    { name: "CO2 Reduced Annually", unit: "tons" },
+  ],
 } as const;
 
 // --- Watershed Loan Constants ---
@@ -268,3 +274,68 @@ export const WATERSHED_LOAN_FUNDING_DEADLINE_DAYS = [
   { maxAmount: 5000, days: 30 },
   { maxAmount: Infinity, days: 45 },
 ] as const;
+
+// --- Home Efficiency Program Constants (Plan 42) ---
+
+export const EFFICIENCY_UPGRADE_CATEGORIES = [
+  "insulation",
+  "air_sealing",
+  "doors",
+  "windows",
+  "hvac",
+  "water_heating",
+  "electrical_panel",
+  "roof_reinforcement",
+  "solar",
+] as const;
+
+export type EfficiencyUpgradeCategory = (typeof EFFICIENCY_UPGRADE_CATEGORIES)[number];
+
+export const EFFICIENCY_UPGRADE_LABELS: Record<EfficiencyUpgradeCategory, string> = {
+  insulation: "Insulation",
+  air_sealing: "Air Sealing",
+  doors: "Doors",
+  windows: "Windows",
+  hvac: "HVAC Systems",
+  water_heating: "Water Heating",
+  electrical_panel: "Electrical Panel",
+  roof_reinforcement: "Roof Reinforcement",
+  solar: "Solar Installation",
+};
+
+export const EFFICIENCY_PHASES = [
+  { phase: 1, name: "envelope",    label: "Envelope",    categories: ["insulation", "air_sealing", "doors"] as const, costMin: 3000,  costMax: 10000 },
+  { phase: 2, name: "openings",    label: "Openings",    categories: ["windows"] as const,                           costMin: 5000,  costMax: 15000 },
+  { phase: 3, name: "systems",     label: "Systems",     categories: ["hvac", "water_heating"] as const,             costMin: 5000,  costMax: 20000 },
+  { phase: 4, name: "electrical",  label: "Electrical",  categories: ["electrical_panel"] as const,                  costMin: 2000,  costMax: 5000  },
+  { phase: 5, name: "generation",  label: "Generation",  categories: ["roof_reinforcement", "solar"] as const,       costMin: 15000, costMax: 35000 },
+] as const;
+
+export const EFFICIENCY_HOME_TYPES = [
+  "single_family",
+  "townhouse",
+  "duplex",
+  "mobile",
+  "condo",
+] as const;
+
+export type EfficiencyHomeType = (typeof EFFICIENCY_HOME_TYPES)[number];
+
+export const EFFICIENCY_HOME_TYPE_LABELS: Record<EfficiencyHomeType, string> = {
+  single_family: "Single Family",
+  townhouse: "Townhouse",
+  duplex: "Duplex",
+  mobile: "Mobile Home",
+  condo: "Condo",
+};
+
+export const EFFICIENCY_ENTRY_TRACKS = ["individual", "nomination", "cascade"] as const;
+export type EfficiencyEntryTrack = (typeof EFFICIENCY_ENTRY_TRACKS)[number];
+
+export const EFFICIENCY_FUNDING_TRACKS = ["fully_funded", "loan_assisted", "co_pay"] as const;
+export type EfficiencyFundingTrack = (typeof EFFICIENCY_FUNDING_TRACKS)[number];
+
+export const EFFICIENCY_CASCADE_MIN_HOMES = 10;
+export const EFFICIENCY_CASCADE_RADIUS_MILES = 1.0;
+export const EFFICIENCY_NOMINATION_VOTE_DURATION_DAYS = 30;
+export const EFFICIENCY_NOMINATION_APPROVAL_THRESHOLD = 0.66;

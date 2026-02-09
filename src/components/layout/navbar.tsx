@@ -21,6 +21,7 @@ import {
   Store,
   ChevronDown,
   Compass,
+  Sun,
 } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
@@ -39,6 +40,7 @@ const primaryLinks = [
 const exploreLinks = [
   { href: "/communities", label: "Communities", icon: Users2 },
   { href: "/aquifer", label: "Aquifer", icon: Droplets },
+  { href: "/efficiency", label: "Efficiency", icon: Sun },
   { href: "/business", label: "Directory", icon: Store },
   { href: "/leaderboards", label: "Leaderboards", icon: TrendingUp },
 ];
