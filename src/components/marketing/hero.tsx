@@ -14,17 +14,21 @@ interface HeroProps {
   };
 }
 
-// Sparse, elegant raindrop configuration — few large, slow drops with trails
-const raindrops = [
-  { left: "12%", delay: 0, duration: 4.5, size: 3, opacity: 0.35 },
-  { left: "28%", delay: 1.8, duration: 5.2, size: 4, opacity: 0.25 },
-  { left: "45%", delay: 3.2, duration: 4.8, size: 3, opacity: 0.3 },
-  { left: "62%", delay: 0.6, duration: 5.5, size: 5, opacity: 0.2 },
-  { left: "78%", delay: 2.4, duration: 4.2, size: 3, opacity: 0.35 },
-  { left: "88%", delay: 4.0, duration: 5.0, size: 4, opacity: 0.22 },
-  { left: "35%", delay: 5.1, duration: 4.6, size: 3, opacity: 0.28 },
-  { left: "55%", delay: 3.8, duration: 5.8, size: 4, opacity: 0.18 },
-];
+// Seed-based pseudo-random for deterministic drops across renders
+function seededRandom(seed: number) {
+  const x = Math.sin(seed * 9301 + 49297) * 49297;
+  return x - Math.floor(x);
+}
+
+// Generate a dense downpour — 60 drops with varied size, speed, and position
+const raindrops = Array.from({ length: 60 }, (_, i) => ({
+  left: `${seededRandom(i) * 100}%`,
+  delay: seededRandom(i + 100) * 4,
+  duration: 1.2 + seededRandom(i + 200) * 1.8, // 1.2–3.0s — fast
+  size: 2 + seededRandom(i + 300) * 3,          // 2–5px
+  opacity: 0.15 + seededRandom(i + 400) * 0.3,  // 0.15–0.45
+  trailLength: 20 + seededRandom(i + 500) * 40,  // 20–60px trails
+}));
 
 export function Hero({ stats }: HeroProps) {
   const reduced = typeof window !== "undefined" && prefersReducedMotion();
@@ -47,44 +51,51 @@ export function Hero({ stats }: HeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
       </div>
 
-      {/* Sparse elegant raindrops */}
+      {/* Downpour — CSS-animated for performance */}
+      {/* Keyframe injected once for all drops */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes downpour {
+          from { transform: translateY(-5vh); }
+          to { transform: translateY(110vh); }
+        }
+      ` }} />
       <div
         className="absolute inset-0 overflow-hidden pointer-events-none motion-safe:block motion-reduce:hidden"
         aria-hidden="true"
       >
         {raindrops.map((drop, i) => (
-          <motion.div
+          <div
             key={i}
             className="absolute"
-            style={{ left: drop.left, top: "-5%" }}
-            animate={{ y: ["0vh", "110vh"] }}
-            transition={{
-              duration: drop.duration,
-              repeat: Infinity,
-              delay: drop.delay,
-              ease: "linear",
+            style={{
+              left: drop.left,
+              top: 0,
+              animation: `downpour ${drop.duration}s linear ${drop.delay}s infinite`,
             }}
           >
             {/* Drop head */}
             <div
-              className="rounded-full bg-white"
               style={{
                 width: drop.size,
-                height: drop.size * 1.6,
+                height: drop.size * 2,
                 opacity: drop.opacity,
                 borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                background: "white",
               }}
             />
             {/* Trail */}
             <div
-              className="absolute left-1/2 -translate-x-1/2 bottom-full"
               style={{
+                position: "absolute",
+                left: "50%",
+                transform: "translateX(-50%)",
+                bottom: "100%",
                 width: 1,
-                height: drop.size * 16,
+                height: drop.trailLength,
                 background: `linear-gradient(to top, rgba(255,255,255,${drop.opacity}), transparent)`,
               }}
             />
-          </motion.div>
+          </div>
         ))}
       </div>
 
