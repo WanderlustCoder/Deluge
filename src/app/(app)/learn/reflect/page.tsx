@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, MessageCircle, Lock, RefreshCw, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Reflection {
   id: string;
@@ -184,7 +185,7 @@ export default function ReflectPage() {
                       <p className="whitespace-pre-wrap">{reflection.response}</p>
                       <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-200">
                         <span className="text-xs text-storm/40">
-                          {new Date(reflection.createdAt).toLocaleDateString()}
+                          {formatDate(reflection.createdAt)}
                         </span>
                         <button
                           onClick={async () => {

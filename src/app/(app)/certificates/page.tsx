@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Certificate {
   id: string;
@@ -204,7 +205,7 @@ export default function CertificatesPage() {
                       {TYPE_LABELS[cert.certificateType] || cert.certificateType}
                     </h3>
                     <p className="text-sm text-storm-light dark:text-dark-text-secondary">
-                      {new Date(cert.issuedAt).toLocaleDateString()}
+                      {formatDate(cert.issuedAt)}
                     </p>
                   </div>
                 </div>

@@ -218,7 +218,7 @@ export default function WebhooksPage() {
         ) : webhooks.length === 0 ? (
           <div className="text-center py-12 border-2 border-dashed border-gray-200 rounded-xl">
             <Webhook className="w-12 h-12 text-storm/30 mx-auto mb-4" />
-            <h2 className="text-lg font-medium mb-2">No webhooks yet</h2>
+            <h2 className="text-lg font-medium mb-2">No webhooks yet.</h2>
             <p className="text-storm/60 mb-4">
               Create a webhook to receive real-time event notifications
             </p>

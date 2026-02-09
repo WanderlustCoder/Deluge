@@ -138,7 +138,7 @@ export default function StudyCirclesPage() {
         ) : filteredCircles.length === 0 ? (
           <div className="text-center py-12">
             <Users className="w-12 h-12 text-storm/30 mx-auto mb-4" />
-            <h3 className="text-lg font-medium mb-2">No circles found</h3>
+            <h3 className="text-lg font-medium mb-2">No circles found.</h3>
             <p className="text-storm/60 mb-4">
               Be the first to start a study circle!
             </p>

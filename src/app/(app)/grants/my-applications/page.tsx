@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDate, formatDateTime } from '@/lib/i18n/formatting';
 
 interface Application {
   id: string;
@@ -135,7 +136,7 @@ export default function MyApplicationsPage() {
                     <div>
                       <p className="text-xs text-storm-light dark:text-dark-text-secondary">Submitted</p>
                       <p className="font-medium text-storm dark:text-dark-text">
-                        {new Date(app.submittedAt).toLocaleDateString()}
+                        {formatDate(app.submittedAt)}
                       </p>
                     </div>
                   )}
@@ -151,7 +152,7 @@ export default function MyApplicationsPage() {
 
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200">
                   <p className="text-xs text-storm-light dark:text-dark-text-secondary">
-                    Last saved: {new Date(app.lastSavedAt).toLocaleString()}
+                    Last saved: {formatDateTime(app.lastSavedAt)}
                   </p>
                   <div className="flex gap-2">
                     {app.status === 'draft' && !deadlinePassed && (

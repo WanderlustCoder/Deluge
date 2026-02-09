@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { checkAndAwardBadges } from "@/lib/badges";
+import { formatDate } from "@/lib/i18n/formatting";
 
 /**
  * Mark a project as completed with an impact summary.
@@ -132,7 +133,7 @@ export function generateCertificateData(
     userName,
     projectTitle: data.projectTitle,
     category: data.projectCategory,
-    completedDate: data.completedAt?.toLocaleDateString() || "N/A",
+    completedDate: data.completedAt ? formatDate(data.completedAt) : "N/A",
     contribution: data.userContribution.toFixed(2),
     totalRaised: data.totalRaised.toFixed(2),
     percentOfTotal: data.contributionPercent.toFixed(1),

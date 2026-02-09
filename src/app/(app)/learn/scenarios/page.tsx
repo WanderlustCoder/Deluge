@@ -136,7 +136,7 @@ export default function ScenariosPage() {
         ) : scenarios.length === 0 ? (
           <div className="text-center py-12">
             <Lightbulb className="w-12 h-12 text-storm/30 mx-auto mb-4" />
-            <h2 className="text-lg font-medium mb-2">No scenarios found</h2>
+            <h2 className="text-lg font-medium mb-2">No scenarios found.</h2>
             <p className="text-storm/60">Check back soon for more content</p>
           </div>
         ) : (

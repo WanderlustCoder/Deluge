@@ -131,7 +131,7 @@ export default function BusinessDirectoryPage() {
         <Card>
           <CardContent className="pt-5 text-center py-12">
             <p className="text-storm-light dark:text-gray-400">
-              No businesses found. Be the first to add yours!
+              No businesses yet. Be the first to add yours!
             </p>
             <Link href="/business/new">
               <Button className="mt-4">

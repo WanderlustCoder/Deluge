@@ -14,6 +14,7 @@ import {
   CheckCircle,
   Heart,
 } from 'lucide-react';
+import { formatDate } from '@/lib/i18n/formatting';
 import { SignupModal } from '@/components/volunteer/signup-modal';
 import { LogHoursModal } from '@/components/volunteer/log-hours-modal';
 
@@ -102,14 +103,9 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
     }
   };
 
-  const formatDate = (dateStr: string | null) => {
+  const formatOpportunityDate = (dateStr: string | null) => {
     if (!dateStr) return null;
-    return new Date(dateStr).toLocaleDateString('en-US', {
-      weekday: 'long',
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-    });
+    return formatDate(dateStr, 'full');
   };
 
   if (loading) {
@@ -222,8 +218,8 @@ export default function OpportunityDetailPage({ params }: { params: Promise<Page
                 <div className="flex items-center gap-2 text-storm-light dark:text-dark-text-secondary">
                   <Calendar className="w-5 h-5 text-teal" />
                   <span>
-                    {formatDate(opportunity.startDate)}
-                    {opportunity.endDate && ` - ${formatDate(opportunity.endDate)}`}
+                    {formatOpportunityDate(opportunity.startDate)}
+                    {opportunity.endDate && ` - ${formatOpportunityDate(opportunity.endDate)}`}
                   </span>
                 </div>
               )}

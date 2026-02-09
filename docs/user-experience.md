@@ -390,7 +390,7 @@ This is the core differentiator. Deluge doesn't decide what gets funded -- the c
    - First milestone vested immediately
 
 3. **Friend completes first action**
-   - Notification: "[Friend] watched their first 5 ads! $1.00 credited to your watershed." (or $1.50 if friend made a cash contribution)
+   - Notification: "[Friend] completed their first action! $1.00 credited to your watershed."
    - Second milestone vested
 
 4. **Friend is active at Day 30**

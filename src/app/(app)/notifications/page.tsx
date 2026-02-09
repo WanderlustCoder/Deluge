@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface NotificationData {
   category?: string;
@@ -167,7 +168,7 @@ export default function NotificationsPage() {
     if (minutes < 60) return `${minutes}m ago`;
     if (hours < 24) return `${hours}h ago`;
     if (days < 7) return `${days}d ago`;
-    return d.toLocaleDateString();
+    return formatDate(date);
   }
 
   if (loading) {

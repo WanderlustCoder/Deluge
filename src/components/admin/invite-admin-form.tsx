@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { UserPlus, Copy, Check } from "lucide-react";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface Invite {
   id: string;
@@ -135,10 +136,10 @@ export function InviteAdminForm({ initialInvites }: Props) {
                     </Badge>
                   </td>
                   <td className="px-6 py-3 text-storm-light">
-                    {new Date(invite.expiresAt).toLocaleDateString()}
+                    {formatDate(invite.expiresAt)}
                   </td>
                   <td className="px-6 py-3 text-storm-light">
-                    {new Date(invite.createdAt).toLocaleDateString()}
+                    {formatDate(invite.createdAt)}
                   </td>
                   <td className="px-6 py-3 text-right">
                     {invite.status === "pending" && (

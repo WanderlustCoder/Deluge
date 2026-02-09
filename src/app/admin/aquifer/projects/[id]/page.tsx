@@ -17,6 +17,7 @@ import {
   Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface FlagshipDetail {
   id: string;
@@ -243,7 +244,7 @@ export default function AdminFlagshipDetailPage() {
                 <Badge variant="ocean">{project.category}</Badge>
                 <span>{project.location}</span>
                 <span>
-                  Created {new Date(project.createdAt).toLocaleDateString()}
+                  Created {formatDate(project.createdAt)}
                 </span>
               </div>
               <p className="text-storm whitespace-pre-wrap dark:text-dark-text-secondary">
@@ -266,7 +267,7 @@ export default function AdminFlagshipDetailPage() {
                   <p className="text-sm text-storm-light mb-4 dark:text-dark-text-secondary">
                     <Clock className="h-4 w-4 inline mr-1" />
                     {votingEnded ? "Voting ended" : "Voting ends"}{" "}
-                    {new Date(flagship.votingEndsAt).toLocaleDateString()}
+                    {formatDate(flagship.votingEndsAt)}
                   </p>
                 )}
 

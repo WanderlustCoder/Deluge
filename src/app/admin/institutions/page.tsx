@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Calendar,
 } from 'lucide-react';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Institution {
   id: string;
@@ -160,7 +161,7 @@ export default function InstitutionsAdminPage() {
       ) : filteredInstitutions.length === 0 ? (
         <div className="text-center py-12 bg-white border border-gray-200 rounded-xl">
           <Building2 className="w-12 h-12 text-storm/30 mx-auto mb-4" />
-          <h2 className="text-lg font-medium mb-2">No institutions found</h2>
+          <h2 className="text-lg font-medium mb-2">No institutions found.</h2>
           <p className="text-storm/60 mb-4">
             {searchQuery ? 'Try a different search term' : 'Create your first institutional partnership'}
           </p>
@@ -224,9 +225,9 @@ export default function InstitutionsAdminPage() {
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 text-sm text-storm/60">
                         <Calendar className="w-3 h-3" />
-                        {new Date(institution.contractStart).toLocaleDateString()}
+                        {formatDate(institution.contractStart)}
                         {institution.contractEnd && (
-                          <> - {new Date(institution.contractEnd).toLocaleDateString()}</>
+                          <> - {formatDate(institution.contractEnd)}</>
                         )}
                       </div>
                     </td>

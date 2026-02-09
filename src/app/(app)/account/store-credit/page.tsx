@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useToast } from '@/components/ui/toast';
 import Link from 'next/link';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface CreditBalance {
   balance: number;
@@ -110,14 +111,6 @@ export default function StoreCreditPage() {
     } finally {
       setRedeeming(false);
     }
-  }
-
-  function formatDate(dateString: string) {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
   }
 
   function formatAmount(amount: number) {

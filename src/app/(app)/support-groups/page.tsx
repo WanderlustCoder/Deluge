@@ -238,7 +238,7 @@ export default function SupportGroupsPage() {
 
       {filteredGroups.length === 0 && (
         <div className="text-center py-12 text-storm-light dark:text-dark-text-secondary">
-          No groups found. Be the first to create one!
+          No groups yet. Be the first to create one!
         </div>
       )}
 

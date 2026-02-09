@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Modal } from "@/components/ui/modal";
+import { formatDateTime } from "@/lib/i18n/formatting";
 
 interface AuditEntry {
   id: string;
@@ -64,7 +65,7 @@ export function AuditLogTable({
   }, [fetchLogs]);
 
   function formatTimestamp(dateStr: string) {
-    return new Date(dateStr).toLocaleString();
+    return formatDateTime(dateStr);
   }
 
   return (

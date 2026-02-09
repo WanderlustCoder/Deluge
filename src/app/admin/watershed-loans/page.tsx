@@ -11,6 +11,7 @@ import {
   Clock,
   DollarSign,
 } from "lucide-react";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface WatershedLoanSummary {
   id: string;
@@ -187,7 +188,7 @@ export default function AdminWatershedLoansPage() {
                       )}
                     </td>
                     <td className="px-4 py-3 text-gray-500">
-                      {new Date(loan.createdAt).toLocaleDateString()}
+                      {formatDate(loan.createdAt)}
                     </td>
                   </tr>
                 ))}

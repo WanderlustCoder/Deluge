@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { AdminSidebar } from '@/components/admin/admin-sidebar';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Dispute {
   id: string;
@@ -164,7 +165,7 @@ export default function AdminCreditDisputesPage() {
           <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
             {disputes.length === 0 ? (
               <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-                No disputes found
+                No disputes found.
               </div>
             ) : (
               <div className="overflow-x-auto">
@@ -226,7 +227,7 @@ export default function AdminCreditDisputesPage() {
                             )}
                           </td>
                           <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
-                            {new Date(dispute.createdAt).toLocaleDateString()}
+                            {formatDate(dispute.createdAt)}
                           </td>
                           <td className="py-3 px-4">
                             <button
@@ -303,10 +304,10 @@ export default function AdminCreditDisputesPage() {
               <div>
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Timeline</h3>
                 <div className="text-sm space-y-1 text-gray-600 dark:text-gray-400">
-                  <p>Filed: {new Date(selectedDispute.createdAt).toLocaleDateString()}</p>
-                  <p>FCRA Deadline: {new Date(selectedDispute.fcraDeadline).toLocaleDateString()}</p>
+                  <p>Filed: {formatDate(selectedDispute.createdAt)}</p>
+                  <p>FCRA Deadline: {formatDate(selectedDispute.fcraDeadline)}</p>
                   {selectedDispute.resolvedAt && (
-                    <p>Resolved: {new Date(selectedDispute.resolvedAt).toLocaleDateString()}</p>
+                    <p>Resolved: {formatDate(selectedDispute.resolvedAt)}</p>
                   )}
                 </div>
               </div>

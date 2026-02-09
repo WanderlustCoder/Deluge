@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Vote, UserPlus, Crown } from "lucide-react";
 import { useState } from "react";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface Nomination {
   nomineeId: string;
@@ -161,8 +162,8 @@ export function ElectionCard({ election, communityId, members, currentUserId, on
 
         {/* Timeline */}
         <div className="flex gap-4 mt-3 text-xs text-storm-light">
-          <span>Nominations end: {new Date(election.nominationEnd).toLocaleDateString()}</span>
-          <span>Voting ends: {new Date(election.votingEnd).toLocaleDateString()}</span>
+          <span>Nominations end: {formatDate(election.nominationEnd)}</span>
+          <span>Voting ends: {formatDate(election.votingEnd)}</span>
         </div>
       </CardContent>
     </Card>

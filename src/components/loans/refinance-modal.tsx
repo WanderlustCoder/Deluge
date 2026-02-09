@@ -93,15 +93,15 @@ export function RefinanceModal({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-900 rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="font-heading font-semibold text-lg text-storm dark:text-white flex items-center gap-2">
+      <div className="bg-white dark:bg-dark-elevated rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-dark-border">
+          <h2 className="font-heading font-semibold text-lg text-storm dark:text-dark-text flex items-center gap-2">
             <RefreshCw className="h-5 w-5 text-ocean" />
             Refinance Loan
           </h2>
           <button
             onClick={onClose}
-            className="text-storm-light hover:text-storm dark:hover:text-white transition-colors"
+            className="text-storm-light hover:text-storm dark:hover:text-dark-text transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
@@ -109,35 +109,35 @@ export function RefinanceModal({
 
         <div className="p-4">
           {loading ? (
-            <p className="text-center text-storm-light dark:text-gray-400 py-8">
+            <p className="text-center text-storm-light dark:text-dark-text-secondary py-8">
               Loading options...
             </p>
           ) : !data?.eligible ? (
             <div className="text-center py-8">
-              <p className="text-storm dark:text-white mb-2">
+              <p className="text-storm dark:text-dark-text mb-2">
                 Not Eligible for Refinancing
               </p>
-              <p className="text-sm text-storm-light dark:text-gray-400">
+              <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                 {data?.reason || "This loan cannot be refinanced at this time."}
               </p>
             </div>
           ) : (
             <>
               {/* Current Status */}
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 mb-4">
-                <h3 className="text-sm font-medium text-storm dark:text-white mb-3">
+              <div className="bg-gray-50 dark:bg-dark-elevated rounded-lg p-4 mb-4">
+                <h3 className="text-sm font-medium text-storm dark:text-dark-text mb-3">
                   Current Loan Status
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-xs text-storm-light dark:text-gray-400">Remaining Balance</p>
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary">Remaining Balance</p>
                     <p className="font-semibold text-ocean">
                       {formatCurrency(data.remainingBalance)}
                     </p>
                   </div>
                   <div>
-                    <p className="text-xs text-storm-light dark:text-gray-400">Monthly Payment</p>
-                    <p className="font-semibold text-storm dark:text-white">
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary">Monthly Payment</p>
+                    <p className="font-semibold text-storm dark:text-dark-text">
                       {formatCurrency(data.currentMonthlyPayment)}
                     </p>
                   </div>
@@ -146,7 +146,7 @@ export function RefinanceModal({
 
               {/* Select New Term */}
               <div className="mb-4">
-                <h3 className="text-sm font-medium text-storm dark:text-white mb-2">
+                <h3 className="text-sm font-medium text-storm dark:text-dark-text mb-2">
                   Select New Term
                 </h3>
                 <div className="space-y-2">
@@ -157,13 +157,13 @@ export function RefinanceModal({
                       className={`w-full p-3 rounded-lg border text-left transition-all ${
                         selectedTerm === option.newTerm
                           ? "border-ocean bg-ocean/10"
-                          : "border-gray-200 dark:border-gray-700 hover:border-ocean/50"
+                          : "border-gray-200 dark:border-dark-border hover:border-ocean/50"
                       }`}
                     >
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-2">
                           <Calendar className="h-4 w-4 text-storm-light" />
-                          <span className="font-medium text-storm dark:text-white">
+                          <span className="font-medium text-storm dark:text-dark-text">
                             {option.newTerm} months
                           </span>
                         </div>
@@ -171,7 +171,7 @@ export function RefinanceModal({
                           <p className="font-semibold text-teal">
                             {formatCurrency(option.newMonthlyPayment)}/mo
                           </p>
-                          <p className="text-xs text-storm-light dark:text-gray-400">
+                          <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                             Save {formatCurrency(option.savings)}/mo
                           </p>
                         </div>
@@ -199,7 +199,7 @@ export function RefinanceModal({
               <div className="mb-4">
                 <label
                   htmlFor="reason"
-                  className="block text-sm font-medium text-storm dark:text-white mb-1"
+                  className="block text-sm font-medium text-storm dark:text-dark-text mb-1"
                 >
                   Reason (optional)
                 </label>
@@ -209,30 +209,30 @@ export function RefinanceModal({
                   onChange={(e) => setReason(e.target.value)}
                   rows={2}
                   placeholder="Why do you need to refinance?"
-                  className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white placeholder:text-storm-light/60 dark:placeholder:text-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean resize-none"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-storm dark:text-dark-text placeholder:text-storm-light/60 dark:placeholder:text-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean resize-none"
                 />
               </div>
 
               {/* Summary */}
               {selectedOption && (
-                <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mb-4">
-                  <h3 className="text-sm font-medium text-storm dark:text-white mb-2">
+                <div className="border-t border-gray-200 dark:border-dark-border pt-4 mb-4">
+                  <h3 className="text-sm font-medium text-storm dark:text-dark-text mb-2">
                     Summary
                   </h3>
                   <div className="space-y-1 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-storm-light dark:text-gray-400">New term:</span>
-                      <span className="text-storm dark:text-white">{selectedOption.newTerm} months</span>
+                      <span className="text-storm-light dark:text-dark-text-secondary">New term:</span>
+                      <span className="text-storm dark:text-dark-text">{selectedOption.newTerm} months</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-storm-light dark:text-gray-400">New payment:</span>
+                      <span className="text-storm-light dark:text-dark-text-secondary">New payment:</span>
                       <span className="text-teal font-semibold">
                         {formatCurrency(selectedOption.newMonthlyPayment)}/mo
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-storm-light dark:text-gray-400">Fee:</span>
-                      <span className="text-storm dark:text-white">{formatCurrency(selectedOption.fee)}</span>
+                      <span className="text-storm-light dark:text-dark-text-secondary">Fee:</span>
+                      <span className="text-storm dark:text-dark-text">{formatCurrency(selectedOption.fee)}</span>
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 // Number, date, and currency formatting with i18n
 
-import { Locale } from './config';
+import { DEFAULT_LOCALE, Locale } from './config';
 
 // Format number
 export function formatNumber(value: number, locale: Locale): string {
@@ -41,9 +41,21 @@ export function formatCompact(value: number, locale: Locale): string {
 // Format date
 export function formatDate(
   date: Date | string,
-  locale: Locale,
-  style: 'short' | 'medium' | 'long' | 'full' = 'medium'
+  localeOrStyle?: Locale | 'short' | 'medium' | 'long' | 'full',
+  style?: 'short' | 'medium' | 'long' | 'full'
 ): string {
+  // Support both formatDate(date, locale, style) and formatDate(date, style)
+  let locale: Locale = DEFAULT_LOCALE;
+  let resolvedStyle: 'short' | 'medium' | 'long' | 'full' = 'medium';
+
+  if (localeOrStyle) {
+    if (['short', 'medium', 'long', 'full'].includes(localeOrStyle)) {
+      resolvedStyle = localeOrStyle as 'short' | 'medium' | 'long' | 'full';
+    } else {
+      locale = localeOrStyle as Locale;
+      if (style) resolvedStyle = style;
+    }
+  }
   const dateObj = typeof date === 'string' ? new Date(date) : date;
 
   const styleOptions: Record<string, Intl.DateTimeFormatOptions> = {
@@ -53,7 +65,7 @@ export function formatDate(
     full: { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' },
   };
 
-  return new Intl.DateTimeFormat(locale, styleOptions[style]).format(dateObj);
+  return new Intl.DateTimeFormat(locale, styleOptions[resolvedStyle]).format(dateObj);
 }
 
 // Format time
@@ -74,13 +86,25 @@ export function formatTime(
 // Format date and time
 export function formatDateTime(
   date: Date | string,
-  locale: Locale,
-  dateStyle: 'short' | 'medium' | 'long' = 'medium'
+  localeOrStyle?: Locale | 'short' | 'medium' | 'long',
+  dateStyle?: 'short' | 'medium' | 'long'
 ): string {
+  // Support both formatDateTime(date, locale, style) and formatDateTime(date, style)
+  let locale: Locale = DEFAULT_LOCALE;
+  let resolvedStyle: 'short' | 'medium' | 'long' = 'medium';
+
+  if (localeOrStyle) {
+    if (['short', 'medium', 'long'].includes(localeOrStyle)) {
+      resolvedStyle = localeOrStyle as 'short' | 'medium' | 'long';
+    } else {
+      locale = localeOrStyle as Locale;
+      if (dateStyle) resolvedStyle = dateStyle;
+    }
+  }
   const dateObj = typeof date === 'string' ? new Date(date) : date;
 
   return new Intl.DateTimeFormat(locale, {
-    dateStyle,
+    dateStyle: resolvedStyle,
     timeStyle: 'short',
   }).format(dateObj);
 }

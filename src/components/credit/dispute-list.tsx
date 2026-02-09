@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Dispute {
   id: string;
@@ -42,7 +43,7 @@ const DISPUTE_TYPE_LABELS: Record<string, string> = {
 export function DisputeList({ disputes, onViewDispute }: DisputeListProps) {
   if (disputes.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+      <div className="text-center py-8 text-gray-500 dark:text-dark-text-secondary">
         <svg className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
@@ -63,12 +64,12 @@ export function DisputeList({ disputes, onViewDispute }: DisputeListProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
-            className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4"
+            className="bg-white dark:bg-dark-elevated rounded-lg border border-gray-200 dark:border-dark-border p-4"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <h4 className="font-medium text-gray-900 dark:text-white">
+                  <h4 className="font-medium text-storm dark:text-dark-text">
                     {DISPUTE_TYPE_LABELS[dispute.disputeType] || dispute.disputeType}
                   </h4>
                   <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusInfo.bg} ${statusInfo.text}`}>
@@ -77,12 +78,12 @@ export function DisputeList({ disputes, onViewDispute }: DisputeListProps) {
                 </div>
 
                 {dispute.loan && (
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  <p className="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">
                     {dispute.loan.purpose} - ${dispute.loan.amount.toFixed(2)}
                   </p>
                 )}
 
-                <p className="text-sm text-gray-600 dark:text-gray-300 mt-2 line-clamp-2">
+                <p className="text-sm text-gray-600 dark:text-dark-text-secondary mt-2 line-clamp-2">
                   {dispute.description}
                 </p>
 
@@ -94,12 +95,12 @@ export function DisputeList({ disputes, onViewDispute }: DisputeListProps) {
               </div>
 
               <div className="text-right ml-4 flex-shrink-0">
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Filed {new Date(dispute.createdAt).toLocaleDateString()}
+                <p className="text-xs text-gray-500 dark:text-dark-text-secondary">
+                  Filed {formatDate(dispute.createdAt)}
                 </p>
                 {dispute.resolvedAt && (
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Resolved {new Date(dispute.resolvedAt).toLocaleDateString()}
+                  <p className="text-xs text-gray-500 dark:text-dark-text-secondary">
+                    Resolved {formatDate(dispute.resolvedAt)}
                   </p>
                 )}
               </div>

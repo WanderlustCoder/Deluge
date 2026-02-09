@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface MemberListProps {
   members: Array<{
@@ -26,7 +27,7 @@ export function MemberList({ members }: MemberListProps) {
             )}
           </div>
           <span className="text-xs text-storm-light">
-            Joined {new Date(m.joinedAt).toLocaleDateString()}
+            Joined {formatDate(m.joinedAt)}
           </span>
         </div>
       ))}

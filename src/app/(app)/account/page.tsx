@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabPanel } from "@/components/ui/tabs";
 import { EditNameForm } from "@/components/account/edit-name-form";
 import { formatCurrency, formatCurrencyPrecise } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 import { Tv, Heart, DollarSign, FolderOpen, Mail, Calendar, Shield, Award, TrendingUp, SlidersHorizontal, FileText, User, BarChart3, Settings } from "lucide-react";
 import { RoleBadge } from "@/components/ui/role-badge";
 import Link from "next/link";
@@ -183,11 +184,7 @@ export default function AccountPage() {
                   <div>
                     <p className="text-sm text-storm-light dark:text-dark-text-secondary">Member Since</p>
                     <p className="text-storm dark:text-dark-text">
-                      {new Date(user.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+                      {formatDate(user.createdAt, "long")}
                     </p>
                   </div>
                 </div>

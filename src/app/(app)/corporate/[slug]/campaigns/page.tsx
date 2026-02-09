@@ -124,7 +124,7 @@ export default function CampaignsPage({
           <div className="bg-white dark:bg-dark-border/50 rounded-xl p-12 text-center">
             <p className="text-storm-light dark:text-dark-text-secondary mb-4">
               {filter === 'all'
-                ? 'No campaigns yet. Create your first campaign to engage your team.'
+                ? 'No campaigns yet.'
                 : `No ${filter} campaigns.`}
             </p>
             {filter === 'all' && (

@@ -20,6 +20,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface StrategicPlan {
   id: string;
@@ -563,7 +564,7 @@ export default function AdminAquiferPage() {
                     className="border-b border-gray-50 dark:border-dark-border"
                   >
                     <td className="px-6 py-3 text-sm text-storm-light dark:text-dark-text-secondary">
-                      {new Date(contribution.createdAt).toLocaleDateString()}
+                      {formatDate(contribution.createdAt)}
                     </td>
                     <td className="px-6 py-3 text-sm text-storm dark:text-dark-text">
                       {contribution.isDeluge ? (

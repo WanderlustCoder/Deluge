@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface BadgeInfo {
   id: string;
@@ -50,7 +51,7 @@ export function BadgeGrid({ badges }: BadgeGridProps) {
           <p className="text-xs text-storm-light">{badge.description}</p>
           {badge.earned && badge.earnedAt && (
             <p className="text-xs text-teal mt-2">
-              Earned {new Date(badge.earnedAt).toLocaleDateString()}
+              Earned {formatDate(badge.earnedAt)}
             </p>
           )}
         </div>

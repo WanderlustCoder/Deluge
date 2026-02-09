@@ -133,7 +133,7 @@ export function GoalVerificationForm({
       <Card className="mb-6">
         <CardContent className="pt-5">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-heading font-semibold text-storm dark:text-white flex items-center gap-2">
+            <h3 className="font-heading font-semibold text-storm dark:text-dark-text flex items-center gap-2">
               <CheckCircle className="h-5 w-5 text-teal" />
               Goal Verification
             </h3>
@@ -153,14 +153,14 @@ export function GoalVerificationForm({
 
           {/* Photo Gallery */}
           <div className="mb-4">
-            <p className="text-sm font-medium text-storm dark:text-white mb-2">Photos</p>
+            <p className="text-sm font-medium text-storm dark:text-dark-text mb-2">Photos</p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
               {verification.photoUrls.map((url, index) => (
                 <img
                   key={index}
                   src={url}
                   alt={`Verification photo ${index + 1}`}
-                  className="w-full h-32 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
+                  className="w-full h-32 object-cover rounded-lg border border-gray-200 dark:border-dark-border"
                 />
               ))}
             </div>
@@ -169,14 +169,14 @@ export function GoalVerificationForm({
           {/* Receipts */}
           {verification.receiptUrls && verification.receiptUrls.length > 0 && (
             <div className="mb-4">
-              <p className="text-sm font-medium text-storm dark:text-white mb-2">Receipts</p>
+              <p className="text-sm font-medium text-storm dark:text-dark-text mb-2">Receipts</p>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {verification.receiptUrls.map((url, index) => (
                   <img
                     key={index}
                     src={url}
                     alt={`Receipt ${index + 1}`}
-                    className="w-full h-32 object-cover rounded-lg border border-gray-200 dark:border-gray-700"
+                    className="w-full h-32 object-cover rounded-lg border border-gray-200 dark:border-dark-border"
                   />
                 ))}
               </div>
@@ -186,8 +186,8 @@ export function GoalVerificationForm({
           {/* Description */}
           {verification.description && (
             <div className="mb-4">
-              <p className="text-sm font-medium text-storm dark:text-white mb-1">Description</p>
-              <p className="text-storm-light dark:text-gray-400">{verification.description}</p>
+              <p className="text-sm font-medium text-storm dark:text-dark-text mb-1">Description</p>
+              <p className="text-storm-light dark:text-dark-text-secondary">{verification.description}</p>
             </div>
           )}
 
@@ -213,11 +213,11 @@ export function GoalVerificationForm({
     return (
       <Card className="mb-6">
         <CardContent className="pt-5">
-          <h3 className="font-heading font-semibold text-storm dark:text-white mb-2 flex items-center gap-2">
+          <h3 className="font-heading font-semibold text-storm dark:text-dark-text mb-2 flex items-center gap-2">
             <Camera className="h-5 w-5 text-ocean" />
             Verify Your Goal
           </h3>
-          <p className="text-sm text-storm-light dark:text-gray-400 mb-4">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-4">
             Submit photos and documentation showing how you used the loan funds.
             {tier >= 3 && " Higher tiers require more documentation."}
           </p>
@@ -225,7 +225,7 @@ export function GoalVerificationForm({
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Photo URLs */}
             <div>
-              <label className="block text-sm font-medium text-storm dark:text-white mb-2">
+              <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                 Photo URLs ({minPhotos}+ required)
               </label>
               {photoUrls.map((url, index) => (
@@ -263,7 +263,7 @@ export function GoalVerificationForm({
             {/* Receipt URLs (if required) */}
             {(requiresReceipt || receiptUrls.some((u) => u.trim())) && (
               <div>
-                <label className="block text-sm font-medium text-storm dark:text-white mb-2">
+                <label className="block text-sm font-medium text-storm dark:text-dark-text mb-2">
                   Receipt URLs {requiresReceipt && "(required)"}
                 </label>
                 {receiptUrls.map((url, index) => (
@@ -303,7 +303,7 @@ export function GoalVerificationForm({
             <div>
               <label
                 htmlFor="description"
-                className="block text-sm font-medium text-storm dark:text-white mb-1"
+                className="block text-sm font-medium text-storm dark:text-dark-text mb-1"
               >
                 Description (optional)
               </label>
@@ -313,7 +313,7 @@ export function GoalVerificationForm({
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
                 placeholder="Tell funders how you used the loan..."
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white placeholder:text-storm-light/60 dark:placeholder:text-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean resize-none"
+                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-storm dark:text-dark-text placeholder:text-storm-light/60 dark:placeholder:text-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean resize-none"
               />
             </div>
 
@@ -330,11 +330,11 @@ export function GoalVerificationForm({
   return (
     <Card className="mb-6">
       <CardContent className="pt-5">
-        <h3 className="font-heading font-semibold text-storm dark:text-white mb-2 flex items-center gap-2">
+        <h3 className="font-heading font-semibold text-storm dark:text-dark-text mb-2 flex items-center gap-2">
           <Camera className="h-5 w-5 text-storm-light" />
           Goal Verification
         </h3>
-        <p className="text-sm text-storm-light dark:text-gray-400">
+        <p className="text-sm text-storm-light dark:text-dark-text-secondary">
           The borrower has not yet submitted goal verification for this loan.
         </p>
       </CardContent>

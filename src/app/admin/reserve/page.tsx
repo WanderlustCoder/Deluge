@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { AnalyticsCard } from "@/components/admin/analytics-card";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/components/ui/toast";
+import { formatDateTime } from "@/lib/i18n/formatting";
 import { ArrowDownRight, ArrowUpRight, TrendingUp } from "lucide-react";
 
 interface ReserveTransaction {
@@ -209,7 +210,7 @@ export default function ReservePage() {
                       className="border-b border-gray-100 dark:border-dark-border/50"
                     >
                       <td className="py-2.5 px-3 text-storm-light">
-                        {new Date(t.createdAt).toLocaleString()}
+                        {formatDateTime(t.createdAt)}
                       </td>
                       <td className="py-2.5 px-3">
                         <Badge variant={t.amount >= 0 ? "success" : "default"}>

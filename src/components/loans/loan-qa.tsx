@@ -116,11 +116,11 @@ export function LoanQA({
   return (
     <Card className="mb-6">
       <CardContent className="pt-5">
-        <h3 className="font-heading font-semibold text-storm dark:text-white mb-4 flex items-center gap-2">
+        <h3 className="font-heading font-semibold text-storm dark:text-dark-text mb-4 flex items-center gap-2">
           <MessageCircle className="h-5 w-5 text-ocean" />
           Questions & Answers
           {questions.length > 0 && (
-            <span className="text-sm font-normal text-storm-light dark:text-gray-400">
+            <span className="text-sm font-normal text-storm-light dark:text-dark-text-secondary">
               ({questions.length})
             </span>
           )}
@@ -136,7 +136,7 @@ export function LoanQA({
                 maxLength={LOAN_QA_QUESTION_MAX_CHARS}
                 rows={2}
                 placeholder="Ask the borrower a question..."
-                className="w-full px-4 py-2.5 pr-12 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white placeholder:text-storm-light/60 dark:placeholder:text-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean resize-none"
+                className="w-full px-4 py-2.5 pr-12 rounded-lg border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-storm dark:text-dark-text placeholder:text-storm-light/60 dark:placeholder:text-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean resize-none"
               />
               <Button
                 type="submit"
@@ -149,10 +149,10 @@ export function LoanQA({
               </Button>
             </div>
             <div className="flex justify-between mt-1">
-              <p className="text-xs text-storm-light dark:text-gray-400">
+              <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                 {LOAN_QA_MAX_QUESTIONS_PER_FUNDER - userQuestionCount} question{LOAN_QA_MAX_QUESTIONS_PER_FUNDER - userQuestionCount !== 1 ? "s" : ""} remaining
               </p>
-              <p className="text-xs text-storm-light dark:text-gray-400">
+              <p className="text-xs text-storm-light dark:text-dark-text-secondary">
                 {newQuestion.length}/{LOAN_QA_QUESTION_MAX_CHARS}
               </p>
             </div>
@@ -160,14 +160,14 @@ export function LoanQA({
         )}
 
         {isFunder && !canAskMore && userQuestionCount >= LOAN_QA_MAX_QUESTIONS_PER_FUNDER && (
-          <p className="text-sm text-storm-light dark:text-gray-400 mb-4">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary mb-4">
             You&apos;ve used all {LOAN_QA_MAX_QUESTIONS_PER_FUNDER} questions for this loan.
           </p>
         )}
 
         {/* Questions List */}
         {questions.length === 0 ? (
-          <p className="text-sm text-storm-light dark:text-gray-400 text-center py-4">
+          <p className="text-sm text-storm-light dark:text-dark-text-secondary text-center py-4">
             No questions yet.
             {isFunder && " Be the first to ask!"}
           </p>
@@ -176,19 +176,19 @@ export function LoanQA({
             {questions.map((q) => (
               <div
                 key={q.id}
-                className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4"
+                className="bg-gray-50 dark:bg-dark-elevated rounded-lg p-4"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-medium text-storm dark:text-white">
+                      <span className="text-sm font-medium text-storm dark:text-dark-text">
                         {q.asker.name}
                       </span>
-                      <span className="text-xs text-storm-light dark:text-gray-400">
+                      <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                         {formatDistanceToNow(new Date(q.createdAt), { addSuffix: true })}
                       </span>
                     </div>
-                    <p className="text-storm dark:text-gray-300">{q.question}</p>
+                    <p className="text-storm dark:text-dark-text-secondary">{q.question}</p>
                   </div>
                   {currentUserId && q.asker.id !== currentUserId && (
                     <button
@@ -209,12 +209,12 @@ export function LoanQA({
                         Borrower&apos;s Response
                       </span>
                       {q.answeredAt && (
-                        <span className="text-xs text-storm-light dark:text-gray-400">
+                        <span className="text-xs text-storm-light dark:text-dark-text-secondary">
                           {formatDistanceToNow(new Date(q.answeredAt), { addSuffix: true })}
                         </span>
                       )}
                     </div>
-                    <p className="text-storm dark:text-gray-300">{q.answer}</p>
+                    <p className="text-storm dark:text-dark-text-secondary">{q.answer}</p>
                   </div>
                 ) : isBorrower ? (
                   <div className="mt-3">
@@ -225,7 +225,7 @@ export function LoanQA({
                       }
                       rows={2}
                       placeholder="Write your response..."
-                      className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-storm dark:text-white placeholder:text-storm-light/60 dark:placeholder:text-gray-500 text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal resize-none"
+                      className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-border/50 text-storm dark:text-dark-text placeholder:text-storm-light/60 dark:placeholder:text-gray-500 text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-teal/50 focus:border-teal resize-none"
                     />
                     <Button
                       size="sm"
@@ -239,7 +239,7 @@ export function LoanQA({
                     </Button>
                   </div>
                 ) : (
-                  <p className="text-sm text-storm-light dark:text-gray-400 mt-2 italic">
+                  <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-2 italic">
                     Awaiting response from borrower
                   </p>
                 )}

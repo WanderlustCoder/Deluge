@@ -208,7 +208,7 @@ export default function AdminStoriesPage() {
                 {stories.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="px-4 py-8 text-center text-storm-light dark:text-dark-text-secondary">
-                      No stories found
+                      No stories found.
                     </td>
                   </tr>
                 ) : (
@@ -301,7 +301,7 @@ export default function AdminStoriesPage() {
         <div className="space-y-4">
           {testimonials.length === 0 ? (
             <div className="text-center py-12 text-storm-light dark:text-dark-text-secondary">
-              No testimonials yet
+              No testimonials yet.
             </div>
           ) : (
             testimonials.map(testimonial => (

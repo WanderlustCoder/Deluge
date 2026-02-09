@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDateTime } from '@/lib/i18n/formatting';
 
 interface TransparencyStats {
   totalRecords: number;
@@ -126,7 +127,7 @@ export default function BlockchainAdminPage() {
       {stats?.lastAnchoredAt && (
         <div className="p-4 bg-teal/10 dark:bg-teal/20 rounded-lg mb-8">
           <p className="text-sm text-teal">
-            Last anchored: {new Date(stats.lastAnchoredAt).toLocaleString()}
+            Last anchored: {formatDateTime(stats.lastAnchoredAt)}
           </p>
         </div>
       )}
@@ -228,7 +229,7 @@ export default function BlockchainAdminPage() {
                       {anchor.costUsd ? `$${anchor.costUsd.toFixed(4)}` : '-'}
                     </td>
                     <td className="py-3 px-4 text-storm-light dark:text-dark-text-secondary text-sm">
-                      {new Date(anchor.confirmedAt).toLocaleString()}
+                      {formatDateTime(anchor.confirmedAt)}
                     </td>
                   </tr>
                 ))}

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useToast } from '@/components/ui/toast';
 import { APPRECIATION_TYPES } from '@/lib/advocates/appreciation';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Advocate {
   id: string;
@@ -215,7 +216,7 @@ export default function AdminAdvocatesPage() {
                           </div>
                         )}
                         <p className="text-xs text-gray-400 mt-2">
-                          Submitted {new Date(interest.createdAt).toLocaleDateString()}
+                          Submitted {formatDate(interest.createdAt)}
                         </p>
                       </div>
                       <div className="flex gap-2">
@@ -289,7 +290,7 @@ export default function AdminAdvocatesPage() {
                         </span>
                       </td>
                       <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
-                        {new Date(advocate.joinedAt).toLocaleDateString()}
+                        {formatDate(advocate.joinedAt)}
                       </td>
                       <td className="py-3 px-4">
                         <button

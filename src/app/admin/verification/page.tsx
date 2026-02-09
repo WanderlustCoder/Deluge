@@ -6,6 +6,7 @@ import { Shield, ShieldCheck, Award, CheckCircle, XCircle, Clock } from 'lucide-
 import { useToast } from '@/components/ui/toast';
 import { VERIFICATION_LEVELS, VerificationLevel } from '@/lib/verification/levels';
 import { CHECK_DEFINITIONS, CheckType } from '@/lib/verification/checks';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface PendingCheck {
   id: string;
@@ -158,7 +159,7 @@ export default function AdminVerificationPage() {
                             {CHECK_DEFINITIONS[check.checkType]?.label || check.checkType}
                           </span>
                           <span className="text-xs text-gray-500 dark:text-gray-400">
-                            {new Date(check.createdAt).toLocaleDateString()}
+                            {formatDate(check.createdAt)}
                           </span>
                         </div>
                         <Link

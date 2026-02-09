@@ -150,7 +150,7 @@ export default function PledgesPage() {
         <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
           <span className="material-icons text-4xl text-gray-400">volunteer_activism</span>
           <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-            No pledges yet
+            No pledges yet.
           </h3>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Find campaigns to support and make your first pledge!

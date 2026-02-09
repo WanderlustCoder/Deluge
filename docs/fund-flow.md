@@ -132,11 +132,11 @@ User refers friends. Credits vest at milestones.
 Referral Milestones:
     │
     ├─► Signup: $0.50 credit
-    ├─► First Action: $1.00 credit (ads) or $1.50 (cash contribution)
+    ├─► First Action: $1.00 credit
     └─► 30-Day Active: $1.00 credit
     │
     ▼
-User's Watershed Balance: +$2.50-$3.00 (fully vested)
+User's Watershed Balance: +$2.50 (fully vested)
 ```
 
 **Implementation:**

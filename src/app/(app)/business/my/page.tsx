@@ -104,7 +104,7 @@ export default function MyListingsPage() {
           <CardContent className="pt-5 text-center py-12">
             <Store className="h-12 w-12 text-gray-300 mx-auto mb-4" />
             <h3 className="font-heading font-semibold text-storm dark:text-white mb-2">
-              No listings yet
+              No listings yet.
             </h3>
             <p className="text-storm-light dark:text-gray-400 mb-6">
               Create your first business listing to reach the community

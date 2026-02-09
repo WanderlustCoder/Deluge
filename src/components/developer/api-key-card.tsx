@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Key, Copy, Trash2, Eye, EyeOff, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface ApiKey {
   id: string;
@@ -120,7 +121,7 @@ export function ApiKeyCard({ apiKey, fullKey, onRevoke }: ApiKeyCardProps) {
           <span className="text-storm/60">Last Used</span>
           <p className="font-medium">
             {apiKey.lastUsedAt
-              ? new Date(apiKey.lastUsedAt).toLocaleDateString()
+              ? formatDate(apiKey.lastUsedAt)
               : 'Never'}
           </p>
         </div>
@@ -128,7 +129,7 @@ export function ApiKeyCard({ apiKey, fullKey, onRevoke }: ApiKeyCardProps) {
           <span className="text-storm/60">Expires</span>
           <p className="font-medium">
             {apiKey.expiresAt
-              ? new Date(apiKey.expiresAt).toLocaleDateString()
+              ? formatDate(apiKey.expiresAt)
               : 'Never'}
           </p>
         </div>

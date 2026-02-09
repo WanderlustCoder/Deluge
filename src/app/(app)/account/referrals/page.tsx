@@ -7,6 +7,7 @@ import { ReferralCard } from "@/components/account/referral-card";
 import { ReferralMilestoneTracker } from "@/components/account/referral-milestone-tracker";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
+import { formatDate } from "@/lib/i18n/formatting";
 
 export default function ReferralsPage() {
   const [referrals, setReferrals] = useState<any[]>([]);
@@ -114,7 +115,7 @@ export default function ReferralsPage() {
                       </div>
                     </div>
                     <span className="text-xs text-storm-light">
-                      {new Date(r.createdAt).toLocaleDateString()}
+                      {formatDate(r.createdAt)}
                     </span>
                   </div>
                   {/* Milestone tracker for referrals with a referred user */}

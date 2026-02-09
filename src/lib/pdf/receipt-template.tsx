@@ -1,5 +1,6 @@
 import React from 'react';
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { formatDate } from '@/lib/i18n/formatting';
 
 // Create styles
 const styles = StyleSheet.create({
@@ -218,7 +219,7 @@ export function ReceiptDocument({
             Deluge Fund | www.deluge.fund | support@deluge.fund
           </Text>
           <Text style={styles.footerText}>
-            This document was generated on {new Date().toLocaleDateString()}
+            This document was generated on {formatDate(new Date())}
           </Text>
         </View>
       </Page>

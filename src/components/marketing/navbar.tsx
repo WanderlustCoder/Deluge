@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/about/how-it-works", label: "How It Works" },
   { href: "/about/transparency", label: "Transparency" },
   { href: "/about/team", label: "Team" },
+  { href: "/about/roadmap", label: "Roadmap" },
 ];
 
 export function MarketingNavbar() {
@@ -53,7 +54,7 @@ export function MarketingNavbar() {
               href="/register"
               className="text-sm font-heading font-semibold px-4 py-1.5 bg-ocean dark:bg-sky text-white rounded-lg hover:bg-ocean-light dark:hover:bg-sky/90 transition-colors"
             >
-              Join
+              Join the Flow
             </Link>
           </div>
 
@@ -98,7 +99,7 @@ export function MarketingNavbar() {
                 className="text-sm font-heading font-semibold px-4 py-1.5 bg-ocean dark:bg-sky text-white rounded-lg"
                 onClick={() => setOpen(false)}
               >
-                Join
+                Join the Flow
               </Link>
             </div>
           </nav>

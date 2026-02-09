@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface PlatformOverview {
   totalUsers: number;
@@ -199,7 +200,7 @@ export default function AdminAnalyticsPage() {
                     width: '2%',
                     height: `${Math.max(10, (m.value / Math.max(...activeMetrics.map(x => x.value))) * 100)}%`,
                   }}
-                  title={`${new Date(m.date).toLocaleDateString()}: ${m.value}`}
+                  title={`${formatDate(m.date)}: ${m.value}`}
                 />
               ))}
             </div>

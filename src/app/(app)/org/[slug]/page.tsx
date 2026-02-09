@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useToast } from '@/components/ui/toast';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Organization {
   id: string;
@@ -256,7 +257,7 @@ export default function OrgDashboardPage({
         </div>
         {recentDonations.length === 0 ? (
           <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-            <p>No donations yet</p>
+            <p>No donations yet.</p>
           </div>
         ) : (
           <div className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -267,7 +268,7 @@ export default function OrgDashboardPage({
                     {donation.isAnonymous ? 'Anonymous' : donation.donorName || 'Unknown'}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
-                    {new Date(donation.createdAt).toLocaleDateString()}
+                    {formatDate(donation.createdAt)}
                   </p>
                 </div>
                 <div className="text-right">

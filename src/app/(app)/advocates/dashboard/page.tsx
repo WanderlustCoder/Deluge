@@ -9,6 +9,7 @@ import { LogActivityModal } from '@/components/advocates/log-activity';
 import { AdvocateEventCard } from '@/components/advocates/event-card';
 import { ACTIVITY_TYPES, ActivityType } from '@/lib/advocates/activities';
 import { useToast } from '@/components/ui/toast';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Advocate {
   id: string;
@@ -224,7 +225,7 @@ export default function AdvocateDashboardPage() {
                               {typeInfo?.label || activity.type}
                             </span>
                             <span className="text-xs text-gray-500 dark:text-gray-400">
-                              {new Date(activity.createdAt).toLocaleDateString()}
+                              {formatDate(activity.createdAt)}
                             </span>
                           </div>
                           <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
@@ -237,7 +238,7 @@ export default function AdvocateDashboardPage() {
                 </div>
               ) : (
                 <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                  <p>No activities yet</p>
+                  <p>No activities yet.</p>
                   <button
                     onClick={() => setShowLogActivity(true)}
                     className="mt-2 text-ocean-600 dark:text-ocean-400 hover:underline"
@@ -276,11 +277,7 @@ export default function AdvocateDashboardPage() {
                         {event.title}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                        {new Date(event.date).toLocaleDateString('en-US', {
-                          weekday: 'short',
-                          month: 'short',
-                          day: 'numeric',
-                        })}
+                        {formatDate(event.date, 'medium')}
                       </p>
                     </Link>
                   ))}

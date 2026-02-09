@@ -147,7 +147,7 @@ export default function JourneysPage() {
         <div className="text-center py-12">
           <div className="text-4xl mb-4">\ud83c\udf1f</div>
           <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-            No journeys yet
+            No journeys yet.
           </h3>
           <p className="text-gray-500 dark:text-gray-400 mb-4">
             Start a shared journey to work toward a common purpose together.

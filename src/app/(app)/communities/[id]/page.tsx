@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/toast";
 import { Users, MapPin, MessageSquare, FolderOpen, Vote, Crown, Map, ChevronRight, Activity, Target, Calendar } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 import { ElectionCard } from "@/components/communities/election-card";
 import { StartElectionModal } from "@/components/communities/start-election-modal";
 import { ImpactStatsCard } from "@/components/communities/impact-stats-card";
@@ -485,7 +486,7 @@ export default function CommunityDetailPage() {
                             </span>
                           </div>
                           <span className="text-sm text-storm-light">
-                            {member?.user.name || "Unknown"} &middot; until {new Date(er.termEnd).toLocaleDateString()}
+                            {member?.user.name || "Unknown"} &middot; until {formatDate(er.termEnd)}
                           </span>
                         </div>
                       );
@@ -525,7 +526,7 @@ export default function CommunityDetailPage() {
                 <div className="text-center py-8">
                   <Vote className="h-12 w-12 text-gray-300 mx-auto mb-3" />
                   <p className="text-storm-light">
-                    No elections yet. Start one to elect community leaders.
+                    No elections yet.
                   </p>
                 </div>
               )}

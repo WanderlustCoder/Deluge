@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface GrantProgram {
   id: string;
@@ -165,7 +166,7 @@ export default function GrantsPage() {
                   <p className="text-sm text-storm-light dark:text-dark-text-secondary">
                     Deadline:{' '}
                     <span className="font-medium text-storm dark:text-dark-text">
-                      {new Date(program.applicationEnd).toLocaleDateString()}
+                      {formatDate(program.applicationEnd)}
                     </span>
                   </p>
                 </div>

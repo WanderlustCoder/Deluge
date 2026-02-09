@@ -68,13 +68,13 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-white dark:bg-gray-800 rounded-xl shadow-xl z-50 overflow-hidden flex flex-col max-h-[90vh]"
+            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg bg-white dark:bg-dark-elevated rounded-xl shadow-xl z-50 overflow-hidden flex flex-col max-h-[90vh]"
           >
-            <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            <div className="p-6 border-b border-gray-200 dark:border-dark-border">
+              <h2 className="text-xl font-semibold text-storm dark:text-dark-text">
                 {hasConsent ? 'Manage Credit Reporting' : 'Enable Credit Reporting'}
               </h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-sm text-gray-500 dark:text-dark-text-secondary mt-1">
                 {loan.purpose} - ${loan.amount.toFixed(2)}
               </p>
             </div>
@@ -92,8 +92,8 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
                   </div>
 
                   <div className="space-y-3">
-                    <h4 className="font-medium text-gray-900 dark:text-white">What gets reported:</h4>
-                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                    <h4 className="font-medium text-storm dark:text-dark-text">What gets reported:</h4>
+                    <ul className="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary">
                       <li className="flex items-start gap-2">
                         <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -126,15 +126,15 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
 
               {!hasConsent && step === 'confirm' && (
                 <div className="space-y-4">
-                  <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-sm space-y-3">
-                    <h4 className="font-medium text-gray-900 dark:text-white">Credit Reporting Authorization</h4>
-                    <p className="text-gray-600 dark:text-gray-400">
+                  <div className="p-4 bg-gray-50 dark:bg-dark-border/50 rounded-lg text-sm space-y-3">
+                    <h4 className="font-medium text-storm dark:text-dark-text">Credit Reporting Authorization</h4>
+                    <p className="text-gray-600 dark:text-dark-text-secondary">
                       By checking the box below and clicking "I Agree", you authorize Deluge to report your loan payment activity to consumer credit reporting agencies, including Experian, TransUnion, and Equifax.
                     </p>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-dark-text-secondary">
                       You understand that:
                     </p>
-                    <ul className="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-1">
+                    <ul className="list-disc list-inside text-gray-600 dark:text-dark-text-secondary space-y-1">
                       <li>Both positive and negative payment information will be reported</li>
                       <li>This information may affect your credit score</li>
                       <li>You may withdraw consent at any time, but previously reported data will remain on your credit report</li>
@@ -152,7 +152,7 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
                       onChange={(e) => setAgreed(e.target.checked)}
                       className="mt-1 w-4 h-4 rounded border-gray-300 text-ocean-600 focus:ring-ocean-500"
                     />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">
+                    <span className="text-sm text-storm-light dark:text-dark-text-secondary">
                       I have read and agree to the credit reporting authorization terms above. I understand that my payment activity will be reported to credit bureaus.
                     </span>
                   </label>
@@ -170,9 +170,9 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
                     </p>
                   </div>
 
-                  <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                    <h4 className="font-medium text-gray-900 dark:text-white mb-2">Your Rights</h4>
-                    <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="p-4 bg-gray-50 dark:bg-dark-border/50 rounded-lg">
+                    <h4 className="font-medium text-storm dark:text-dark-text mb-2">Your Rights</h4>
+                    <ul className="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary">
                       <li className="flex items-start gap-2">
                         <span className="text-ocean-600">•</span>
                         You may withdraw consent at any time
@@ -202,13 +202,13 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
                       Reason for withdrawing (optional)
                     </label>
                     <textarea
                       value={withdrawReason}
                       onChange={(e) => setWithdrawReason(e.target.value)}
-                      className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-border/50 text-storm dark:text-dark-text"
                       rows={3}
                       placeholder="Help us understand why you're withdrawing..."
                     />
@@ -217,12 +217,12 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
               )}
             </div>
 
-            <div className="p-6 border-t border-gray-200 dark:border-gray-700 flex gap-3">
+            <div className="p-6 border-t border-gray-200 dark:border-dark-border flex gap-3">
               {!hasConsent && step === 'info' && (
                 <>
                   <button
                     onClick={() => { onClose(); resetState(); }}
-                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-dark-border text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-dark-border"
                   >
                     Cancel
                   </button>
@@ -239,7 +239,7 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
                 <>
                   <button
                     onClick={() => setStep('info')}
-                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-dark-border text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-dark-border"
                   >
                     Back
                   </button>
@@ -257,7 +257,7 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
                 <>
                   <button
                     onClick={() => { onClose(); resetState(); }}
-                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-dark-border text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-dark-border"
                   >
                     Close
                   </button>
@@ -274,7 +274,7 @@ export function ConsentModal({ isOpen, onClose, loan, hasConsent, onConsent }: C
                 <>
                   <button
                     onClick={() => setStep('info')}
-                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+                    className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-dark-border text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-dark-border"
                   >
                     Cancel
                   </button>

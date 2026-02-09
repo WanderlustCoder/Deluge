@@ -17,6 +17,7 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface EligibilityData {
   eligible: boolean;
@@ -252,7 +253,7 @@ export default function WatershedLoanPage() {
                     ${loan.amount.toFixed(2)} — {loan.type === "pure" ? "Pure" : "Backed"}
                   </span>
                   <p className="text-xs text-gray-500">
-                    Completed {loan.completedAt ? new Date(loan.completedAt).toLocaleDateString() : ""}
+                    Completed {loan.completedAt ? formatDate(loan.completedAt) : ""}
                   </p>
                 </div>
                 <CheckCircle className="w-5 h-5 text-green-500" />
@@ -586,7 +587,7 @@ function ActiveLoanCard({
         {loan.nextPaymentDate && (
           <p className="text-xs text-gray-500 flex items-center gap-1">
             <Clock className="w-3 h-3" />
-            Next payment due: {new Date(loan.nextPaymentDate).toLocaleDateString()}
+            Next payment due: {formatDate(loan.nextPaymentDate)}
           </p>
         )}
 
@@ -652,7 +653,7 @@ function ActiveLoanCard({
                       {p.type}
                     </span>
                     <span className="text-gray-500 dark:text-gray-400">
-                      {new Date(p.paidAt).toLocaleDateString()}
+                      {formatDate(p.paidAt)}
                     </span>
                   </div>
                   <span className="font-medium text-gray-900 dark:text-white">

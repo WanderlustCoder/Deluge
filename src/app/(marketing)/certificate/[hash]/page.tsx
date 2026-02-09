@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Certificate {
   id: string;
@@ -146,11 +147,7 @@ export default function CertificatePage() {
               <div className="p-4 bg-gray-50 rounded-lg">
                 <p className="text-xs text-storm-light dark:text-dark-text-secondary mb-1">Issued</p>
                 <p className="font-medium text-storm dark:text-dark-text">
-                  {new Date(certificate.issuedAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
+                  {formatDate(certificate.issuedAt, 'long')}
                 </p>
               </div>
             </div>

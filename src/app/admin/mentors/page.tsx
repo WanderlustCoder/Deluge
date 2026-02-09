@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface MentorApplication {
   id: string;
@@ -141,7 +142,7 @@ export default function AdminMentorsPage() {
 
               <div className="flex items-center justify-between text-xs text-storm-light dark:text-dark-text-secondary">
                 <span>{app.preferredStyle} communication</span>
-                <span>Applied {new Date(app.applicationDate).toLocaleDateString()}</span>
+                <span>Applied {formatDate(app.applicationDate)}</span>
               </div>
             </motion.div>
           ))}
@@ -170,7 +171,7 @@ export default function AdminMentorsPage() {
               <div>
                 <p className="text-sm font-medium text-storm-light dark:text-dark-text-secondary">Member Since</p>
                 <p className="text-storm dark:text-dark-text">
-                  {new Date(selectedApp.user.createdAt).toLocaleDateString()}
+                  {formatDate(selectedApp.user.createdAt)}
                 </p>
               </div>
 

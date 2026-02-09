@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { formatDateTime } from '@/lib/i18n/formatting';
 
 interface ContentFlag {
   id: string;
@@ -217,7 +218,7 @@ export default function ModerationPage() {
                   </p>
                 </div>
                 <p className="text-xs text-storm/40 dark:text-dark-text/40">
-                  {new Date(flag.createdAt).toLocaleString()}
+                  {formatDateTime(flag.createdAt)}
                 </p>
               </div>
 

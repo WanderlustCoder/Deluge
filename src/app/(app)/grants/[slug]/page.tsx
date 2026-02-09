@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface GrantProgram {
   id: string;
@@ -136,7 +137,7 @@ export default function GrantProgramPage() {
         <div className="p-4 bg-white dark:bg-dark-elevated rounded-xl border border-gray-200">
           <p className="text-sm text-storm-light dark:text-dark-text-secondary">Deadline</p>
           <p className="text-xl font-bold text-storm dark:text-dark-text">
-            {new Date(program.applicationEnd).toLocaleDateString()}
+            {formatDate(program.applicationEnd)}
           </p>
         </div>
       </div>
@@ -190,20 +191,20 @@ export default function GrantProgramPage() {
           <div className="flex items-center gap-4">
             <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Opens</div>
             <div className="font-medium text-storm dark:text-dark-text">
-              {new Date(program.applicationStart).toLocaleDateString()}
+              {formatDate(program.applicationStart)}
             </div>
           </div>
           <div className="flex items-center gap-4">
             <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Deadline</div>
             <div className="font-medium text-storm dark:text-dark-text">
-              {new Date(program.applicationEnd).toLocaleDateString()}
+              {formatDate(program.applicationEnd)}
             </div>
           </div>
           {program.reviewStart && (
             <div className="flex items-center gap-4">
               <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Review</div>
               <div className="font-medium text-storm dark:text-dark-text">
-                {new Date(program.reviewStart).toLocaleDateString()}
+                {formatDate(program.reviewStart)}
               </div>
             </div>
           )}
@@ -211,7 +212,7 @@ export default function GrantProgramPage() {
             <div className="flex items-center gap-4">
               <div className="w-24 text-sm text-storm-light dark:text-dark-text-secondary">Awards</div>
               <div className="font-medium text-storm dark:text-dark-text">
-                {new Date(program.awardDate).toLocaleDateString()}
+                {formatDate(program.awardDate)}
               </div>
             </div>
           )}

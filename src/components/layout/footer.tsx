@@ -6,6 +6,7 @@ const platformLinks = [
   { href: "/about/how-it-works", label: "How It Works" },
   { href: "/about/transparency", label: "Transparency" },
   { href: "/about/team", label: "Team" },
+  { href: "/about/roadmap", label: "Roadmap" },
 ];
 
 const resourceLinks = [

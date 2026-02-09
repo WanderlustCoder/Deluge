@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import { formatDate } from "@/lib/i18n/formatting";
 import fs from "fs";
 import path from "path";
 
@@ -52,7 +53,7 @@ export async function SystemHealthCard() {
   }
 
   const seedDate = oldestUser?.createdAt
-    ? oldestUser.createdAt.toLocaleDateString()
+    ? formatDate(oldestUser.createdAt)
     : "N/A";
 
   const tables = [

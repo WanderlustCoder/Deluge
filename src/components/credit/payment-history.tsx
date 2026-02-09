@@ -14,10 +14,10 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; label: string }>
   '3': { bg: 'bg-red-100 dark:bg-red-900/40', text: 'text-red-600 dark:text-red-400', label: '90 days' },
   '4': { bg: 'bg-red-200 dark:bg-red-900/60', text: 'text-red-700 dark:text-red-300', label: '120+ days' },
   '5': { bg: 'bg-red-300 dark:bg-red-800', text: 'text-red-800 dark:text-red-200', label: 'Collection' },
-  'B': { bg: 'bg-gray-100 dark:bg-gray-700', text: 'text-gray-500 dark:text-gray-400', label: 'No data' },
+  'B': { bg: 'bg-gray-100 dark:bg-dark-border/50', text: 'text-gray-500 dark:text-dark-text-secondary', label: 'No data' },
   'D': { bg: 'bg-blue-100 dark:bg-blue-900/40', text: 'text-blue-600 dark:text-blue-400', label: 'Deferred' },
-  'E': { bg: 'bg-gray-50 dark:bg-gray-800', text: 'text-gray-400 dark:text-gray-500', label: 'Zero balance' },
-  '-': { bg: 'bg-gray-50 dark:bg-gray-800', text: 'text-gray-300 dark:text-gray-600', label: 'No history' },
+  'E': { bg: 'bg-gray-50 dark:bg-dark-elevated', text: 'text-gray-400 dark:text-gray-500', label: 'Zero balance' },
+  '-': { bg: 'bg-gray-50 dark:bg-dark-elevated', text: 'text-gray-300 dark:text-gray-600', label: 'No history' },
 };
 
 export function PaymentHistory({ pattern, startDate }: PaymentHistoryProps) {
@@ -38,9 +38,9 @@ export function PaymentHistory({ pattern, startDate }: PaymentHistoryProps) {
   const noDataCount = months.filter((m) => ['B', '-', 'D'].includes(m)).length;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+    <div className="bg-white dark:bg-dark-elevated rounded-lg border border-gray-200 dark:border-dark-border p-4">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-medium text-gray-900 dark:text-white">
+        <h3 className="font-medium text-storm dark:text-dark-text">
           24-Month Payment History
         </h3>
         <div className="flex gap-4 text-sm">
@@ -85,23 +85,23 @@ export function PaymentHistory({ pattern, startDate }: PaymentHistoryProps) {
       <div className="flex flex-wrap gap-3 text-xs">
         <div className="flex items-center gap-1">
           <div className={`w-3 h-3 rounded ${STATUS_COLORS['0'].bg}`} />
-          <span className="text-gray-600 dark:text-gray-400">Current</span>
+          <span className="text-gray-600 dark:text-dark-text-secondary">Current</span>
         </div>
         <div className="flex items-center gap-1">
           <div className={`w-3 h-3 rounded ${STATUS_COLORS['1'].bg}`} />
-          <span className="text-gray-600 dark:text-gray-400">30 days late</span>
+          <span className="text-gray-600 dark:text-dark-text-secondary">30 days late</span>
         </div>
         <div className="flex items-center gap-1">
           <div className={`w-3 h-3 rounded ${STATUS_COLORS['2'].bg}`} />
-          <span className="text-gray-600 dark:text-gray-400">60 days late</span>
+          <span className="text-gray-600 dark:text-dark-text-secondary">60 days late</span>
         </div>
         <div className="flex items-center gap-1">
           <div className={`w-3 h-3 rounded ${STATUS_COLORS['3'].bg}`} />
-          <span className="text-gray-600 dark:text-gray-400">90+ days late</span>
+          <span className="text-gray-600 dark:text-dark-text-secondary">90+ days late</span>
         </div>
         <div className="flex items-center gap-1">
           <div className={`w-3 h-3 rounded ${STATUS_COLORS['-'].bg}`} />
-          <span className="text-gray-600 dark:text-gray-400">No data</span>
+          <span className="text-gray-600 dark:text-dark-text-secondary">No data</span>
         </div>
       </div>
     </div>

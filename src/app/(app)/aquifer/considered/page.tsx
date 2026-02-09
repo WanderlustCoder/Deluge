@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { SponsorButton } from "@/components/aquifer/sponsor-button";
 import { FlagshipBadge } from "@/components/aquifer/flagship-badge";
 import { ArrowLeft, MapPin, Pause, Calendar } from "lucide-react";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface TabledProject {
   id: string;
@@ -130,7 +131,7 @@ export default function ConsideredPage() {
                           <span className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
                             Tabled{" "}
-                            {new Date(flagship.tabledAt).toLocaleDateString()}
+                            {formatDate(flagship.tabledAt)}
                           </span>
                         )}
                       </div>

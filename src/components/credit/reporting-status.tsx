@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface ReportingStatusProps {
   loan: {
@@ -56,13 +57,13 @@ export function ReportingStatus({ loan, onManageConsent }: ReportingStatusProps)
   const statusInfo = statusLabels[accountStatus] || { label: accountStatus, color: 'text-gray-600' };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+    <div className="bg-white dark:bg-dark-elevated rounded-lg border border-gray-200 dark:border-dark-border p-4">
       <div className="flex items-start justify-between">
         <div>
-          <h4 className="font-medium text-gray-900 dark:text-white">
+          <h4 className="font-medium text-storm dark:text-dark-text">
             {loan.purpose}
           </h4>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-gray-500 dark:text-dark-text-secondary">
             ${loan.amount.toFixed(2)} loan
           </p>
         </div>
@@ -76,7 +77,7 @@ export function ReportingStatus({ loan, onManageConsent }: ReportingStatusProps)
               Reporting Enabled
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs font-medium">
+            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 dark:bg-dark-border/50 text-gray-600 dark:text-dark-text-secondary text-xs font-medium">
               Not Reporting
             </span>
           )}
@@ -84,17 +85,17 @@ export function ReportingStatus({ loan, onManageConsent }: ReportingStatusProps)
       </div>
 
       {hasConsent && isReporting && (
-        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
+        <div className="mt-4 pt-4 border-t border-gray-100 dark:border-dark-border">
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-500 dark:text-gray-400">Account Status:</span>
+              <span className="text-gray-500 dark:text-dark-text-secondary">Account Status:</span>
               <span className={`ml-2 font-medium ${statusInfo.color}`}>
                 {statusInfo.label}
               </span>
             </div>
             <div>
-              <span className="text-gray-500 dark:text-gray-400">Payment Rating:</span>
-              <span className="ml-2 font-medium text-gray-900 dark:text-white">
+              <span className="text-gray-500 dark:text-dark-text-secondary">Payment Rating:</span>
+              <span className="ml-2 font-medium text-storm dark:text-dark-text">
                 {paymentRatingLabels[loan.creditReportingStatus?.currentPaymentRating || '0'] || 'Unknown'}
               </span>
             </div>
@@ -115,28 +116,28 @@ export function ReportingStatus({ loan, onManageConsent }: ReportingStatusProps)
                 exit={{ height: 0, opacity: 0 }}
                 className="overflow-hidden"
               >
-                <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg text-sm space-y-2">
+                <div className="mt-3 p-3 bg-gray-50 dark:bg-dark-border/50 rounded-lg text-sm space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400">Started Reporting:</span>
-                    <span className="text-gray-900 dark:text-white">
+                    <span className="text-gray-500 dark:text-dark-text-secondary">Started Reporting:</span>
+                    <span className="text-storm dark:text-dark-text">
                       {loan.creditReportingStatus?.startedReportingAt
-                        ? new Date(loan.creditReportingStatus.startedReportingAt).toLocaleDateString()
+                        ? formatDate(loan.creditReportingStatus.startedReportingAt)
                         : 'Pending'}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400">Last Reported:</span>
-                    <span className="text-gray-900 dark:text-white">
+                    <span className="text-gray-500 dark:text-dark-text-secondary">Last Reported:</span>
+                    <span className="text-storm dark:text-dark-text">
                       {loan.creditReportingStatus?.lastReportedAt
-                        ? new Date(loan.creditReportingStatus.lastReportedAt).toLocaleDateString()
+                        ? formatDate(loan.creditReportingStatus.lastReportedAt)
                         : 'Not yet reported'}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400">Consent Date:</span>
-                    <span className="text-gray-900 dark:text-white">
+                    <span className="text-gray-500 dark:text-dark-text-secondary">Consent Date:</span>
+                    <span className="text-storm dark:text-dark-text">
                       {loan.creditReportingConsent?.consentDate
-                        ? new Date(loan.creditReportingConsent.consentDate).toLocaleDateString()
+                        ? formatDate(loan.creditReportingConsent.consentDate)
                         : 'N/A'}
                     </span>
                   </div>
@@ -150,7 +151,7 @@ export function ReportingStatus({ loan, onManageConsent }: ReportingStatusProps)
       <div className="mt-4 flex gap-2">
         <button
           onClick={onManageConsent}
-          className="text-sm px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+          className="text-sm px-3 py-1.5 rounded-lg border border-gray-300 dark:border-dark-border text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-dark-border"
         >
           {hasConsent ? 'Manage Consent' : 'Enable Reporting'}
         </button>

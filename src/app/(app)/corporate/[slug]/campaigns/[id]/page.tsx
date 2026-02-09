@@ -4,6 +4,7 @@ import { useState, useEffect, use } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, Calendar, Users, Target, TrendingUp, Gift } from 'lucide-react';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Campaign {
   id: string;
@@ -51,14 +52,6 @@ export default function CampaignDetailPage({
     } finally {
       setLoading(false);
     }
-  };
-
-  const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
   };
 
   const formatCurrency = (amount: number) => {

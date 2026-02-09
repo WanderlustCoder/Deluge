@@ -204,7 +204,7 @@ export default function EmergencyDetailPage({
 
             {emergency.updates.length === 0 ? (
               <p className="text-storm-light dark:text-dark-text-secondary text-center py-4">
-                No updates yet
+                No updates yet.
               </p>
             ) : (
               <div className="space-y-4">

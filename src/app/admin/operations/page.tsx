@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Automation {
   id: string;
@@ -390,7 +391,7 @@ function formatTime(dateStr: string): string {
     if (mins < 60) return `in ${mins}m`;
     const hours = Math.floor(mins / 60);
     if (hours < 24) return `in ${hours}h`;
-    return date.toLocaleDateString();
+    return formatDate(dateStr);
   }
 
   // Past
@@ -398,5 +399,5 @@ function formatTime(dateStr: string): string {
   if (mins < 60) return `${mins}m ago`;
   const hours = Math.floor(mins / 60);
   if (hours < 24) return `${hours}h ago`;
-  return date.toLocaleDateString();
+  return formatDate(dateStr);
 }

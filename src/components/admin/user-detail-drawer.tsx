@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Drawer } from "@/components/ui/drawer";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface UserDetail {
   id: string;
@@ -126,7 +127,7 @@ export function UserDetailDrawer({ userId, onClose, onUserUpdated }: Props) {
               </Badge>
               <span className="text-xs text-storm-light">
                 Member since{" "}
-                {new Date(user.createdAt).toLocaleDateString()}
+                {formatDate(user.createdAt)}
               </span>
             </div>
 
@@ -310,7 +311,7 @@ export function UserDetailDrawer({ userId, onClose, onUserUpdated }: Props) {
                     </Badge>
                     {ref.activatedAt && (
                       <span className="text-xs text-storm-light">
-                        {new Date(ref.activatedAt).toLocaleDateString()}
+                        {formatDate(ref.activatedAt)}
                       </span>
                     )}
                   </div>

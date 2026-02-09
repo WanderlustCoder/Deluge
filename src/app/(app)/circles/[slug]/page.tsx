@@ -277,7 +277,7 @@ export default function CircleDetailPage({
                 <div className="bg-white dark:bg-dark-border/50 rounded-xl p-8 text-center">
                   <FileText className="w-12 h-12 text-storm/30 dark:text-dark-text/30 mx-auto mb-3" />
                   <p className="text-storm-light dark:text-dark-text-secondary">
-                    No proposals yet. Create one to suggest how to deploy funds.
+                    No proposals yet.
                   </p>
                 </div>
               ) : (

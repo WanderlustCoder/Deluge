@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Webhook, Settings, Play, Trash2, RefreshCw, CheckCircle, XCircle, Clock, AlertTriangle } from 'lucide-react';
+import { formatDateTime } from '@/lib/i18n/formatting';
 
 interface WebhookData {
   id: string;
@@ -100,7 +101,7 @@ export function WebhookCard({
           <span className="text-storm/60">Last Triggered</span>
           <p className="font-medium">
             {webhook.lastTriggeredAt
-              ? new Date(webhook.lastTriggeredAt).toLocaleString()
+              ? formatDateTime(webhook.lastTriggeredAt)
               : 'Never'}
           </p>
         </div>
@@ -108,7 +109,7 @@ export function WebhookCard({
           <span className="text-storm/60">Last Success</span>
           <p className="font-medium">
             {webhook.lastSuccessAt
-              ? new Date(webhook.lastSuccessAt).toLocaleString()
+              ? formatDateTime(webhook.lastSuccessAt)
               : 'Never'}
           </p>
         </div>

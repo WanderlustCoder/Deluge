@@ -241,20 +241,20 @@ export default function CommunitiesPage() {
       ) : filterType === "joined" ? (
         <EmptyState
           icon={Users}
-          title="No communities yet"
+          title="No communities yet."
           message="You haven't joined any communities. Explore communities around your neighborhood or causes you care about."
           action={{ label: "Browse All Communities", href: "#" }}
         />
       ) : search ? (
         <EmptyState
           icon={Search}
-          title="No communities found"
+          title="No communities found."
           message="Try adjusting your search terms or explore different filters."
         />
       ) : (
         <EmptyState
           icon={Users}
-          title="No communities yet"
+          title="No communities yet."
           message="Be the first to create a community and bring people together around shared interests or locations."
           action={{ label: "Create a Community", href: "/communities/new" }}
         />

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Award, Download, Check } from 'lucide-react';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Certificate {
   id: string;
@@ -113,7 +114,7 @@ export default function CertificatesPage() {
                         <div>
                           <h3 className="font-semibold">{cert.topic}</h3>
                           <p className="text-sm text-storm/60 mt-1">
-                            Issued {new Date(cert.issuedAt).toLocaleDateString()}
+                            Issued {formatDate(cert.issuedAt)}
                           </p>
                         </div>
                       </div>

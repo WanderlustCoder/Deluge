@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Story {
   id: string;
@@ -148,7 +149,7 @@ export default function StoryDetailPage() {
             </span>
           )}
           {story.publishedAt && (
-            <span>{new Date(story.publishedAt).toLocaleDateString()}</span>
+            <span>{formatDate(story.publishedAt)}</span>
           )}
           {story.location && <span>{story.location}</span>}
           <span>{story.viewCount} views</span>

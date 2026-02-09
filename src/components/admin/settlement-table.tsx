@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency } from "@/lib/utils";
 import { useToast } from "@/components/ui/toast";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface Settlement {
   id: string;
@@ -138,7 +139,7 @@ export function SettlementTable({
                     className="border-b border-gray-100 dark:border-dark-border/50"
                   >
                     <td className="py-2.5 px-3 text-storm">
-                      {new Date(s.batchDate).toLocaleDateString()}
+                      {formatDate(s.batchDate)}
                     </td>
                     <td className="py-2.5 px-3 text-right text-storm font-medium">
                       {formatCurrency(s.totalGross)}
@@ -159,7 +160,7 @@ export function SettlementTable({
                       </Badge>
                     </td>
                     <td className="py-2.5 px-3 text-storm-light">
-                      {new Date(s.expectedClearDate).toLocaleDateString()}
+                      {formatDate(s.expectedClearDate)}
                     </td>
                     <td className="py-2.5 px-3 text-right">
                       {s.status === "pending" && (
@@ -174,7 +175,7 @@ export function SettlementTable({
                       )}
                       {s.status === "cleared" && s.clearedAt && (
                         <span className="text-xs text-storm-light">
-                          {new Date(s.clearedAt).toLocaleDateString()}
+                          {formatDate(s.clearedAt)}
                         </span>
                       )}
                     </td>

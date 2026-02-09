@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface AtRiskLoan {
   id: string;
@@ -252,7 +253,7 @@ export default function AdminLoansPage() {
                           ${loan.repayments[0].amount.toFixed(2)}
                         </p>
                         <p className="text-sm text-gray-500 dark:text-gray-400">
-                          {new Date(loan.repayments[0].createdAt).toLocaleDateString()}
+                          {formatDate(loan.repayments[0].createdAt)}
                         </p>
                       </div>
                     ) : (

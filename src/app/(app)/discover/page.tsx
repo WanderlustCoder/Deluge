@@ -126,7 +126,7 @@ export default function DiscoverPage() {
             ) : recommendations.length === 0 ? (
               <div className="text-center py-12">
                 <Sparkles className="w-12 h-12 text-storm/30 mx-auto mb-4" />
-                <h2 className="text-lg font-medium mb-2">No recommendations yet</h2>
+                <h2 className="text-lg font-medium mb-2">No recommendations yet.</h2>
                 <p className="text-storm/60 mb-4">
                   Start exploring and funding projects to get personalized recommendations
                 </p>

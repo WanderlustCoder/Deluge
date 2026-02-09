@@ -12,6 +12,7 @@ import {
   FlagSeverity,
   FlagStatus,
 } from '@/lib/verification/fraud-detection';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface Flag {
   id: string;
@@ -242,7 +243,7 @@ export default function AdminFlagsPage() {
                           {flag.description}
                         </p>
                         <p className="text-xs text-gray-400 mt-2">
-                          Reported {new Date(flag.createdAt).toLocaleDateString()}
+                          Reported {formatDate(flag.createdAt)}
                         </p>
                       </div>
                       <div className="flex gap-2 ml-4">

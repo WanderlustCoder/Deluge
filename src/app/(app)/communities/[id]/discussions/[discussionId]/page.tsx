@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { User, MessageSquare } from "lucide-react";
 import Link from "next/link";
+import { formatDateTime } from "@/lib/i18n/formatting";
 
 interface Comment {
   id: string;
@@ -22,17 +23,6 @@ interface DiscussionDetail {
   createdAt: string;
   user: { id: string; name: string };
   comments: Comment[];
-}
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  });
 }
 
 export default function DiscussionDetailPage() {
@@ -130,7 +120,7 @@ export default function DiscussionDetailPage() {
               <User className="h-3.5 w-3.5" />
               {discussion.user.name}
             </span>
-            <span>{formatDate(discussion.createdAt)}</span>
+            <span>{formatDateTime(discussion.createdAt)}</span>
           </div>
           <p className="text-storm whitespace-pre-wrap">{discussion.body}</p>
         </CardContent>
@@ -156,7 +146,7 @@ export default function DiscussionDetailPage() {
                     <User className="h-3.5 w-3.5" />
                     <span className="font-medium">{comment.user.name}</span>
                     <span>&middot;</span>
-                    <span>{formatDate(comment.createdAt)}</span>
+                    <span>{formatDateTime(comment.createdAt)}</span>
                   </div>
                   <p className="text-sm text-storm whitespace-pre-wrap">
                     {comment.body}

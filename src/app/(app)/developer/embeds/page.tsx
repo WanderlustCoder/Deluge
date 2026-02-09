@@ -87,7 +87,7 @@ export default function EmbedsPage() {
                   ))}
                   {filteredProjects.length === 0 && (
                     <p className="text-center text-storm/50 py-4">
-                      No projects found
+                      No projects found.
                     </p>
                   )}
                 </div>

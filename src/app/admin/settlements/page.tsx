@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { SettlementTable } from "@/components/admin/settlement-table";
 import { AnalyticsCard } from "@/components/admin/analytics-card";
 import { formatCurrency } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 import { Clock, CheckCircle, CalendarClock } from "lucide-react";
 
 interface SettlementStats {
@@ -84,7 +85,7 @@ export default function SettlementsPage() {
             title="Next Expected Clear"
             value={
               stats.nextExpectedClearDate
-                ? new Date(stats.nextExpectedClearDate).toLocaleDateString()
+                ? formatDate(stats.nextExpectedClearDate)
                 : "None pending"
             }
             subtitle="Based on net term schedule"

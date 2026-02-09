@@ -23,6 +23,7 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/formatting";
 
 interface FlagshipDetail {
   id: string;
@@ -163,7 +164,7 @@ export default function FlagshipDetailPage() {
                 </span>
                 <span className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
-                  {new Date(project.createdAt).toLocaleDateString()}
+                  {formatDate(project.createdAt)}
                 </span>
               </div>
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDate, formatDateTime } from '@/lib/i18n/formatting';
 
 interface SupportGroup {
   id: string;
@@ -244,13 +245,7 @@ export default function SupportGroupDetailPage() {
                     )}
                   </div>
                   <p className="text-sm text-teal">
-                    {new Date(meeting.scheduledAt).toLocaleDateString(undefined, {
-                      weekday: 'short',
-                      month: 'short',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: '2-digit',
-                    })}
+                    {formatDateTime(meeting.scheduledAt)}
                   </p>
                 </div>
               </div>
@@ -306,7 +301,7 @@ export default function SupportGroupDetailPage() {
                 )}
                 <p className="text-storm dark:text-dark-text whitespace-pre-wrap">{post.content}</p>
                 <p className="text-xs text-storm-light dark:text-dark-text-secondary mt-2">
-                  {new Date(post.createdAt).toLocaleDateString()}
+                  {formatDate(post.createdAt)}
                   {post._count.replies > 0 && ` • ${post._count.replies} replies`}
                 </p>
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { AdminSidebar } from '@/components/admin/admin-sidebar';
 import Link from 'next/link';
+import { formatDate } from '@/lib/i18n/formatting';
 
 interface BureauConnection {
   bureau: string;
@@ -226,7 +227,7 @@ export default function AdminCreditReportingPage() {
                       </span>
                       {conn.lastConnectionAt && (
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          Last: {new Date(conn.lastConnectionAt).toLocaleDateString()}
+                          Last: {formatDate(conn.lastConnectionAt)}
                         </p>
                       )}
                     </div>
@@ -314,7 +315,7 @@ export default function AdminCreditReportingPage() {
                           </span>
                         </td>
                         <td className="py-3 px-4 text-gray-600 dark:text-gray-400">
-                          {new Date(sub.submittedAt).toLocaleDateString()}
+                          {formatDate(sub.submittedAt)}
                         </td>
                       </tr>
                     ))}
@@ -323,7 +324,7 @@ export default function AdminCreditReportingPage() {
               </div>
             ) : (
               <p className="text-center py-8 text-gray-500 dark:text-gray-400">
-                No submissions yet
+                No submissions yet.
               </p>
             )}
           </section>

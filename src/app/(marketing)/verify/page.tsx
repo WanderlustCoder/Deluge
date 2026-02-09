@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { formatDateTime } from '@/lib/i18n/formatting';
 
 interface VerificationResult {
   record: {
@@ -173,7 +174,7 @@ export default function VerifyPage() {
                   <div>
                     <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Created</dt>
                     <dd className="font-medium text-storm dark:text-dark-text">
-                      {new Date(result.record.createdAt).toLocaleString()}
+                      {formatDateTime(result.record.createdAt)}
                     </dd>
                   </div>
                 </dl>
@@ -229,7 +230,7 @@ export default function VerifyPage() {
                   <div>
                     <dt className="text-xs text-storm-light dark:text-dark-text-secondary">Anchored At</dt>
                     <dd className="font-medium text-storm dark:text-dark-text">
-                      {new Date(result.verification.anchorDetails.anchoredAt).toLocaleString()}
+                      {formatDateTime(result.verification.anchorDetails.anchoredAt)}
                     </dd>
                   </div>
                   <a
