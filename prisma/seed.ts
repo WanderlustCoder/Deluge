@@ -8,6 +8,11 @@ async function main() {
   console.log("Seeding database...");
 
   // Clear existing data
+  await prisma.efficiencyPhase.deleteMany();
+  await prisma.efficiencyAssessment.deleteMany();
+  await prisma.efficiencyNomination.deleteMany();
+  await prisma.efficiencyHome.deleteMany();
+  await prisma.neighborhoodCascade.deleteMany();
   await prisma.reserveTransaction.deleteMany();
   await prisma.platformReserve.deleteMany();
   await prisma.projectDisbursement.deleteMany();
@@ -756,6 +761,451 @@ async function main() {
     },
   });
 
+  // --- Home Efficiency Program (Plan 42) ---
+
+  // Strategic Plan for Home Efficiency Initiative
+  const efficiencyPlan = await prisma.strategicPlan.create({
+    data: {
+      title: "Home Efficiency Initiative",
+      description:
+        "Deluge's flagship mission: upgrading homes to be energy-efficient and capable of localized electricity generation, reducing strain on the power grid from the demand side.",
+      vision:
+        "Improve the power grid by making homes more efficient and enabling localized electricity creation. More localization means less transmission load. The path: reduce consumption through insulation, sealing, and efficient windows; strengthen infrastructure with roofs that can support solar; generate locally with solar panels on every upgraded home; and achieve grid impact through less demand plus distributed generation creating a more resilient grid.",
+      fundingGoal: 200000,
+      status: "active",
+      order: 0,
+    },
+  });
+
+  // Update existing strategic plans to order after efficiency
+  await prisma.strategicPlan.updateMany({
+    where: { id: { not: efficiencyPlan.id } },
+    data: { order: 2 },
+  });
+
+  // 1. Angela's home — fully assessed, Phase 1 funded & in progress, Phase 2 funding
+  const angelaHome = await prisma.efficiencyHome.create({
+    data: {
+      userId: angela.id,
+      address: "2847 Krameria Street",
+      city: "Denver",
+      state: "CO",
+      zipCode: "80207",
+      homeType: "single_family",
+      yearBuilt: 1962,
+      squareFootage: 1450,
+      ownershipStatus: "owner",
+      entryTrack: "individual",
+      status: "in_progress",
+      currentEnergyBill: 185,
+      energyScoreBefore: 32,
+      roofOrientation: "south",
+      shadingFactor: "partial",
+      solarCapacityKw: 6.5,
+      solarGenerationKwh: 9100,
+      assessedAt: new Date(Date.now() - 30 * 86400000), // 30 days ago
+    },
+  });
+
+  await prisma.efficiencyAssessment.create({
+    data: {
+      homeId: angelaHome.id,
+      insulationCondition: "poor",
+      windowType: "single",
+      hvacAge: 18,
+      hvacType: "furnace",
+      waterHeaterType: "tank_gas",
+      roofCondition: "fair",
+      electricalPanelAmps: 100,
+      efficiencyScore: 32,
+      upgradePlan: JSON.stringify([
+        { category: "insulation", priority: 1, needed: true, notes: "Current: poor" },
+        { category: "air_sealing", priority: 2, needed: true, notes: "Standard weatherization" },
+        { category: "doors", priority: 3, needed: true, notes: "Exterior door assessment" },
+        { category: "windows", priority: 4, needed: true, notes: "Current: single pane" },
+        { category: "hvac", priority: 5, needed: true, notes: "Age: 18 years, Type: furnace" },
+        { category: "water_heating", priority: 6, needed: true, notes: "Current: tank_gas" },
+        { category: "electrical_panel", priority: 7, needed: true, notes: "Current: 100A (need 200A for solar)" },
+        { category: "roof_reinforcement", priority: 8, needed: true, notes: "Roof condition: fair" },
+        { category: "solar", priority: 9, needed: true, notes: "Solar installation" },
+      ]),
+      totalEstimatedCost: 42500,
+      projectedSavingsKwh: 8200,
+      projectedSavingsDollars: 1312,
+      projectedCo2Reduction: 3.42,
+      assessedBy: admin.id,
+      assessorNotes: "1962 ranch-style home. Original windows, minimal insulation in attic. Furnace is past expected life. South-facing roof is excellent for solar. Strong candidate for full 5-phase upgrade.",
+    },
+  });
+
+  // Create Project records for Angela's phases that are active/funding
+  const angelaPhase1Project = await prisma.project.create({
+    data: {
+      title: "2847 Krameria St — Phase 1: Envelope",
+      description: "Insulation, air sealing, and door upgrades for a 1962 ranch-style home in Park Hill. This is the first phase of a full efficiency upgrade — sealing the thermal envelope to stop heating and cooling loss. Estimated 20-30% immediate reduction in energy consumption.",
+      category: "Energy",
+      fundingGoal: 6800,
+      fundingRaised: 6800,
+      backerCount: 24,
+      status: "funded",
+      location: "Park Hill, Denver CO",
+      isFlagship: true,
+    },
+  });
+
+  await prisma.flagshipProject.create({
+    data: {
+      projectId: angelaPhase1Project.id,
+      status: "funded",
+      fundingSource: "reserve",
+      strategicPlanId: efficiencyPlan.id,
+    },
+  });
+
+  const angelaPhase2Project = await prisma.project.create({
+    data: {
+      title: "2847 Krameria St — Phase 2: Windows",
+      description: "Replacing single-pane windows with double-pane energy-efficient windows throughout the home. This completes the thermal envelope started in Phase 1, eliminating the biggest remaining source of heat transfer. Expected to reduce energy bills by an additional 8-12%.",
+      category: "Energy",
+      fundingGoal: 9200,
+      fundingRaised: 3680,
+      backerCount: 15,
+      status: "active",
+      location: "Park Hill, Denver CO",
+      isFlagship: true,
+    },
+  });
+
+  await prisma.flagshipProject.create({
+    data: {
+      projectId: angelaPhase2Project.id,
+      status: "active",
+      fundingSource: "reserve",
+      strategicPlanId: efficiencyPlan.id,
+    },
+  });
+
+  // Angela's phases (linked to projects)
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: angelaHome.id,
+      phaseNumber: 1,
+      phaseName: "envelope",
+      categories: JSON.stringify(["insulation", "air_sealing", "doors"]),
+      estimatedCost: 6800,
+      amountFunded: 6800,
+      fundingComplete: true,
+      fundingTrack: "fully_funded",
+      status: "in_progress",
+      contractorName: "Front Range Weatherization Co.",
+      startedAt: new Date(Date.now() - 7 * 86400000),
+      projectId: angelaPhase1Project.id,
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: angelaHome.id,
+      phaseNumber: 2,
+      phaseName: "openings",
+      categories: JSON.stringify(["windows"]),
+      estimatedCost: 9200,
+      amountFunded: 3680,
+      fundingTrack: "co_pay",
+      status: "funding",
+      projectId: angelaPhase2Project.id,
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: angelaHome.id,
+      phaseNumber: 3,
+      phaseName: "systems",
+      categories: JSON.stringify(["hvac", "water_heating"]),
+      estimatedCost: 12500,
+      status: "pending",
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: angelaHome.id,
+      phaseNumber: 4,
+      phaseName: "electrical",
+      categories: JSON.stringify(["electrical_panel"]),
+      estimatedCost: 3200,
+      status: "pending",
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: angelaHome.id,
+      phaseNumber: 5,
+      phaseName: "generation",
+      categories: JSON.stringify(["roof_reinforcement", "solar"]),
+      estimatedCost: 24500,
+      status: "pending",
+    },
+  });
+
+  // 2. DeAndre's home — just applied, awaiting assessment
+  await prisma.efficiencyHome.create({
+    data: {
+      userId: deandre.id,
+      address: "1523 Dahlia Street",
+      city: "Denver",
+      state: "CO",
+      zipCode: "80220",
+      homeType: "duplex",
+      yearBuilt: 1948,
+      squareFootage: 1100,
+      ownershipStatus: "owner",
+      entryTrack: "individual",
+      status: "applied",
+      currentEnergyBill: 210,
+    },
+  });
+
+  // 3. Demo user's home — assessed but not yet funding
+  const demoHome = await prisma.efficiencyHome.create({
+    data: {
+      userId: demo.id,
+      address: "4401 Tejon Street",
+      city: "Denver",
+      state: "CO",
+      zipCode: "80211",
+      homeType: "single_family",
+      yearBuilt: 1978,
+      squareFootage: 1680,
+      ownershipStatus: "owner",
+      entryTrack: "individual",
+      status: "assessed",
+      currentEnergyBill: 165,
+      energyScoreBefore: 45,
+      roofOrientation: "east",
+      shadingFactor: "none",
+      assessedAt: new Date(Date.now() - 10 * 86400000),
+    },
+  });
+
+  await prisma.efficiencyAssessment.create({
+    data: {
+      homeId: demoHome.id,
+      insulationCondition: "fair",
+      windowType: "single",
+      hvacAge: 12,
+      hvacType: "furnace",
+      waterHeaterType: "tank_electric",
+      roofCondition: "good",
+      electricalPanelAmps: 150,
+      efficiencyScore: 45,
+      upgradePlan: JSON.stringify([
+        { category: "insulation", priority: 1, needed: true, notes: "Current: fair — attic needs improvement" },
+        { category: "air_sealing", priority: 2, needed: true, notes: "Standard weatherization" },
+        { category: "doors", priority: 3, needed: true, notes: "Exterior door assessment" },
+        { category: "windows", priority: 4, needed: true, notes: "Current: single pane" },
+        { category: "hvac", priority: 5, needed: true, notes: "Age: 12 years, approaching replacement" },
+        { category: "water_heating", priority: 6, needed: true, notes: "Current: tank_electric — inefficient" },
+        { category: "electrical_panel", priority: 7, needed: true, notes: "Current: 150A (upgrade to 200A)" },
+        { category: "solar", priority: 8, needed: true, notes: "Solar installation — roof is good" },
+      ]),
+      totalEstimatedCost: 38200,
+      projectedSavingsKwh: 6800,
+      projectedSavingsDollars: 1088,
+      projectedCo2Reduction: 2.84,
+      assessedBy: admin.id,
+      assessorNotes: "Late 70s home in decent shape. Insulation is fair but could be better. Single-pane windows are the biggest loss. Roof is in good condition — no reinforcement needed for solar.",
+    },
+  });
+
+  // Demo's phases
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: demoHome.id,
+      phaseNumber: 1,
+      phaseName: "envelope",
+      categories: JSON.stringify(["insulation", "air_sealing", "doors"]),
+      estimatedCost: 7200,
+      status: "pending",
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: demoHome.id,
+      phaseNumber: 2,
+      phaseName: "openings",
+      categories: JSON.stringify(["windows"]),
+      estimatedCost: 10500,
+      status: "pending",
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: demoHome.id,
+      phaseNumber: 3,
+      phaseName: "systems",
+      categories: JSON.stringify(["hvac", "water_heating"]),
+      estimatedCost: 11200,
+      status: "pending",
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: demoHome.id,
+      phaseNumber: 4,
+      phaseName: "electrical",
+      categories: JSON.stringify(["electrical_panel"]),
+      estimatedCost: 2800,
+      status: "pending",
+    },
+  });
+
+  await prisma.efficiencyPhase.create({
+    data: {
+      homeId: demoHome.id,
+      phaseNumber: 5,
+      phaseName: "generation",
+      categories: JSON.stringify(["solar"]),
+      estimatedCost: 22000,
+      status: "pending",
+    },
+  });
+
+  // 4. A completed home (Angela's second — shows platform stats)
+  const completedHome = await prisma.efficiencyHome.create({
+    data: {
+      userId: angela.id,
+      address: "1190 Olive Street",
+      city: "Denver",
+      state: "CO",
+      zipCode: "80220",
+      homeType: "single_family",
+      yearBuilt: 1955,
+      squareFootage: 1200,
+      ownershipStatus: "owner",
+      entryTrack: "individual",
+      status: "completed",
+      currentEnergyBill: 195,
+      energyScoreBefore: 28,
+      energyScoreAfter: 87,
+      roofOrientation: "south",
+      shadingFactor: "none",
+      solarCapacityKw: 5.2,
+      solarGenerationKwh: 7800,
+      assessedAt: new Date(Date.now() - 120 * 86400000),
+      completedAt: new Date(Date.now() - 14 * 86400000),
+    },
+  });
+
+  await prisma.efficiencyAssessment.create({
+    data: {
+      homeId: completedHome.id,
+      insulationCondition: "none",
+      windowType: "single",
+      hvacAge: 22,
+      hvacType: "furnace",
+      waterHeaterType: "tank_electric",
+      roofCondition: "fair",
+      electricalPanelAmps: 60,
+      efficiencyScore: 28,
+      upgradePlan: JSON.stringify([
+        { category: "insulation", priority: 1, needed: true, notes: "No existing insulation" },
+        { category: "air_sealing", priority: 2, needed: true, notes: "Major air leaks throughout" },
+        { category: "doors", priority: 3, needed: true, notes: "Original 1955 doors" },
+        { category: "windows", priority: 4, needed: true, notes: "Single pane, many cracked" },
+        { category: "hvac", priority: 5, needed: true, notes: "22-year-old furnace, failing" },
+        { category: "water_heating", priority: 6, needed: true, notes: "Electric tank, inefficient" },
+        { category: "electrical_panel", priority: 7, needed: true, notes: "60A — dangerously undersized" },
+        { category: "roof_reinforcement", priority: 8, needed: true, notes: "Needs reinforcement for solar" },
+        { category: "solar", priority: 9, needed: true, notes: "Excellent south exposure, no shading" },
+      ]),
+      totalEstimatedCost: 48000,
+      projectedSavingsKwh: 9500,
+      projectedSavingsDollars: 1520,
+      projectedCo2Reduction: 3.96,
+      assessedBy: admin.id,
+      assessorNotes: "Worst condition home assessed so far — 1955 with zero upgrades ever. Complete gut renovation needed. Fully funded through reserve as low-income eligible.",
+    },
+  });
+
+  // Completed home's phases — all done
+  for (const phase of [
+    { num: 1, name: "envelope", cats: ["insulation", "air_sealing", "doors"], est: 8500, actual: 9200 },
+    { num: 2, name: "openings", cats: ["windows"], est: 11000, actual: 10400 },
+    { num: 3, name: "systems", cats: ["hvac", "water_heating"], est: 13500, actual: 14100 },
+    { num: 4, name: "electrical", cats: ["electrical_panel"], est: 4200, actual: 4200 },
+    { num: 5, name: "generation", cats: ["roof_reinforcement", "solar"], est: 26000, actual: 25800 },
+  ]) {
+    await prisma.efficiencyPhase.create({
+      data: {
+        homeId: completedHome.id,
+        phaseNumber: phase.num,
+        phaseName: phase.name,
+        categories: JSON.stringify(phase.cats),
+        estimatedCost: phase.est,
+        actualCost: phase.actual,
+        amountFunded: phase.actual,
+        fundingComplete: true,
+        fundingTrack: "fully_funded",
+        status: "verified",
+        contractorName: "Mile High Efficiency Partners",
+        verifiedBy: admin.id,
+        verifiedAt: new Date(Date.now() - (20 - phase.num * 3) * 86400000),
+        startedAt: new Date(Date.now() - (90 - phase.num * 15) * 86400000),
+        completedAt: new Date(Date.now() - (25 - phase.num * 3) * 86400000),
+        gapAmount: phase.actual > phase.est ? phase.actual - phase.est : null,
+        gapFunded: phase.actual > phase.est ? phase.actual - phase.est : 0,
+      },
+    });
+  }
+
+  // 5. Community nomination (DeAndre nominates a neighbor)
+  await prisma.efficiencyNomination.create({
+    data: {
+      nominatorId: deandre.id,
+      communityId: community1.id,
+      nomineeAddress: "2901 Krameria Street",
+      nomineeCity: "Denver",
+      nomineeState: "CO",
+      nomineeZipCode: "80207",
+      nomineeReason: "Elderly neighbor on fixed income. House has no insulation, original 1958 windows, and her energy bills are over $300/month in winter. She's been a Park Hill resident for 40 years and can't afford upgrades.",
+      nomineeConsent: true,
+      status: "voting",
+      votingEndsAt: new Date(Date.now() + 25 * 86400000),
+      approvalVotes: 1,
+      totalVotes: 1,
+    },
+  });
+
+  // 6. Neighborhood Cascade forming in 80207 (Park Hill)
+  const cascade = await prisma.neighborhoodCascade.create({
+    data: {
+      name: "Park Hill Phase 1 Efficiency Cascade",
+      zipCode: "80207",
+      radiusMiles: 1.0,
+      homeCount: 3,
+      minHomes: 10,
+      triggered: false,
+      targetPhase: 1,
+      totalEstimatedCost: 21000,
+      status: "forming",
+    },
+  });
+
+  // Link Angela's home to the cascade
+  await prisma.efficiencyHome.update({
+    where: { id: angelaHome.id },
+    data: { neighborhoodBatchId: cascade.id },
+  });
+
+  const efficiencyHomeCount = await prisma.efficiencyHome.count();
+  const efficiencyPhaseCount = await prisma.efficiencyPhase.count();
+
   console.log("Seed complete!");
   console.log(`  Users: ${4} (admin, angela, deandre, demo)`);
   console.log(`  Projects: ${projects.length} + 3 flagships`);
@@ -763,6 +1213,10 @@ async function main() {
   console.log(`  Aquifer: Reserve $25,000 / Pool $8,500`);
   console.log(`  Strategic Plans: 2 (1 active, 1 queued)`);
   console.log(`  Platform Reserve: $${RESERVE_INITIAL_BALANCE.toLocaleString()}`);
+  console.log(`  Efficiency Homes: ${efficiencyHomeCount} (1 completed, 1 in progress, 1 assessed, 1 applied)`);
+  console.log(`  Efficiency Phases: ${efficiencyPhaseCount}`);
+  console.log(`  Neighborhood Cascade: 1 (forming in 80207)`);
+  console.log(`  Efficiency Nomination: 1 (voting)`);
   console.log("");
   console.log("Login credentials (all users):");
   console.log("  Password: password123");

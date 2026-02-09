@@ -21,9 +21,12 @@ import {
   Check,
   Pause,
   X,
+  Heart,
+  Loader2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/i18n/formatting";
+import { useToast } from "@/components/ui/toast";
 
 interface FlagshipDetail {
   id: string;
@@ -60,18 +63,71 @@ export default function FlagshipDetailPage() {
   const { data: session } = useSession();
   const [flagship, setFlagship] = useState<FlagshipDetail | null>(null);
   const [eligibility, setEligibility] = useState<VoteEligibility | null>(null);
+  const [watershedBalance, setWatershedBalance] = useState(0);
+  const [fundAmount, setFundAmount] = useState("");
+  const [funding, setFunding] = useState(false);
+  const [fundSuccess, setFundSuccess] = useState<string | null>(null);
+  const [fundError, setFundError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
   function fetchData() {
     Promise.all([
       fetch(`/api/aquifer/projects/${params.id}`).then((r) => r.json()),
       fetch(`/api/aquifer/projects/${params.id}/vote`).then((r) => r.json()),
+      fetch("/api/progress").then((r) => r.ok ? r.json() : null).catch(() => null),
     ])
-      .then(([flagshipData, eligibilityData]) => {
+      .then(([flagshipData, eligibilityData, progressData]) => {
         setFlagship(flagshipData);
         setEligibility(eligibilityData);
+        setWatershedBalance(progressData?.yourProgress?.watershedBalance || 0);
       })
       .finally(() => setLoading(false));
+  }
+
+  async function handleFund() {
+    if (!flagship) return;
+    const amount = parseFloat(fundAmount);
+    if (isNaN(amount) || amount < 0.25) {
+      setFundError("Minimum contribution is $0.25");
+      return;
+    }
+    if (amount > watershedBalance) {
+      setFundError("Exceeds your watershed balance");
+      return;
+    }
+
+    setFunding(true);
+    setFundError(null);
+    setFundSuccess(null);
+
+    try {
+      const res = await fetch("/api/fund", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ projectId: flagship.projectId, amount }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        setFundError(data.error || "Failed to fund project");
+        return;
+      }
+
+      setFundSuccess(`Contributed $${data.data.amountFunded.toFixed(2)} to this project!`);
+      setFundAmount("");
+      toast(`Funded $${data.data.amountFunded.toFixed(2)} to ${flagship.project.title}`, "success");
+
+      if (data.data.stageChanged) {
+        toast(`${data.data.newStageEmoji} Cascade stage: ${data.data.newStageName}!`, "success");
+      }
+
+      fetchData();
+    } catch {
+      setFundError("Something went wrong. Please try again.");
+    } finally {
+      setFunding(false);
+    }
   }
 
   useEffect(() => {
@@ -283,6 +339,104 @@ export default function FlagshipDetailPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Fund This Project */}
+          {flagship.status === "active" && project.fundingRaised < project.fundingGoal && (
+            <Card>
+              <CardContent className="pt-5">
+                <h3 className="font-heading font-semibold text-storm mb-3 dark:text-dark-text flex items-center gap-2">
+                  <Heart className="h-4 w-4 text-ocean" />
+                  Fund This Project
+                </h3>
+
+                <div className="text-sm text-storm-light mb-3 dark:text-dark-text-secondary">
+                  Your watershed balance:{" "}
+                  <span className="font-medium text-storm dark:text-dark-text">
+                    ${watershedBalance.toFixed(2)}
+                  </span>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-storm-light dark:text-dark-text-secondary">$</span>
+                    <input
+                      type="number"
+                      step="0.25"
+                      min="0.25"
+                      max={Math.min(watershedBalance, project.fundingGoal - project.fundingRaised)}
+                      value={fundAmount}
+                      onChange={(e) => {
+                        setFundAmount(e.target.value);
+                        setFundError(null);
+                        setFundSuccess(null);
+                      }}
+                      placeholder="0.00"
+                      className="w-full pl-7 pr-3 py-2 text-sm rounded-lg border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean focus:border-ocean outline-none"
+                    />
+                  </div>
+
+                  {/* Quick amount buttons */}
+                  <div className="flex gap-2">
+                    {[1, 5, 10].map((preset) => (
+                      <button
+                        key={preset}
+                        onClick={() => {
+                          setFundAmount(String(Math.min(preset, watershedBalance)));
+                          setFundError(null);
+                          setFundSuccess(null);
+                        }}
+                        disabled={watershedBalance < 0.25}
+                        className="flex-1 px-2 py-1.5 text-xs font-medium rounded-lg border border-gray-200 dark:border-dark-border text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-dark-border transition-colors disabled:opacity-50"
+                      >
+                        ${preset}
+                      </button>
+                    ))}
+                    <button
+                      onClick={() => {
+                        const remaining = project.fundingGoal - project.fundingRaised;
+                        setFundAmount(String(Math.min(watershedBalance, remaining)));
+                        setFundError(null);
+                        setFundSuccess(null);
+                      }}
+                      disabled={watershedBalance < 0.25}
+                      className="flex-1 px-2 py-1.5 text-xs font-medium rounded-lg border border-gray-200 dark:border-dark-border text-storm-light dark:text-dark-text-secondary hover:bg-gray-50 dark:hover:bg-dark-border transition-colors disabled:opacity-50"
+                    >
+                      Max
+                    </button>
+                  </div>
+
+                  <Button
+                    onClick={handleFund}
+                    disabled={funding || !fundAmount || watershedBalance < 0.25}
+                    className="w-full"
+                  >
+                    {funding ? (
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                    ) : (
+                      <Heart className="h-4 w-4 mr-2" />
+                    )}
+                    {funding ? "Funding..." : "Fund Project"}
+                  </Button>
+
+                  {fundError && (
+                    <p className="text-xs text-red-500">{fundError}</p>
+                  )}
+                  {fundSuccess && (
+                    <p className="text-xs text-green-600 dark:text-green-400">{fundSuccess}</p>
+                  )}
+
+                  {watershedBalance < 0.25 && (
+                    <p className="text-xs text-storm-light dark:text-dark-text-secondary">
+                      <Link href="/watch" className="text-ocean hover:underline">
+                        Watch ads
+                      </Link>{" "}
+                      to build your watershed balance.
+                    </p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Sponsors List (for tabled) */}
           {flagship.status === "tabled" && flagship.sponsors.length > 0 && (

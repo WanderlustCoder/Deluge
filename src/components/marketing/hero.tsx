@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Droplets, Users, DollarSign, HandCoins } from "lucide-react";
 import { AnimatedNumber } from "./animated-number";
 import { prefersReducedMotion } from "@/lib/a11y/motion";
+import { useState, useEffect } from "react";
 
 interface HeroProps {
   stats: {
@@ -31,7 +32,9 @@ const raindrops = Array.from({ length: 60 }, (_, i) => ({
 }));
 
 export function Hero({ stats }: HeroProps) {
-  const reduced = typeof window !== "undefined" && prefersReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduced = mounted && prefersReducedMotion();
 
   const stagger = (delay: number) =>
     reduced
@@ -51,53 +54,52 @@ export function Hero({ stats }: HeroProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20" />
       </div>
 
-      {/* Downpour — CSS-animated for performance */}
-      {/* Keyframe injected once for all drops */}
+      {/* Downpour — CSS-animated, rendered client-only to avoid hydration mismatch */}
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes downpour {
           from { transform: translateY(-5vh); }
           to { transform: translateY(110vh); }
         }
       ` }} />
-      <div
-        className="absolute inset-0 overflow-hidden pointer-events-none motion-safe:block motion-reduce:hidden"
-        aria-hidden="true"
-      >
-        {raindrops.map((drop, i) => (
-          <div
-            key={i}
-            className="absolute"
-            style={{
-              left: drop.left,
-              top: 0,
-              animation: `downpour ${drop.duration}s linear ${drop.delay}s infinite`,
-            }}
-          >
-            {/* Drop head */}
+      {mounted && (
+        <div
+          className="absolute inset-0 overflow-hidden pointer-events-none motion-safe:block motion-reduce:hidden"
+          aria-hidden="true"
+        >
+          {raindrops.map((drop, i) => (
             <div
+              key={i}
+              className="absolute"
               style={{
-                width: drop.size,
-                height: drop.size * 2,
-                opacity: drop.opacity,
-                borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
-                background: "white",
+                left: drop.left,
+                top: 0,
+                animation: `downpour ${drop.duration}s linear ${drop.delay}s infinite`,
               }}
-            />
-            {/* Trail */}
-            <div
-              style={{
-                position: "absolute",
-                left: "50%",
-                transform: "translateX(-50%)",
-                bottom: "100%",
-                width: 1,
-                height: drop.trailLength,
-                background: `linear-gradient(to top, rgba(255,255,255,${drop.opacity}), transparent)`,
-              }}
-            />
-          </div>
-        ))}
-      </div>
+            >
+              <div
+                style={{
+                  width: drop.size,
+                  height: drop.size * 2,
+                  opacity: drop.opacity,
+                  borderRadius: "50% 50% 50% 50% / 60% 60% 40% 40%",
+                  background: "white",
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  bottom: "100%",
+                  width: 1,
+                  height: drop.trailLength,
+                  background: `linear-gradient(to top, rgba(255,255,255,${drop.opacity}), transparent)`,
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Content */}
       <div className="max-w-4xl mx-auto text-center relative z-10">

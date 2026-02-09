@@ -69,12 +69,12 @@ export default function AquiferPage() {
     Promise.all([
       fetch("/api/aquifer").then((r) => r.json()),
       fetch("/api/aquifer/projects").then((r) => r.json()),
-      fetch("/api/dashboard").then((r) => r.json()),
+      fetch("/api/progress").then((r) => r.ok ? r.json() : null).catch(() => null),
     ])
-      .then(([fundsData, flagshipsData, dashboardData]) => {
+      .then(([fundsData, flagshipsData, progressData]) => {
         setFunds(fundsData);
-        setFlagships(flagshipsData);
-        setWatershed(dashboardData.watershed?.balance || 0);
+        setFlagships(Array.isArray(flagshipsData) ? flagshipsData : []);
+        setWatershed(progressData?.yourProgress?.watershedBalance || 0);
       })
       .finally(() => setLoading(false));
   }
