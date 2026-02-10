@@ -79,8 +79,6 @@ export default auth((req) => {
     "/grants",
     "/stories/submit",
     "/certificates",
-    "/marketplace",
-    "/events",
     "/pledges",
     "/organizations",
     "/org",
@@ -102,7 +100,7 @@ export default auth((req) => {
   }
 
   // User-only routes — block admins, redirect to /admin
-  const userOnlyPaths = ["/dashboard", "/watch", "/fund", "/contribute", "/impact", "/account", "/loans", "/communities", "/aquifer", "/leaderboards", "/challenges", "/proposals", "/business", "/onboarding", "/volunteer", "/corporate", "/circles", "/occasions", "/give", "/emergency", "/calendar", "/campaigns", "/birthday", "/credit", "/advocates", "/developer", "/discover", "/learn", "/mentorship", "/support-groups", "/grants", "/stories/submit", "/certificates", "/marketplace", "/events", "/pledges", "/organizations", "/org", "/analytics", "/efficiency"];
+  const userOnlyPaths = ["/dashboard", "/watch", "/fund", "/contribute", "/impact", "/account", "/loans", "/communities", "/aquifer", "/leaderboards", "/challenges", "/proposals", "/business", "/onboarding", "/volunteer", "/corporate", "/circles", "/occasions", "/give", "/emergency", "/calendar", "/campaigns", "/birthday", "/credit", "/advocates", "/developer", "/discover", "/learn", "/mentorship", "/support-groups", "/grants", "/stories/submit", "/certificates", "/pledges", "/organizations", "/org", "/analytics", "/efficiency"];
   if (userOnlyPaths.some(p => pathname.startsWith(p)) && req.auth?.user?.accountType === "admin") {
     return NextResponse.redirect(new URL("/admin", req.nextUrl));
   }

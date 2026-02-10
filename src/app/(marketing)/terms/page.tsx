@@ -13,8 +13,6 @@ import {
   CreditCard,
   Home,
   Users,
-  Store,
-  Calendar,
   Megaphone,
   Gift,
   Building2,
@@ -42,8 +40,6 @@ const sections = [
   { id: "credit-reporting", title: "Credit Bureau Reporting", icon: CreditCard },
   { id: "home-efficiency", title: "Home Efficiency Program", icon: Home },
   { id: "community", title: "Community Features", icon: Users },
-  { id: "marketplace", title: "Marketplace", icon: Store },
-  { id: "events", title: "Events & Ticketing", icon: Calendar },
   { id: "pledges", title: "Pledge Campaigns", icon: Megaphone },
   { id: "gift-cards", title: "Gift Cards", icon: Gift },
   { id: "corporate", title: "Corporate Portal", icon: Building2 },
@@ -170,7 +166,7 @@ export default function TermsOfServicePage() {
                 <p>
                   <strong className="text-storm">Age requirements:</strong> You must be at least 13 years old to create an account.
                   Users under 18 may access community features, view content, and earn ad credits, but may not access financial
-                  features including direct contributions, microloans, watershed loans, marketplace transactions, or credit bureau
+                  features including direct contributions, microloans, watershed loans, or credit bureau
                   reporting without parental or guardian consent. Financial features require you to be at least 18 years old.
                 </p>
                 <p>
@@ -419,53 +415,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 11. Marketplace */}
+            {/* 11. Pledge Campaigns */}
             <section className="mb-16">
-              <SectionHeading id="marketplace" icon={Store} number={11} title="Marketplace" />
-              <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
-                <p>
-                  The Platform provides a peer-to-peer marketplace for goods and services. Marketplace transactions are
-                  subject to the following:
-                </p>
-                <ul>
-                  <li>A platform fee is applied to each transaction, a portion of which is donated to community projects.</li>
-                  <li>Sellers are responsible for accurately describing items and fulfilling orders.</li>
-                  <li>The Platform facilitates dispute resolution between buyers and sellers but is not a party to marketplace transactions.</li>
-                  <li>Users may leave reviews for transactions; reviews must be honest and comply with our content policies.</li>
-                </ul>
-                <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
-                  <p className="mb-0">
-                    The Platform provides no warranty, express or implied, for goods or services purchased through the marketplace.
-                    All marketplace transactions are between the buyer and seller.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* 12. Events & Ticketing */}
-            <section className="mb-16">
-              <SectionHeading id="events" icon={Calendar} number={12} title="Events & Ticketing" />
-              <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
-                <p>
-                  The Platform supports community event creation and ticketing. Event features include:
-                </p>
-                <ul>
-                  <li><strong className="text-storm">Event creation:</strong> Community members may create events with configurable details, ticket types, and capacity limits.</li>
-                  <li><strong className="text-storm">Tickets:</strong> Events may offer free or paid tickets. Ticket purchases are non-refundable unless the event is cancelled by the organizer.</li>
-                  <li><strong className="text-storm">Donation matching:</strong> Events may include donation matching features where sponsors match attendee contributions.</li>
-                  <li><strong className="text-storm">Auctions:</strong> Events may feature charity auctions. Winning bids are binding commitments.</li>
-                  <li><strong className="text-storm">Sponsorships:</strong> Corporate sponsors may support events through the Corporate Portal.</li>
-                </ul>
-                <p>
-                  Event organizers are responsible for delivering the event as described. The Platform is not liable for
-                  event cancellations, changes, or the quality of event experiences.
-                </p>
-              </div>
-            </section>
-
-            {/* 13. Pledge Campaigns */}
-            <section className="mb-16">
-              <SectionHeading id="pledges" icon={Megaphone} number={13} title="Pledge Campaigns" />
+              <SectionHeading id="pledges" icon={Megaphone} number={11} title="Pledge Campaigns" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   Users may create pledge campaigns to rally community support for specific goals. Three campaign types
@@ -487,9 +439,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 14. Gift Cards */}
+            {/* 12. Gift Cards */}
             <section className="mb-16">
-              <SectionHeading id="gift-cards" icon={Gift} number={14} title="Gift Cards" />
+              <SectionHeading id="gift-cards" icon={Gift} number={12} title="Gift Cards" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   The Platform offers gift cards that can be redeemed for watershed credits.
@@ -504,9 +456,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 15. Corporate Portal */}
+            {/* 13. Corporate Portal */}
             <section className="mb-16">
-              <SectionHeading id="corporate" icon={Building2} number={15} title="Corporate Portal" />
+              <SectionHeading id="corporate" icon={Building2} number={13} title="Corporate Portal" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   The Corporate Portal enables businesses to participate in community giving at scale. Features include:
@@ -523,9 +475,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 16. Nonprofit Portal */}
+            {/* 14. Nonprofit Portal */}
             <section className="mb-16">
-              <SectionHeading id="nonprofit" icon={HandHeart} number={16} title="Nonprofit Portal" />
+              <SectionHeading id="nonprofit" icon={HandHeart} number={14} title="Nonprofit Portal" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   Registered nonprofits may access additional features through the Nonprofit Portal:
@@ -538,9 +490,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 17. Developer API */}
+            {/* 15. Developer API */}
             <section className="mb-16">
-              <SectionHeading id="api" icon={Code} number={17} title="Developer API" />
+              <SectionHeading id="api" icon={Code} number={15} title="Developer API" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   The Platform provides a Developer API for integrating with third-party applications.
@@ -558,9 +510,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 18. Advertising */}
+            {/* 16. Advertising */}
             <section className="mb-16">
-              <SectionHeading id="advertising" icon={Tv} number={18} title="Advertising" />
+              <SectionHeading id="advertising" icon={Tv} number={16} title="Advertising" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   Advertisements are served through third-party ad providers and are a core revenue mechanism of the Platform.
@@ -574,9 +526,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 19. Intellectual Property */}
+            {/* 17. Intellectual Property */}
             <section className="mb-16">
-              <SectionHeading id="ip" icon={Copyright} number={19} title="Intellectual Property" />
+              <SectionHeading id="ip" icon={Copyright} number={17} title="Intellectual Property" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   <strong className="text-storm">Platform IP:</strong> The Platform, including its design, code, branding, and all original
@@ -597,9 +549,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 20. Prohibited Conduct */}
+            {/* 18. Prohibited Conduct */}
             <section className="mb-16">
-              <SectionHeading id="prohibited" icon={Ban} number={20} title="Prohibited Conduct" />
+              <SectionHeading id="prohibited" icon={Ban} number={18} title="Prohibited Conduct" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   You agree not to engage in any of the following:
@@ -620,9 +572,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 21. Disclaimers & Liability */}
+            {/* 19. Disclaimers & Liability */}
             <section className="mb-16">
-              <SectionHeading id="disclaimers" icon={AlertTriangle} number={21} title="Disclaimers & Liability" />
+              <SectionHeading id="disclaimers" icon={AlertTriangle} number={19} title="Disclaimers & Liability" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4 space-y-3">
                   <p>
@@ -647,9 +599,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 22. Indemnification */}
+            {/* 20. Indemnification */}
             <section className="mb-16">
-              <SectionHeading id="indemnification" icon={ShieldAlert} number={22} title="Indemnification" />
+              <SectionHeading id="indemnification" icon={ShieldAlert} number={20} title="Indemnification" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   You agree to indemnify, defend, and hold harmless Deluge Fund PBC, its officers, directors, employees,
@@ -659,15 +611,14 @@ export default function TermsOfServicePage() {
                 <ul>
                   <li>Your violation of these Terms or any applicable law or regulation.</li>
                   <li>Your content posted on the Platform.</li>
-                  <li>Your marketplace transactions, including any disputes with other users.</li>
                   <li>Your use of funds obtained through the Platform, including microloans and watershed loans.</li>
                 </ul>
               </div>
             </section>
 
-            {/* 23. Dispute Resolution */}
+            {/* 21. Dispute Resolution */}
             <section className="mb-16">
-              <SectionHeading id="disputes" icon={Gavel} number={23} title="Dispute Resolution" />
+              <SectionHeading id="disputes" icon={Gavel} number={21} title="Dispute Resolution" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   <strong className="text-storm">Governing law:</strong> These Terms are governed by the laws of the State of Delaware,
@@ -691,9 +642,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 24. Changes to Terms */}
+            {/* 22. Changes to Terms */}
             <section className="mb-16">
-              <SectionHeading id="changes" icon={FileEdit} number={24} title="Changes to Terms" />
+              <SectionHeading id="changes" icon={FileEdit} number={22} title="Changes to Terms" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   We may update these Terms from time to time. When we make material changes, we will:
@@ -711,9 +662,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 25. Termination */}
+            {/* 23. Termination */}
             <section className="mb-16">
-              <SectionHeading id="termination" icon={LogOut} number={25} title="Termination" />
+              <SectionHeading id="termination" icon={LogOut} number={23} title="Termination" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   <strong className="text-storm">By you:</strong> You may terminate your account at any time through your account settings.
@@ -736,9 +687,9 @@ export default function TermsOfServicePage() {
               </div>
             </section>
 
-            {/* 26. Contact */}
+            {/* 24. Contact */}
             <section className="mb-8">
-              <SectionHeading id="contact" icon={Mail} number={26} title="Contact" />
+              <SectionHeading id="contact" icon={Mail} number={24} title="Contact" />
               <div className="prose prose-storm dark:prose-invert max-w-none text-storm-light leading-relaxed space-y-4">
                 <p>
                   For questions about these Terms of Service, contact us at:

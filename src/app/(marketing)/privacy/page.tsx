@@ -163,8 +163,7 @@ export default function PrivacyPolicyPage() {
                       <li><strong className="text-storm">Account information:</strong> Name, email address, password, profile photo, bio, interests.</li>
                       <li><strong className="text-storm">Financial information:</strong> Payment method details (processed by third-party processors), contribution amounts, watershed balances, loan applications.</li>
                       <li><strong className="text-storm">Home efficiency data:</strong> Home address, property details, energy usage information, utility data (Plan 42 participants only).</li>
-                      <li><strong className="text-storm">Marketplace data:</strong> Listing details, transaction records, shipping addresses, reviews.</li>
-                      <li><strong className="text-storm">Community content:</strong> Posts, comments, proposals, votes, event details.</li>
+                      <li><strong className="text-storm">Community content:</strong> Posts, comments, proposals, votes.</li>
                       <li><strong className="text-storm">Credit reporting consent:</strong> Opt-in preferences per loan, consent version acknowledgment.</li>
                       <li><strong className="text-storm">Support communications:</strong> Messages sent to our support team, feedback, and reports.</li>
                     </ul>
@@ -206,7 +205,6 @@ export default function PrivacyPolicyPage() {
                   <li>Operating your account and watershed.</li>
                   <li>Processing contributions, allocations, and cascades.</li>
                   <li>Facilitating microloans, watershed loans, and repayments.</li>
-                  <li>Managing marketplace transactions and event ticketing.</li>
                   <li>Delivering ad credits for completed ad views.</li>
                 </ul>
                 <h3 className="font-heading font-semibold text-lg text-storm">Consent</h3>
@@ -475,7 +473,7 @@ export default function PrivacyPolicyPage() {
                 </p>
                 <ul>
                   <li><strong className="text-storm">Minimum age:</strong> Users must be at least 13 years old to create an account.</li>
-                  <li><strong className="text-storm">Financial features:</strong> Users must be at least 18 years old to access financial features including contributions, loans, and marketplace transactions.</li>
+                  <li><strong className="text-storm">Financial features:</strong> Users must be at least 18 years old to access financial features including contributions and loans.</li>
                   <li>
                     <strong className="text-storm">Family accounts:</strong> Parents or guardians may create linked family accounts for
                     minors aged 13&ndash;17 with parental controls including:

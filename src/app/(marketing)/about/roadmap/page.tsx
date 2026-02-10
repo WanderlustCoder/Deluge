@@ -97,8 +97,6 @@ const phases: Phase[] = [
       { title: "Volunteer Hours", description: "Log volunteer time, match skills to opportunities, and track in-kind contributions.", status: "complete" },
       { title: "Nonprofit Partner Portal", description: "Organizations manage donor relationships, track contributions, and generate reports.", status: "complete" },
       { title: "Grants & Large Funding", description: "Structured grant programs with applications, review panels, and disbursement tracking.", status: "complete" },
-      { title: "Community Marketplace", description: "Buy, sell, and trade within your community — proceeds can flow to your watershed.", status: "complete" },
-      { title: "Fundraising Events", description: "Organize events with ticketing, registrations, donations, matching, and auctions.", status: "complete" },
       { title: "Pledge Campaigns", description: "Kickstarter-style crowdfunding with all-or-nothing, flexible, and milestone funding modes.", status: "complete" },
     ],
   },
@@ -134,7 +132,6 @@ const phases: Phase[] = [
       { title: "Payment Processing", description: "Stripe integration for cash contributions, loan disbursements, and gift card purchases.", status: "in_progress" },
       { title: "Public Beta Launch", description: "Open the platform to early adopters and gather real-world feedback.", status: "planned" },
       { title: "Native Mobile Apps", description: "Dedicated iOS and Android apps built on the existing PWA foundation.", status: "planned" },
-      { title: "Sponsor Marketplace", description: "Self-serve portal for local businesses to sponsor cascade celebrations and notifications.", status: "planned" },
     ],
   },
 ];
