@@ -103,85 +103,85 @@ async function main() {
   const projects = await Promise.all([
     prisma.project.create({
       data: {
-        title: "Montbello Fresh Food Market",
+        title: "Bench Fresh Food Market",
         description:
-          "Bringing a community-owned fresh food market to the Montbello food desert. This project will convert a vacant lot into a vibrant marketplace with local produce, affordable groceries, and space for community cooking classes.",
+          "Bringing a community-owned fresh food market to the Bench food desert. This project will convert a vacant lot into a vibrant marketplace with local produce, affordable groceries, and space for community cooking classes.",
         category: "Community",
         fundingGoal: 15000,
         fundingRaised: 14250, // 95% — cascade demo trigger!
         backerCount: 187,
         status: "active",
-        location: "Montbello, Denver CO",
+        location: "Bench, Boise ID",
       },
     }),
     prisma.project.create({
       data: {
-        title: "Park Hill Youth Coding Lab",
+        title: "North End Youth Coding Lab",
         description:
-          "Free after-school coding program for middle schoolers in Park Hill. Students learn Python, web development, and game design with mentorship from local tech professionals.",
+          "Free after-school coding program for middle schoolers in the North End. Students learn Python, web development, and game design with mentorship from local tech professionals.",
         category: "Education",
         fundingGoal: 8000,
         fundingRaised: 5600, // 70%
         backerCount: 92,
         status: "active",
-        location: "Park Hill, Denver CO",
+        location: "North End, Boise ID",
       },
     }),
     prisma.project.create({
       data: {
-        title: "Five Points Community Garden",
+        title: "Downtown Boise Community Garden",
         description:
-          "Transforming an abandoned lot in Five Points into a thriving community garden with 40 raised beds, a tool library, composting station, and weekend farmer's market.",
+          "Transforming an abandoned lot in downtown Boise into a thriving community garden with 40 raised beds, a tool library, composting station, and weekend farmer's market.",
         category: "Environment",
         fundingGoal: 5000,
         fundingRaised: 2500, // 50%
         backerCount: 64,
         status: "active",
-        location: "Five Points, Denver CO",
+        location: "Downtown, Boise ID",
       },
     }),
     prisma.project.create({
       data: {
-        title: "Westwood Mental Health Hub",
+        title: "Garden City Mental Health Hub",
         description:
-          "Opening a bilingual (English/Spanish) mental health resource center offering free counseling, support groups, and crisis intervention for the Westwood community.",
+          "Opening a bilingual (English/Spanish) mental health resource center offering free counseling, support groups, and crisis intervention for the Garden City community.",
         category: "Health",
         fundingGoal: 20000,
         fundingRaised: 5000, // 25%
         backerCount: 73,
         status: "active",
-        location: "Westwood, Denver CO",
+        location: "Garden City, ID",
       },
     }),
     prisma.project.create({
       data: {
-        title: "Globeville Street Art Trail",
+        title: "Meridian Cultural Art Trail",
         description:
-          "Creating a walking trail of 12 murals celebrating Globeville's immigrant heritage. Local and visiting artists will work with community members to design and paint murals on building walls throughout the neighborhood.",
+          "Creating a walking trail of 12 murals celebrating Meridian's diverse heritage. Local and visiting artists will work with community members to design and paint murals on building walls throughout the neighborhood.",
         category: "Arts & Culture",
         fundingGoal: 12000,
         fundingRaised: 1200, // 10%
         backerCount: 31,
         status: "active",
-        location: "Globeville, Denver CO",
+        location: "Meridian, ID",
       },
     }),
     prisma.project.create({
       data: {
-        title: "Sun Valley Tech Access Program",
+        title: "Nampa Tech Access Program",
         description:
-          "Providing refurbished laptops and free internet hotspots to 200 families in Sun Valley, along with digital literacy workshops for parents and seniors.",
+          "Providing refurbished laptops and free internet hotspots to 200 families in Nampa, along with digital literacy workshops for parents and seniors.",
         category: "Technology",
         fundingGoal: 10000,
         fundingRaised: 7500, // 75%
         backerCount: 118,
         status: "active",
-        location: "Sun Valley, Denver CO",
+        location: "Nampa, ID",
       },
     }),
     prisma.project.create({
       data: {
-        title: "Elyria-Swansea Youth Sports League",
+        title: "Eagle Youth Sports League",
         description:
           "Year-round youth sports program offering soccer, basketball, and track for kids ages 8-16. Includes equipment, uniforms, transportation to games, and healthy post-practice meals.",
         category: "Youth",
@@ -189,12 +189,12 @@ async function main() {
         fundingRaised: 3600, // 40%
         backerCount: 55,
         status: "active",
-        location: "Elyria-Swansea, Denver CO",
+        location: "Eagle, ID",
       },
     }),
     prisma.project.create({
       data: {
-        title: "Cole Neighborhood Tiny Home Village",
+        title: "Caldwell Tiny Home Village",
         description:
           "Building a pilot tiny home village with 8 units for unhoused individuals transitioning to permanent housing. Includes shared kitchen, laundry, and case management services.",
         category: "Housing",
@@ -202,7 +202,7 @@ async function main() {
         fundingRaised: 25000, // 100% — completed
         backerCount: 312,
         status: "funded",
-        location: "Cole, Denver CO",
+        location: "Caldwell, ID",
       },
     }),
   ]);
@@ -274,7 +274,7 @@ async function main() {
         watershedId: angela.watershed.id,
         type: "project_allocation",
         amount: -15.0,
-        description: "Funded: Park Hill Youth Coding Lab",
+        description: "Funded: North End Youth Coding Lab",
         balanceAfter: 30.0,
       },
     });
@@ -283,7 +283,7 @@ async function main() {
         watershedId: angela.watershed.id,
         type: "project_allocation",
         amount: -17.5,
-        description: "Funded: Montbello Fresh Food Market",
+        description: "Funded: Bench Fresh Food Market",
         balanceAfter: 12.5,
       },
     });
@@ -292,14 +292,14 @@ async function main() {
     await prisma.allocation.create({
       data: {
         userId: angela.id,
-        projectId: projects[1].id, // Park Hill Youth Coding Lab
+        projectId: projects[1].id, // North End Youth Coding Lab
         amount: 15.0,
       },
     });
     await prisma.allocation.create({
       data: {
         userId: angela.id,
-        projectId: projects[0].id, // Montbello Fresh Food Market
+        projectId: projects[0].id, // Bench Fresh Food Market
         amount: 17.5,
       },
     });
@@ -419,7 +419,7 @@ async function main() {
       purpose: "Buy supplies for community tutoring",
       purposeCategory: "Education",
       story: "I run a free tutoring program for neighborhood kids and need supplies like workbooks, markers, and a small whiteboard.",
-      location: "Park Hill, Denver CO",
+      location: "North End, Boise ID",
       status: "funding",
       fundingDeadline: deadline1,
       repaymentMonths: 4,
@@ -454,7 +454,7 @@ async function main() {
       purpose: "Emergency car repair for work commute",
       purposeCategory: "Transportation",
       story: "My car broke down and I need it to get to my job. Public transit doesn't reach my workplace.",
-      location: "Montbello, Denver CO",
+      location: "Bench, Boise ID",
       status: "repaying",
       fundingDeadline: deadline2,
       repaymentMonths: 6,
@@ -489,9 +489,9 @@ async function main() {
   // --- Communities ---
   const community1 = await prisma.community.create({
     data: {
-      name: "Park Hill Neighbors",
-      description: "Working together to build a stronger Park Hill neighborhood through community projects, events, and mutual support.",
-      location: "Park Hill, Denver CO",
+      name: "North End Neighbors",
+      description: "Working together to build a stronger North End neighborhood through community projects, events, and mutual support.",
+      location: "North End, Boise ID",
       category: "Neighborhood",
       createdBy: angela.id,
       memberCount: 2,
@@ -507,16 +507,16 @@ async function main() {
   // Link 3 projects to community1
   await prisma.communityProject.createMany({
     data: [
-      { communityId: community1.id, projectId: projects[1].id, addedBy: angela.id }, // Park Hill Youth Coding Lab
-      { communityId: community1.id, projectId: projects[2].id, addedBy: angela.id }, // Five Points Community Garden
-      { communityId: community1.id, projectId: projects[5].id, addedBy: angela.id }, // Sun Valley Tech Access
+      { communityId: community1.id, projectId: projects[1].id, addedBy: angela.id }, // North End Youth Coding Lab
+      { communityId: community1.id, projectId: projects[2].id, addedBy: angela.id }, // Downtown Boise Community Garden
+      { communityId: community1.id, projectId: projects[5].id, addedBy: angela.id }, // Nampa Tech Access
     ],
   });
 
   const community2 = await prisma.community.create({
     data: {
-      name: "Denver Education Coalition",
-      description: "Parents, teachers, and community members united to expand educational opportunities across Denver neighborhoods.",
+      name: "Treasure Valley Education Coalition",
+      description: "Parents, teachers, and community members united to expand educational opportunities across Treasure Valley neighborhoods.",
       category: "Education",
       createdBy: deandre.id,
       memberCount: 1,
@@ -530,8 +530,8 @@ async function main() {
 
   await prisma.communityProject.createMany({
     data: [
-      { communityId: community2.id, projectId: projects[1].id, addedBy: deandre.id }, // Park Hill Youth Coding Lab
-      { communityId: community2.id, projectId: projects[5].id, addedBy: deandre.id }, // Sun Valley Tech Access
+      { communityId: community2.id, projectId: projects[1].id, addedBy: deandre.id }, // North End Youth Coding Lab
+      { communityId: community2.id, projectId: projects[5].id, addedBy: deandre.id }, // Nampa Tech Access
     ],
   });
 
@@ -612,11 +612,11 @@ async function main() {
   // --- Strategic Plans ---
   const solarizePlan = await prisma.strategicPlan.create({
     data: {
-      title: "Solarize West Jordan",
+      title: "Solarize West Boise",
       description:
-        "Installing community solar infrastructure across the West Jordan neighborhood to reduce energy costs for low-income families.",
+        "Installing community solar infrastructure across the West Boise neighborhood to reduce energy costs for low-income families.",
       vision:
-        "West Jordan has some of the highest energy burden rates in Colorado. Families spend up to 15% of their income on electricity. By installing community solar on public buildings, schools, and affordable housing, we can cut those bills in half. This isn't just about solar panels—it's about energy justice. Every dollar saved on electricity is a dollar that can go toward food, medicine, or a child's education. Our vision: West Jordan becomes the first carbon-neutral neighborhood in Denver, powered by the sun and owned by the community.",
+        "West Boise has some of the highest energy burden rates in Idaho. Families spend up to 15% of their income on electricity. By installing community solar on public buildings, schools, and affordable housing, we can cut those bills in half. This isn't just about solar panels—it's about energy justice. Every dollar saved on electricity is a dollar that can go toward food, medicine, or a child's education. Our vision: West Boise becomes the first carbon-neutral neighborhood in Boise, powered by the sun and owned by the community.",
       fundingGoal: 50000,
       status: "active",
       order: 0,
@@ -641,14 +641,14 @@ async function main() {
   // 1. Active (Reserve-funded) - no voting needed
   const flagshipProject1 = await prisma.project.create({
     data: {
-      title: "Denver Metro Regional Food Hub",
-      description: "A central distribution hub connecting local farms with food-insecure neighborhoods across the Denver metro area. This flagship initiative will reduce food waste, create local jobs, and ensure fresh produce reaches communities that need it most. The hub will feature cold storage, a commercial kitchen for value-added processing, and a fleet of electric delivery vehicles.",
+      title: "Treasure Valley Regional Food Hub",
+      description: "A central distribution hub connecting local farms with food-insecure neighborhoods across the Treasure Valley. This flagship initiative will reduce food waste, create local jobs, and ensure fresh produce reaches communities that need it most. The hub will feature cold storage, a commercial kitchen for value-added processing, and a fleet of electric delivery vehicles.",
       category: "Community",
       fundingGoal: 50000,
       fundingRaised: 12500,
       backerCount: 0,
       status: "active",
-      location: "Denver, CO",
+      location: "Boise, ID",
       isFlagship: true,
     },
   });
@@ -668,14 +668,14 @@ async function main() {
 
   const flagshipProject2 = await prisma.project.create({
     data: {
-      title: "Colorado Youth Climate Corps",
-      description: "A paid summer program for high school students to work on climate resilience projects across Colorado communities. Youth will learn about renewable energy, urban forestry, water conservation, and sustainable agriculture while earning wages and building skills for green careers.",
+      title: "Idaho Youth Climate Corps",
+      description: "A paid summer program for high school students to work on climate resilience projects across Idaho communities. Youth will learn about renewable energy, urban forestry, water conservation, and sustainable agriculture while earning wages and building skills for green careers.",
       category: "Youth",
       fundingGoal: 35000,
       fundingRaised: 0,
       backerCount: 0,
       status: "active",
-      location: "Statewide, CO",
+      location: "Statewide, ID",
       isFlagship: true,
     },
   });
@@ -712,14 +712,14 @@ async function main() {
 
   const flagshipProject3 = await prisma.project.create({
     data: {
-      title: "Front Range Tiny Home Initiative",
-      description: "Building a network of tiny home villages along the Front Range to provide transitional housing for individuals experiencing homelessness. Each village will have 20 units with shared amenities and on-site case management.",
+      title: "Treasure Valley Tiny Home Initiative",
+      description: "Building a network of tiny home villages across the Treasure Valley to provide transitional housing for individuals experiencing homelessness. Each village will have 20 units with shared amenities and on-site case management.",
       category: "Housing",
       fundingGoal: 75000,
       fundingRaised: 0,
       backerCount: 0,
       status: "active",
-      location: "Front Range, CO",
+      location: "Treasure Valley, ID",
       isFlagship: true,
     },
   });
@@ -787,10 +787,10 @@ async function main() {
   const angelaHome = await prisma.efficiencyHome.create({
     data: {
       userId: angela.id,
-      address: "2847 Krameria Street",
-      city: "Denver",
-      state: "CO",
-      zipCode: "80207",
+      address: "2847 N 15th Street",
+      city: "Boise",
+      state: "ID",
+      zipCode: "83702",
       homeType: "single_family",
       yearBuilt: 1962,
       squareFootage: 1450,
@@ -841,14 +841,14 @@ async function main() {
   // Create Project records for Angela's phases that are active/funding
   const angelaPhase1Project = await prisma.project.create({
     data: {
-      title: "2847 Krameria St — Phase 1: Envelope",
-      description: "Insulation, air sealing, and door upgrades for a 1962 ranch-style home in Park Hill. This is the first phase of a full efficiency upgrade — sealing the thermal envelope to stop heating and cooling loss. Estimated 20-30% immediate reduction in energy consumption.",
+      title: "2847 N 15th St — Phase 1: Envelope",
+      description: "Insulation, air sealing, and door upgrades for a 1962 ranch-style home in the North End. This is the first phase of a full efficiency upgrade — sealing the thermal envelope to stop heating and cooling loss. Estimated 20-30% immediate reduction in energy consumption.",
       category: "Energy",
       fundingGoal: 6800,
       fundingRaised: 6800,
       backerCount: 24,
       status: "funded",
-      location: "Park Hill, Denver CO",
+      location: "North End, Boise ID",
       isFlagship: true,
     },
   });
@@ -864,14 +864,14 @@ async function main() {
 
   const angelaPhase2Project = await prisma.project.create({
     data: {
-      title: "2847 Krameria St — Phase 2: Windows",
+      title: "2847 N 15th St — Phase 2: Windows",
       description: "Replacing single-pane windows with double-pane energy-efficient windows throughout the home. This completes the thermal envelope started in Phase 1, eliminating the biggest remaining source of heat transfer. Expected to reduce energy bills by an additional 8-12%.",
       category: "Energy",
       fundingGoal: 9200,
       fundingRaised: 3680,
       backerCount: 15,
       status: "active",
-      location: "Park Hill, Denver CO",
+      location: "North End, Boise ID",
       isFlagship: true,
     },
   });
@@ -897,7 +897,7 @@ async function main() {
       fundingComplete: true,
       fundingTrack: "fully_funded",
       status: "in_progress",
-      contractorName: "Front Range Weatherization Co.",
+      contractorName: "Treasure Valley Weatherization Co.",
       startedAt: new Date(Date.now() - 7 * 86400000),
       projectId: angelaPhase1Project.id,
     },
@@ -954,10 +954,10 @@ async function main() {
   await prisma.efficiencyHome.create({
     data: {
       userId: deandre.id,
-      address: "1523 Dahlia Street",
-      city: "Denver",
-      state: "CO",
-      zipCode: "80220",
+      address: "1523 S Owyhee Street",
+      city: "Boise",
+      state: "ID",
+      zipCode: "83705",
       homeType: "duplex",
       yearBuilt: 1948,
       squareFootage: 1100,
@@ -972,10 +972,10 @@ async function main() {
   const demoHome = await prisma.efficiencyHome.create({
     data: {
       userId: demo.id,
-      address: "4401 Tejon Street",
-      city: "Denver",
-      state: "CO",
-      zipCode: "80211",
+      address: "4401 W Emerald Street",
+      city: "Boise",
+      state: "ID",
+      zipCode: "83706",
       homeType: "single_family",
       yearBuilt: 1978,
       squareFootage: 1680,
@@ -1080,10 +1080,10 @@ async function main() {
   const completedHome = await prisma.efficiencyHome.create({
     data: {
       userId: angela.id,
-      address: "1190 Olive Street",
-      city: "Denver",
-      state: "CO",
-      zipCode: "80220",
+      address: "1190 S Vista Avenue",
+      city: "Boise",
+      state: "ID",
+      zipCode: "83705",
       homeType: "single_family",
       yearBuilt: 1955,
       squareFootage: 1200,
@@ -1153,7 +1153,7 @@ async function main() {
         fundingComplete: true,
         fundingTrack: "fully_funded",
         status: "verified",
-        contractorName: "Mile High Efficiency Partners",
+        contractorName: "Treasure Valley Efficiency Partners",
         verifiedBy: admin.id,
         verifiedAt: new Date(Date.now() - (20 - phase.num * 3) * 86400000),
         startedAt: new Date(Date.now() - (90 - phase.num * 15) * 86400000),
@@ -1169,11 +1169,11 @@ async function main() {
     data: {
       nominatorId: deandre.id,
       communityId: community1.id,
-      nomineeAddress: "2901 Krameria Street",
-      nomineeCity: "Denver",
-      nomineeState: "CO",
-      nomineeZipCode: "80207",
-      nomineeReason: "Elderly neighbor on fixed income. House has no insulation, original 1958 windows, and her energy bills are over $300/month in winter. She's been a Park Hill resident for 40 years and can't afford upgrades.",
+      nomineeAddress: "2901 N 15th Street",
+      nomineeCity: "Boise",
+      nomineeState: "ID",
+      nomineeZipCode: "83702",
+      nomineeReason: "Elderly neighbor on fixed income. House has no insulation, original 1958 windows, and her energy bills are over $300/month in winter. She's been a North End resident for 40 years and can't afford upgrades.",
       nomineeConsent: true,
       status: "voting",
       votingEndsAt: new Date(Date.now() + 25 * 86400000),
@@ -1182,11 +1182,11 @@ async function main() {
     },
   });
 
-  // 6. Neighborhood Cascade forming in 80207 (Park Hill)
+  // 6. Neighborhood Cascade forming in 83702 (North End)
   const cascade = await prisma.neighborhoodCascade.create({
     data: {
-      name: "Park Hill Phase 1 Efficiency Cascade",
-      zipCode: "80207",
+      name: "North End Phase 1 Efficiency Cascade",
+      zipCode: "83702",
       radiusMiles: 1.0,
       homeCount: 3,
       minHomes: 10,
@@ -1215,7 +1215,7 @@ async function main() {
   console.log(`  Platform Reserve: $${RESERVE_INITIAL_BALANCE.toLocaleString()}`);
   console.log(`  Efficiency Homes: ${efficiencyHomeCount} (1 completed, 1 in progress, 1 assessed, 1 applied)`);
   console.log(`  Efficiency Phases: ${efficiencyPhaseCount}`);
-  console.log(`  Neighborhood Cascade: 1 (forming in 80207)`);
+  console.log(`  Neighborhood Cascade: 1 (forming in 83702)`);
   console.log(`  Efficiency Nomination: 1 (voting)`);
   console.log("");
   console.log("Login credentials (all users):");

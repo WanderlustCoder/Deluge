@@ -86,14 +86,14 @@ export async function POST() {
 
   // Projects
   const projectData = [
-    { title: "Montbello Fresh Food Market", description: "Bringing a community-owned fresh food market to the Montbello food desert.", category: "Community", fundingGoal: 15000, fundingRaised: 14250, backerCount: 187, status: "active", location: "Montbello, Denver CO" },
-    { title: "Park Hill Youth Coding Lab", description: "Free after-school coding program for middle schoolers in Park Hill.", category: "Education", fundingGoal: 8000, fundingRaised: 5600, backerCount: 92, status: "active", location: "Park Hill, Denver CO" },
-    { title: "Five Points Community Garden", description: "Transforming an abandoned lot into a thriving community garden.", category: "Environment", fundingGoal: 5000, fundingRaised: 2500, backerCount: 64, status: "active", location: "Five Points, Denver CO" },
-    { title: "Westwood Mental Health Hub", description: "Bilingual mental health resource center for the Westwood community.", category: "Health", fundingGoal: 20000, fundingRaised: 5000, backerCount: 73, status: "active", location: "Westwood, Denver CO" },
-    { title: "Globeville Street Art Trail", description: "Walking trail of 12 murals celebrating Globeville's immigrant heritage.", category: "Arts & Culture", fundingGoal: 12000, fundingRaised: 1200, backerCount: 31, status: "active", location: "Globeville, Denver CO" },
-    { title: "Sun Valley Tech Access Program", description: "Providing refurbished laptops and free internet to 200 families.", category: "Technology", fundingGoal: 10000, fundingRaised: 7500, backerCount: 118, status: "active", location: "Sun Valley, Denver CO" },
-    { title: "Elyria-Swansea Youth Sports League", description: "Year-round youth sports program for kids ages 8-16.", category: "Youth", fundingGoal: 9000, fundingRaised: 3600, backerCount: 55, status: "active", location: "Elyria-Swansea, Denver CO" },
-    { title: "Cole Neighborhood Tiny Home Village", description: "Pilot tiny home village with 8 units for unhoused individuals.", category: "Housing", fundingGoal: 25000, fundingRaised: 25000, backerCount: 312, status: "funded", location: "Cole, Denver CO" },
+    { title: "Bench Fresh Food Market", description: "Bringing a community-owned fresh food market to the Bench food desert.", category: "Community", fundingGoal: 15000, fundingRaised: 14250, backerCount: 187, status: "active", location: "Bench, Boise ID" },
+    { title: "North End Youth Coding Lab", description: "Free after-school coding program for middle schoolers in the North End.", category: "Education", fundingGoal: 8000, fundingRaised: 5600, backerCount: 92, status: "active", location: "North End, Boise ID" },
+    { title: "Downtown Boise Community Garden", description: "Transforming an abandoned lot into a thriving community garden.", category: "Environment", fundingGoal: 5000, fundingRaised: 2500, backerCount: 64, status: "active", location: "Downtown, Boise ID" },
+    { title: "Garden City Mental Health Hub", description: "Bilingual mental health resource center for the Garden City community.", category: "Health", fundingGoal: 20000, fundingRaised: 5000, backerCount: 73, status: "active", location: "Garden City, ID" },
+    { title: "Meridian Cultural Art Trail", description: "Walking trail of 12 murals celebrating Meridian's diverse heritage.", category: "Arts & Culture", fundingGoal: 12000, fundingRaised: 1200, backerCount: 31, status: "active", location: "Meridian, ID" },
+    { title: "Nampa Tech Access Program", description: "Providing refurbished laptops and free internet to 200 families.", category: "Technology", fundingGoal: 10000, fundingRaised: 7500, backerCount: 118, status: "active", location: "Nampa, ID" },
+    { title: "Eagle Youth Sports League", description: "Year-round youth sports program for kids ages 8-16.", category: "Youth", fundingGoal: 9000, fundingRaised: 3600, backerCount: 55, status: "active", location: "Eagle, ID" },
+    { title: "Caldwell Tiny Home Village", description: "Pilot tiny home village with 8 units for unhoused individuals.", category: "Housing", fundingGoal: 25000, fundingRaised: 25000, backerCount: 312, status: "funded", location: "Caldwell, ID" },
   ];
 
   for (const p of projectData) {

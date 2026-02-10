@@ -121,11 +121,18 @@ export function Hero({ stats }: HeroProps) {
         </motion.p>
 
         <motion.p
-          className="text-lg opacity-75 max-w-2xl mx-auto mb-10"
+          className="text-lg opacity-75 max-w-2xl mx-auto mb-4"
           {...stagger(0.3)}
         >
           Watch. Give. Fund what matters. Your attention becomes action,
           flowing into community projects that change lives.
+        </motion.p>
+
+        <motion.p
+          className="text-sm uppercase tracking-wider opacity-50 mb-10"
+          {...stagger(0.38)}
+        >
+          Starting in Idaho's Treasure Valley
         </motion.p>
 
         <motion.div

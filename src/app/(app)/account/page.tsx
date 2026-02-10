@@ -370,28 +370,6 @@ export default function AccountPage() {
               </CardContent>
             </Card>
 
-            {/* Credit Dashboard */}
-            <Card>
-              <CardContent className="pt-5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-ocean" />
-                    <span className="font-heading font-semibold text-storm dark:text-dark-text">
-                      Credit Dashboard
-                    </span>
-                  </div>
-                  <Link
-                    href="/credit"
-                    className="text-sm text-ocean hover:underline dark:text-ocean-light"
-                  >
-                    View &rarr;
-                  </Link>
-                </div>
-                <p className="text-sm text-storm-light dark:text-dark-text-secondary mt-1">
-                  View your credit reporting status and payment history.
-                </p>
-              </CardContent>
-            </Card>
           </div>
         </TabPanel>
       </div>

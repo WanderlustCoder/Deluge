@@ -21,12 +21,9 @@ import {
   Vault,
   FileStack,
   FileText,
-  CreditCard,
-  Heart,
   AlertTriangle,
   ShieldCheck,
   ChevronDown,
-  Sun,
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -67,7 +64,6 @@ const navSections: NavSection[] = [
       { href: "/admin/projects", label: "Projects", icon: FolderOpen },
       { href: "/admin/proposals", label: "Proposals", icon: FileText },
       { href: "/admin/aquifer", label: "Aquifer", icon: Waves },
-      { href: "/admin/efficiency", label: "Efficiency", icon: Sun },
     ],
   },
   {
@@ -77,7 +73,6 @@ const navSections: NavSection[] = [
       { href: "/admin/users", label: "Users", icon: Users },
       { href: "/admin/invites", label: "Invites", icon: UserPlus },
       { href: "/admin/roles", label: "Roles", icon: Shield },
-      { href: "/admin/advocates", label: "Advocates", icon: Heart },
     ],
   },
   {
@@ -85,7 +80,6 @@ const navSections: NavSection[] = [
     icon: ShieldCheck,
     links: [
       { href: "/admin/verification", label: "Verification", icon: ShieldCheck },
-      { href: "/admin/credit-reporting", label: "Credit", icon: CreditCard },
       { href: "/admin/flags", label: "Flags", icon: AlertTriangle },
       { href: "/admin/audit", label: "Audit Log", icon: ClipboardList },
     ],

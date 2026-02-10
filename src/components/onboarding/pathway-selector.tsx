@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { DollarSign, Tv, Store } from "lucide-react";
+import { DollarSign, Tv, FolderOpen } from "lucide-react";
 
 const pathways = [
   {
@@ -26,13 +26,13 @@ const pathways = [
   },
   {
     id: "browse",
-    icon: Store,
-    title: "Browse local businesses",
+    icon: FolderOpen,
+    title: "Explore projects",
     description:
-      "Discover your neighborhood. Every view funds community projects.",
-    cta: "Start browsing",
+      "See what your community is building. Find projects that matter to you.",
+    cta: "Explore now",
     color: "bg-gold",
-    href: "/business",
+    href: "/projects",
   },
 ];
 
