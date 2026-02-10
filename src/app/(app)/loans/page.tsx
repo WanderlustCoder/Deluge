@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { LOAN_CATEGORIES } from "@/lib/constants";
 import Link from "next/link";
 import { Plus, Search, Banknote, Filter } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface Loan {
   id: string;
@@ -139,12 +140,13 @@ export default function LoansPage() {
         <CardContent className="pt-5">
           <div className="flex gap-3 mb-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-storm-light" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-storm-light" aria-hidden="true" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search by purpose, location, or borrower..."
+                aria-label="Search loans"
                 className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-ocean focus:border-transparent text-storm dark:text-white"
               />
             </div>
@@ -213,24 +215,18 @@ export default function LoansPage() {
           ))}
         </motion.div>
       ) : (
-        <Card>
-          <CardContent className="pt-5 text-center py-12">
-            <Banknote className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-storm-light dark:text-gray-400">
-              {search || category !== "All" || showSponsorNeeded
-                ? "No loans match your filters."
-                : "No loans seeking funding right now."}
-            </p>
-            {!search && category === "All" && !showSponsorNeeded && (
-              <Link href="/loans/apply">
-                <Button className="mt-4">
-                  <Plus className="h-4 w-4 mr-1" />
-                  Apply for a Loan
-                </Button>
-              </Link>
-            )}
-          </CardContent>
-        </Card>
+        <EmptyState
+          icon={Banknote}
+          title={search || category !== "All" || showSponsorNeeded
+            ? "No loans match your filters"
+            : "No loans seeking funding right now"}
+          message={search || category !== "All" || showSponsorNeeded
+            ? "Try adjusting your search or filter criteria."
+            : "Be the first to apply for a community microloan."}
+          action={!search && category === "All" && !showSponsorNeeded
+            ? { label: "Apply for a Loan", href: "/loans/apply" }
+            : undefined}
+        />
       )}
     </div>
   );

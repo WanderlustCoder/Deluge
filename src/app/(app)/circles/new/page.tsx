@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, Users, Lock, Globe, DollarSign, Clock, Target } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Select } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 
 const CATEGORIES = [
   'Environment',
@@ -134,44 +137,28 @@ export default function NewCirclePage() {
             Basic Information
           </h2>
 
-          <div>
-            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
-              Circle Name *
-            </label>
-            <input
-              type="text"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="e.g., Neighborhood Giving Circle"
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
-            />
-          </div>
+          <Input
+            label="Circle Name *"
+            value={formData.name}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            placeholder="e.g., Neighborhood Giving Circle"
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
-              Description
-            </label>
-            <textarea
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              placeholder="What brings this circle together?"
-              rows={3}
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none resize-none"
-            />
-          </div>
+          <Textarea
+            label="Description"
+            value={formData.description}
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            placeholder="What brings this circle together?"
+            rows={3}
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
-              Image URL (optional)
-            </label>
-            <input
-              type="url"
-              value={formData.imageUrl}
-              onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-              placeholder="https://..."
-              className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text focus:ring-2 focus:ring-ocean dark:focus:ring-sky outline-none"
-            />
-          </div>
+          <Input
+            label="Image URL (optional)"
+            type="url"
+            value={formData.imageUrl}
+            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+            placeholder="https://..."
+          />
         </div>
 
         {/* Privacy */}
@@ -213,19 +200,14 @@ export default function NewCirclePage() {
             </button>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
-              Member Limit (optional)
-            </label>
-            <input
-              type="number"
-              min="2"
-              value={formData.memberLimit}
-              onChange={(e) => setFormData({ ...formData, memberLimit: e.target.value })}
-              placeholder="No limit"
-              className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
-            />
-          </div>
+          <Input
+            label="Member Limit (optional)"
+            type="number"
+            min={2}
+            value={formData.memberLimit}
+            onChange={(e) => setFormData({ ...formData, memberLimit: e.target.value })}
+            placeholder="No limit"
+          />
         </div>
 
         {/* Contribution Settings */}
@@ -236,21 +218,16 @@ export default function NewCirclePage() {
           </h2>
 
           <div>
-            <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
-              Minimum Monthly Contribution (optional)
-            </label>
-            <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-storm/50">$</span>
-              <input
-                type="number"
-                min="0"
-                step="0.01"
-                value={formData.minContribution}
-                onChange={(e) => setFormData({ ...formData, minContribution: e.target.value })}
-                placeholder="No minimum"
-                className="w-full pl-8 pr-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
-              />
-            </div>
+            <Input
+              label="Minimum Monthly Contribution (optional)"
+              type="number"
+              min={0}
+              step={0.01}
+              value={formData.minContribution}
+              onChange={(e) => setFormData({ ...formData, minContribution: e.target.value })}
+              placeholder="No minimum"
+              className="pl-8"
+            />
           </div>
         </div>
 
@@ -262,36 +239,26 @@ export default function NewCirclePage() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
-                Approval Threshold
-              </label>
-              <select
-                value={formData.votingThreshold}
-                onChange={(e) => setFormData({ ...formData, votingThreshold: e.target.value })}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
-              >
-                <option value="50">Simple Majority (50%)</option>
-                <option value="60">60%</option>
-                <option value="66">Super Majority (66%)</option>
-                <option value="75">75%</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-storm-light dark:text-dark-text-secondary mb-2">
-                Voting Period
-              </label>
-              <select
-                value={formData.votingPeriod}
-                onChange={(e) => setFormData({ ...formData, votingPeriod: e.target.value })}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 dark:border-foam/20 bg-white dark:bg-dark-elevated text-storm dark:text-dark-text"
-              >
-                <option value="3">3 days</option>
-                <option value="5">5 days</option>
-                <option value="7">7 days</option>
-                <option value="14">14 days</option>
-              </select>
-            </div>
+            <Select
+              label="Approval Threshold"
+              value={formData.votingThreshold}
+              onChange={(e) => setFormData({ ...formData, votingThreshold: e.target.value })}
+            >
+              <option value="50">Simple Majority (50%)</option>
+              <option value="60">60%</option>
+              <option value="66">Super Majority (66%)</option>
+              <option value="75">75%</option>
+            </Select>
+            <Select
+              label="Voting Period"
+              value={formData.votingPeriod}
+              onChange={(e) => setFormData({ ...formData, votingPeriod: e.target.value })}
+            >
+              <option value="3">3 days</option>
+              <option value="5">5 days</option>
+              <option value="7">7 days</option>
+              <option value="14">14 days</option>
+            </Select>
           </div>
         </div>
 

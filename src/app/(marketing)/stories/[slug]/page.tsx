@@ -204,7 +204,7 @@ export default function StoryDetailPage() {
               return (
                 <figure key={i} className="my-8">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={block.url} alt="" className="rounded-lg w-full" />
+                  <img src={block.url} alt={block.content || `Image from ${story.title}`} className="rounded-lg w-full" />
                 </figure>
               );
             }

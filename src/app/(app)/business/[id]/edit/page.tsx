@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/toast";
 import Link from "next/link";
 import { ArrowLeft, Store } from "lucide-react";
@@ -165,42 +167,28 @@ export default function EditBusinessPage({
               required
             />
 
-            <div className="space-y-1">
-              <label
-                htmlFor="category"
-                className="block text-sm font-medium text-storm dark:text-white"
-              >
-                Category
-              </label>
-              <select
-                id="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean"
-              >
-                {CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Select
+              id="category"
+              label="Category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              {CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </Select>
 
-            <div className="space-y-1">
-              <label
-                htmlFor="description"
-                className="block text-sm font-medium text-storm dark:text-white"
-              >
-                Description
-              </label>
-              <textarea
+            <div>
+              <Textarea
                 id="description"
+                label="Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 rows={3}
                 maxLength={300}
                 placeholder="Briefly describe your business (max 300 characters)"
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white placeholder:text-storm-light/60 dark:placeholder:text-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean resize-none"
                 required
               />
               <p className="text-xs text-storm-light dark:text-gray-400 text-right">

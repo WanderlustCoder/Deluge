@@ -1,9 +1,15 @@
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/layout/navbar";
 import { SkipToContent } from "@/components/a11y/skip-to-content";
 import { MobileNav } from "@/components/pwa/mobile-nav";
 import { PWAProvider } from "@/components/pwa/pwa-provider";
+
+export const metadata: Metadata = {
+  title: { default: "Dashboard", template: "%s | Deluge" },
+  description: "Your Deluge dashboard — manage donations, circles, and community impact.",
+};
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (

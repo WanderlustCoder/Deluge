@@ -108,12 +108,13 @@ export default function InstitutionsAdminPage() {
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-4 mb-6">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-storm/40" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-storm/40" aria-hidden="true" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search institutions..."
+            aria-label="Search institutions"
             className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
           />
         </div>
@@ -200,7 +201,7 @@ export default function InstitutionsAdminPage() {
                         >
                           {institution.logoUrl ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={institution.logoUrl} alt="" className="w-6 h-6" />
+                            <img src={institution.logoUrl} alt={`${institution.name} logo`} className="w-6 h-6" />
                           ) : (
                             <TypeIcon className="w-5 h-5" style={{ color: institution.primaryColor }} />
                           )}

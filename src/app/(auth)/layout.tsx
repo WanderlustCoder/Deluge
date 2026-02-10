@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Droplets } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: { default: "Auth", template: "%s | Deluge" },
+};
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (

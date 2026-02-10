@@ -1,18 +1,13 @@
-"use client";
-
 import type { ReactNode } from "react";
-import { Footer } from "@/components/layout/footer";
-import { MarketingNavbar } from "@/components/marketing/navbar";
-import { ThemeProvider } from "@/contexts/theme-context";
+import type { Metadata } from "next";
+import { MarketingShell } from "@/components/marketing/marketing-shell";
+
+export const metadata: Metadata = {
+  title: { default: "Deluge", template: "%s | Deluge" },
+  description:
+    "Community-powered giving platform. Pool resources, fund projects, and create lasting impact together.",
+};
 
 export default function MarketingLayout({ children }: { children: ReactNode }) {
-  return (
-    <ThemeProvider>
-      <div className="flex flex-col min-h-screen">
-        <MarketingNavbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </div>
-    </ThemeProvider>
-  );
+  return <MarketingShell>{children}</MarketingShell>;
 }

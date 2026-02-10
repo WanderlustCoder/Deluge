@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { formatDate } from '@/lib/i18n/formatting';
+import { Button } from '@/components/ui/button';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { useToast } from '@/components/ui/toast';
 
 interface Session {
   id: string;
@@ -30,12 +33,15 @@ interface SecurityEvent {
 }
 
 export default function SecurityPage() {
+  const { toast } = useToast();
   const [sessions, setSessions] = useState<Session[]>([]);
   const [twoFAStatus, setTwoFAStatus] = useState<TwoFAStatus | null>(null);
   const [events, setEvents] = useState<SecurityEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [showSetup2FA, setShowSetup2FA] = useState(false);
   const [backupCodes, setBackupCodes] = useState<string[]>([]);
+  const [showDisable2FAConfirm, setShowDisable2FAConfirm] = useState(false);
+  const [revokeSessionId, setRevokeSessionId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -68,6 +74,7 @@ export default function SecurityPage() {
   }
 
   async function handleRevokeSession(sessionId: string) {
+    setRevokeSessionId(null);
     try {
       const res = await fetch(`/api/security/sessions?sessionId=${sessionId}`, {
         method: 'DELETE',
@@ -75,9 +82,13 @@ export default function SecurityPage() {
 
       if (res.ok) {
         setSessions((prev) => prev.filter((s) => s.id !== sessionId));
+        toast('Session revoked', 'success');
+      } else {
+        toast('Failed to revoke session', 'error');
       }
     } catch (error) {
       console.error('Error revoking session:', error);
+      toast('Failed to revoke session', 'error');
     }
   }
 
@@ -93,17 +104,18 @@ export default function SecurityPage() {
         const data = await res.json();
         setBackupCodes(data.backupCodes);
         setShowSetup2FA(false);
+        toast('Two-factor authentication enabled', 'success');
+      } else {
+        toast('Failed to set up 2FA', 'error');
       }
     } catch (error) {
       console.error('Error setting up 2FA:', error);
+      toast('Failed to set up 2FA', 'error');
     }
   }
 
   async function handleDisable2FA() {
-    if (!confirm('Are you sure you want to disable two-factor authentication?')) {
-      return;
-    }
-
+    setShowDisable2FAConfirm(false);
     try {
       const res = await fetch('/api/security/2fa', {
         method: 'DELETE',
@@ -111,9 +123,13 @@ export default function SecurityPage() {
 
       if (res.ok) {
         setTwoFAStatus({ enabled: false, method: null, hasBackupCodes: false });
+        toast('Two-factor authentication disabled', 'success');
+      } else {
+        toast('Failed to disable 2FA', 'error');
       }
     } catch (error) {
       console.error('Error disabling 2FA:', error);
+      toast('Failed to disable 2FA', 'error');
     }
   }
 
@@ -157,12 +173,14 @@ export default function SecurityPage() {
               </div>
             ))}
           </div>
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => setBackupCodes([])}
-            className="mt-3 text-sm text-yellow-700 dark:text-yellow-400 hover:underline"
+            className="mt-3 text-yellow-700 dark:text-yellow-400"
           >
             I&apos;ve saved these codes
-          </button>
+          </Button>
         </motion.div>
       )}
 
@@ -194,18 +212,20 @@ export default function SecurityPage() {
               )}
             </p>
             <div className="flex gap-3">
-              <button
-                onClick={handleDisable2FA}
-                className="px-4 py-2 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
+              <Button
+                variant="danger"
+                size="sm"
+                onClick={() => setShowDisable2FAConfirm(true)}
               >
                 Disable 2FA
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={() => handleSetup2FA('regenerate')}
-                className="px-4 py-2 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
               >
                 Regenerate Backup Codes
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
@@ -215,34 +235,38 @@ export default function SecurityPage() {
             </p>
             {showSetup2FA ? (
               <div className="space-y-3">
-                <button
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-left"
                   onClick={() => handleSetup2FA('totp')}
-                  className="w-full py-2 px-4 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
                 >
-                  <span className="font-medium text-gray-900 dark:text-white">Authenticator App</span>
-                  <span className="block text-sm text-gray-500 dark:text-gray-400">Use Google Authenticator or similar</span>
-                </button>
-                <button
+                  <div>
+                    <span className="font-medium text-gray-900 dark:text-white">Authenticator App</span>
+                    <span className="block text-sm text-gray-500 dark:text-gray-400">Use Google Authenticator or similar</span>
+                  </div>
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start text-left"
                   onClick={() => handleSetup2FA('email')}
-                  className="w-full py-2 px-4 text-left bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600"
                 >
-                  <span className="font-medium text-gray-900 dark:text-white">Email</span>
-                  <span className="block text-sm text-gray-500 dark:text-gray-400">Receive codes via email</span>
-                </button>
-                <button
+                  <div>
+                    <span className="font-medium text-gray-900 dark:text-white">Email</span>
+                    <span className="block text-sm text-gray-500 dark:text-gray-400">Receive codes via email</span>
+                  </div>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setShowSetup2FA(false)}
-                  className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
                 >
                   Cancel
-                </button>
+                </Button>
               </div>
             ) : (
-              <button
-                onClick={() => setShowSetup2FA(true)}
-                className="px-4 py-2 bg-ocean text-white rounded-lg hover:bg-ocean/90"
-              >
+              <Button onClick={() => setShowSetup2FA(true)}>
                 Enable 2FA
-              </button>
+              </Button>
             )}
           </div>
         )}
@@ -275,12 +299,14 @@ export default function SecurityPage() {
                     Last active {formatRelativeTime(session.lastActiveAt)}
                   </div>
                 </div>
-                <button
-                  onClick={() => handleRevokeSession(session.id)}
-                  className="text-sm text-red-600 dark:text-red-400 hover:underline"
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setRevokeSessionId(session.id)}
+                  className="text-red-600 dark:text-red-400"
                 >
                   Revoke
-                </button>
+                </Button>
               </div>
             ))}
           </div>
@@ -323,10 +349,31 @@ export default function SecurityPage() {
         <p className="text-gray-600 dark:text-gray-400 mb-4">
           Regularly update your password to keep your account secure.
         </p>
-        <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
+        <Button variant="outline">
           Change Password
-        </button>
+        </Button>
       </section>
+
+      {/* Confirm Dialogs */}
+      <ConfirmDialog
+        open={showDisable2FAConfirm}
+        onConfirm={handleDisable2FA}
+        onCancel={() => setShowDisable2FAConfirm(false)}
+        title="Disable Two-Factor Authentication"
+        message="Are you sure you want to disable two-factor authentication? This will make your account less secure."
+        confirmLabel="Disable 2FA"
+        variant="danger"
+      />
+
+      <ConfirmDialog
+        open={!!revokeSessionId}
+        onConfirm={() => revokeSessionId && handleRevokeSession(revokeSessionId)}
+        onCancel={() => setRevokeSessionId(null)}
+        title="Revoke Session"
+        message="Are you sure you want to revoke this session? The device will be signed out."
+        confirmLabel="Revoke"
+        variant="danger"
+      />
     </div>
   );
 }
@@ -337,7 +384,7 @@ function DeviceIcon({ type }: { type?: string }) {
     mobile: '\ud83d\udcf1',
     tablet: '\ud83d\udcf1',
   };
-  return <span>{icons[type || ''] || '\ud83d\udcbb'}</span>;
+  return <span aria-hidden="true">{icons[type || ''] || '\ud83d\udcbb'}</span>;
 }
 
 function SeverityIcon({ severity }: { severity: string }) {
@@ -347,7 +394,7 @@ function SeverityIcon({ severity }: { severity: string }) {
     critical: 'text-red-500',
   };
   return (
-    <span className={`text-lg ${colors[severity] || 'text-gray-500'}`}>
+    <span className={`text-lg ${colors[severity] || 'text-gray-500'}`} aria-hidden="true">
       {severity === 'critical' ? '\u26a0\ufe0f' : severity === 'warning' ? '\u26a1' : '\u2139\ufe0f'}
     </span>
   );

@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
+import type { Metadata } from "next";
 import { Providers } from "@/components/providers";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
+
+export const metadata: Metadata = {
+  title: { default: "Admin", template: "%s | Deluge" },
+};
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (

@@ -10,6 +10,10 @@ import { ContributeModal } from '@/components/circles/contribute-modal';
 import { ProposalCard } from '@/components/circles/proposal-card';
 import { CreateProposalModal } from '@/components/circles/create-proposal-modal';
 import { ActivityFeed } from '@/components/circles/activity-feed';
+import { Tabs, TabPanel } from '@/components/ui/tabs';
+import { ConfirmDialog } from '@/components/ui/confirm-dialog';
+import { EmptyState } from '@/components/ui/empty-state';
+import { useToast } from '@/components/ui/toast';
 
 interface Circle {
   id: string;
@@ -66,6 +70,12 @@ interface ActivityItem {
   createdAt: string;
 }
 
+const TABS = [
+  { id: 'proposals', label: 'Proposals', icon: FileText },
+  { id: 'activity', label: 'Activity', icon: Activity },
+  { id: 'members', label: 'Members', icon: Users },
+];
+
 export default function CircleDetailPage({
   params,
 }: {
@@ -73,14 +83,16 @@ export default function CircleDetailPage({
 }) {
   const { slug } = use(params);
   const { data: session } = useSession();
+  const { toast } = useToast();
   const [circle, setCircle] = useState<Circle | null>(null);
   const [stats, setStats] = useState<Stats | null>(null);
   const [proposals, setProposals] = useState<Proposal[]>([]);
   const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<'proposals' | 'activity' | 'members'>('proposals');
+  const [tab, setTab] = useState('proposals');
   const [showContributeModal, setShowContributeModal] = useState(false);
   const [showProposalModal, setShowProposalModal] = useState(false);
+  const [showLeaveConfirm, setShowLeaveConfirm] = useState(false);
   const [watershedBalance, setWatershedBalance] = useState(0);
 
   const isMember = circle?.members.some((m) => m.userId === session?.user?.id);
@@ -156,22 +168,30 @@ export default function CircleDetailPage({
     try {
       const res = await fetch(`/api/circles/${slug}/join`, { method: 'POST' });
       if (res.ok) {
+        toast('Joined the circle!', 'success');
         loadCircle();
+      } else {
+        toast('Failed to join circle', 'error');
       }
     } catch (error) {
       console.error('Failed to join:', error);
+      toast('Failed to join circle', 'error');
     }
   };
 
   const handleLeave = async () => {
-    if (!confirm('Are you sure you want to leave this circle?')) return;
+    setShowLeaveConfirm(false);
     try {
       const res = await fetch(`/api/circles/${slug}/join`, { method: 'DELETE' });
       if (res.ok) {
+        toast('Left the circle', 'success');
         loadCircle();
+      } else {
+        toast('Failed to leave circle', 'error');
       }
     } catch (error) {
       console.error('Failed to leave:', error);
+      toast('Failed to leave circle', 'error');
     }
   };
 
@@ -208,56 +228,17 @@ export default function CircleDetailPage({
         isAdmin={isAdmin}
         isMember={isMember}
         onJoin={handleJoin}
-        onLeave={handleLeave}
+        onLeave={() => setShowLeaveConfirm(true)}
       />
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Tabs */}
-          <div className="flex items-center gap-2 border-b border-gray-200 dark:border-foam/10">
-            <button
-              onClick={() => setTab('proposals')}
-              className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium transition-colors ${
-                tab === 'proposals'
-                  ? 'border-ocean dark:border-sky text-ocean dark:text-sky'
-                  : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
-              }`}
-            >
-              <FileText className="w-4 h-4" />
-              Proposals
-              {stats?.activeProposals ? (
-                <span className="px-2 py-0.5 bg-ocean/10 dark:bg-sky/10 text-ocean dark:text-sky text-xs rounded-full">
-                  {stats.activeProposals}
-                </span>
-              ) : null}
-            </button>
-            <button
-              onClick={() => setTab('activity')}
-              className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium transition-colors ${
-                tab === 'activity'
-                  ? 'border-ocean dark:border-sky text-ocean dark:text-sky'
-                  : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
-              }`}
-            >
-              <Activity className="w-4 h-4" />
-              Activity
-            </button>
-            <button
-              onClick={() => setTab('members')}
-              className={`flex items-center gap-2 px-4 py-3 border-b-2 font-medium transition-colors ${
-                tab === 'members'
-                  ? 'border-ocean dark:border-sky text-ocean dark:text-sky'
-                  : 'border-transparent text-storm-light dark:text-dark-text-secondary hover:text-storm dark:hover:text-dark-text'
-              }`}
-            >
-              <Users className="w-4 h-4" />
-              Members
-            </button>
-          </div>
+          <Tabs tabs={TABS} activeTab={tab} onChange={setTab} />
 
           {/* Tab Content */}
-          {tab === 'proposals' && (
+          <TabPanel id="proposals" activeTab={tab}>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -274,12 +255,11 @@ export default function CircleDetailPage({
               )}
 
               {proposals.length === 0 ? (
-                <div className="bg-white dark:bg-dark-border/50 rounded-xl p-8 text-center">
-                  <FileText className="w-12 h-12 text-storm/30 dark:text-dark-text/30 mx-auto mb-3" />
-                  <p className="text-storm-light dark:text-dark-text-secondary">
-                    No proposals yet.
-                  </p>
-                </div>
+                <EmptyState
+                  icon={FileText}
+                  title="No proposals yet"
+                  message="Be the first to create a proposal for this circle."
+                />
               ) : (
                 <div className="space-y-4">
                   {proposals.map((proposal) => (
@@ -292,9 +272,9 @@ export default function CircleDetailPage({
                 </div>
               )}
             </motion.div>
-          )}
+          </TabPanel>
 
-          {tab === 'activity' && (
+          <TabPanel id="activity" activeTab={tab}>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -302,56 +282,64 @@ export default function CircleDetailPage({
             >
               <ActivityFeed activities={activities} />
             </motion.div>
-          )}
+          </TabPanel>
 
-          {tab === 'members' && (
+          <TabPanel id="members" activeTab={tab}>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="bg-white dark:bg-dark-border/50 rounded-xl p-6"
             >
-              <div className="space-y-3">
-                {circle.members.map((member) => (
-                  <div
-                    key={member.id}
-                    className="flex items-center justify-between p-3 bg-gray-50 dark:bg-foam/5 rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-ocean/10 dark:bg-sky/10 flex items-center justify-center overflow-hidden">
-                        {member.user.avatarUrl ? (
-                          <img
-                            src={member.user.avatarUrl}
-                            alt={member.user.name}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <span className="font-medium text-ocean dark:text-sky">
-                            {member.user.name.charAt(0).toUpperCase()}
-                          </span>
-                        )}
+              {circle.members.length === 0 ? (
+                <EmptyState
+                  icon={Users}
+                  title="No members yet"
+                  message="Be the first to join this giving circle."
+                />
+              ) : (
+                <div className="space-y-3">
+                  {circle.members.map((member) => (
+                    <div
+                      key={member.id}
+                      className="flex items-center justify-between p-3 bg-gray-50 dark:bg-foam/5 rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-ocean/10 dark:bg-sky/10 flex items-center justify-center overflow-hidden">
+                          {member.user.avatarUrl ? (
+                            <img
+                              src={member.user.avatarUrl}
+                              alt={member.user.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <span className="font-medium text-ocean dark:text-sky">
+                              {member.user.name.charAt(0).toUpperCase()}
+                            </span>
+                          )}
+                        </div>
+                        <div>
+                          <p className="font-medium text-storm dark:text-dark-text">
+                            {member.user.name}
+                          </p>
+                          <p className="text-xs text-storm-light dark:text-dark-text-secondary capitalize">
+                            {member.role}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-medium text-storm dark:text-dark-text">
-                          {member.user.name}
+                      <div className="text-right">
+                        <p className="font-medium text-teal">
+                          ${member.totalContributed.toFixed(2)}
                         </p>
-                        <p className="text-xs text-storm-light dark:text-dark-text-secondary capitalize">
-                          {member.role}
+                        <p className="text-xs text-storm-light dark:text-dark-text-secondary">
+                          contributed
                         </p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-medium text-teal">
-                        ${member.totalContributed.toFixed(2)}
-                      </p>
-                      <p className="text-xs text-storm-light dark:text-dark-text-secondary">
-                        contributed
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </motion.div>
-          )}
+          </TabPanel>
         </div>
 
         {/* Sidebar */}
@@ -403,6 +391,16 @@ export default function CircleDetailPage({
         circleSlug={slug}
         poolBalance={circle.pooledBalance}
         onSuccess={loadProposals}
+      />
+
+      <ConfirmDialog
+        open={showLeaveConfirm}
+        onConfirm={handleLeave}
+        onCancel={() => setShowLeaveConfirm(false)}
+        title="Leave Circle"
+        message="Are you sure you want to leave this circle?"
+        confirmLabel="Leave"
+        variant="danger"
       />
     </div>
   );

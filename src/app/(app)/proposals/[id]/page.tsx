@@ -10,6 +10,8 @@ import { useToast } from "@/components/ui/toast";
 import { ArrowLeft, Save, Send, Trash2, Clock, CheckCircle, XCircle, Edit, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
 import { Spinner } from "@/components/ui/spinner";
+import { Textarea } from "@/components/ui/textarea";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 
 const CATEGORIES = [
   "Education",
@@ -66,6 +68,7 @@ export default function ProposalDetailPage({ params }: { params: Promise<{ id: s
   const [proposal, setProposal] = useState<Proposal | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -152,8 +155,7 @@ export default function ProposalDetailPage({ params }: { params: Promise<{ id: s
   };
 
   const handleDelete = async () => {
-    if (!confirm("Are you sure you want to delete this draft?")) return;
-
+    setShowDeleteConfirm(false);
     setSaving(true);
     try {
       const res = await fetch(`/api/proposals/${id}`, { method: "DELETE" });
@@ -243,19 +245,15 @@ export default function ProposalDetailPage({ params }: { params: Promise<{ id: s
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Description
-            </label>
-            <textarea
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-              disabled={!isEditable}
-              rows={5}
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white disabled:opacity-60 disabled:cursor-not-allowed"
-            />
-          </div>
+          <Textarea
+            id="description"
+            label="Description"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            disabled={!isEditable}
+            rows={5}
+          />
 
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -387,53 +385,41 @@ export default function ProposalDetailPage({ params }: { params: Promise<{ id: s
           </h2>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              What will the funds cover?
-            </label>
-            <textarea
-              name="fundsCover"
-              value={form.fundsCover}
-              onChange={handleChange}
-              disabled={!isEditable}
-              rows={3}
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white disabled:opacity-60 disabled:cursor-not-allowed"
-            />
-          </div>
+          <Textarea
+            id="fundsCover"
+            label="What will the funds cover?"
+            name="fundsCover"
+            value={form.fundsCover}
+            onChange={handleChange}
+            disabled={!isEditable}
+            rows={3}
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Success Metrics
-            </label>
-            <textarea
-              name="successMetrics"
-              value={form.successMetrics}
-              onChange={handleChange}
-              disabled={!isEditable}
-              rows={3}
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white disabled:opacity-60 disabled:cursor-not-allowed"
-            />
-          </div>
+          <Textarea
+            id="successMetrics"
+            label="Success Metrics"
+            name="successMetrics"
+            value={form.successMetrics}
+            onChange={handleChange}
+            disabled={!isEditable}
+            rows={3}
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Reporting Plan
-            </label>
-            <textarea
-              name="reportingPlan"
-              value={form.reportingPlan}
-              onChange={handleChange}
-              disabled={!isEditable}
-              rows={3}
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white disabled:opacity-60 disabled:cursor-not-allowed"
-            />
-          </div>
+          <Textarea
+            id="reportingPlan"
+            label="Reporting Plan"
+            name="reportingPlan"
+            value={form.reportingPlan}
+            onChange={handleChange}
+            disabled={!isEditable}
+            rows={3}
+          />
         </CardContent>
       </Card>
 
       {isEditable && (
         <div className="flex items-center justify-between">
-          <Button variant="ghost" onClick={handleDelete} loading={saving} className="text-red-600">
+          <Button variant="ghost" onClick={() => setShowDeleteConfirm(true)} loading={saving} className="text-red-600">
             <Trash2 className="h-4 w-4 mr-2" />
             Delete Draft
           </Button>
@@ -459,6 +445,16 @@ export default function ProposalDetailPage({ params }: { params: Promise<{ id: s
           </p>
         </div>
       )}
+
+      <ConfirmDialog
+        open={showDeleteConfirm}
+        onConfirm={handleDelete}
+        onCancel={() => setShowDeleteConfirm(false)}
+        title="Delete Draft"
+        message="Are you sure you want to delete this draft? This action cannot be undone."
+        confirmLabel="Delete"
+        variant="danger"
+      />
     </div>
   );
 }
