@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useToast } from '@/components/ui/toast';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabPanel } from '@/components/ui/tabs';
 import Link from 'next/link';
 import { formatDate } from '@/lib/i18n/formatting';
 
@@ -198,50 +201,36 @@ export default function StoreCreditPage() {
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 mb-8">
         <h2 className="font-semibold text-lg mb-4 dark:text-white">Redeem a Gift Card</h2>
         <div className="flex gap-4">
-          <input
-            type="text"
-            value={redeemCode}
-            onChange={(e) => setRedeemCode(e.target.value.toUpperCase())}
-            placeholder="Enter gift card code (e.g., XXXX-XXXX-XXXX-XXXX)"
-            className="flex-1 px-4 py-2 border border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-teal focus:border-transparent"
-          />
-          <button
+          <div className="flex-1">
+            <Input
+              value={redeemCode}
+              onChange={(e) => setRedeemCode(e.target.value.toUpperCase())}
+              placeholder="Enter gift card code (e.g., XXXX-XXXX-XXXX-XXXX)"
+            />
+          </div>
+          <Button
+            variant="secondary"
             onClick={handleRedeemCode}
-            disabled={redeeming}
-            className="px-6 py-2 bg-teal text-white rounded-lg hover:bg-teal/90 disabled:opacity-50"
+            loading={redeeming}
           >
-            {redeeming ? 'Redeeming...' : 'Redeem'}
-          </button>
+            Redeem
+          </Button>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 border-b border-gray-200 dark:border-gray-700 mb-6">
-        <button
-          onClick={() => setActiveTab('balance')}
-          className={`pb-3 px-1 font-medium transition-colors ${
-            activeTab === 'balance'
-              ? 'border-b-2 border-teal text-teal'
-              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-          }`}
-        >
-          Credit History
-        </button>
-        <button
-          onClick={() => setActiveTab('giftcards')}
-          className={`pb-3 px-1 font-medium transition-colors ${
-            activeTab === 'giftcards'
-              ? 'border-b-2 border-teal text-teal'
-              : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
-          }`}
-        >
-          Gift Cards ({giftCards.length})
-        </button>
-      </div>
+      <Tabs
+        tabs={[
+          { id: 'balance', label: 'Credit History' },
+          { id: 'giftcards', label: `Gift Cards (${giftCards.length})` },
+        ]}
+        activeTab={activeTab}
+        onChange={(id) => setActiveTab(id as 'balance' | 'giftcards')}
+      />
 
       {/* Content */}
-      {activeTab === 'balance' && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+      <TabPanel id="balance" activeTab={activeTab}>
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mt-6">
           {transactions.length === 0 ? (
             <div className="p-8 text-center text-gray-500 dark:text-gray-400">
               <p>No credit transactions yet</p>
@@ -292,10 +281,10 @@ export default function StoreCreditPage() {
             </div>
           )}
         </div>
-      )}
+      </TabPanel>
 
-      {activeTab === 'giftcards' && (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <TabPanel id="giftcards" activeTab={activeTab}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
           {giftCards.length === 0 ? (
             <div className="col-span-full bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400">
               <p>No gift cards yet</p>
@@ -336,7 +325,7 @@ export default function StoreCreditPage() {
             ))
           )}
         </div>
-      )}
+      </TabPanel>
     </div>
   );
 }

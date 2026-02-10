@@ -15,6 +15,7 @@ import {
   Calendar,
 } from 'lucide-react';
 import { formatDate } from '@/lib/i18n/formatting';
+import { Pagination } from '@/components/ui/pagination';
 
 interface Institution {
   id: string;
@@ -57,6 +58,8 @@ export default function InstitutionsAdminPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string | null>(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [page, setPage] = useState(1);
+  const ITEMS_PER_PAGE = 12;
 
   useEffect(() => {
     fetchInstitutions();
@@ -81,6 +84,12 @@ export default function InstitutionsAdminPage() {
   const filteredInstitutions = institutions.filter((i) =>
     i.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     i.slug.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredInstitutions.length / ITEMS_PER_PAGE);
+  const paginatedInstitutions = filteredInstitutions.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
   );
 
   return (
@@ -112,7 +121,7 @@ export default function InstitutionsAdminPage() {
           <input
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
             placeholder="Search institutions..."
             aria-label="Search institutions"
             className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-ocean focus:border-transparent"
@@ -123,7 +132,7 @@ export default function InstitutionsAdminPage() {
           {['active', 'pending', 'suspended', 'expired'].map((status) => (
             <button
               key={status}
-              onClick={() => setStatusFilter(statusFilter === status ? null : status)}
+              onClick={() => { setStatusFilter(statusFilter === status ? null : status); setPage(1); }}
               className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
                 statusFilter === status
                   ? 'bg-ocean text-white'
@@ -175,6 +184,7 @@ export default function InstitutionsAdminPage() {
           </button>
         </div>
       ) : (
+        <>
         <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
           <table className="w-full">
             <thead className="bg-gray-50 border-b border-gray-200">
@@ -189,7 +199,7 @@ export default function InstitutionsAdminPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {filteredInstitutions.map((institution) => {
+              {paginatedInstitutions.map((institution) => {
                 const TypeIcon = TYPE_ICONS[institution.type] || Building2;
                 return (
                   <tr key={institution.id} className="hover:bg-gray-50">
@@ -249,6 +259,8 @@ export default function InstitutionsAdminPage() {
             </tbody>
           </table>
         </div>
+        <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+        </>
       )}
 
       {/* Create Modal */}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import Link from "next/link";
@@ -54,7 +55,7 @@ export default function NewCommunityPage() {
         </Link>
       </div>
 
-      <h1 className="font-heading font-bold text-2xl text-storm mb-6">
+      <h1 className="font-heading font-bold text-2xl text-storm dark:text-dark-text mb-6">
         Create a Community
       </h1>
 
@@ -68,19 +69,14 @@ export default function NewCommunityPage() {
               onChange={(e) => setName(e.target.value)}
               required
             />
-            <div className="space-y-1">
-              <label htmlFor="description" className="block text-sm font-medium text-storm">
-                Description
-              </label>
-              <textarea
-                id="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                rows={3}
-                required
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-white text-storm placeholder:text-storm-light/60 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean"
-              />
-            </div>
+            <Textarea
+              id="description"
+              label="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={3}
+              required
+            />
             <Input
               id="location"
               label="Location (optional)"

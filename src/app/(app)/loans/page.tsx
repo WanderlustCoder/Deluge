@@ -9,6 +9,7 @@ import { LOAN_CATEGORIES } from "@/lib/constants";
 import Link from "next/link";
 import { Plus, Search, Banknote, Filter } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Pagination } from "@/components/ui/pagination";
 
 interface Loan {
   id: string;
@@ -36,6 +37,8 @@ export default function LoansPage() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [showSponsorNeeded, setShowSponsorNeeded] = useState(false);
+  const [page, setPage] = useState(1);
+  const ITEMS_PER_PAGE = 12;
 
   useEffect(() => {
     fetchLoans();
@@ -68,6 +71,12 @@ export default function LoansPage() {
     }
     return true;
   });
+
+  const totalPages = Math.ceil(filteredLoans.length / ITEMS_PER_PAGE);
+  const paginatedLoans = filteredLoans.slice(
+    (page - 1) * ITEMS_PER_PAGE,
+    page * ITEMS_PER_PAGE
+  );
 
   // Calculate stats
   const totalSeeking = loans.reduce(
@@ -144,14 +153,14 @@ export default function LoansPage() {
               <input
                 type="text"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) => { setSearch(e.target.value); setPage(1); }}
                 placeholder="Search by purpose, location, or borrower..."
                 aria-label="Search loans"
                 className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-ocean focus:border-transparent text-storm dark:text-white"
               />
             </div>
             <button
-              onClick={() => setShowSponsorNeeded(!showSponsorNeeded)}
+              onClick={() => { setShowSponsorNeeded(!showSponsorNeeded); setPage(1); }}
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
                 showSponsorNeeded
                   ? "bg-gold text-white"
@@ -165,7 +174,7 @@ export default function LoansPage() {
 
           <div className="flex flex-wrap gap-2">
             <button
-              onClick={() => setCategory("All")}
+              onClick={() => { setCategory("All"); setPage(1); }}
               className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
                 category === "All"
                   ? "bg-ocean text-white"
@@ -177,7 +186,7 @@ export default function LoansPage() {
             {LOAN_CATEGORIES.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setCategory(cat)}
+                onClick={() => { setCategory(cat); setPage(1); }}
                 className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
                   category === cat
                     ? "bg-ocean text-white"
@@ -202,18 +211,21 @@ export default function LoansPage() {
           ))}
         </div>
       ) : filteredLoans.length > 0 ? (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: { transition: { staggerChildren: 0.05 } },
-          }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {filteredLoans.map((loan) => (
-            <LoanCard key={loan.id} loan={loan} />
-          ))}
-        </motion.div>
+        <>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: { transition: { staggerChildren: 0.05 } },
+            }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {paginatedLoans.map((loan) => (
+              <LoanCard key={loan.id} loan={loan} />
+            ))}
+          </motion.div>
+          <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+        </>
       ) : (
         <EmptyState
           icon={Banknote}

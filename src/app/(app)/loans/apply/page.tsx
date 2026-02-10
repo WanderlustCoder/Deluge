@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { LOAN_CATEGORIES, SHARE_PRICE } from "@/lib/constants";
@@ -201,35 +203,25 @@ export default function LoanApplyPage() {
               required
             />
 
-            <div className="space-y-1">
-              <label htmlFor="category" className="block text-sm font-medium text-storm dark:text-white">
-                Category
-              </label>
-              <select
-                id="category"
-                value={purposeCategory}
-                onChange={(e) => setPurposeCategory(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean"
-              >
-                {LOAN_CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
+            <Select
+              id="category"
+              label="Category"
+              value={purposeCategory}
+              onChange={(e) => setPurposeCategory(e.target.value)}
+            >
+              {LOAN_CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </Select>
 
-            <div className="space-y-1">
-              <label htmlFor="story" className="block text-sm font-medium text-storm dark:text-white">
-                Your Story (optional)
-              </label>
-              <textarea
-                id="story"
-                value={story}
-                onChange={(e) => setStory(e.target.value)}
-                rows={3}
-                placeholder="Tell funders why this matters to you..."
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white placeholder:text-storm-light/60 dark:placeholder:text-gray-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean"
-              />
-            </div>
+            <Textarea
+              id="story"
+              label="Your Story (optional)"
+              value={story}
+              onChange={(e) => setStory(e.target.value)}
+              rows={3}
+              placeholder="Tell funders why this matters to you..."
+            />
 
             <Input
               id="location"
@@ -240,21 +232,16 @@ export default function LoanApplyPage() {
               required
             />
 
-            <div className="space-y-1">
-              <label htmlFor="months" className="block text-sm font-medium text-storm dark:text-white">
-                Repayment Term (months, max {maxMonths})
-              </label>
-              <select
-                id="months"
-                value={repaymentMonths}
-                onChange={(e) => setRepaymentMonths(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-storm dark:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ocean/50 focus:border-ocean"
-              >
-                {Array.from({ length: maxMonths }, (_, i) => i + 1).map((m) => (
-                  <option key={m} value={m}>{m} month{m > 1 ? "s" : ""}</option>
-                ))}
-              </select>
-            </div>
+            <Select
+              id="months"
+              label={`Repayment Term (months, max ${maxMonths})`}
+              value={repaymentMonths}
+              onChange={(e) => setRepaymentMonths(e.target.value)}
+            >
+              {Array.from({ length: maxMonths }, (_, i) => i + 1).map((m) => (
+                <option key={m} value={m}>{m} month{m > 1 ? "s" : ""}</option>
+              ))}
+            </Select>
 
             {/* Stretch Goals Section */}
             <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">

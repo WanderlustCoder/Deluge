@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/toast";
 import { ArrowLeft, Save, Send } from "lucide-react";
 import Link from "next/link";
@@ -118,112 +121,77 @@ export default function NewProposalPage() {
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Project Title *
-            </label>
-            <input
-              type="text"
-              name="title"
-              value={form.title}
-              onChange={handleChange}
-              placeholder="e.g., Boise River Trail Cleanup"
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-            />
-          </div>
+          <Input
+            name="title"
+            label="Project Title *"
+            value={form.title}
+            onChange={handleChange}
+            placeholder="e.g., Boise River Trail Cleanup"
+          />
 
           <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Description *
-            </label>
-            <textarea
+            <Textarea
               name="description"
+              label="Description *"
               value={form.description}
               onChange={handleChange}
               rows={5}
               placeholder="Describe your project in detail..."
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
             />
             <p className="text-xs text-storm-light mt-1">Minimum 50 characters</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-                Funding Goal ($) *
-              </label>
-              <input
-                type="number"
-                name="fundingGoal"
-                value={form.fundingGoal}
-                onChange={handleChange}
-                placeholder="5000"
-                min="100"
-                max="100000"
-                className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-              />
-            </div>
+            <Input
+              type="number"
+              name="fundingGoal"
+              label="Funding Goal ($) *"
+              value={form.fundingGoal}
+              onChange={handleChange}
+              placeholder="5000"
+              min="100"
+              max="100000"
+            />
 
-            <div>
-              <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-                Funding Deadline *
-              </label>
-              <input
-                type="date"
-                name="deadline"
-                value={form.deadline}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-              />
-            </div>
+            <Input
+              type="date"
+              name="deadline"
+              label="Funding Deadline *"
+              value={form.deadline}
+              onChange={handleChange}
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-                Category *
-              </label>
-              <select
-                name="category"
-                value={form.category}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-              >
-                <option value="">Select a category</option>
-                {CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-                Location *
-              </label>
-              <input
-                type="text"
-                name="location"
-                value={form.location}
-                onChange={handleChange}
-                placeholder="e.g., Boise, ID"
-                className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Featured Image URL (optional)
-            </label>
-            <input
-              type="url"
-              name="imageUrl"
-              value={form.imageUrl}
+            <Select
+              name="category"
+              label="Category *"
+              value={form.category}
               onChange={handleChange}
-              placeholder="https://..."
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
+            >
+              <option value="">Select a category</option>
+              {CATEGORIES.map((cat) => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
+            </Select>
+
+            <Input
+              name="location"
+              label="Location *"
+              value={form.location}
+              onChange={handleChange}
+              placeholder="e.g., Boise, ID"
             />
           </div>
+
+          <Input
+            type="url"
+            name="imageUrl"
+            label="Featured Image URL (optional)"
+            value={form.imageUrl}
+            onChange={handleChange}
+            placeholder="https://..."
+          />
         </CardContent>
       </Card>
 
@@ -237,51 +205,34 @@ export default function NewProposalPage() {
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Organization Name *
-            </label>
-            <input
-              type="text"
-              name="orgName"
-              value={form.orgName}
-              onChange={handleChange}
-              placeholder="e.g., Boise Parks Foundation"
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-            />
-          </div>
+          <Input
+            name="orgName"
+            label="Organization Name *"
+            value={form.orgName}
+            onChange={handleChange}
+            placeholder="e.g., Boise Parks Foundation"
+          />
 
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-                Organization Type *
-              </label>
-              <select
-                name="orgType"
-                value={form.orgType}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-              >
-                <option value="">Select type</option>
-                {ORG_TYPES.map((type) => (
-                  <option key={type.value} value={type.value}>{type.label}</option>
-                ))}
-              </select>
-            </div>
+            <Select
+              name="orgType"
+              label="Organization Type *"
+              value={form.orgType}
+              onChange={handleChange}
+            >
+              <option value="">Select type</option>
+              {ORG_TYPES.map((type) => (
+                <option key={type.value} value={type.value}>{type.label}</option>
+              ))}
+            </Select>
 
-            <div>
-              <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-                EIN (if nonprofit)
-              </label>
-              <input
-                type="text"
-                name="ein"
-                value={form.ein}
-                onChange={handleChange}
-                placeholder="XX-XXXXXXX"
-                className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-              />
-            </div>
+            <Input
+              name="ein"
+              label="EIN (if nonprofit)"
+              value={form.ein}
+              onChange={handleChange}
+              placeholder="XX-XXXXXXX"
+            />
           </div>
         </CardContent>
       </Card>
@@ -296,47 +247,32 @@ export default function NewProposalPage() {
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              What will the funds cover? *
-            </label>
-            <textarea
-              name="fundsCover"
-              value={form.fundsCover}
-              onChange={handleChange}
-              rows={3}
-              placeholder="Break down how the funding will be used..."
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-            />
-          </div>
+          <Textarea
+            name="fundsCover"
+            label="What will the funds cover? *"
+            value={form.fundsCover}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Break down how the funding will be used..."
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              How will success be measured? *
-            </label>
-            <textarea
-              name="successMetrics"
-              value={form.successMetrics}
-              onChange={handleChange}
-              rows={3}
-              placeholder="Describe the metrics you'll use to measure impact..."
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-            />
-          </div>
+          <Textarea
+            name="successMetrics"
+            label="How will success be measured? *"
+            value={form.successMetrics}
+            onChange={handleChange}
+            rows={3}
+            placeholder="Describe the metrics you'll use to measure impact..."
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-storm dark:text-gray-300 mb-1">
-              Reporting commitment *
-            </label>
-            <textarea
-              name="reportingPlan"
-              value={form.reportingPlan}
-              onChange={handleChange}
-              rows={3}
-              placeholder="How and when will you report progress to funders?"
-              className="w-full px-3 py-2 border border-gray-200 dark:border-dark-border rounded-lg bg-white dark:bg-dark-card focus:ring-2 focus:ring-ocean/50 dark:text-white"
-            />
-          </div>
+          <Textarea
+            name="reportingPlan"
+            label="Reporting commitment *"
+            value={form.reportingPlan}
+            onChange={handleChange}
+            rows={3}
+            placeholder="How and when will you report progress to funders?"
+          />
         </CardContent>
       </Card>
 

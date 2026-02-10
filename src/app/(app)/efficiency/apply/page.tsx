@@ -6,6 +6,9 @@ import { redirect, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Sun, ArrowLeft, ArrowRight, CheckCircle, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
+import { Select } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import {
   EFFICIENCY_HOME_TYPE_LABELS,
   EFFICIENCY_HOME_TYPES,
@@ -97,18 +100,18 @@ export default function EfficiencyApplyPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <Link href="/efficiency" className="text-sm text-[#0D47A1] hover:underline flex items-center gap-1 mb-4">
+        <Link href="/efficiency" className="text-sm text-ocean hover:underline flex items-center gap-1 mb-4">
           <ArrowLeft className="h-4 w-4" /> Back to Efficiency
         </Link>
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#FFA000]/10 text-[#FFA000] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center">
             <Sun className="h-5 w-5" />
           </div>
           <div>
-            <h1 className="text-xl font-heading font-bold text-gray-900 dark:text-white">
+            <h1 className="text-xl font-heading font-bold text-storm dark:text-white">
               Apply for Efficiency Upgrade
             </h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-storm-light dark:text-gray-400">
               Step {step} of 3
             </p>
           </div>
@@ -120,7 +123,7 @@ export default function EfficiencyApplyPage() {
             <div
               key={s}
               className={`h-1.5 flex-1 rounded-full ${
-                s <= step ? "bg-[#0D47A1]" : "bg-gray-200 dark:bg-gray-700"
+                s <= step ? "bg-ocean" : "bg-gray-200 dark:bg-gray-700"
               }`}
             />
           ))}
@@ -140,70 +143,51 @@ export default function EfficiencyApplyPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <h2 className="font-heading font-semibold text-lg text-gray-900 dark:text-white">Property Information</h2>
+          <h2 className="font-heading font-semibold text-lg text-storm dark:text-white">Property Information</h2>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Street Address</label>
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              placeholder="123 Main Street"
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
+          <Input
+            label="Street Address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="123 Main Street"
+          />
+
+          <div className="grid grid-cols-2 gap-3">
+            <Input
+              label="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+            <Input
+              label="State"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+              maxLength={2}
+              placeholder="ID"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">City</label>
-              <input
-                type="text"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">State</label>
-              <input
-                type="text"
-                value={state}
-                onChange={(e) => setState(e.target.value)}
-                maxLength={2}
-                placeholder="ID"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">ZIP Code</label>
-              <input
-                type="text"
-                value={zipCode}
-                onChange={(e) => setZipCode(e.target.value)}
-                maxLength={10}
-                placeholder="83702"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Home Type</label>
-              <select
-                value={homeType}
-                onChange={(e) => setHomeType(e.target.value as EfficiencyHomeType)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
-              >
-                {EFFICIENCY_HOME_TYPES.map((t) => (
-                  <option key={t} value={t}>{EFFICIENCY_HOME_TYPE_LABELS[t]}</option>
-                ))}
-              </select>
-            </div>
+            <Input
+              label="ZIP Code"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
+              maxLength={10}
+              placeholder="83702"
+            />
+            <Select
+              label="Home Type"
+              value={homeType}
+              onChange={(e) => setHomeType(e.target.value as EfficiencyHomeType)}
+            >
+              {EFFICIENCY_HOME_TYPES.map((t) => (
+                <option key={t} value={t}>{EFFICIENCY_HOME_TYPE_LABELS[t]}</option>
+              ))}
+            </Select>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ownership</label>
+            <label className="block text-sm font-medium text-storm dark:text-dark-text mb-1">Ownership</label>
             <div className="flex gap-4">
               {[
                 { value: "owner", label: "I own this home" },
@@ -216,55 +200,46 @@ export default function EfficiencyApplyPage() {
                     value={opt.value}
                     checked={ownershipStatus === opt.value}
                     onChange={(e) => setOwnershipStatus(e.target.value)}
-                    className="text-[#0D47A1]"
+                    className="text-ocean accent-ocean"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">{opt.label}</span>
+                  <span className="text-sm text-storm dark:text-dark-text-secondary">{opt.label}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div className="grid grid-cols-3 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Year Built</label>
-              <input
-                type="number"
-                value={yearBuilt}
-                onChange={(e) => setYearBuilt(e.target.value)}
-                placeholder="1985"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Sq Ft</label>
-              <input
-                type="number"
-                value={squareFootage}
-                onChange={(e) => setSquareFootage(e.target.value)}
-                placeholder="1500"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Energy Bill/mo</label>
-              <input
-                type="number"
-                value={currentEnergyBill}
-                onChange={(e) => setCurrentEnergyBill(e.target.value)}
-                placeholder="$150"
-                step="0.01"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent"
-              />
-            </div>
+            <Input
+              type="number"
+              label="Year Built"
+              value={yearBuilt}
+              onChange={(e) => setYearBuilt(e.target.value)}
+              placeholder="1985"
+            />
+            <Input
+              type="number"
+              label="Sq Ft"
+              value={squareFootage}
+              onChange={(e) => setSquareFootage(e.target.value)}
+              placeholder="1500"
+            />
+            <Input
+              type="number"
+              label="Energy Bill/mo"
+              value={currentEnergyBill}
+              onChange={(e) => setCurrentEnergyBill(e.target.value)}
+              placeholder="$150"
+              step="0.01"
+            />
           </div>
 
-          <button
+          <Button
             onClick={() => canProceedStep1 && setStep(2)}
             disabled={!canProceedStep1}
-            className="w-full py-2.5 px-4 bg-[#0D47A1] hover:bg-[#0D47A1]/90 disabled:bg-gray-300 dark:disabled:bg-gray-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+            className="w-full"
           >
-            Next: Home Condition <ArrowRight className="h-4 w-4" />
-          </button>
+            Next: Home Condition <ArrowRight className="h-4 w-4 ml-2" />
+          </Button>
         </motion.div>
       )}
 
@@ -275,112 +250,117 @@ export default function EfficiencyApplyPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <h2 className="font-heading font-semibold text-lg text-gray-900 dark:text-white">Current Home Condition</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <h2 className="font-heading font-semibold text-lg text-storm dark:text-white">Current Home Condition</h2>
+          <p className="text-sm text-storm-light dark:text-gray-400">
             Optional: Share what you know about your home. This helps estimate your upgrade plan. You can skip and have a professional assess later.
           </p>
 
           <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Insulation</label>
-              <select value={insulationCondition} onChange={(e) => setInsulationCondition(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent">
-                <option value="">Not sure</option>
-                <option value="good">Good</option>
-                <option value="fair">Fair</option>
-                <option value="poor">Poor</option>
-                <option value="none">None</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Windows</label>
-              <select value={windowType} onChange={(e) => setWindowType(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent">
-                <option value="">Not sure</option>
-                <option value="single">Single pane</option>
-                <option value="double">Double pane</option>
-                <option value="triple">Triple pane</option>
-              </select>
-            </div>
+            <Select
+              label="Insulation"
+              value={insulationCondition}
+              onChange={(e) => setInsulationCondition(e.target.value)}
+            >
+              <option value="">Not sure</option>
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
+              <option value="poor">Poor</option>
+              <option value="none">None</option>
+            </Select>
+            <Select
+              label="Windows"
+              value={windowType}
+              onChange={(e) => setWindowType(e.target.value)}
+            >
+              <option value="">Not sure</option>
+              <option value="single">Single pane</option>
+              <option value="double">Double pane</option>
+              <option value="triple">Triple pane</option>
+            </Select>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">HVAC Type</label>
-              <select value={hvacType} onChange={(e) => setHvacType(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent">
-                <option value="">Not sure</option>
-                <option value="furnace">Furnace</option>
-                <option value="heat_pump">Heat Pump</option>
-                <option value="boiler">Boiler</option>
-                <option value="window_ac">Window AC</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">HVAC Age (years)</label>
-              <input type="number" value={hvacAge} onChange={(e) => setHvacAge(e.target.value)} placeholder="10"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent" />
-            </div>
+            <Select
+              label="HVAC Type"
+              value={hvacType}
+              onChange={(e) => setHvacType(e.target.value)}
+            >
+              <option value="">Not sure</option>
+              <option value="furnace">Furnace</option>
+              <option value="heat_pump">Heat Pump</option>
+              <option value="boiler">Boiler</option>
+              <option value="window_ac">Window AC</option>
+            </Select>
+            <Input
+              type="number"
+              label="HVAC Age (years)"
+              value={hvacAge}
+              onChange={(e) => setHvacAge(e.target.value)}
+              placeholder="10"
+            />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Water Heater</label>
-              <select value={waterHeaterType} onChange={(e) => setWaterHeaterType(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent">
-                <option value="">Not sure</option>
-                <option value="tank_gas">Tank (Gas)</option>
-                <option value="tank_electric">Tank (Electric)</option>
-                <option value="tankless">Tankless</option>
-                <option value="heat_pump">Heat Pump</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Roof Condition</label>
-              <select value={roofCondition} onChange={(e) => setRoofCondition(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent">
-                <option value="">Not sure</option>
-                <option value="excellent">Excellent</option>
-                <option value="good">Good</option>
-                <option value="fair">Fair</option>
-                <option value="poor">Poor</option>
-              </select>
-            </div>
+            <Select
+              label="Water Heater"
+              value={waterHeaterType}
+              onChange={(e) => setWaterHeaterType(e.target.value)}
+            >
+              <option value="">Not sure</option>
+              <option value="tank_gas">Tank (Gas)</option>
+              <option value="tank_electric">Tank (Electric)</option>
+              <option value="tankless">Tankless</option>
+              <option value="heat_pump">Heat Pump</option>
+            </Select>
+            <Select
+              label="Roof Condition"
+              value={roofCondition}
+              onChange={(e) => setRoofCondition(e.target.value)}
+            >
+              <option value="">Not sure</option>
+              <option value="excellent">Excellent</option>
+              <option value="good">Good</option>
+              <option value="fair">Fair</option>
+              <option value="poor">Poor</option>
+            </Select>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Electrical Panel (Amps)</label>
-              <input type="number" value={electricalPanelAmps} onChange={(e) => setElectricalPanelAmps(e.target.value)} placeholder="100"
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Roof Orientation</label>
-              <select value={roofOrientation} onChange={(e) => setRoofOrientation(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#0D47A1] focus:border-transparent">
-                <option value="">Not sure</option>
-                <option value="south">South-facing</option>
-                <option value="east">East-facing</option>
-                <option value="west">West-facing</option>
-                <option value="north">North-facing</option>
-                <option value="flat">Flat</option>
-              </select>
-            </div>
+            <Input
+              type="number"
+              label="Electrical Panel (Amps)"
+              value={electricalPanelAmps}
+              onChange={(e) => setElectricalPanelAmps(e.target.value)}
+              placeholder="100"
+            />
+            <Select
+              label="Roof Orientation"
+              value={roofOrientation}
+              onChange={(e) => setRoofOrientation(e.target.value)}
+            >
+              <option value="">Not sure</option>
+              <option value="south">South-facing</option>
+              <option value="east">East-facing</option>
+              <option value="west">West-facing</option>
+              <option value="north">North-facing</option>
+              <option value="flat">Flat</option>
+            </Select>
           </div>
 
           <div className="flex gap-3">
-            <button
+            <Button
+              variant="outline"
               onClick={() => setStep(1)}
-              className="flex-1 py-2.5 px-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+              className="flex-1"
             >
-              <ArrowLeft className="h-4 w-4" /> Back
-            </button>
-            <button
+              <ArrowLeft className="h-4 w-4 mr-2" /> Back
+            </Button>
+            <Button
               onClick={() => setStep(3)}
-              className="flex-1 py-2.5 px-4 bg-[#0D47A1] hover:bg-[#0D47A1]/90 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+              className="flex-1"
             >
-              Review <ArrowRight className="h-4 w-4" />
-            </button>
+              Review <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
           </div>
         </motion.div>
       )}
@@ -392,11 +372,11 @@ export default function EfficiencyApplyPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
         >
-          <h2 className="font-heading font-semibold text-lg text-gray-900 dark:text-white">Review Your Application</h2>
+          <h2 className="font-heading font-semibold text-lg text-storm dark:text-white">Review Your Application</h2>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 space-y-3">
-            <h3 className="font-semibold text-gray-900 dark:text-white">Property</h3>
-            <div className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+          <div className="bg-white dark:bg-dark-card rounded-xl p-4 border border-gray-200 dark:border-dark-border space-y-3">
+            <h3 className="font-semibold text-storm dark:text-white">Property</h3>
+            <div className="text-sm text-storm-light dark:text-gray-400 space-y-1">
               <p>{address}</p>
               <p>{city}, {state} {zipCode}</p>
               <p>{EFFICIENCY_HOME_TYPE_LABELS[homeType]} &middot; {ownershipStatus === "owner" ? "Owner" : "Renter"}</p>
@@ -407,9 +387,9 @@ export default function EfficiencyApplyPage() {
           </div>
 
           {(insulationCondition || windowType || hvacType || roofCondition) && (
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 space-y-3">
-              <h3 className="font-semibold text-gray-900 dark:text-white">Self-Assessment</h3>
-              <div className="text-sm text-gray-600 dark:text-gray-400 grid grid-cols-2 gap-2">
+            <div className="bg-white dark:bg-dark-card rounded-xl p-4 border border-gray-200 dark:border-dark-border space-y-3">
+              <h3 className="font-semibold text-storm dark:text-white">Self-Assessment</h3>
+              <div className="text-sm text-storm-light dark:text-gray-400 grid grid-cols-2 gap-2">
                 {insulationCondition && <p>Insulation: {insulationCondition}</p>}
                 {windowType && <p>Windows: {windowType} pane</p>}
                 {hvacType && <p>HVAC: {hvacType}{hvacAge ? `, ${hvacAge}yr` : ""}</p>}
@@ -421,30 +401,28 @@ export default function EfficiencyApplyPage() {
             </div>
           )}
 
-          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-3 text-sm text-blue-700 dark:text-blue-300">
+          <div className="bg-ocean/5 dark:bg-ocean/10 border border-ocean/20 dark:border-ocean/30 rounded-xl p-3 text-sm text-ocean dark:text-ocean-light">
             {insulationCondition || windowType || hvacType
               ? "Your self-assessment data will generate an initial upgrade plan and cost estimate. A professional assessment may adjust these."
               : "You'll be queued for a professional energy assessment after submission."}
           </div>
 
           <div className="flex gap-3">
-            <button
+            <Button
+              variant="outline"
               onClick={() => setStep(2)}
-              className="flex-1 py-2.5 px-4 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+              className="flex-1"
             >
-              <ArrowLeft className="h-4 w-4" /> Back
-            </button>
-            <button
+              <ArrowLeft className="h-4 w-4 mr-2" /> Back
+            </Button>
+            <Button
+              variant="secondary"
               onClick={handleSubmit}
-              disabled={submitting}
-              className="flex-1 py-2.5 px-4 bg-[#00897B] hover:bg-[#00897B]/90 disabled:bg-gray-300 dark:disabled:bg-gray-700 text-white rounded-xl font-semibold transition-colors flex items-center justify-center gap-2"
+              loading={submitting}
+              className="flex-1"
             >
-              {submitting ? (
-                <><Loader2 className="h-4 w-4 animate-spin" /> Submitting...</>
-              ) : (
-                <><CheckCircle className="h-4 w-4" /> Submit Application</>
-              )}
-            </button>
+              <CheckCircle className="h-4 w-4 mr-2" /> Submit Application
+            </Button>
           </div>
         </motion.div>
       )}
