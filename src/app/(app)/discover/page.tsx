@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Sparkles, MapPin, TrendingUp, Clock, Target, ChevronRight } from 'lucide-react';
 import { RecommendationCard } from '@/components/discover/recommendation-card';
 import { ChallengeCard } from '@/components/discover/challenge-card';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Recommendation {
   id: string;
@@ -121,7 +122,7 @@ export default function DiscoverPage() {
           <div className="lg:col-span-3">
             {loading ? (
               <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+                <Spinner size="lg" />
               </div>
             ) : recommendations.length === 0 ? (
               <div className="text-center py-12">

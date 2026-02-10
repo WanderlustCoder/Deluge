@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Lightbulb, ChevronDown, ChevronUp, Shuffle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Spinner } from "@/components/ui/spinner";
 
 interface ScenarioOption {
   id: string;
@@ -131,7 +132,7 @@ export default function ScenariosPage() {
         {/* Scenarios */}
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+            <Spinner size="lg" />
           </div>
         ) : scenarios.length === 0 ? (
           <div className="text-center py-12">

@@ -15,6 +15,7 @@ import {
   Building2,
 } from 'lucide-react';
 import { ResourceCard } from '@/components/learn/resource-card';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Resource {
   id: string;
@@ -165,7 +166,7 @@ export default function LearnPage() {
         {/* Resources Grid */}
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+            <Spinner size="lg" />
           </div>
         ) : resources.length === 0 ? (
           <div className="text-center py-12">

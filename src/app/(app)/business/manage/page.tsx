@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import Link from "next/link";
 import { ArrowLeft, Store, Trash2, Eye } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 const CATEGORIES = [
   "Food & Dining",
@@ -132,8 +133,8 @@ export default function ManageBusinessPage() {
 
   if (loading) {
     return (
-      <div className="max-w-2xl mx-auto">
-        <p className="text-storm-light dark:text-gray-400">Loading...</p>
+      <div className="max-w-2xl mx-auto flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }

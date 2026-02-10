@@ -5,6 +5,7 @@ import { Webhook, Plus, AlertCircle, Activity } from 'lucide-react';
 import { WebhookCard } from '@/components/developer/webhook-card';
 import { CreateWebhookModal } from '@/components/developer/create-webhook-modal';
 import { WebhookTestResult } from '@/components/developer/webhook-test-result';
+import { Spinner } from "@/components/ui/spinner";
 
 interface WebhookData {
   id: string;
@@ -213,7 +214,7 @@ export default function WebhooksPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+            <Spinner size="lg" />
           </div>
         ) : webhooks.length === 0 ? (
           <div className="text-center py-12 border-2 border-dashed border-gray-200 rounded-xl">

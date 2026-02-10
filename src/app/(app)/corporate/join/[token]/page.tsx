@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Building2, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { Spinner } from "@/components/ui/spinner";
 
 interface InviteInfo {
   id: string;
@@ -79,9 +80,9 @@ export default function JoinCorporatePage({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center dark:bg-dark-bg">
         <div className="flex items-center gap-3 text-storm-light dark:text-dark-text-secondary">
-          <Loader2 className="w-5 h-5 animate-spin" />
+          <Spinner />
           Validating invite...
         </div>
       </div>

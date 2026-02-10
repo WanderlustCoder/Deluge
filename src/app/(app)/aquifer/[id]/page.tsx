@@ -27,6 +27,7 @@ import {
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/i18n/formatting";
 import { useToast } from "@/components/ui/toast";
+import { Spinner } from "@/components/ui/spinner";
 
 interface FlagshipDetail {
   id: string;
@@ -136,10 +137,8 @@ export default function FlagshipDetailPage() {
 
   if (loading || !flagship) {
     return (
-      <div className="text-center py-12">
-        <p className="text-storm-light dark:text-dark-text-secondary">
-          Loading...
-        </p>
+      <div className="flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }

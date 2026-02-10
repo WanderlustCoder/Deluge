@@ -8,6 +8,7 @@ import { useToast } from "@/components/ui/toast";
 import { User, MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { formatDateTime } from "@/lib/i18n/formatting";
+import { Spinner } from "@/components/ui/spinner";
 
 interface Comment {
   id: string;
@@ -78,8 +79,8 @@ export default function DiscussionDetailPage() {
 
   if (loading) {
     return (
-      <div className="text-center py-12">
-        <p className="text-storm-light">Loading...</p>
+      <div className="flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }

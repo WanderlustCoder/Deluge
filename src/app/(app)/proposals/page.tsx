@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Plus, FileText, Clock, CheckCircle, XCircle, Edit } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { Spinner } from "@/components/ui/spinner";
 
 interface Proposal {
   id: string;
@@ -67,7 +68,7 @@ export default function ProposalsPage() {
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+          <Spinner size="lg" />
         </div>
       ) : proposals.length === 0 ? (
         <Card>

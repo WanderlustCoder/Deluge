@@ -9,6 +9,7 @@ import { DailyCounter } from "@/components/ads/daily-counter";
 import { Card, CardContent } from "@/components/ui/card";
 import { DAILY_AD_CAP } from "@/lib/constants";
 import { useToast } from "@/components/ui/toast";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function WatchPage() {
   const { status } = useSession();
@@ -93,7 +94,7 @@ export default function WatchPage() {
   if (loading || status === "loading") {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin w-8 h-8 border-2 border-ocean border-t-transparent rounded-full" />
+        <Spinner size="lg" />
       </div>
     );
   }

@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { ResourceCard } from '@/components/advocates/resource-card';
 import { RESOURCE_CATEGORIES, ResourceCategory } from '@/lib/advocates/resources';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Resource {
   id: string;
@@ -58,7 +59,7 @@ export default function AdvocateResourcesPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-600" />
+        <Spinner size="lg" />
       </div>
     );
   }

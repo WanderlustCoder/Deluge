@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Key, Plus, AlertCircle } from 'lucide-react';
 import { ApiKeyCard } from '@/components/developer/api-key-card';
 import { CreateKeyModal } from '@/components/developer/create-key-modal';
+import { Spinner } from "@/components/ui/spinner";
 
 interface ApiKey {
   id: string;
@@ -124,7 +125,7 @@ export default function ApiKeysPage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+            <Spinner size="lg" />
           </div>
         ) : keys.length === 0 ? (
           <div className="text-center py-12 border-2 border-dashed border-gray-200 rounded-xl">

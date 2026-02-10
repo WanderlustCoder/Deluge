@@ -23,6 +23,7 @@ import { CreateGoalModal } from "@/components/communities/create-goal-modal";
 import { EventsList } from "@/components/communities/events-list";
 import { CreateEventModal } from "@/components/communities/create-event-modal";
 import type { Project } from "@prisma/client";
+import { Spinner } from "@/components/ui/spinner";
 
 type TabType = "projects" | "discussions" | "elections" | "activity" | "goals" | "events";
 
@@ -83,8 +84,8 @@ export default function CommunityDetailPage() {
 
   if (!community) {
     return (
-      <div className="text-center py-12">
-        <p className="text-storm-light">Loading...</p>
+      <div className="flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }

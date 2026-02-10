@@ -13,6 +13,7 @@ import { formatCurrency } from "@/lib/utils";
 import { SHARE_PRICE } from "@/lib/constants";
 import { MapPin, Clock, Users, Target, CheckCircle, AlertTriangle, CalendarPlus } from "lucide-react";
 import Link from "next/link";
+import { Spinner } from "@/components/ui/spinner";
 
 interface StretchGoal {
   id: string;
@@ -107,8 +108,8 @@ export default function LoanDetailPage() {
 
   if (!loan) {
     return (
-      <div className="text-center py-12">
-        <p className="text-storm-light dark:text-gray-400">Loading...</p>
+      <div className="flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }

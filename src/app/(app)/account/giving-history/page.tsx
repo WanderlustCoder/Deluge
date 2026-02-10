@@ -6,6 +6,7 @@ import { ReceiptCard } from '@/components/giving/receipt-card';
 import { AnnualSummaryCard } from '@/components/giving/annual-summary-card';
 import { GivingTimeline } from '@/components/giving/giving-timeline';
 import { DeductionBreakdown } from '@/components/giving/deduction-breakdown';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Receipt {
   id: string;
@@ -156,7 +157,7 @@ export default function GivingHistoryPage() {
       {/* Content */}
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+          <Spinner size="lg" />
         </div>
       ) : (
         <motion.div

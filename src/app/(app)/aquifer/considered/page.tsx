@@ -9,6 +9,7 @@ import { SponsorButton } from "@/components/aquifer/sponsor-button";
 import { FlagshipBadge } from "@/components/aquifer/flagship-badge";
 import { ArrowLeft, MapPin, Pause, Calendar } from "lucide-react";
 import { formatDate } from "@/lib/i18n/formatting";
+import { Spinner } from "@/components/ui/spinner";
 
 interface TabledProject {
   id: string;
@@ -48,10 +49,8 @@ export default function ConsideredPage() {
 
   if (loading) {
     return (
-      <div className="text-center py-12">
-        <p className="text-storm-light dark:text-dark-text-secondary">
-          Loading...
-        </p>
+      <div className="flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }

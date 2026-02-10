@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
+import { Spinner } from "@/components/ui/spinner";
 
 interface PlatformStats {
   totalUsers: number;
@@ -78,8 +79,8 @@ export default function CommunityProgressPage() {
 
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto">
-        <p className="text-center text-storm-light py-12">Loading...</p>
+      <div className="max-w-4xl mx-auto flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }

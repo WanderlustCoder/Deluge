@@ -19,6 +19,7 @@ import {
   Home,
 } from "lucide-react";
 import { EFFICIENCY_UPGRADE_LABELS, EFFICIENCY_PHASES, type EfficiencyUpgradeCategory } from "@/lib/constants";
+import { Spinner } from "@/components/ui/spinner";
 
 interface PhaseData {
   id: string;
@@ -140,7 +141,7 @@ export default function EfficiencyDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#0D47A1]" />
+        <Spinner size="lg" />
       </div>
     );
   }

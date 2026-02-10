@@ -7,6 +7,7 @@ import { Plus } from 'lucide-react';
 import { AdvocateEventCard } from '@/components/advocates/event-card';
 import { EVENT_TYPES, EventType } from '@/lib/advocates/events';
 import { isAdvocate } from '@/lib/advocates';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Event {
   id: string;
@@ -71,7 +72,7 @@ export default function AdvocateEventsPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-600" />
+        <Spinner size="lg" />
       </div>
     );
   }

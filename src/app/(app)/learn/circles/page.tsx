@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Users, Plus, Search, Lock, Globe } from 'lucide-react';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Circle {
   id: string;
@@ -133,7 +134,7 @@ export default function StudyCirclesPage() {
         <h2 className="text-lg font-semibold mb-4">Public Circles</h2>
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+            <Spinner size="lg" />
           </div>
         ) : filteredCircles.length === 0 ? (
           <div className="text-center py-12">

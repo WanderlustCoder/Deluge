@@ -10,6 +10,7 @@ import { AdvocateEventCard } from '@/components/advocates/event-card';
 import { ACTIVITY_TYPES, ActivityType } from '@/lib/advocates/activities';
 import { useToast } from '@/components/ui/toast';
 import { formatDate } from '@/lib/i18n/formatting';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Advocate {
   id: string;
@@ -104,7 +105,7 @@ export default function AdvocateDashboardPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-600" />
+        <Spinner size="lg" />
       </div>
     );
   }

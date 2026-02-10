@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Award, Download, Check } from 'lucide-react';
 import { formatDate } from '@/lib/i18n/formatting';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Certificate {
   id: string;
@@ -64,8 +65,8 @@ export default function CertificatesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center dark:bg-dark-bg">
+        <Spinner size="lg" />
       </div>
     );
   }

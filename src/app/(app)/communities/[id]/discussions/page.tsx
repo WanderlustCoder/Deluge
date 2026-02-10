@@ -8,6 +8,7 @@ import { DiscussionCard } from "@/components/communities/discussion-card";
 import { useToast } from "@/components/ui/toast";
 import { ChevronDown, ChevronUp, MessageSquarePlus } from "lucide-react";
 import Link from "next/link";
+import { Spinner } from "@/components/ui/spinner";
 
 interface Discussion {
   id: string;
@@ -160,7 +161,9 @@ export default function DiscussionsPage() {
 
       {/* Discussion List */}
       {loading ? (
-        <p className="text-center text-storm-light py-8">Loading...</p>
+        <div className="flex items-center justify-center py-8">
+          <Spinner size="lg" />
+        </div>
       ) : discussions.length === 0 ? (
         <div className="text-center py-12">
           <MessageSquarePlus className="h-12 w-12 text-gray-300 mx-auto mb-3" />

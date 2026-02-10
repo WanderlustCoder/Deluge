@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/toast";
 import { ArrowLeft, Save, Send, Trash2, Clock, CheckCircle, XCircle, Edit, ExternalLink } from "lucide-react";
 import { format } from "date-fns";
+import { Spinner } from "@/components/ui/spinner";
 
 const CATEGORIES = [
   "Education",
@@ -169,7 +170,7 @@ export default function ProposalDetailPage({ params }: { params: Promise<{ id: s
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+        <Spinner size="lg" />
       </div>
     );
   }

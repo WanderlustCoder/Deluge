@@ -12,11 +12,11 @@ import {
   Thermometer,
   Plus,
   ChevronRight,
-  Loader2,
   Wind,
   Gauge,
   Leaf,
 } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 interface HomeData {
   id: string;
@@ -112,7 +112,7 @@ export default function EfficiencyPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#0D47A1]" />
+        <Spinner size="lg" />
       </div>
     );
   }

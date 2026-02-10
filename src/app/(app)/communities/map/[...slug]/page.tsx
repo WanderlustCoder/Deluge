@@ -18,6 +18,7 @@ import {
   Building2,
   Home,
 } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
 
 interface Breadcrumb {
   id: string;
@@ -115,7 +116,7 @@ export default function CommunityMapDetailPage({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-storm-light">Loading...</p>
+        <Spinner size="lg" />
       </div>
     );
   }

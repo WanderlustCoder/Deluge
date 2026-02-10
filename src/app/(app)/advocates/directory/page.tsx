@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { AdvocateCard } from '@/components/advocates/advocate-card';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Advocate {
   id: string;
@@ -56,7 +57,7 @@ export default function AdvocateDirectoryPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-600" />
+        <Spinner size="lg" />
       </div>
     );
   }

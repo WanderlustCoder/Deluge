@@ -10,6 +10,7 @@ import { AD_CATEGORIES } from "@/lib/constants";
 import { useToast } from "@/components/ui/toast";
 import { ArrowLeft, Info } from "lucide-react";
 import Link from "next/link";
+import { Spinner } from "@/components/ui/spinner";
 
 const CATEGORY_DESCRIPTIONS: Record<string, string> = {
   "General": "Everyday brands and services — always shown",
@@ -82,7 +83,7 @@ export default function AdPreferencesPage() {
   if (loading || status === "loading") {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin w-8 h-8 border-2 border-ocean border-t-transparent rounded-full" />
+        <Spinner size="lg" />
       </div>
     );
   }

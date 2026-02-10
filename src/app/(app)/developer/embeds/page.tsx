@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Code, Search } from 'lucide-react';
 import { EmbedGenerator } from '@/components/developer/embed-generator';
+import { Spinner } from "@/components/ui/spinner";
 
 interface Project {
   id: string;
@@ -67,7 +68,7 @@ export default function EmbedsPage() {
 
               {loading ? (
                 <div className="flex items-center justify-center py-8">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-ocean" />
+                  <Spinner />
                 </div>
               ) : (
                 <div className="space-y-2 max-h-[400px] overflow-y-auto">

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ReportingStatus, ConsentModal, DisputeForm, PaymentHistory, DisputeList } from '@/components/credit';
 import { useToast } from '@/components/ui/toast';
+import { Spinner } from "@/components/ui/spinner";
 
 interface LoanWithCredit {
   id: string;
@@ -135,7 +136,7 @@ export default function CreditPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-600" />
+        <Spinner size="lg" />
       </div>
     );
   }

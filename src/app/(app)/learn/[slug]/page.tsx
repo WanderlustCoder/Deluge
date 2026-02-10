@@ -3,6 +3,7 @@
 import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Clock, BookOpen, Video, FileText, Wrench, FileSpreadsheet, BookHeart } from 'lucide-react';
+import { Spinner } from "@/components/ui/spinner";
 
 interface ContentBlock {
   type: 'paragraph' | 'heading' | 'list' | 'image' | 'video' | 'callout' | 'quote';
@@ -148,8 +149,8 @@ export default function ResourceDetailPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean" />
+      <div className="min-h-screen bg-gray-50/20 flex items-center justify-center dark:bg-dark-bg">
+        <Spinner size="lg" />
       </div>
     );
   }

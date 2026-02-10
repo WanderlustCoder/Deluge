@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { BadgeGrid } from "@/components/account/badge-grid";
 import { StreakDisplay } from "@/components/account/streak-display";
 import Link from "next/link";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function BadgesPage() {
   const [data, setData] = useState<any>(null);
@@ -17,8 +18,8 @@ export default function BadgesPage() {
 
   if (!data) {
     return (
-      <div className="text-center py-12">
-        <p className="text-storm-light">Loading...</p>
+      <div className="flex items-center justify-center py-12">
+        <Spinner size="lg" />
       </div>
     );
   }
