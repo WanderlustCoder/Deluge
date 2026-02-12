@@ -32,7 +32,7 @@ import { Spinner } from "@/components/ui/spinner";
 interface FlagshipDetail {
   id: string;
   projectId: string;
-  status: string;
+  status: "active" | "voting" | "funded" | "tabled" | "rejected";
   fundingSource: string;
   votingEndsAt: string | null;
   tabledAt: string | null;
@@ -48,16 +48,18 @@ interface FlagshipDetail {
     imageUrl: string | null;
     createdAt: string;
   };
-  votes: Array<{ userId: string; vote: string; user: { name: string } }>;
+  votes: Array<{ userId: string; vote: CommunityVote; user: { name: string } }>;
   sponsors: Array<{ userId: string; user: { name: string } }>;
   voteTally: { approve: number; reject: number; table: number; total: number };
-  userVote: string | null;
+  userVote: CommunityVote | null;
 }
 
 interface VoteEligibility {
   eligible: boolean;
   reason?: string;
 }
+
+type CommunityVote = "approve" | "reject" | "table";
 
 export default function FlagshipDetailPage() {
   const params = useParams();
@@ -154,7 +156,7 @@ export default function FlagshipDetailPage() {
   // Calculate sponsors needed (10% of verified givers, min 1)
   const sponsorsNeeded = Math.max(1, Math.ceil(flagship.sponsors.length * 0.1) || 3);
 
-  const statusConfig: Record<string, { color: string; icon: React.ComponentType<any> }> = {
+  const statusConfig: Record<string, { color: string; icon: React.ElementType }> = {
     active: { color: "bg-ocean", icon: Droplets },
     voting: { color: "bg-teal", icon: Users },
     funded: { color: "bg-green-500", icon: Check },
@@ -235,7 +237,7 @@ export default function FlagshipDetailPage() {
               flagshipId={flagship.id}
               votingEndsAt={flagship.votingEndsAt}
               voteTally={flagship.voteTally}
-              userVote={flagship.userVote as any}
+              userVote={flagship.userVote}
               isEligible={eligibility?.eligible || false}
               eligibilityReason={eligibility?.reason}
               onVoted={fetchData}

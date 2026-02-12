@@ -10,10 +10,24 @@ import { useToast } from "@/components/ui/toast";
 import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 
+interface LoanRepayment {
+  principalPaid: number;
+}
+
+interface LoanItem {
+  id: string;
+  purpose: string;
+  status: string;
+  amount: number;
+  repaymentMonths: number;
+  monthlyPayment: number;
+  repayments: LoanRepayment[];
+}
+
 export default function MyLoansPage() {
   const { data: session } = useSession();
   const { toast } = useToast();
-  const [loans, setLoans] = useState<any[]>([]);
+  const [loans, setLoans] = useState<LoanItem[]>([]);
   const [loading, setLoading] = useState<string | null>(null);
 
   useEffect(() => {
@@ -85,7 +99,7 @@ export default function MyLoansPage() {
         <div className="space-y-6">
           {loans.map((loan) => {
             const totalRepaid = loan.repayments.reduce(
-              (sum: number, r: any) => sum + r.principalPaid,
+              (sum, r) => sum + r.principalPaid,
               0
             );
             const canRepay =

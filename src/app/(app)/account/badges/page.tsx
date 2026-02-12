@@ -7,8 +7,27 @@ import { StreakDisplay } from "@/components/account/streak-display";
 import Link from "next/link";
 import { Spinner } from "@/components/ui/spinner";
 
+interface BadgeItem {
+  id: string;
+  key: string;
+  name: string;
+  description: string;
+  tier: string;
+  icon: string;
+  earned: boolean;
+  earnedAt?: string;
+}
+
+interface BadgesResponse {
+  badges: BadgeItem[];
+  streak: {
+    currentDays: number;
+    longestDays: number;
+  };
+}
+
 export default function BadgesPage() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<BadgesResponse | null>(null);
 
   useEffect(() => {
     fetch("/api/badges")
@@ -24,7 +43,7 @@ export default function BadgesPage() {
     );
   }
 
-  const earned = data.badges.filter((b: any) => b.earned).length;
+  const earned = data.badges.filter((b) => b.earned).length;
 
   return (
     <div className="max-w-3xl mx-auto">

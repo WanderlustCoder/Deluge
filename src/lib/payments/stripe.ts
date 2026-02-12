@@ -58,9 +58,9 @@ export class StripePaymentService implements PaymentService {
   // =========================================================================
 
   async createPaymentIntent(
-    userId: string,
-    amount: number,
-    method: PaymentMethod
+    _userId: string,
+    _amount: number,
+    _method: PaymentMethod
   ): Promise<PaymentIntentResult> {
     // TODO: Implement with Stripe
     //
@@ -81,7 +81,7 @@ export class StripePaymentService implements PaymentService {
   }
 
   async confirmContribution(
-    paymentIntentId: string
+    _paymentIntentId: string
   ): Promise<ContributionResult> {
     // TODO: Implement - this is typically called from webhook handler
     //
@@ -101,7 +101,7 @@ export class StripePaymentService implements PaymentService {
   // =========================================================================
 
   async createDisbursement(
-    request: DisbursementRequest
+    _request: DisbursementRequest
   ): Promise<DisbursementResult> {
     // TODO: Implement with Stripe Connect transfers
     //
@@ -132,7 +132,7 @@ export class StripePaymentService implements PaymentService {
   // =========================================================================
 
   async createConnectAccount(
-    request: ConnectAccountRequest
+    _request: ConnectAccountRequest
   ): Promise<ConnectAccountResult> {
     // TODO: Implement with Stripe Connect
     //
@@ -155,7 +155,7 @@ export class StripePaymentService implements PaymentService {
     throw new Error("Stripe Connect not yet implemented");
   }
 
-  async getOnboardingLink(accountId: string): Promise<OnboardingLinkResult> {
+  async getOnboardingLink(_accountId: string): Promise<OnboardingLinkResult> {
     // TODO: Implement with Stripe Account Links
     //
     // const accountLink = await stripe.accountLinks.create({
@@ -174,7 +174,7 @@ export class StripePaymentService implements PaymentService {
   }
 
   async getConnectAccountStatus(
-    accountId: string
+    _accountId: string
   ): Promise<ConnectAccountResult> {
     // TODO: Implement
     //
@@ -194,7 +194,7 @@ export class StripePaymentService implements PaymentService {
   // Bank Linking (Plaid)
   // =========================================================================
 
-  async createLinkToken(userId: string): Promise<LinkTokenResult> {
+  async createLinkToken(_userId: string): Promise<LinkTokenResult> {
     // TODO: Implement with Plaid
     //
     // This requires Plaid SDK and credentials
@@ -217,8 +217,8 @@ export class StripePaymentService implements PaymentService {
   }
 
   async exchangePublicToken(
-    publicToken: string,
-    userId: string
+    _publicToken: string,
+    _userId: string
   ): Promise<BankAccountResult> {
     // TODO: Implement with Plaid
     //
@@ -243,7 +243,7 @@ export class StripePaymentService implements PaymentService {
   // Loan Repayments
   // =========================================================================
 
-  async processRepayment(request: RepaymentRequest): Promise<RepaymentResult> {
+  async processRepayment(_request: RepaymentRequest): Promise<RepaymentResult> {
     // TODO: Implement
     //
     // For card payments: create PaymentIntent
@@ -255,7 +255,7 @@ export class StripePaymentService implements PaymentService {
     throw new Error("Loan repayment processing not yet implemented");
   }
 
-  async setupAutoPay(request: AutoPaySetupRequest): Promise<AutoPayResult> {
+  async setupAutoPay(_request: AutoPaySetupRequest): Promise<AutoPayResult> {
     // TODO: Implement
     //
     // Create Stripe Subscription or scheduled payment
@@ -264,7 +264,7 @@ export class StripePaymentService implements PaymentService {
     throw new Error("Auto-pay setup not yet implemented");
   }
 
-  async cancelAutoPay(autoPayId: string): Promise<{ success: boolean }> {
+  async cancelAutoPay(_autoPayId: string): Promise<{ success: boolean }> {
     // TODO: Implement
     //
     // Cancel Stripe subscription or scheduled payment
@@ -276,7 +276,7 @@ export class StripePaymentService implements PaymentService {
   // KYC (Stripe Identity)
   // =========================================================================
 
-  async createKycSession(userId: string): Promise<KycSessionResult> {
+  async createKycSession(_userId: string): Promise<KycSessionResult> {
     // TODO: Implement with Stripe Identity
     //
     // const verificationSession = await stripe.identity.verificationSessions.create({
@@ -298,7 +298,7 @@ export class StripePaymentService implements PaymentService {
     throw new Error("Stripe Identity not yet implemented");
   }
 
-  async getKycStatus(userId: string): Promise<KycStatusResult> {
+  async getKycStatus(_userId: string): Promise<KycStatusResult> {
     // TODO: Implement
     //
     // Look up user's verification session status
@@ -310,7 +310,7 @@ export class StripePaymentService implements PaymentService {
   // Webhooks
   // =========================================================================
 
-  verifyWebhookSignature(payload: string, signature: string): boolean {
+  verifyWebhookSignature(_payload: string, _signature: string): boolean {
     // TODO: Implement
     //
     // try {
@@ -327,7 +327,7 @@ export class StripePaymentService implements PaymentService {
     throw new Error("Webhook verification not yet implemented");
   }
 
-  parseWebhookEvent(payload: string): WebhookEvent {
+  parseWebhookEvent(_payload: string): WebhookEvent {
     // TODO: Implement
     //
     // const event = stripe.webhooks.constructEvent(

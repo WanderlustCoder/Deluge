@@ -128,7 +128,7 @@ async function getUserStats(userId: string): Promise<UserStats> {
   let consecutiveMonths = 0;
   if (contributions.length > 0) {
     const now = new Date();
-    let currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
     for (let i = 0; i < 12; i++) {
       const monthStart = new Date(currentMonth);

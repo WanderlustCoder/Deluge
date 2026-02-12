@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { ResourceCard } from '@/components/advocates/resource-card';
-import { RESOURCE_CATEGORIES, ResourceCategory } from '@/lib/advocates/resources';
+import { RESOURCE_CATEGORIES } from '@/lib/advocates/resource-constants';
 import { Spinner } from "@/components/ui/spinner";
 
 interface Resource {

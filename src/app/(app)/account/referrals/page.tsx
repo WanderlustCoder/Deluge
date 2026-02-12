@@ -9,8 +9,20 @@ import { formatCurrency } from "@/lib/utils";
 import Link from "next/link";
 import { formatDate } from "@/lib/i18n/formatting";
 
+interface ReferralItem {
+  id: string;
+  code: string;
+  status: string;
+  signupCredit: number;
+  actionCredit: number;
+  retentionCredit: number | null;
+  referredId: string | null;
+  referred?: { name: string } | null;
+  createdAt: string;
+}
+
 export default function ReferralsPage() {
-  const [referrals, setReferrals] = useState<any[]>([]);
+  const [referrals, setReferrals] = useState<ReferralItem[]>([]);
 
   useEffect(() => {
     fetch("/api/referrals")
@@ -83,11 +95,13 @@ export default function ReferralsPage() {
               Referral History
             </h3>
             <div className="space-y-3">
-              {referrals.map((r) => (
-                <div
-                  key={r.id}
-                  className="py-3 border-b border-gray-50 last:border-0"
-                >
+              {referrals.map((r) => {
+                const retentionCredit = r.retentionCredit ?? 0;
+                return (
+                  <div
+                    key={r.id}
+                    className="py-3 border-b border-gray-50 last:border-0"
+                  >
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-storm">
@@ -107,9 +121,9 @@ export default function ReferralsPage() {
                             +{formatCurrency(r.actionCredit)} action
                           </span>
                         )}
-                        {r.retentionCredit > 0 && (
+                        {retentionCredit > 0 && (
                           <span className="text-xs text-teal">
-                            +{formatCurrency(r.retentionCredit)} retention
+                            +{formatCurrency(retentionCredit)} retention
                           </span>
                         )}
                       </div>
@@ -124,11 +138,12 @@ export default function ReferralsPage() {
                       status={r.status}
                       signupCredit={r.signupCredit}
                       actionCredit={r.actionCredit}
-                      retentionCredit={r.retentionCredit || 0}
+                      retentionCredit={retentionCredit}
                     />
                   )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           </CardContent>
         </Card>

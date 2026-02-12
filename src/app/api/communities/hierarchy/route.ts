@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
   const includeStats = searchParams.get("includeStats") === "true";
 
   // Build where clause
-  const where: any = {
+  const where: Prisma.CommunityWhereInput = {
     type: "geographic",
   };
 

@@ -196,7 +196,7 @@ export function CommunityMap({
                         strokeWidth={isSelected ? 2 : 0.5}
                         onMouseEnter={() => handleMouseEnter(community)}
                         onMouseLeave={handleMouseLeave}
-                        onClick={() => handleGeoClick(geo.properties.name)}
+                        onClick={() => handleGeoClick(String(geo.properties.name ?? ""))}
                         style={{
                           default: { outline: "none" },
                           hover: {

@@ -156,6 +156,7 @@ export default function JoinAdvocatesPage() {
               <li>• No quotas or requirements</li>
               <li>• Contribute however fits your life</li>
               <li>• Be yourself, not a "brand ambassador"</li>
+              <li>• Be yourself, not a "brand ambassador"</li>
             </ul>
           </div>
 

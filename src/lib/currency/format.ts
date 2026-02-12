@@ -141,13 +141,39 @@ export function getCurrencySymbol(currencyCode: string): string {
 
 // Parse currency string to number
 export function parseCurrencyString(value: string): number {
-  // Remove currency symbols and thousand separators
-  const cleaned = value
-    .replace(/[^0-9.,\-]/g, '')
-    .replace(/,(?=\d{3})/g, '') // Remove thousand separators
-    .replace(',', '.'); // Convert decimal comma to dot
+  const cleaned = value.replace(/[^0-9.,\-]/g, '').trim();
+  if (!cleaned) return 0;
 
-  return parseFloat(cleaned) || 0;
+  const isNegative = cleaned.includes('-');
+  const unsigned = cleaned.replace(/-/g, '');
+  const lastDot = unsigned.lastIndexOf('.');
+  const lastComma = unsigned.lastIndexOf(',');
+  const decimalIndex = Math.max(lastDot, lastComma);
+  const hasBothSeparators = lastDot >= 0 && lastComma >= 0;
+  const separatorCount = (unsigned.match(/[.,]/g) || []).length;
+
+  // No decimal separator: strip separators and parse as integer.
+  if (decimalIndex < 0) {
+    const integer = unsigned.replace(/[.,]/g, '');
+    const parsed = parseFloat(integer);
+    return Number.isFinite(parsed) ? (isNegative ? -parsed : parsed) : 0;
+  }
+
+  const fractionalRaw = unsigned.slice(decimalIndex + 1);
+
+  // One separator with three trailing digits is usually thousands grouping, not decimals.
+  if (!hasBothSeparators && separatorCount === 1 && fractionalRaw.length === 3) {
+    const integer = unsigned.replace(/[.,]/g, '');
+    const parsed = parseFloat(integer);
+    return Number.isFinite(parsed) ? (isNegative ? -parsed : parsed) : 0;
+  }
+
+  // Use the final separator as decimal; treat earlier separators as grouping.
+  const integerPart = unsigned.slice(0, decimalIndex).replace(/[.,]/g, '');
+  const fractionalPart = fractionalRaw.replace(/[.,]/g, '');
+  const normalized = `${integerPart}.${fractionalPart}`;
+  const parsed = parseFloat(normalized);
+  return Number.isFinite(parsed) ? (isNegative ? -parsed : parsed) : 0;
 }
 
 // Format compact currency (e.g., $1.5K, $2.3M)

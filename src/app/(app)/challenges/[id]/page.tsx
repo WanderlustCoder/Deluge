@@ -19,12 +19,35 @@ import {
 import Link from "next/link";
 import { format, formatDistanceToNow } from "date-fns";
 
+interface ChallengeEntry {
+  communityId: string;
+  communityName?: string;
+  community?: { id: string; name: string; memberCount?: number };
+  currentValue: number;
+}
+
+interface ChallengeDetail {
+  id: string;
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  metric: string;
+  status: string;
+  entries: ChallengeEntry[];
+}
+
+interface UserCommunity {
+  id: string;
+  name: string;
+}
+
 export default function ChallengeDetailPage() {
   const params = useParams();
   const { data: session } = useSession();
   const { toast } = useToast();
-  const [challenge, setChallenge] = useState<any>(null);
-  const [userCommunities, setUserCommunities] = useState<any[]>([]);
+  const [challenge, setChallenge] = useState<ChallengeDetail | null>(null);
+  const [userCommunities, setUserCommunities] = useState<UserCommunity[]>([]);
   const [joining, setJoining] = useState(false);
   const [selectedCommunity, setSelectedCommunity] = useState("");
 
@@ -65,7 +88,7 @@ export default function ChallengeDetailPage() {
 
   // Communities user can join with (admin of, not already in challenge)
   const joinedCommunityIds = new Set(
-    challenge.entries.map((e: any) => e.communityId)
+    challenge.entries.map((e) => e.communityId)
   );
   const eligibleCommunities = userCommunities.filter(
     (c) => !joinedCommunityIds.has(c.id)

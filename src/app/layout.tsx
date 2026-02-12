@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -64,6 +64,9 @@ export const metadata: Metadata = {
     images: ["https://deluge.fund/og-default.png"],
   },
   metadataBase: new URL("https://deluge.fund"),
+};
+
+export const viewport: Viewport = {
   themeColor: "#0D47A1",
 };
 

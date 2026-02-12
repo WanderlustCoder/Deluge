@@ -37,7 +37,7 @@ interface FlagshipProjectCardProps {
 
 const statusConfig: Record<
   string,
-  { label: string; color: string; icon: React.ComponentType<any> }
+  { label: string; color: string; icon: React.ElementType }
 > = {
   active: { label: "Active", color: "bg-ocean", icon: Clock },
   voting: { label: "Voting", color: "bg-teal", icon: Users },

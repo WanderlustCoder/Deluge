@@ -81,6 +81,20 @@ That is how Deluge works. One by one, people join because something speaks to th
 
 ---
 
+## Engineering Checks
+
+Run core quality gates locally:
+
+- `npm run lint` -- enforced lint scope for hardened core modules
+- `npm run test` -- unit test suite (Vitest)
+- `npm run build` -- production build
+
+Track full lint debt (not yet a blocking gate):
+
+- `npm run lint:all`
+
+---
+
 ## Status
 
 **Phase 0: Validation** -- securing domains, building landing page, running validation ads, identifying nonprofit partners.

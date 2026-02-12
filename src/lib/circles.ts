@@ -27,7 +27,7 @@ export async function createCircle(
     focusCommunities?: string[];
   }
 ) {
-  let slug = generateSlug(data.name);
+  const slug = generateSlug(data.name);
 
   // Ensure unique slug
   let counter = 0;

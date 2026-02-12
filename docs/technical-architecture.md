@@ -2,55 +2,31 @@
 
 ## Technology Stack
 
-### Frontend
+### Current Implementation (Repository Baseline)
 
-**Web App:**
+| Layer | Technology | Notes |
+|-------|------------|-------|
+| Web Framework | Next.js 15 (App Router) + React 19 | Single full-stack TypeScript application (UI + API routes) |
+| Language | TypeScript (strict) | Shared types across server/client modules |
+| Styling | Tailwind CSS 4 + custom CSS | Utility-first styling with design tokens in app styles |
+| Motion/UI | Framer Motion, Lucide icons | Interaction and visual feedback components |
+| Forms & Validation | React Hook Form + Zod | Runtime schema validation and typed form handling |
+| Auth | NextAuth v5 + Prisma adapter | Session and role-aware access control in app routes |
+| Data Layer | Prisma ORM | Relational schema and query layer |
+| Primary Database | PostgreSQL | Local/dev and deploy targets via `DATABASE_URL` |
+| Tests (Unit/Integration) | Vitest + Testing Library + happy-dom | Fast logic/component coverage |
+| Tests (E2E) | Playwright | Browser-level workflow validation |
+| CI | GitHub Actions | Lint, unit tests, typecheck, build gates |
+| Deployment | Vercel + Docker support | Production deploy path and containerized local parity |
 
-| Component | Technology | Rationale |
-|-----------|------------|-----------|
-| Framework | React.js | Responsive, modern, large ecosystem |
-| Styling | Tailwind CSS | Rapid development, customizable design system |
-| Animations | Framer Motion | Smooth water animations, gesture support |
-| State Management | Redux or Zustand | Predictable state for contribution and impact data |
-| Hosting | Vercel or Netlify | Fast deploys, global CDN |
+### Planned / Optional Extensions (Not Current Baseline)
 
-**Mobile Apps:**
-
-| Option | Technology | Trade-off |
-|--------|------------|-----------|
-| Native iOS | Swift + SwiftUI | Best performance, Apple-native feel |
-| Native Android | Kotlin | Best performance, Material Design |
-| Cross-platform | React Native | Faster development, single codebase (recommended for MVP) |
-
-### Backend
-
-| Component | Technology | Rationale |
-|-----------|------------|-----------|
-| API Layer | Node.js + Express **or** Python + FastAPI | Well-suited for async operations, real-time contribution tracking |
-| Database | PostgreSQL | Relational data integrity for users, contributions, projects |
-| Cache | Redis | Fast data access, session management |
-| Search | Elasticsearch | Project search, filtering, recommendations |
-
-### Authentication
-
-| Component | Technology |
-|-----------|------------|
-| Provider | Auth0 or Firebase Auth |
-| Methods | Email/password, Google, Apple, Facebook |
-| Security | JWT tokens, optional 2FA |
-
-### Infrastructure
-
-| Component | Technology |
-|-----------|------------|
-| Cloud Provider | AWS or Google Cloud |
-| Compute | EC2 / Cloud Run (auto-scaling) |
-| Storage | S3 / Cloud Storage (images, documents) |
-| CDN | CloudFront / Cloud CDN (fast asset delivery) |
-| Monitoring | DataDog or New Relic |
-| CI/CD | GitHub Actions or CircleCI |
-| Containers | Docker |
-| Orchestration | Kubernetes (at scale) |
+| Area | Candidate Options | Status |
+|------|-------------------|--------|
+| Mobile apps | React Native, SwiftUI, Kotlin | Planned |
+| Search index | PostgreSQL + PostGIS, Elasticsearch | Planned for scale/search depth |
+| Caching/queues | Redis + background workers | Planned as throughput needs grow |
+| Cloud footprint | AWS/GCP multi-service deployment | Planned beyond current Vercel-first setup |
 
 ---
 

@@ -27,11 +27,83 @@ import { Spinner } from "@/components/ui/spinner";
 
 type TabType = "projects" | "discussions" | "elections" | "activity" | "goals" | "events";
 
+interface CommunityMember {
+  id: string;
+  role: string;
+  joinedAt: string;
+  user: {
+    id: string;
+    name: string;
+  };
+}
+
+interface CommunityProjectLink {
+  project: Project;
+}
+
+interface CommunityVoteTally {
+  upvotes: number;
+  downvotes: number;
+  userVote: number;
+}
+
+interface CommunityElection {
+  id: string;
+  role: string;
+  status: string;
+  nominationEnd: string;
+  votingEnd: string;
+  winnerId: string | null;
+  nominations: Array<{
+    nomineeId: string;
+    nominatedBy: string;
+    votes: number;
+  }>;
+  totalVotes: number;
+  userVoted: boolean;
+}
+
+interface ElectedRole {
+  role: string;
+  userId: string;
+  termEnd: string;
+}
+
+interface CommunityGoal {
+  id: string;
+  title: string;
+  description: string;
+  targetAmount: number;
+  currentAmount: number;
+  deadline: string;
+  status: string;
+  category?: string | null;
+  progress: number;
+  daysRemaining: number;
+}
+
+interface CommunityDetail {
+  id: string;
+  name: string;
+  description: string;
+  location?: string | null;
+  category?: string | null;
+  type?: string;
+  level?: string | null;
+  slug?: string | null;
+  memberCount: number;
+  parent?: { id: string; name: string; slug: string; level?: string | null } | null;
+  children: Array<{ id: string; name: string; slug?: string | null; level?: string | null; memberCount?: number }>;
+  members: CommunityMember[];
+  projects: CommunityProjectLink[];
+  voteTallies?: Record<string, CommunityVoteTally>;
+}
+
 export default function CommunityDetailPage() {
   const params = useParams();
   const { data: session } = useSession();
   const { toast } = useToast();
-  const [community, setCommunity] = useState<any>(null);
+  const [community, setCommunity] = useState<CommunityDetail | null>(null);
   const [joinLoading, setJoinLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>("projects");
 
@@ -41,12 +113,12 @@ export default function CommunityDetailPage() {
   const [selectedProjectId, setSelectedProjectId] = useState("");
 
   // Elections
-  const [elections, setElections] = useState<any[]>([]);
-  const [electedRoles, setElectedRoles] = useState<any[]>([]);
+  const [elections, setElections] = useState<CommunityElection[]>([]);
+  const [electedRoles, setElectedRoles] = useState<ElectedRole[]>([]);
   const [showElectionModal, setShowElectionModal] = useState(false);
 
   // Goals
-  const [goals, setGoals] = useState<any[]>([]);
+  const [goals, setGoals] = useState<CommunityGoal[]>([]);
   const [showGoalModal, setShowGoalModal] = useState(false);
 
   // Events
@@ -90,14 +162,14 @@ export default function CommunityDetailPage() {
     );
   }
 
-  const isMember = community.members?.some(
-    (m: any) => m.user.id === session?.user?.id
+  const isMember = community.members.some(
+    (m) => m.user.id === session?.user?.id
   );
-  const isAdmin = community.members?.some(
-    (m: any) => m.user.id === session?.user?.id && m.role === "admin"
+  const isAdmin = community.members.some(
+    (m) => m.user.id === session?.user?.id && m.role === "admin"
   );
   const communityProjectIds = new Set(
-    community.projects?.map((cp: any) => cp.project.id) || []
+    community.projects.map((cp) => cp.project.id)
   );
   const availableProjects = allProjects.filter(
     (p) => !communityProjectIds.has(p.id) && p.status === "active"
@@ -158,7 +230,7 @@ export default function CommunityDetailPage() {
   }
 
   const communityProjects =
-    community.projects?.map((cp: any) => cp.project) || [];
+    community.projects.map((cp) => cp.project);
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -261,7 +333,7 @@ export default function CommunityDetailPage() {
               Sub-regions ({community.children.length})
             </h3>
             <div className="flex flex-wrap gap-2">
-              {community.children.map((child: any) => (
+              {community.children.map((child) => (
                 <Link
                   key={child.id}
                   href={`/communities/${child.id}`}
@@ -473,8 +545,8 @@ export default function CommunityDetailPage() {
                     Current Role Holders
                   </h3>
                   <div className="space-y-2">
-                    {electedRoles.map((er: any) => {
-                      const member = community.members?.find((m: any) => m.user.id === er.userId);
+                    {electedRoles.map((er) => {
+                      const member = community.members.find((m) => m.user.id === er.userId);
                       return (
                         <div
                           key={er.role + er.userId}
@@ -509,12 +581,12 @@ export default function CommunityDetailPage() {
               {/* Active & Past Elections */}
               {elections.length > 0 ? (
                 <div className="space-y-3">
-                  {elections.map((election: any) => (
+                  {elections.map((election) => (
                     <ElectionCard
                       key={election.id}
                       election={election}
                       communityId={params.id as string}
-                      members={(community.members || []).map((m: any) => ({
+                      members={community.members.map((m) => ({
                         userId: m.user.id,
                         name: m.user.name,
                       }))}

@@ -8,7 +8,7 @@ export interface AdImpression {
 
 export interface AdProvider {
   name: string;
-  getAd(format?: string): Promise<{ adUnitId: string; content: any }>;
+  getAd(format?: string): Promise<{ adUnitId: string; content: unknown }>;
   reportView(adUnitId: string): Promise<AdImpression>;
   getEstimatedRevenue(): number;
 }

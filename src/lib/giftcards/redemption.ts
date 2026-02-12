@@ -100,7 +100,7 @@ export async function redeemGiftCard(code: string, userId: string): Promise<Rede
 }
 
 // Use gift card balance for a transaction
-export async function useGiftCardBalance(
+export async function spendGiftCardBalance(
   giftCardId: string,
   userId: string,
   amount: number,
@@ -296,7 +296,7 @@ export async function useBalanceFromMultipleCards(
 
     const amountToUse = Math.min(card.balance, remainingAmount);
 
-    await useGiftCardBalance(
+    await spendGiftCardBalance(
       card.id,
       userId,
       amountToUse,

@@ -5,8 +5,26 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ChallengeCard } from "@/components/challenges/challenge-card";
 import { Trophy } from "lucide-react";
 
+interface ChallengeEntry {
+  communityId: string;
+  communityName: string;
+  currentValue: number;
+}
+
+interface ChallengeItem {
+  id: string;
+  title: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  category?: string | null;
+  metric: string;
+  status: string;
+  entries: ChallengeEntry[];
+}
+
 export default function ChallengesPage() {
-  const [challenges, setChallenges] = useState<any[]>([]);
+  const [challenges, setChallenges] = useState<ChallengeItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
 

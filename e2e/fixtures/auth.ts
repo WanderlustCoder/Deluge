@@ -75,9 +75,9 @@ export async function logout(page: Page) {
 
 // Extended test with pre-authenticated page
 export const test = base.extend<{ authedPage: Page }>({
-  authedPage: async ({ page }, use) => {
+  authedPage: async ({ page }, applyFixture) => {
     await login(page, TEST_USER.email, TEST_USER.password);
-    await use(page);
+    await applyFixture(page);
   },
 });
 

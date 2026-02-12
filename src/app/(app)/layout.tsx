@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: { default: "Dashboard", template: "%s | Deluge" },
   description: "Your Deluge dashboard — manage donations, circles, and community impact.",
 };
+export const dynamic = "force-dynamic";
 
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (

@@ -5,7 +5,6 @@
  * All operations succeed and update the database, but no real money moves.
  */
 
-import { prisma } from "@/lib/prisma";
 import type {
   PaymentService,
   PaymentMethod,
@@ -46,9 +45,9 @@ export class MockPaymentService implements PaymentService {
   // =========================================================================
 
   async createPaymentIntent(
-    userId: string,
+    _userId: string,
     amount: number,
-    method: PaymentMethod
+    _method: PaymentMethod
   ): Promise<PaymentIntentResult> {
     // Simulate payment intent creation
     const paymentIntentId = generateId("pi");
@@ -115,7 +114,7 @@ export class MockPaymentService implements PaymentService {
   // =========================================================================
 
   async createConnectAccount(
-    request: ConnectAccountRequest
+    _request: ConnectAccountRequest
   ): Promise<ConnectAccountResult> {
     const accountId = generateId("acct");
 
@@ -152,7 +151,7 @@ export class MockPaymentService implements PaymentService {
   // Bank Linking
   // =========================================================================
 
-  async createLinkToken(userId: string): Promise<LinkTokenResult> {
+  async createLinkToken(_userId: string): Promise<LinkTokenResult> {
     return {
       linkToken: generateId("link-token"),
       expiresAt: addDays(new Date(), 1),
@@ -160,8 +159,8 @@ export class MockPaymentService implements PaymentService {
   }
 
   async exchangePublicToken(
-    publicToken: string,
-    userId: string
+    _publicToken: string,
+    _userId: string
   ): Promise<BankAccountResult> {
     // In mock mode, bank linking always succeeds
     return {
@@ -225,7 +224,7 @@ export class MockPaymentService implements PaymentService {
     };
   }
 
-  async cancelAutoPay(autoPayId: string): Promise<{ success: boolean }> {
+  async cancelAutoPay(_autoPayId: string): Promise<{ success: boolean }> {
     return { success: true };
   }
 
@@ -233,7 +232,7 @@ export class MockPaymentService implements PaymentService {
   // KYC
   // =========================================================================
 
-  async createKycSession(userId: string): Promise<KycSessionResult> {
+  async createKycSession(_userId: string): Promise<KycSessionResult> {
     const sessionId = generateId("vs");
 
     return {
@@ -243,7 +242,7 @@ export class MockPaymentService implements PaymentService {
     };
   }
 
-  async getKycStatus(userId: string): Promise<KycStatusResult> {
+  async getKycStatus(_userId: string): Promise<KycStatusResult> {
     // In mock mode, everyone is verified
     return {
       status: "verified",
@@ -255,7 +254,7 @@ export class MockPaymentService implements PaymentService {
   // Webhooks
   // =========================================================================
 
-  verifyWebhookSignature(payload: string, signature: string): boolean {
+  verifyWebhookSignature(_payload: string, _signature: string): boolean {
     // In mock mode, all signatures are valid
     return true;
   }

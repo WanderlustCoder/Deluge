@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { useGracePeriod, StreakType } from "@/lib/streaks-enhanced";
+import { applyGracePeriod, StreakType } from "@/lib/streaks-enhanced";
 import { logError } from "@/lib/logger";
 
 const VALID_TYPES: StreakType[] = ["ad_watch", "contributing", "login"];
@@ -22,7 +22,7 @@ export async function POST(
   }
 
   try {
-    await useGracePeriod(session.user.id, type as StreakType);
+    await applyGracePeriod(session.user.id, type as StreakType);
 
     return NextResponse.json({ success: true });
   } catch (error) {

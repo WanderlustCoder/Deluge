@@ -10,6 +10,24 @@ import { cn } from "@/lib/utils";
 
 type FilterType = "all" | "joined" | "geographic" | "interest";
 
+interface CommunityListItem {
+  id: string;
+  name: string;
+  description: string;
+  location?: string | null;
+  category?: string | null;
+  memberCount: number;
+  creator: { name: string };
+  _count: { projects: number; children?: number; milestones?: number };
+  type?: string;
+  level?: string | null;
+  slug?: string | null;
+  isMember?: boolean;
+  memberRole?: string | null;
+  parent?: { id: string; name: string; slug: string } | null;
+  milestones?: Array<{ type: string }>;
+}
+
 // Level display configuration
 const LEVEL_CONFIG: Record<string, { label: string; icon: typeof MapPin; order: number }> = {
   country: { label: "Countries", icon: MapPin, order: 0 },
@@ -21,7 +39,7 @@ const LEVEL_CONFIG: Record<string, { label: string; icon: typeof MapPin; order: 
 };
 
 export default function CommunitiesPage() {
-  const [communities, setCommunities] = useState<any[]>([]);
+  const [communities, setCommunities] = useState<CommunityListItem[]>([]);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState<FilterType>("joined");
   const [loading, setLoading] = useState(true);
@@ -61,7 +79,7 @@ export default function CommunitiesPage() {
   const groupedByLevel = useMemo(() => {
     if (filterType !== "geographic") return null;
 
-    const groups: Record<string, any[]> = {};
+    const groups: Record<string, CommunityListItem[]> = {};
     filtered.forEach((c) => {
       const level = c.level || "other";
       if (!groups[level]) groups[level] = [];
@@ -207,7 +225,7 @@ export default function CommunitiesPage() {
                   {isExpanded && (
                     <div className="p-4">
                       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {displayCommunities.map((community: any) => (
+                        {displayCommunities.map((community) => (
                           <CommunityCard
                             key={community.id}
                             community={community}

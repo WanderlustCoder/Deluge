@@ -18,7 +18,7 @@ declare module "react-simple-maps" {
     zoom?: number;
     minZoom?: number;
     maxZoom?: number;
-    onMoveStart?: (event: any) => void;
+    onMoveStart?: (event: unknown) => void;
     onMove?: (position: { coordinates: [number, number]; zoom: number }) => void;
     onMoveEnd?: (position: { coordinates: [number, number]; zoom: number }) => void;
     children?: ReactNode;
@@ -32,8 +32,8 @@ declare module "react-simple-maps" {
   export interface Geography {
     rsmKey: string;
     id: string;
-    properties: Record<string, any>;
-    geometry: any;
+    properties: Record<string, unknown>;
+    geometry: unknown;
   }
 
   export interface GeographyProps {

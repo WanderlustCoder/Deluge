@@ -9,8 +9,21 @@ interface EventsListProps {
   isMember: boolean;
 }
 
+interface EventItem {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  endDate?: string | null;
+  location?: string | null;
+  type: string;
+  userRsvpStatus: string | null;
+  attendingCount: number;
+  maybeCount: number;
+}
+
 export function EventsList({ communityId, isMember }: EventsListProps) {
-  const [events, setEvents] = useState<any[]>([]);
+  const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   function fetchEvents() {

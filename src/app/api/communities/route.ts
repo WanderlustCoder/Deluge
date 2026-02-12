@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { logError } from "@/lib/logger";
@@ -32,7 +33,7 @@ export async function GET(request: Request) {
   const joined = searchParams.get("joined");
 
   // Build where clause
-  const where: any = {};
+  const where: Prisma.CommunityWhereInput = {};
 
   if (type && type !== "all") {
     where.type = type;

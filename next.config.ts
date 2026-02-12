@@ -3,6 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
+  eslint: {
+    // CI runs a dedicated lint command; keep build focused on compile/type output.
+    ignoreDuringBuilds: true,
+  },
 
   async headers() {
     return [

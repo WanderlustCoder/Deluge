@@ -17,7 +17,7 @@ export async function recordActivity(userId: string, type: StreakType) {
   const twoDaysAgo = new Date(today);
   twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
 
-  let streak = await prisma.streak.findUnique({
+  const streak = await prisma.streak.findUnique({
     where: { userId_type: { userId, type } },
   });
 
@@ -177,7 +177,7 @@ export async function getStreakStatus(userId: string, type: StreakType) {
 /**
  * Manually use grace period to recover streak.
  */
-export async function useGracePeriod(userId: string, type: StreakType) {
+export async function applyGracePeriod(userId: string, type: StreakType) {
   const streak = await prisma.streak.findUnique({
     where: { userId_type: { userId, type } },
   });

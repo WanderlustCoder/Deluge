@@ -96,7 +96,7 @@ export async function addCredit(input: AddCreditInput): Promise<{
 }
 
 // Use credit from user's account
-export async function useCredit(input: UseCreditInput): Promise<{
+export async function consumeCredit(input: UseCreditInput): Promise<{
   success: boolean;
   amountUsed: number;
   newBalance: number;
@@ -161,7 +161,7 @@ export async function useAvailableCredit(
   const amountToUse = Math.min(storeCredit.balance, maxAmount);
 
   if (amountToUse > 0) {
-    await useCredit({
+    await consumeCredit({
       userId,
       amount: amountToUse,
       reference,

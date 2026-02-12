@@ -91,7 +91,7 @@ export async function checkAndAwardBadges(userId: string): Promise<string[]> {
     fundCount: projectsFunded.length,
     contributionCount,
     streakDays: streak?.currentDays ?? 0,
-    volunteerHours: volunteerLogs._sum?.hours ?? 0,
+    volunteerHours: volunteerLogs?._sum?.hours ?? 0,
     circleCount,
     circleProposalsCreated,
     giftsSent,
